@@ -7,7 +7,7 @@ window.onload = function() {
 
 
 function fetchLocations() {
-        var url = "/products";
+        var url = "/products/{address}";
         fetch(url)
             .then(function(response) {
                 return response.json();
