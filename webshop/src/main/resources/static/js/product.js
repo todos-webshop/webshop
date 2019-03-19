@@ -1,21 +1,20 @@
 window.onload = function() {
-   fetchLocations();
-
-      var createForm = document.getElementById("create-form");
-      createForm.onsubmit = handleCreateFormSubmit;
+   fetchProducts();
    }
 
 
-function fetchLocations() {
-        var url = "/products/{address}";
+function fetchProducts() {
+        var url ="/products";
         fetch(url)
             .then(function(response) {
                 return response.json();
                 })
             .then(function(jsonData) {
+
                 console.log(jsonData);
                 showTable(jsonData);
-            });
+            });}
+
 function showTable(jsonData) {
     table = document.getElementById("product-table");
     table.innerHTML = "";
