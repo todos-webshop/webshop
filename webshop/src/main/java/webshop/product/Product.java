@@ -43,4 +43,8 @@ private int price;
     public int getPrice() {
         return price;
     }
+
+    public long getId() {
+        return id;
+    }
 }

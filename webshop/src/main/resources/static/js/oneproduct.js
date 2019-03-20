@@ -8,7 +8,7 @@ function fetchProduct() {
 console.log("csoki2");
 var address = (new URL(document.location)).searchParams.get("address");
 console.log(address);
-        var url ="/api/product/" + address;
+        var url ="product/" + address;
         fetch(url)
             .then(function(response) {
                 return response.json();

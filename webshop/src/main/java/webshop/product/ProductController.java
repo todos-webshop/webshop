@@ -25,10 +25,9 @@ public class ProductController {
 
     @PostMapping("api/product/{address}")
     public void ProductShow(@PathVariable String addresss, @RequestBody Product product){
-
     }
 
-    @GetMapping("api/product/{address}")
+    @GetMapping("product/{address}")
     public Product findProductByAddress(@PathVariable String address){
         return productService.findProductByAddress(address);
     }
@@ -46,5 +45,13 @@ public class ProductController {
         } catch (IllegalArgumentException iae){
             return new CustomResponseStatus(Response.FAILED, iae.getMessage());
         }
+    }
+    @PostMapping("api/product/{id}")
+    public ProductResponseStatus updateProduct(@PathVariable Long id, @RequestBody Product product){
+        if (product.getName()==null|| product.getName().trim().equals("")){
+            return new ProductResponseStatus(false,"Product name empty");
+        }
+        productService.updateProduct(id,product.getCode(),product.getName(),product.getAddress(),product.getManufacturer(),product.getPrice());
+    return new ProductResponseStatus(true,"Minden ok");
     }
 }

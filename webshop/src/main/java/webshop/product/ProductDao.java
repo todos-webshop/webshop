@@ -38,7 +38,7 @@ public class ProductDao {
     }
 
     public Product findProductByAddress(String address) {
-        return jdbcTemplate.queryForObject("select code,name,address,manufacturer,price from products where address = ?",
+        return jdbcTemplate.queryForObject("select id,code,name,address,manufacturer,price from products where address = ?",
                 (rs, rowNum) -> new Product(rs.getLong("id"), rs.getString("code"), rs.getString("name"),  rs.getString("manufacturer"), rs.getInt("price")),
                 address);
     }
@@ -63,7 +63,6 @@ public class ProductDao {
                             }, keyHolder
         );
         return keyHolder.getKey().longValue();
-
     }
 
     public boolean isCodeUnique(String code){
@@ -90,5 +89,8 @@ public class ProductDao {
             return true;
         }
         return false;
+    }
+    public void updateProduct(long id, String code,String name,String address,String manufacturer,int price) {
+        jdbcTemplate.update("update products set code = ?, name = ?, address = ?,manufacturer = ?, price = ? where id = ?", code,name,address,manufacturer,price ,id);
     }
 }

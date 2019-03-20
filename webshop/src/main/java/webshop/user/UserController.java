@@ -21,6 +21,12 @@ public class UserController {
         if (validator.isEmpty(user.getUsername()) || validator.isEmpty(user.getFirstName()) || validator.isEmpty(user.getLastName())) {
             return new CustomResponseStatus(Response.FAILED, "Error! All fields are required.");
         }
+        if (userService.getAllUsernames().contains(user.getUsername())){
+            return new CustomResponseStatus(Response.FAILED, String.format("User already exists. " +
+                            "New user can " +
+                    "not be created for %s.",
+                    user.getUsername()));
+        }
         if (userService.createUser(user) == 1) {
             return new CustomResponseStatus(Response.SUCCESS, String.format("User %s " +
                             "successfully created.",
