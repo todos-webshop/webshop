@@ -17,4 +17,8 @@ public class ProductService {
    public List<Product> findAll(){
        return productDao.findAll();
    }
+   public Product findProductByAddress(String address){{
+       return productDao.findProductByAddress(address);
+   }
+   }
 }
