@@ -48,7 +48,7 @@ function showDivs(jsonData) {
                         divRow.appendChild(priceDiv);
 
          var imgDiv = document.createElement("div");
-                                 imgDiv.innerHTML = "<img alt="+jsonData.address+" src=img\\"+jsonData.address+".png>";
+                                 imgDiv.innerHTML = "<img alt="+jsonData.address+" src=img\\products\\"+jsonData.address+".png>";
 
                                 imgDiv.classList.add('div_class');
                                  //imgDiv.classList.add('div_img');
