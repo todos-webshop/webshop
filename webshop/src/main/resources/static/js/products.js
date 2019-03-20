@@ -4,7 +4,7 @@ window.onload = function() {
 
 
 function fetchProducts() {
-        var url ="/products";
+        var url ="/api/products";
         fetch(url)
             .then(function(response) {
                 return response.json();
@@ -39,7 +39,7 @@ function showTable(jsonData) {
                         tr.appendChild(manufacturerTd);
 
         var priceTd = document.createElement("td");
-                        priceTd.innerHTML = jsonData[i].price;
+                        priceTd.innerHTML = jsonData[i].price +"Ft";
                         tr.appendChild(priceTd);
 
         table.appendChild(tr);

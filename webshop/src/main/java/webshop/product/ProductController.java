@@ -12,18 +12,18 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/products")
+    @GetMapping("/api/products")
     public List<Product> listAllProducts(){
         return productService.listAllProducts();
     }
 
 
-    @PostMapping("/product/{address}")
+    @PostMapping("/api/product/{address}")
     public void ProductShow(@PathVariable String addresss, @RequestBody Product product){
 
     }
 
-    @GetMapping("/product/{address}")
+    @GetMapping("/api/product/{address}")
     public Product findProductByAddress(@PathVariable String address){
         return productService.findProductByAddress(address);
     }
