@@ -12,36 +12,51 @@ function fetchProducts() {
             .then(function(jsonData) {
 
                 console.log(jsonData);
-                showTable(jsonData);
+                showDivs(jsonData);
             });}
 
-function showTable(jsonData) {
-    table = document.getElementById("product-table");
-    table.innerHTML = "";
 
-    for (var i = 0; i < jsonData.length; i++) {
-        var tr = document.createElement("tr");
+   function showDivs(jsonData) {
+       divMain = document.getElementById("main_div");
+       for (var i = 0; i < jsonData.length; i++) {
+       var divRow = document.createElement("div");
 
-       var codeTd = document.createElement("td");
-                 codeTd.innerHTML = jsonData[i].code;
-                 tr.appendChild(codeTd);
+          var codeDiv = document.createElement("div");
+                    codeDiv.innerHTML = jsonData[i].code;
+                    codeDiv.setAttribute('class', 'div_class');
+                    divRow.appendChild(codeDiv);
 
-         var nameTd = document.createElement("td");
-                nameTd.innerHTML = jsonData[i].name;
-                tr.appendChild(nameTd);
+            var nameDiv = document.createElement("div");
+                   nameDiv.innerHTML = jsonData[i].name;
+                    nameDiv.setAttribute('class', 'div_class');
+                   divRow.appendChild(nameDiv);
 
-        var addressTd = document.createElement("td");
-                        addressTd.innerHTML = jsonData[i].address;
-                        tr.appendChild(addressTd);
+           var addressDiv = document.createElement("div");
+                           addressDiv.innerHTML = jsonData[i].address;
+                            addressDiv.setAttribute('class', 'div_class');
+                           divRow.appendChild(addressDiv);
 
-        var manufacturerTd = document.createElement("td");
-                        manufacturerTd.innerHTML = jsonData[i].manufacturer;
-                        tr.appendChild(manufacturerTd);
+           var manufacturerDiv = document.createElement("div");
+                           manufacturerDiv.innerHTML = jsonData[i].manufacturer;
+                            manufacturerDiv.setAttribute('class', 'div_class');
+                           divRow.appendChild(manufacturerDiv);
 
-        var priceTd = document.createElement("td");
-                        priceTd.innerHTML = jsonData[i].price +"Ft";
-                        tr.appendChild(priceTd);
+           var priceDiv = document.createElement("div");
+                           priceDiv.innerHTML = jsonData[i].price+ " Ft";
+                            priceDiv.setAttribute('class', 'div_class');
+                           divRow.appendChild(priceDiv);
 
-        table.appendChild(tr);
-    }
+            var imgDiv = document.createElement("div");
+                                    imgDiv.innerHTML = "<img alt="+jsonData[i].address+" src=img\\products\\"+jsonData[i].address+".png>";
+
+                                   imgDiv.classList.add('div_class');
+
+                                    divRow.appendChild(imgDiv);
+
+           divMain.appendChild(divRow);
+
+   }
+
+
+
 }
