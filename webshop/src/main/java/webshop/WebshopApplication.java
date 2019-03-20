@@ -33,7 +33,7 @@ public class WebshopApplication extends WebSecurityConfigurerAdapter {
                         "/newuser",
                         "/username").permitAll()
                 .antMatchers("/basket.html").hasRole("USER")
-//                .antMatchers("/**").hasRole("ADMIN")
+                .antMatchers("/basket.html").hasRole("ADMIN")
                 .and()
                 .formLogin()
                 .and()

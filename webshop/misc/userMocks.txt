@@ -1,0 +1,19 @@
+﻿ROLE_ADMIN
+
+admin admin
+$2a$04$aIC3NGHhEw23ZXa7lShzMu3ywhCYliO1Vk3UamnifvFetuNGZZxGy
+
+
+ROLE_USER
+
+robi robi
+$2a$04$slhfZh4tNqnPOuX58WXmc.fdprzJdPd3V274smetu9ryQHZ7u2V8.
+
+margit margit
+$2a$04$dCt6DPHNA6/6bETqa.c9Z.Sv/nH0eKzK74ZP0/2aIj7e7EchJ5hQi
+
+kálmán kálmán
+$2a$04$9lGvpQU9akFneWQvQdW8sOWdtAk2UpcY73wzk9/R3cFViVJMnOAna
+
+r$t56!z r$t56!z
+$2a$04$09bfDizDro1hSF4vBfhLQuMpLTn8qdCHtG85EBdyvO2ekX8ujSm.a
