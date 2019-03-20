@@ -1,9 +1,27 @@
-setMenu();
+var user;
+
+window.onload = function(){
+//    getUser();
+    setMenu();
+}
+
+// function getUser(){
+//     var url = "/username";
+//     fetch(url)
+//     .then(function(response){
+//         return response.json();
+//     })
+//     .then(function(jsonData){
+//         user = jsonData;
+//         console.log(user);
+//     })
+// }
 
 function setMenu(){
     var body = document.getElementsByTagName("body")[0];
     var div = document.createElement("div");
     div.setAttribute("id", "menu_div");
+    div.setAttribute("class", "menu_div");
 
     div.appendChild(createLogoImg());
     div.appendChild(createOrdersButton());
@@ -16,6 +34,7 @@ function setMenu(){
 
     body.insertBefore(div, body.firstChild);
     setFavicon();
+    insertMenuCss();
 }
 
 function setFavicon(){
@@ -28,6 +47,17 @@ function setFavicon(){
     link.setAttribute("href", "img/favicon.png");
 
     head.appendChild(link);
+}
+
+function insertMenuCss(){
+    var head = document.getElementsByTagName("head")[0];
+
+    var cssLink = document.createElement("link");
+    cssLink.setAttribute("rel", "stylesheet");
+    cssLink.setAttribute("type", "text/css");
+    cssLink.setAttribute("href", "css/menu.css");
+
+    head.appendChild(cssLink);
 }
 
 function createLogoImg(){

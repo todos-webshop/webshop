@@ -21,7 +21,14 @@ private int price;
     }
 
     private String generateAddress(){
-        return name.toLowerCase().replaceAll(" ", "_");
+        String address = name.toLowerCase().replaceAll(" ", "_");
+        return normalize(address);
+    }
+
+    private String normalize(String s) {
+        s = Normalizer.normalize(s, Normalizer.Form.NFD);
+        s = s.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+        return s;
     }
 
     public String getCode() {
