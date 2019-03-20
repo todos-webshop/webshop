@@ -47,5 +47,12 @@ public class ProductController {
             return new CustomResponseStatus(Response.FAILED, iae.getMessage());
         }
     }
-    @PostMapping("")
+    @PostMapping("api/products/{id}")
+    public ProductResponseStatus updateProduct(@PathVariable Long id, @RequestBody Product product){
+        if (product.getName()==null|| product.getName().trim().equals("")){
+            return new ProductResponseStatus(false,"Product name empty");
+        }
+        productService.updateProduct(id,product.getCode(),product.getName(),product.getAddress(),product.getManufacturer(),product.getPrice());
+    return new ProductResponseStatus(true,"Minden ok");
+    }
 }
