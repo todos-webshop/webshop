@@ -37,7 +37,7 @@ function createLogoImg(){
     logoImg.onclick = function(){
         window.location.href = "index.html";
     }
-    logoImg.setAttribute("style","height: 110px");
+    logoImg.setAttribute("style","height: 80px");
     return logoImg;
 }
 
