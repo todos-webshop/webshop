@@ -10,12 +10,17 @@ import webshop.user.UserService;
 @RestController
 public class UserController {
 
+    private UserValidator validator = new UserValidator();
+
     @Autowired
     private UserService userService;
 
 
     @PostMapping("/users")
     public CustomResponseStatus createUser(@RequestBody User user) {
+        if (validator.isEmpty(user.getUsername()) || validator.isEmpty(user.getFirstName()) || validator.isEmpty(user.getLastName())) {
+            return new CustomResponseStatus(Response.FAILED, "Error! All fields are required.");
+        }
         if (userService.createUser(user) == 1) {
             return new CustomResponseStatus(Response.SUCCESS, String.format("User %s " +
                             "successfully created.",
