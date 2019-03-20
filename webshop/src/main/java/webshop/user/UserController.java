@@ -28,15 +28,15 @@ public class UserController {
 
     @GetMapping(value = "/userdata")
     @ResponseBody
-    public String currentUserName(Authentication authentication) {
+    public UserData currentUserName(Authentication authentication) {
 
         if (authentication != null) {
-            System.out.println(authentication.getName());
-            System.out.println(authentication.getAuthorities().toString());
-            return (authentication.getName());
+            String userRole = ((authentication.getAuthorities().toArray())[0]).toString();
+            return new UserData(authentication.getName(),
+                    UserRole.valueOf(userRole));
 
         } else {
-            return "";
+            return new UserData("", UserRole.NOT_AUTHENTICATED);
         }
     }
 
