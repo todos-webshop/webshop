@@ -6,8 +6,8 @@ console.log("csoki");
 
 function fetchProduct() {
 console.log("csoki2");
-var address = (new URL(document.product)).searchParams.get("address");
-
+var address = (new URL(document.location)).searchParams.get("address");
+console.log(address);
         var url ="/product/" + address;
         fetch(url)
             .then(function(response) {
@@ -20,31 +20,28 @@ var address = (new URL(document.product)).searchParams.get("address");
 
 function showTable(jsonData) {
     table = document.getElementById("product-table");
-
-
-    for (var i = 0; i < jsonData.length; i++) {
-            var tr = document.createElement("tr");
+    var tr = document.createElement("tr");
 
        var codeTd = document.createElement("td");
-                 codeTd.innerHTML = jsonData[i].code;
+                 codeTd.innerHTML = jsonData.code;
                  tr.appendChild(codeTd);
 
          var nameTd = document.createElement("td");
-                nameTd.innerHTML = jsonData[i].name;
+                nameTd.innerHTML = jsonData.name;
                 tr.appendChild(nameTd);
 
         var addressTd = document.createElement("td");
-                        addressTd.innerHTML = jsonData[i].address;
+                        addressTd.innerHTML = jsonData.address;
                         tr.appendChild(addressTd);
 
         var manufacturerTd = document.createElement("td");
-                        manufacturerTd.innerHTML = jsonData[i].manufacturer;
+                        manufacturerTd.innerHTML = jsonData.manufacturer;
                         tr.appendChild(manufacturerTd);
 
         var priceTd = document.createElement("td");
-                        priceTd.innerHTML = jsonData[i].price;
+                        priceTd.innerHTML = jsonData.price;
                         tr.appendChild(priceTd);
 
         table.appendChild(tr);
-    }
+
 }

@@ -1,10 +1,7 @@
 package webshop.product;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,7 +19,9 @@ public class ProductController {
 
 
     @PostMapping("/product/{address}")
+    public void ProductShow(@PathVariable String addresss, @RequestBody Product product){
 
+    }
 
     @GetMapping("/product/{address}")
     public Product findProductByAddress(@PathVariable String address){
