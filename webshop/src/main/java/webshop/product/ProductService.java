@@ -31,4 +31,7 @@ public class ProductService {
        }
        return productDao.addNewProductAndGetId(product);
     }
+    public void updateProduct(long id, String code,String name,String address,String manufacturer,int price){
+       productDao.updateProduct(id,code,name,address,manufacturer,price);
+    }
 }

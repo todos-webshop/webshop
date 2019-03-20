@@ -63,7 +63,6 @@ public class ProductDao {
                             }, keyHolder
         );
         return keyHolder.getKey().longValue();
-
     }
 
     public boolean isCodeUnique(String code){
@@ -90,5 +89,8 @@ public class ProductDao {
             return true;
         }
         return false;
+    }
+    public void updateProduct(long id, String code,String name,String address,String manufacturer,int price) {
+        jdbcTemplate.update("update products set code = ?, name = ?, address = ?,manufacturer = ?, price = ? where id = ?", code,name,address,manufacturer,price ,id);
     }
 }
