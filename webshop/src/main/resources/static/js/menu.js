@@ -1,4 +1,6 @@
-window.onload = function(){
+setMenu();
+
+function setMenu(){
     var body = document.getElementsByTagName("body")[0];
     var div = document.createElement("div");
     div.setAttribute("id", "menu_div");
