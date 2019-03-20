@@ -43,9 +43,16 @@ function showDivs(jsonData) {
                         divRow.appendChild(manufacturerDiv);
 
         var priceDiv = document.createElement("div");
-                        priceDiv.innerHTML = jsonData.price;
+                        priceDiv.innerHTML = jsonData.price+ " Ft";
                          priceDiv.setAttribute('class', 'div_class');
                         divRow.appendChild(priceDiv);
+
+         var imgDiv = document.createElement("div");
+                                 imgDiv.innerHTML = "<img alt="+jsonData.address+" src=img\\"+jsonData.address+".png>";
+
+                                imgDiv.classList.add('div_class');
+                                 //imgDiv.classList.add('div_img');
+                                 divRow.appendChild(imgDiv);
 
         divMain.appendChild(divRow);
 
