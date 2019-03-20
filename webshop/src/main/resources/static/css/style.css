@@ -1,0 +1,19 @@
+.div_class{
+
+background: #555;
+    box-sizing: border-box;
+    color: #fff;
+    float: left;
+    overflow: hidden;
+    padding: 20px;
+    position: relative;
+    width: 16%;
+    height:150px;
+}
+
+.div_class img {
+
+border-radius: 8px;
+   border: 1px solid #ddd;
+ width: 100px;
+}
