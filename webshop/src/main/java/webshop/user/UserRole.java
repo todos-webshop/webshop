@@ -2,7 +2,7 @@ package webshop.user;
 
 public enum UserRole {
 
-    ROLE_USER, ROLE_ADMIN;
+    NOT_AUTHENTICATED, ROLE_USER, ROLE_ADMIN;
 
 
 }
