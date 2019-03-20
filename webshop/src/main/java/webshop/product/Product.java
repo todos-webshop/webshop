@@ -43,16 +43,4 @@ private int price;
     public int getPrice() {
         return price;
     }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", code='" + code + '\'' +
-                ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", manufacturer='" + manufacturer + '\'' +
-                ", price=" + price +
-                '}';
-    }
 }
