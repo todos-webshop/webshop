@@ -3,6 +3,9 @@ package webshop.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -12,6 +15,10 @@ public class UserService {
 
     public int createUser(User user) {
         return userDao.createUser(user);
+    }
+
+    public List<String> getAllUsernames() {
+        return userDao.getAllUsernames();
     }
 }
 
