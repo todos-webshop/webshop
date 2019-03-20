@@ -47,4 +47,5 @@ public class ProductController {
             return new CustomResponseStatus(Response.FAILED, iae.getMessage());
         }
     }
+    @PostMapping("")
 }
