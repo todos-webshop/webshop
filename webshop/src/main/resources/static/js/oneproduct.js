@@ -15,33 +15,38 @@ console.log(address);
                 })
             .then(function(jsonData) {
 
-                showTable(jsonData);
+                showDivs(jsonData);
             });}
 
-function showTable(jsonData) {
-    table = document.getElementById("product-table");
-    var tr = document.createElement("tr");
+function showDivs(jsonData) {
+    divMain = document.getElementById("main_div");
+    var divRow = document.createElement("div");
 
-       var codeTd = document.createElement("td");
-                 codeTd.innerHTML = jsonData.code;
-                 tr.appendChild(codeTd);
+       var codeDiv = document.createElement("div");
+                 codeDiv.innerHTML = jsonData.code;
+                 codeDiv.setAttribute('class', 'div_class');
+                 divRow.appendChild(codeDiv);
 
-         var nameTd = document.createElement("td");
-                nameTd.innerHTML = jsonData.name;
-                tr.appendChild(nameTd);
+         var nameDiv = document.createElement("div");
+                nameDiv.innerHTML = jsonData.name;
+                 nameDiv.setAttribute('class', 'div_class');
+                divRow.appendChild(nameDiv);
 
-        var addressTd = document.createElement("td");
-                        addressTd.innerHTML = jsonData.address;
-                        tr.appendChild(addressTd);
+        var addressDiv = document.createElement("div");
+                        addressDiv.innerHTML = jsonData.address;
+                         addressDiv.setAttribute('class', 'div_class');
+                        divRow.appendChild(addressDiv);
 
-        var manufacturerTd = document.createElement("td");
-                        manufacturerTd.innerHTML = jsonData.manufacturer;
-                        tr.appendChild(manufacturerTd);
+        var manufacturerDiv = document.createElement("div");
+                        manufacturerDiv.innerHTML = jsonData.manufacturer;
+                         manufacturerDiv.setAttribute('class', 'div_class');
+                        divRow.appendChild(manufacturerDiv);
 
-        var priceTd = document.createElement("td");
-                        priceTd.innerHTML = jsonData.price;
-                        tr.appendChild(priceTd);
+        var priceDiv = document.createElement("div");
+                        priceDiv.innerHTML = jsonData.price;
+                         priceDiv.setAttribute('class', 'div_class');
+                        divRow.appendChild(priceDiv);
 
-        table.appendChild(tr);
+        divMain.appendChild(divRow);
 
 }
