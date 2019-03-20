@@ -31,4 +31,9 @@ public class ProductDao {
             }
         });
     }
+    public Product findProductByAddress(String address) {
+        return jdbcTemplate.queryForObject("select code,name,address,manufacturer,price from products where address = ?",
+                (rs, rowNum) -> new Product(rs.getString("code"), rs.getString("name"),rs.getString("address"),rs.getString("manufacturer"),rs.getInt("price")),
+                address);
+    }
 }
