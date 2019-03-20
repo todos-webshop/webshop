@@ -9,9 +9,16 @@ private String address;
 private String manufacturer;
 private int price;
 
+    public Product(long id, String code, String name, String address, String manufacturer, int price) {
+        this.id = id;
+        this.code = code;
+        this.name = name;
+        this.address = address;
+        this.manufacturer = manufacturer;
+        this.price = price;
+    }
 
-
-    public Product( String code, String name, String address, String manufacturer, int price) {
+    public Product(String code, String name, String address, String manufacturer, int price) {
         this.code = code;
         this.name = name;
         this.address = address;

@@ -14,11 +14,10 @@ public class ProductService {
        this.productDao = productDao;
    }
 
-   public List<Product> findAll(){
-       return productDao.findAll();
+   public List<Product> listAllProducts(){
+       return productDao.listAllProducts();
    }
-   public Product findProductByAddress(String address){{
+   public Product findProductByAddress(String address){
        return productDao.findProductByAddress(address);
-   }
    }
 }
