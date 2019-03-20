@@ -1,0 +1,11 @@
+.div_class{
+
+background: #555;
+    box-sizing: border-box;
+    color: #fff;
+    float: left;
+    overflow: hidden;
+    padding: 20px;
+    position: relative;
+    width: 20%;
+}
