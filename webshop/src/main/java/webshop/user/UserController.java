@@ -7,6 +7,8 @@ import webshop.CustomResponseStatus;
 import webshop.Response;
 import webshop.user.UserService;
 
+import java.util.List;
+
 @RestController
 public class UserController {
 
@@ -50,6 +52,9 @@ public class UserController {
             return new UserData("", UserRole.NOT_AUTHENTICATED);
         }
     }
+    @GetMapping("/api/users")
+public List<User> listAllUsers(){
+return userService.listAllUsers();}
 
 
 }
