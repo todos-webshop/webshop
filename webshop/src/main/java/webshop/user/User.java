@@ -9,15 +9,19 @@ public class User {
     private String lastName;
     private String username;
     private String password;
-    private int enabled = 1;
     private UserRole userRole = UserRole.ROLE_USER;
+    private int enabled = 1;
 
 
-    public User(String firstName, String lastName, String username, String password) {
+
+    public User(long id, String firstName, String lastName, String username, String password,UserRole userRole,int enabled ) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.password = new BCryptPasswordEncoder(4).encode(password);
+        this.userRole = userRole;
+        this.enabled = enabled;
     }
 
 
