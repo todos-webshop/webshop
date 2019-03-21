@@ -9,8 +9,8 @@ public class User {
     private String lastName;
     private String username;
     private String password;
-    private int enabled = 1;
-    private UserRole userRole = UserRole.ROLE_USER;
+    private int enabled;
+    private UserRole userRole;
 
 
     public User(String firstName, String lastName, String username, String password) {
@@ -18,8 +18,24 @@ public class User {
         this.lastName = lastName;
         this.username = username;
         this.password = new BCryptPasswordEncoder(4).encode(password);
+        this.enabled = 1;
+        this.userRole = UserRole.ROLE_USER;
     }
 
+
+    public User(long id, String firstName, String lastName, String username, String password, int enabled, UserRole userRole) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.enabled = enabled;
+        this.userRole = userRole;
+    }
+
+    public long getId() {
+        return id;
+    }
 
     public String getFirstName() {
         return firstName;

@@ -1,6 +1,7 @@
 package webshop.product;
 
 import java.text.Normalizer;
+import java.util.Objects;
 
 public class Product {
 
@@ -46,5 +47,19 @@ private int price;
 
     public long getId() {
         return id;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return code.equals(product.code);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(code);
     }
 }
