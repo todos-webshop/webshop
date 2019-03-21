@@ -4,9 +4,41 @@
     <meta charset="UTF-8">
     <title>Admin product</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 
 </head>
 <body>
+
+<input type="button" value="Add new item" id="new-product-btn"><br>
+
+<form class="disabled">
+    <input type="text" name="code" id="code"> Code<br>
+    <input type="text" name="name" id="name"> Name<br>
+    <input type="text" name="manufacturer" id="manufacturer"> Manufacturer<br>
+    <input type="text" name="price" id="price"> Price<br><br>
+
+    <div id="message-div"></div><br>
+
+    <input type="submit" value="Add" id="add-btn"><br>
+
+</form>
+
+
+
+<div id ="main_div">
+    <div id ="heading_div">
+        <div class = "div_class">Code</div>
+        <div class = "div_class">Name</div>
+        <div class = "div_class">Address</div>
+        <div class = "div_class">Manufacturer</div>
+        <div class = "div_class">Price</div>
+        <div class = "div_class">Picture</div>
+    </div>
+
+</div>
+
+
+<script src="js/adminproducts.js"></script> <script src="js/menu.js"></script>
 
 </body>
 </html>

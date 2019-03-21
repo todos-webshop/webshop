@@ -7,6 +7,8 @@ import webshop.CustomResponseStatus;
 import webshop.Response;
 import webshop.user.UserService;
 
+import java.util.List;
+
 @RestController
 public class UserController {
 
@@ -27,7 +29,7 @@ public class UserController {
                     "not be created for %s.",
                     user.getUsername()));
         }
-        if (userService.createUser(user) == 1) {
+        if (userService.createUserAndReturnUserId(user) > 0) {
             return new CustomResponseStatus(Response.SUCCESS, String.format("User %s " +
                             "successfully created.",
                     user.getUsername()));
@@ -50,6 +52,9 @@ public class UserController {
             return new UserData("", UserRole.NOT_AUTHENTICATED);
         }
     }
+    @GetMapping("/api/users")
+public List<User> listAllUsers(){
+return userService.listAllUsers();}
 
 
 }

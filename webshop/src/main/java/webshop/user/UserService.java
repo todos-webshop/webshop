@@ -2,6 +2,7 @@ package webshop.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import webshop.basket.BasketDao;
 
 import java.util.Collection;
 import java.util.List;
@@ -9,21 +10,34 @@ import java.util.List;
 @Service
 public class UserService {
 
-    @Autowired
+
     private UserDao userDao;
+    private BasketDao basketDao;
 
+    public UserService(UserDao userDao, BasketDao basketDao) {
+        this.userDao = userDao;
+        this.basketDao = basketDao;
+    }
 
-    public int createUser(User user) {
-        return userDao.createUser(user);
+    public long createUserAndReturnUserId(User user) {
+        long newlyCreatedUserId = userDao.createUserAndReturnUserId(user);
+        if (newlyCreatedUserId == 0){
+            return 0;
+        }
+        basketDao.createBasketForUserIdAndReturnBasketId(newlyCreatedUserId);
+        return newlyCreatedUserId;
     }
 
     public List<String> getAllUsernames() {
         return userDao.getAllUsernames();
     }
 
-    public User getUserByUsername(String username){
+    public User getUserByUsername(String username) {
         return userDao.getUserByUsername(username);
     }
 
+    public List<User> listAllUsers() {
+        return userDao.listAllUsers();
+    }
 }
 

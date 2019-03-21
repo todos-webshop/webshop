@@ -13,15 +13,12 @@ import webshop.user.UserService;
 @RestController
 public class BasketController {
 
-//    @Autowired
+    //    @Autowired
     private BasketService basketService;
-    private UserService userService;
 
-       public BasketController(BasketService basketService, UserService userService) {
+    public BasketController(BasketService basketService) {
         this.basketService = basketService;
-        this.userService = userService;
     }
-
 
     @GetMapping(value = "/basket")
     @ResponseBody
@@ -29,12 +26,12 @@ public class BasketController {
 
         if (authentication != null) {
             String loggedInUsername = authentication.getName();
-            User loggedInUser = userService.getUserByUsername(loggedInUsername);
-            return basketService.getBasketByUser(loggedInUser);
+
+            return basketService.getBasketByUser(loggedInUsername);
         } else {
             return new Basket(0, new UserData("", UserRole.NOT_AUTHENTICATED));
         }
-
+    }
 
 
 }

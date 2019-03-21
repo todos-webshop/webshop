@@ -1,10 +1,17 @@
 package webshop.user;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import java.util.Map;
 
@@ -19,15 +26,44 @@ public class UserDao {
     }
 
 
-    public int createUser(User user) {
-        return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).update("insert into users" +
-                "(first_name, last_name, username, password, enabled, role) values (:first_name, " +
-                ":last_name, :username, :password, :enabled, :role)", Map.of(
-                "first_name", user.getFirstName(), "last_name", user.getLastName(), "username",
-                user.getUsername(),
-                "password", user.getPassword(), "enabled",
-                user.getEnabled(), "role", user.getUserRole().name()));
+    public long createUserAndReturnUserId(User user) {
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        jdbcTemplate.update(new PreparedStatementCreator() {
+                                @Override
+                                public PreparedStatement createPreparedStatement(Connection connection)
+                                        throws SQLException {
+                                    PreparedStatement ps =
+                                            connection.prepareStatement("insert into users " +
+                                                            "((first_name, last_name, username, " +
+                                                            "password, enabled, role) values " +
+                                                            "(?,?,?,?,?,?)",
+                                                    Statement.RETURN_GENERATED_KEYS);
+                                    ps.setString(1, user.getFirstName());
+                                    ps.setString(2, user.getLastName());
+                                    ps.setString(3, user.getUsername());
+                                    ps.setString(4, user.getPassword());
+                                    ps.setInt(5, user.getEnabled());
+                                    ps.setString(6, user.getUserRole().name());
+                                    return ps;
+                                }
+                            }, keyHolder
+        );
+
+        return keyHolder.getKey().longValue();
     }
+
+
+//    public int createUser(User user) {
+//        return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).update("insert into users" +
+//                "(first_name, last_name, username, password, enabled, role) values (:first_name, " +
+//                ":last_name, :username, :password, :enabled, :role)", Map.of(
+//                "first_name", user.getFirstName(), "last_name", user.getLastName(), "username",
+//                user.getUsername(),
+//                "password", user.getPassword(), "enabled",
+//                user.getEnabled(), "role", user.getUserRole().name()));
+//    }
 
 
     public List<String> getAllUsernames() {
@@ -37,7 +73,8 @@ public class UserDao {
 
     public User getUserByUsername(String username) {
         return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).queryForObject(
-                "select first_name, last_name, username, password, enabled, role from users where" +
+                "select id, first_name, last_name, username, password, enabled, role from users " +
+                        "where" +
                         " username = (:username)", Map.of("username", username), USER_ROW_MAPPER);
     }
 
@@ -52,5 +89,13 @@ public class UserDao {
         UserRole role = UserRole.valueOf(resultSet.getString("role"));
         return new User(id, firstName, lastName, username, password, enabled, role);
     };
+
+
+    public List<User> listAllUsers() {
+        return jdbcTemplate.query("select id, first_name, last_name,username,password,role,enabled from users",
+                (rs, rowNum) -> new User(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("username"), rs.getString("password"), rs.getInt("enabled"), UserRole.valueOf(rs.getString("role"))));
+
+    }
+
 
 }

@@ -1,30 +1,28 @@
 package webshop.basket;
 
+import org.hibernate.validator.constraints.URL;
 import webshop.product.Product;
 import webshop.user.UserData;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class Basket {
 
     private long id;
     private UserData basketOwner;
-    private Map<Product, Integer> basketItems = new HashMap<>();
+    private List<BasketItem> basketItems = new ArrayList<>();
 
     public Basket(long id, UserData basketOwner) {
         this.id = id;
         this.basketOwner = basketOwner;
     }
 
-    public Map<Product, Integer> getBasketItems() {
-        return new HashMap<>(basketItems);
+    public List<BasketItem> getBasketItems() {
+        return new ArrayList<>(basketItems);
     }
 
-    // only 1 allowed of each product for now:
-    public void addProduct(Product product) {
-        basketItems.put(product, 1);
+    public void addBasketItem(BasketItem basketItem) {
+        basketItems.add(basketItem);
     }
 
     public long getId() {

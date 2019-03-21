@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import webshop.product.Product;
 import webshop.user.User;
+import webshop.user.UserDao;
 import webshop.user.UserData;
 
 import java.util.List;
@@ -11,25 +12,34 @@ import java.util.List;
 @Service
 public class BasketService {
 
-    @Autowired
+    //    @Autowired
     private BasketDao basketDao;
+    private UserDao userDao;
 
+    public BasketService(BasketDao basketDao, UserDao userDao) {
+        this.basketDao = basketDao;
+        this.userDao = userDao;
+    }
 
-    // user id is used in case username changes is time
-    public Basket getBasketByUser(User user) {
+    // user id is used from here (instead of username) in case username changes in time
+    public Basket getBasketByUser(String loggedInUsername) {
+
+        User user = userDao.getUserByUsername(loggedInUsername);
+
         long userId = user.getId();
         long basketId;
+
         if (!basketDao.getAllBasketOwnerIds().contains(userId)) {
             basketId = basketDao.createBasketForUserIdAndReturnBasketId(userId);
         } else {
-             basketId = basketDao.getBasketIdByUserId(userId);
+            basketId = basketDao.getBasketIdByUserId(userId);
         }
 
-        List<Product> actualProductsInBasket = basketDao.getProductsInBasketByBasketId(basketId);
+        List<BasketItem> actualItemsInBasket = basketDao.getBasketItemsInBasketByBasketId(basketId);
 
         Basket basket = new Basket(basketId, new UserData(user.getUsername(), user.getUserRole()));
-        for (Product product : actualProductsInBasket) {
-            basket.addProduct(product);
+        for (BasketItem basketItem : actualItemsInBasket) {
+            basket.addBasketItem(basketItem);
         }
         return basket;
     }
