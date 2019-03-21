@@ -1,8 +1,15 @@
+<<<<<<< HEAD
 var user = getUser();
 // getUser();
 setMenu();
 window.onload = function(){
     
+=======
+var user;
+    setMenu();
+window.onload = function(){
+//    getUser();
+>>>>>>> origin/develop
 }
 
 function getUser(){
