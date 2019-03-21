@@ -13,7 +13,8 @@ private String manufacturer;
 private int price;
 private ProductStatus productStatus;
 
-    public Product(long id, String code, String name, String manufacturer, int price) {
+    public Product(long id, String code, String name, String manufacturer, int price,
+                   ProductStatus productStatus) {
         this.id = id;
         this.code = code;
         this.name = name;

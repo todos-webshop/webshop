@@ -37,8 +37,8 @@ public class WebshopApplication extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .and()
-                .logout();
-//                .logoutSuccessUrl("/");
+                .logout()
+                .logoutSuccessUrl("/");
     }
 
     @Bean

@@ -9,6 +9,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import webshop.product.Product;
+import webshop.product.ProductStatus;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -72,13 +73,16 @@ public class BasketDao {
         String manufacturer = resultSet.getString("manufacturer");
         int price = resultSet.getInt("price");
         int quantity = 1;
-        return new BasketItem(new Product(id, code, name, manufacturer, price), quantity);
+        ProductStatus productStatus = ProductStatus.valueOf(resultSet.getString("status"));
+        return new BasketItem(new Product(id, code, name, manufacturer, price, productStatus),
+                quantity);
     };
 
     public List<BasketItem> getBasketItemsInBasketByBasketId(long basketId) {
 
         return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).query(
-                "SELECT id, code, name, manufacturer, price FROM basket_items JOIN products ON basket_items.product_id = products.id where basket_id = (:basket_id)", Map.of("basket_id", basketId),
+                "SELECT id, code, name, manufacturer, price, status FROM basket_items " +
+                        "JOIN products ON basket_items.product_id = products.id where basket_id = (:basket_id)", Map.of("basket_id", basketId),
                 BASKET_ITEM_ROW_MAPPER);
 
     }
