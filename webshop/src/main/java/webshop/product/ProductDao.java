@@ -93,4 +93,9 @@ public class ProductDao {
     public void updateProduct(long id, String code,String name,String address,String manufacturer,int price) {
         jdbcTemplate.update("update products set code = ?, name = ?, address = ?,manufacturer = ?, price = ? where id = ?", code,name,address,manufacturer,price ,id);
     }
+    public void deleteAll(){
+        jdbcTemplate.update("delete from products");
+    }
+
+
 }
