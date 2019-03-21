@@ -138,4 +138,9 @@ public class ProductDao {
     public void logicalDeleteProductById(long id){
         jdbcTemplate.update("update products set status = ? where id = ?", "DELETED", id);
     }
+    public void deleteAll(){
+        jdbcTemplate.update("delete from products");
+    }
+
+
 }
