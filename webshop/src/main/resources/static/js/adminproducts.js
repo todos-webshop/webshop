@@ -1,6 +1,4 @@
-window.onload = function () {
-  fetchProducts();
-};
+fetchProducts();
 
 var addButton = document.getElementById('add-btn');
 addButton.onclick = addNewProduct;
@@ -51,6 +49,11 @@ function showDivs(jsonData) {
 
     var imgDiv = document.createElement('div');
     imgDiv.innerHTML = '<img alt=' + jsonData[i].address + ' src=img\\products\\' + jsonData[i].address + '.png>';
+
+    var statusDiv = document.createElement('div');
+    statusDiv.innerHTML = jsonData[i].productStatus;
+    statusDiv.setAttribute('class', 'div_class');
+    divRow.appendChild(statusDiv);
 
     imgDiv.classList.add('div_class');
 
