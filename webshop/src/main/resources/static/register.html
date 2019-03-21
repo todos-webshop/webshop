@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Create User</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/register.css">
 </head>
 
 <body>
@@ -27,9 +28,8 @@
         <input type="text" id="username-input" placeholder="username" required>
         <br>
         <br>
-        <input type="password" id="pass-input1" placeholder="password" required>
-        <br>
-        <br>
+        <input type="password" id="pass-input1" placeholder="password" required> <meter max="4" id="password-strength-meter"></meter>
+        <p id="password-strength-text"></p>
         <input type="password" id="pass-input2" placeholder="re-type password" required>
         <br>
         <br>
@@ -40,6 +40,7 @@
 </div>
 <script src="js/register.js"></script>
 <script src="js/menu.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
 </body>
 
 </html>
