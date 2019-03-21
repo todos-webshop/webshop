@@ -1,8 +1,8 @@
-window.onload = function() {
+
 console.log("csoki");
   fetchProduct();
 
-}
+
 
 function fetchProduct() {
 console.log("csoki2");
