@@ -2,6 +2,7 @@ package webshop.product;
 
 import org.springframework.stereotype.Service;
 import webshop.CustomResponseStatus;
+import webshop.Response;
 
 import java.util.List;
 
@@ -31,7 +32,22 @@ public class ProductService {
        }
        return productDao.addNewProductAndGetId(product);
     }
-    public void updateProduct(long id, String code,String name,String address,String manufacturer,int price){
-       productDao.updateProduct(id,code,name,address,manufacturer,price);
+    public CustomResponseStatus updateProduct(Product product, long id){
+       if (!productDao.isIdTheSameForUpdatingTheSameCode(product.getCode(), id)){
+           return new CustomResponseStatus(Response.FAILED, String.format("Code must be unique and %s already exists in database", product.getCode()));
+       }
+       if (!productDao.isIdTheSameForUpdatingTheSameName(product.getName(), id)){
+           return new CustomResponseStatus(Response.FAILED, String.format("Name must be unique and %s already exists in database", product.getName()));
+       }
+       int responseInt = productDao.updateProduct(product, id);
+       if (responseInt == 1) {
+           return new CustomResponseStatus(Response.SUCCESS, "Updated successfully.");
+       } else {
+           return new CustomResponseStatus(Response.FAILED, "Can not update.");
+       }
+    }
+
+    public void logicalDeleteProductById(long id){
+       productDao.logicalDeleteProductById(id);
     }
 }

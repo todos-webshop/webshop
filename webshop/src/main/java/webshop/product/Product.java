@@ -11,6 +11,7 @@ private String name;
 private String address;
 private String manufacturer;
 private int price;
+private ProductStatus productStatus;
 
     public Product(long id, String code, String name, String manufacturer, int price) {
         this.id = id;
@@ -19,6 +20,7 @@ private int price;
         address = generateAddress();
         this.manufacturer = manufacturer;
         this.price = price;
+        this.productStatus = productStatus;
     }
 
     private String generateAddress(){
@@ -30,6 +32,10 @@ private int price;
         s = Normalizer.normalize(s, Normalizer.Form.NFD);
         s = s.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
         return s;
+    }
+
+    public ProductStatus getProductStatus() {
+        return productStatus;
     }
 
     public String getCode() {
