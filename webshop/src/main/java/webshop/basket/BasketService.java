@@ -36,6 +36,7 @@ public class BasketService {
         }
 
         List<BasketItem> actualItemsInBasket = basketDao.getBasketItemsInBasketByBasketId(basketId);
+        System.out.println(actualItemsInBasket);
 
         Basket basket = new Basket(basketId, new UserData(user.getUsername(), user.getUserRole()));
         for (BasketItem basketItem : actualItemsInBasket) {
