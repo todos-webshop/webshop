@@ -90,8 +90,44 @@ public class ProductDao {
         }
         return false;
     }
-    public void updateProduct(long id, String code,String name,String address,String manufacturer,int price) {
-        jdbcTemplate.update("update products set code = ?, name = ?, address = ?,manufacturer = ?, price = ? where id = ?", code,name,address,manufacturer,price ,id);
+
+    public int updateProduct(Product product, long id) {
+        return jdbcTemplate.update("update products set code = ?, name = ?, address = ?,manufacturer = ?, price = ? where id = ?",
+                product.getCode(), product.getName(),product.getAddress(),product.getManufacturer(),product.getPrice(), id);
+    }
+
+    public boolean isIdTheSameForUpdatingTheSameCode(String code, long id){
+        List<Long> ids = jdbcTemplate.query("select id from products where code = ?", new RowMapper<Long>() {
+            @Override
+            public Long mapRow(ResultSet resultSet, int i) throws SQLException {
+                return resultSet.getLong("id");
+            }
+        }, code);
+        if (isCodeUnique(code) || !isCodeUnique(code) && (ids.get(0) == id)){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public boolean isIdTheSameForUpdatingTheSameName(String name, long id){
+        List<Long> ids = jdbcTemplate.query("select id from products where name = ?", new RowMapper<Long>() {
+            @Override
+            public Long mapRow(ResultSet resultSet, int i) throws SQLException {
+                return resultSet.getLong("id");
+            }
+        }, name);
+        if (isNameUnique(name) || !isNameUnique(name) && (ids.get(0) == id)){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public void logicalDeleteProductById(long id){
+        jdbcTemplate.update("update products set id = ?, code = ?, name = ?, address = ?, manufacturer = ?, price = ? where id = ?", );
     }
     public void deleteAll(){
         jdbcTemplate.update("delete from products");
