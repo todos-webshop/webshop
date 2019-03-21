@@ -24,7 +24,7 @@ public class ProductDao {
     }
 
     public List<Product> listAllProducts() {
-        return jdbcTemplate.query("select id, code,name,address,manufacturer,price from products order by name, manufacturer", new RowMapper<Product>() {
+        return jdbcTemplate.query("select id, code, name, address, manufacturer, price, status from products order by name, manufacturer", new RowMapper<Product>() {
             @Override
             public Product mapRow(ResultSet resultSet, int i) throws SQLException {
                 return new Product(
@@ -32,15 +32,24 @@ public class ProductDao {
                         resultSet.getString("code"),
                         resultSet.getString("name"),
                         resultSet.getString("manufacturer"),
-                        resultSet.getInt("price"));
+                        resultSet.getInt("price"),
+                        ProductStatus.valueOf(resultSet.getString("status")));
             }
         });
     }
 
     public Product findProductByAddress(String address) {
-        return jdbcTemplate.queryForObject("select id,code,name,address,manufacturer,price from products where address = ?",
-                (rs, rowNum) -> new Product(rs.getLong("id"), rs.getString("code"), rs.getString("name"),  rs.getString("manufacturer"), rs.getInt("price")),
-                address);
+        return jdbcTemplate.queryForObject("select id,code,name,address,manufacturer,price, status from products where address = ?", new RowMapper<Product>() {
+            @Override
+            public Product mapRow(ResultSet resultSet, int i) throws SQLException {
+                return new Product(resultSet.getLong("id"),
+                        resultSet.getString("code"),
+                        resultSet.getString("name"),
+                        resultSet.getString("manufacturer"),
+                        resultSet.getInt("price"),
+                        ProductStatus.valueOf(resultSet.getString("status")));
+            }
+        });
     }
 
     public long addNewProductAndGetId(Product product) {

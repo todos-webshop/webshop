@@ -46,4 +46,8 @@ public class ProductService {
            return new CustomResponseStatus(Response.FAILED, "Can not update.");
        }
     }
+
+    public void logicalDeleteProductById(long id){
+       productDao.logicalDeleteProductById(id);
+    }
 }

@@ -1,8 +1,7 @@
 var user;
-
+    setMenu();
 window.onload = function(){
 //    getUser();
-    setMenu();
 }
 
 // function getUser(){

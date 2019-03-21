@@ -54,4 +54,4 @@ public class WebshopApplicationTests {
 		assertEquals("Sample3 Prod", products.get(1).getName());
 	}
 
-}
+	}
