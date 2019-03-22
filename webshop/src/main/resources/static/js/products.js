@@ -21,7 +21,7 @@ function fetchProducts() {
        for (var i = 0; i < jsonData.length; i++) {
        var divRow = document.createElement("div");
 
-<<<<<<< HEAD
+
        var codeDiv = document.createElement("div");
        codeDiv.innerHTML = jsonData[i].code;
        codeDiv.setAttribute('class', 'div_class');
@@ -52,10 +52,10 @@ function fetchProducts() {
        statusDiv.setAttribute('class', 'div_class');
        divRow.appendChild(statusDiv);
 
-       divRow.appendChild(imgDiv);
+      // divRow.appendChild(imgDiv);
 
        divMain.appendChild(divRow);
-=======
+
 
             var nameDiv = document.createElement("div");
 
@@ -80,7 +80,6 @@ function fetchProducts() {
              //                       divRow.appendChild(imgDiv);
 
            divMain.appendChild(divRow);
->>>>>>> 1aa09cd231d994e2624407376dccbfd6425d45f2
 
    }
 
