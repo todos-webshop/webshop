@@ -41,7 +41,7 @@ public class ProductDao {
     }
 
     public Product findProductByAddress(String address) {
-        return jdbcTemplate.queryForObject("select id,code,name,address,manufacturer,price, status from products where address = ?", new RowMapper<Product>() {
+        return jdbcTemplate.queryForObject("select id,code,name,manufacturer,price, status from products where address = ?", new RowMapper<Product>() {
             @Override
             public Product mapRow(ResultSet resultSet, int i) throws SQLException {
                 return new Product(resultSet.getLong("id"),
@@ -51,7 +51,7 @@ public class ProductDao {
                         resultSet.getInt("price"),
                         ProductStatus.valueOf(resultSet.getString("status")));
             }
-        });
+        },address);
     }
 
     public long addNewProductAndGetId(Product product) {
