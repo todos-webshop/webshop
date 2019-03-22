@@ -1,16 +1,5 @@
-//<<<<<<< HEAD
-//var user = getUser();
-// getUser();
-setMenu();
-//window.onload = function(){
-    
-//=======
-//var user;
-//    setMenu();
-//window.onload = function(){
-//    getUser();
-//>>>>>>> origin/develop
-//}
+var user = getUser();
+
 
 function getUser(){
     var url = "/userdata";
@@ -19,7 +8,10 @@ function getUser(){
         return response.json();
     })
     .then(function(jsonData){
-        return jsonData;
+        user = jsonData;
+    })
+    .then(function(){
+        setMenu();
     })
 }
 
@@ -30,28 +22,29 @@ function setMenu(){
     div.setAttribute("class", "menu_div");
 
     div.appendChild(createLogoImg());
-    // div.appendChild(createOrdersButton());
-    // div.appendChild(createHistoryButton());
-    // div.appendChild(createStatButton());
     div.appendChild(createLoginButton());
     div.appendChild(createSignUpButton());
     div.appendChild(createLogoutButton());
- //   console.log(user);
-    // switch(user.role){
-    //     case "NOT_AUTHENTICATED": break;
-    //     case "USER": {
-    //         createDropdownDivForUser(div);
-    //         break;
-    //     }
-    //     case "ADMIN": {
-    //         createDropdownDivForAdmin(div);
-    //         break;
-    //     }
-    // }
-    
-    createDropdownDivForUser(div);
-    createDropdownDivForAdmin(div);    
+
     div.appendChild(createCartButton());
+
+
+   console.log(user);
+    switch(user["role"]){
+        case "NOT_AUTHENTICATED": break;
+        case "ROLE_USER": {
+            createDropdownDivForUser(div);
+            div.appendChild(welcomeUser());
+            break;
+        }
+        case "ROLE_ADMIN": {
+            createDropdownDivForAdmin(div);
+            div.appendChild(welcomeUser());
+            break;
+        }
+    }
+    
+    
 
 
     body.insertBefore(div, body.firstChild);
@@ -74,6 +67,12 @@ window.onclick = function(event) {
       }
     }
   }
+}
+
+function welcomeUser(){
+    var welcomeLabel = document.createElement("label");
+    welcomeLabel.innerHTML = "Welcome " + user["username"];
+    return welcomeLabel;
 }
 
 function setFavicon(){
