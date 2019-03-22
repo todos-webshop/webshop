@@ -4,7 +4,8 @@ fetchProduct();
 
 function fetchProduct() {
 var address = (new URL(document.location)).searchParams.get("address");
-        var url ="api/products/" + address;
+        var url ="api/product/" + address;
+        console.log(url);
         fetch(url)
             .then(function(response) {
                 return response.json();
@@ -15,6 +16,7 @@ var address = (new URL(document.location)).searchParams.get("address");
             });}
 
 function showTable(jsonData) {
+    console.log(jsonData);
     var table = document.getElementById("product-table");
     var tr = document.createElement("tr");
  
