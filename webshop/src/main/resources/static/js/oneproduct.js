@@ -35,9 +35,13 @@ function showTable(jsonData) {
                      tr.appendChild(priceTd);
 
     table.appendChild(tr);
+
+    document.querySelector('#purchase').addEventListener('click', function () {
+            addToBasket(jsonData);
+        });
  
 }
 
-function addToBasket(){
-    console.log("baszki");
+function addToBasket(jsonData){
+    console.log(jsonData.code);
 }
