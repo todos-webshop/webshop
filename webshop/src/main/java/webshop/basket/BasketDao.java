@@ -122,13 +122,13 @@ public class BasketDao {
 
     public int addProductToBasket(long basketId, long productId, int quantity) {
         quantity = 1;
-        Integer sumProductPrice =
+        Integer productCount =
                 new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).queryForObject(
                         "SELECT count(product_id) as product_id_count FROM basket_items where " +
                                 "basket_id = (:basket_id) AND product_id = (:product_id)", Map.of(
                                 "basket_id", basketId, "product_id", productId),
                         (rs, i) -> rs.getInt("product_id_count"));
-        if (sumProductPrice == 0) {
+        if (productCount == 0) {
             return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).update(
                     "INSERT INTO basket_items (product_id, basket_id) values (:product_id, " +
                             ":basket_id)",
@@ -142,4 +142,8 @@ public class BasketDao {
     }
 
 
+    public int clearBasketByBasketId(long basketId) {
+        return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).update("DELETE FROM basket_items WHERE basket_id = " +
+                "(:basket_id);", Map.of("basket_id", basketId));
+    }
 }
