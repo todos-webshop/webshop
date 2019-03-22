@@ -9,21 +9,24 @@ public class User {
     private String lastName;
     private String username;
     private String password;
-    private UserRole userRole = UserRole.ROLE_USER;
-    private int enabled = 1;
+    private int enabled;
+    private UserRole userRole;
 
 
-
-    public User(long id, String firstName, String lastName, String username, String password,UserRole userRole,int enabled ) {
+    public User(long id, String firstName, String lastName, String username, String password, int enabled, UserRole userRole) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.password = new BCryptPasswordEncoder(4).encode(password);
-        this.userRole = userRole;
-        this.enabled = enabled;
+        this.userRole = roleMaker(userRole);
+        this.enabled = 1;
     }
 
+
+    public long getId() {
+        return id;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -48,4 +51,13 @@ public class User {
     public UserRole getUserRole() {
         return userRole;
     }
+
+
+    private UserRole roleMaker(UserRole role){
+        if (role == null){
+            return UserRole.ROLE_USER;
+        }
+        return role;
+    }
+
 }

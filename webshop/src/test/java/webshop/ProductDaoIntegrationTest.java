@@ -1,4 +1,4 @@
-/*package webshop;
+package webshop;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.junit.Before;
@@ -8,6 +8,7 @@ import webshop.product.ProductDao;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import webshop.product.ProductStatus;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -38,8 +39,8 @@ public class ProductDaoIntegrationTest {
         productDao.deleteAll();
 
         //When
-        Product product1 = new Product(15, "PROD", "Sample", "manufacture", 1546);
-        Product product2 = new Product(15, "PROD2", "Sample2 Prod", "manufacture", 156);
+        Product product1 = new Product(15, "PROD", "Sample", "manufacture", 1546, ProductStatus.ACTIVE);
+        Product product2 = new Product(15, "PROD2", "Sample2 Prod", "manufacture", 156, ProductStatus.ACTIVE);
         productDao.addNewProductAndGetId(product1);
         productDao.addNewProductAndGetId(product2);
 
@@ -57,8 +58,8 @@ public class ProductDaoIntegrationTest {
         productDao.deleteAll();
 
         //When
-        Product product1 = new Product(15, "PROD", "Sample", "manufacture", 1546);
-        Product product2 = new Product(15, "PROD2", "Sample2 Prod", "manufacture", 156);
+        Product product1 = new Product(15, "PROD", "Sample", "manufacture", 1546, ProductStatus.ACTIVE);
+        Product product2 = new Product(15, "PROD2", "Sample2 Prod", "manufacture", 156, ProductStatus.ACTIVE);
         productDao.addNewProductAndGetId(product1);
         productDao.addNewProductAndGetId(product2);
 
@@ -74,8 +75,8 @@ public class ProductDaoIntegrationTest {
         productDao.deleteAll();
 
         //When
-        Product product1 = new Product(15, "PROD", "Sample", "manufacture", 1546);
-        Product product2 = new Product(15, "PROD2", "Sample2 Prod", "manufacture", 156);
+        Product product1 = new Product(15, "PROD", "Sample", "manufacture", 1546, ProductStatus.ACTIVE);
+        Product product2 = new Product(15, "PROD2", "Sample2 Prod", "manufacture", 156, ProductStatus.ACTIVE);
         productDao.addNewProductAndGetId(product1);
         productDao.addNewProductAndGetId(product2);
 
@@ -83,4 +84,4 @@ public class ProductDaoIntegrationTest {
        Product prod = productDao.findProductByAddress("sample2_prod");
        // productDao.updateProduct(prod.getId(), prod.getCode(), prod.getName(),  "manu2", 16000);
     }
-}*/
+}
