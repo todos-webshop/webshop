@@ -73,6 +73,11 @@ function showBasket(jsonData) {
     priceDiv.setAttribute('class', 'div_class');
     divRow.appendChild(priceDiv);
 
+    var quantityDiv = document.createElement('div');
+    quantityDiv.innerHTML = 'Quantity: ' + jsonData.basket.basketItems[i].pieces;
+    quantityDiv.setAttribute('class', 'div_class');
+    divRow.appendChild(quantityDiv);
+
     var imgDiv = document.createElement('div');
     imgDiv.innerHTML = '<img alt=' + jsonData.basket.basketItems[i].product.address + ' src=img\\products\\' + jsonData.basket.basketItems[i].product.address + '.png>';
 
