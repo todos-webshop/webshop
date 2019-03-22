@@ -1,4 +1,4 @@
-window.onload = function() {
+
    fetchProducts();
    }
 
@@ -47,7 +47,4 @@ function fetchProducts() {
            divMain.appendChild(divRow);
 
    }
-
-
-
 }
