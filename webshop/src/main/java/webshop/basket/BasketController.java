@@ -2,9 +2,10 @@ package webshop.basket;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import webshop.CustomResponseStatus;
+import webshop.Response;
+import webshop.product.ProductData;
 import webshop.user.User;
 import webshop.user.UserData;
 import webshop.user.UserRole;
@@ -31,6 +32,41 @@ public class BasketController {
         } else {
             return (new BasketData(0, 0, new Basket(0, new UserData("",
                     UserRole.NOT_AUTHENTICATED))));
+        }
+    }
+
+    @PostMapping("/basket")
+    public CustomResponseStatus addProductToLoggedInBasket(Authentication authentication,
+                                                           @RequestBody ProductData productData) {
+        if (authentication != null) {
+            String loggedInUsername = authentication.getName();
+            int sqlResponse =
+                    basketService.addProductToLoggedInBasketByProductData(loggedInUsername,
+                            productData);
+            if (sqlResponse != 1) {
+                return new CustomResponseStatus(Response.FAILED, "Error. Could not add to basket.");
+            } else {
+                return new CustomResponseStatus(Response.SUCCESS, "Succesfully added to basket.");
+            }
+        } else {
+            return new CustomResponseStatus(Response.FAILED, "Please sign in to start shopping.");
+        }
+    }
+
+
+    @DeleteMapping("/basket")
+    public CustomResponseStatus clearBasket(Authentication authentication) {
+        if (authentication != null) {
+            String loggedInUsername = authentication.getName();
+            int sqlResponse =
+                    basketService.clearBasketByUsername(loggedInUsername);
+            if (sqlResponse == 0) {
+                return new CustomResponseStatus(Response.SUCCESS, "Your basket is already empty.");
+            } else {
+                return new CustomResponseStatus(Response.SUCCESS, "Your basket has been cleared.");
+            }
+        } else {
+            return new CustomResponseStatus(Response.FAILED, "Please sign in to manage your basket.");
         }
     }
 

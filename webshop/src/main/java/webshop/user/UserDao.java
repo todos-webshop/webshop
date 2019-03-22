@@ -55,17 +55,6 @@ public class UserDao {
     }
 
 
-//    public int createUser(User user) {
-//        return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).update("insert into users" +
-//                "(first_name, last_name, username, password, enabled, role) values (:first_name, " +
-//                ":last_name, :username, :password, :enabled, :role)", Map.of(
-//                "first_name", user.getFirstName(), "last_name", user.getLastName(), "username",
-//                user.getUsername(),
-//                "password", user.getPassword(), "enabled",
-//                user.getEnabled(), "role", user.getUserRole().name()));
-//    }
-
-
     public List<String> getAllUsernames() {
         return jdbcTemplate.query("select username from users",
                 (resultSet, i) -> resultSet.getString("username"));
