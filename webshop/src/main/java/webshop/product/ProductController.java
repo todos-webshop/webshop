@@ -22,11 +22,10 @@ public class ProductController {
         return productService.listAllProducts();
     }
 
-/*
-    @GetMapping("/api/products/{address}")
+    @GetMapping("/api/product/{address}")
     public Product findProductByAddress(@PathVariable String address) {
         return productService.findProductByAddress(address);
-    }*/
+    }
 
     @PostMapping("/api/products")
     public CustomResponseStatus addNewProduct(@RequestBody Product product) {
@@ -43,7 +42,7 @@ public class ProductController {
         }
     }
 
-    @PostMapping("/api/products/{productId}")
+    @PostMapping("/api/product/{productId}")
     public CustomResponseStatus updateProduct(@PathVariable Long productId, @RequestBody Product product) {
             CustomResponseStatus responseStatus = productValidator.validateProduct(product);
             if (responseStatus.getResponse().equals(Response.FAILED)) {
@@ -53,7 +52,7 @@ public class ProductController {
             }
     }
 
-    @DeleteMapping("/api/products/{productId}")
+    @DeleteMapping("/api/product/{productId}")
     public CustomResponseStatus logicalDeleteProductById(@PathVariable long productId){
         return productService.logicalDeleteProductById(productId);
     }

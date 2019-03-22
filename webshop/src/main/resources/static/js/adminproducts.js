@@ -96,7 +96,7 @@ function deleteItem() {
     return;
   }
 
-  fetch('/api/products/' + id, {
+  fetch('/api/product/' + id, {
     method: 'DELETE'
   })
     .then(function (response) {
@@ -149,7 +149,7 @@ function saveUpdatedItem(){
         'status': status
       };
 
-      fetch('/api/products/' + id, {
+      fetch('/api/product/' + id, {
             method: 'POST',
             body: JSON.stringify(request),
             headers: {
