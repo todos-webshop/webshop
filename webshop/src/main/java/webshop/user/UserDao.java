@@ -36,7 +36,7 @@ public class UserDao {
                                         throws SQLException {
                                     PreparedStatement ps =
                                             connection.prepareStatement("insert into users " +
-                                                            "((first_name, last_name, username, " +
+                                                            "(first_name, last_name, username, " +
                                                             "password, enabled, role) values " +
                                                             "(?,?,?,?,?,?)",
                                                     Statement.RETURN_GENERATED_KEYS);

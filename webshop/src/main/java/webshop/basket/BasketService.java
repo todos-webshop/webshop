@@ -27,12 +27,16 @@ public class BasketService {
         User user = userDao.getUserByUsername(loggedInUsername);
 
         long userId = user.getId();
-        long basketId;
+        long basketId = 0;
 
         if (!basketDao.getAllBasketOwnerIds().contains(userId)) {
             basketId = basketDao.createBasketForUserIdAndReturnBasketId(userId);
         } else {
             basketId = basketDao.getBasketIdByUserId(userId);
+        }
+
+        if (basketId == 0) {
+            throw new IllegalStateException("Basket does not exist.");
         }
 
         List<BasketItem> actualItemsInBasket = basketDao.getBasketItemsInBasketByBasketId(basketId);
