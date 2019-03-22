@@ -9,7 +9,20 @@ background-image:url("/img/Coconut_Bowl_Banner.jpg");
 }
 
 
-.div_class{
+.div_class_user{
+margin-top:25px;
+background: #555;
+    box-sizing: border-box;
+    color: #fff;
+    float: left;
+    overflow: hidden;
+    padding: 20px;
+    position: relative;
+    width: 16%;
+    height:150px;
+}
+
+.div_class_admin{
 margin-top:25px;
 background: #555;
     box-sizing: border-box;
@@ -35,7 +48,7 @@ border-radius: 8px;
     display: inline;
 }
 
-.delete-button{
+.delete-button, edit-button{
 height: 50px;
 width: 100px;
 background-color: azure;
