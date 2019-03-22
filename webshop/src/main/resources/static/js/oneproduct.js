@@ -4,7 +4,6 @@ fetchProduct();
 
 function fetchProduct() {
 var address = (new URL(document.location)).searchParams.get("address");
-console.log(address);
         var url ="api/products/" + address;
         fetch(url)
             .then(function(response) {
@@ -12,45 +11,33 @@ console.log(address);
                 })
             .then(function(jsonData) {
 
-                showDivs(jsonData);
+                showTable(jsonData);
             });}
 
-function showDivs(jsonData) {
-    var divMain = document.getElementById("main_div");
-    var divRow = document.createElement("div");
+function showTable(jsonData) {
+    var table = document.getElementById("product-table");
+    var tr = document.createElement("tr");
+ 
+    var codeTd = document.createElement("td");
+              codeTd.innerHTML = jsonData.code;
+              tr.appendChild(codeTd);
 
-       var codeDiv = document.createElement("div");
-                 codeDiv.innerHTML = jsonData.code;
-                 codeDiv.setAttribute('class', 'div_class');
-                 divRow.appendChild(codeDiv);
+    var nameTd = document.createElement("td");
+             nameTd.innerHTML = jsonData.name;
+             tr.appendChild(nameTd);
 
-         var nameDiv = document.createElement("div");
-                nameDiv.innerHTML = jsonData.name;
-                 nameDiv.setAttribute('class', 'div_class');
-                divRow.appendChild(nameDiv);
+    var manufacturerTd = document.createElement("td");
+                     manufacturerTd.innerHTML = jsonData.manufacturer;
+                     tr.appendChild(manufacturerTd);
 
-        var addressDiv = document.createElement("div");
-                        addressDiv.innerHTML = jsonData.address;
-                         addressDiv.setAttribute('class', 'div_class');
-                        divRow.appendChild(addressDiv);
+    var priceTd = document.createElement("td");
+                     priceTd.innerHTML = jsonData.price;
+                     tr.appendChild(priceTd);
 
-        var manufacturerDiv = document.createElement("div");
-                        manufacturerDiv.innerHTML = jsonData.manufacturer;
-                         manufacturerDiv.setAttribute('class', 'div_class');
-                        divRow.appendChild(manufacturerDiv);
+    table.appendChild(tr);
+ 
+}
 
-        var priceDiv = document.createElement("div");
-                        priceDiv.innerHTML = jsonData.price+ " Ft";
-                         priceDiv.setAttribute('class', 'div_class');
-                        divRow.appendChild(priceDiv);
-
-        //  var imgDiv = document.createElement("div");
-        //                          imgDiv.innerHTML = "<img alt="+jsonData.address+" src=img\\products\\"+jsonData.address+".png>";
-
-        //                         imgDiv.classList.add('div_class');
-        //                          //imgDiv.classList.add('div_img');
-        //                          divRow.appendChild(imgDiv);
-
-        divMain.appendChild(divRow);
-
+function addToBasket(){
+    console.log("baszki");
 }

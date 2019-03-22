@@ -7,6 +7,11 @@ background-color:#F5F5F5;}
 position:center;
 }
 
+.logo-img{
+  cursor: pointer;
+  height: 80px;
+}
+
 .dropbtn {
 padding: 15px 32px;
       text-align: center;

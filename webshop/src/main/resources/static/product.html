@@ -8,18 +8,20 @@
 </head>
 <body>
 
-
-    <div id ="main_div">
-        <div id ="heading_div">
-            <div class = "div_class">Code</div>
-            <div class = "div_class">Name</div>
-            <div class = "div_class">Address</div>
-            <div class = "div_class">Manufacturer</div>
-            <div class = "div_class">Price</div>
-            <div class = "div_class">Picture</div>
-        </div>
-
-</div>
+    <div id = "product-div">
+        <table class="table table-striped" id ="table">
+            <thead>  
+                <tr>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Manufacturer</th>
+                    <th>Price</th>
+                </tr>
+        </thead>
+            <tbody id="product-table"></tbody>
+        </table >
+        <button onclick="addToBasket()">Kosárba</button>
+    </div>
 
 
 <script src="js/oneproduct.js"></script> <script src="js/menu.js"></script>
