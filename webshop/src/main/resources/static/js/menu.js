@@ -1,16 +1,16 @@
-<<<<<<< HEAD
-var user = getUser();
+//<<<<<<< HEAD
+//var user = getUser();
 // getUser();
 setMenu();
-window.onload = function(){
+//window.onload = function(){
     
-=======
-var user;
-    setMenu();
-window.onload = function(){
+//=======
+//var user;
+//    setMenu();
+//window.onload = function(){
 //    getUser();
->>>>>>> origin/develop
-}
+//>>>>>>> origin/develop
+//}
 
 function getUser(){
     var url = "/userdata";
@@ -36,7 +36,7 @@ function setMenu(){
     div.appendChild(createLoginButton());
     div.appendChild(createSignUpButton());
     div.appendChild(createLogoutButton());
-    console.log(user);
+ //   console.log(user);
     // switch(user.role){
     //     case "NOT_AUTHENTICATED": break;
     //     case "USER": {
@@ -168,6 +168,7 @@ function createLogoImg(){
 function createLoginButton(){
     var loginBtn = document.createElement("button");
     loginBtn.innerText = "Login";
+    loginBtn.className="menu-button";
     loginBtn.onclick = function(){
         window.location.href = "/login";
     }
@@ -177,6 +178,7 @@ function createLoginButton(){
 function createLogoutButton(){
     var logoutBtn = document.createElement("button");
     logoutBtn.innerText = "Logout";
+    logoutBtn.className="menu-button";
     logoutBtn.onclick = function(){
         window.location.href = "/logout";
     }
@@ -186,6 +188,7 @@ function createLogoutButton(){
 function createSignUpButton(){
     var signUpBtn = document.createElement("button");
     signUpBtn.innerText = "Sign up";
+    signUpBtn.className="menu-button";
     signUpBtn.onclick = function(){
         window.location.href = "/register.html";
     }
@@ -195,6 +198,7 @@ function createSignUpButton(){
 function createCartButton(){
     var cartBtn = document.createElement("button");
     cartBtn.innerText = "Cart";
+    cartBtn.className="menu-button";
     cartBtn.onclick = function(){
         window.location.href = "cart.html";
     }

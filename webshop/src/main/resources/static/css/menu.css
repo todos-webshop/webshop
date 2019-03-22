@@ -1,14 +1,21 @@
+body{
+background-color:#F5F5F5;}
+
 .menu_div{
-    background: rgba(28, 82, 15, 0.418);
+    background-color:#F5F5F5;
+    width: 100%;
+position:center;
 }
 
 .dropbtn {
-    background-color: #3498DB;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
+padding: 15px 32px;
+      text-align: center;
+          font-size: 16px;
+          cursor: pointer;
+              border-radius: 3px;
+              background-color: white;
+              color: black;
+              border: 2px solid #4CAF50;
   }
   
   .dropbtn:hover, .dropbtn:focus {
@@ -40,3 +47,14 @@
   .dropdown a:hover {background-color: #ddd;}
   
   .show {display: block;}
+
+  .menu-button{
+  padding: 15px 32px;
+      text-align: center;
+          font-size: 16px;
+          cursor: pointer;
+              border-radius: 3px;
+              background-color: white;
+              color: black;
+              border: 2px solid #4CAF50;
+  }
