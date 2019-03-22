@@ -119,6 +119,7 @@ function createDropdownDivForAdmin(div){
             <a href="/history.html">Order history</a>
             <a href="/statistics.html">Statistics</a>
             <a href="/users.html">Users</a>
+            <a href="/adminproducts.html">Products</a>
         </div>
     </div>
     `;

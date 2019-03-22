@@ -39,6 +39,9 @@ public class ProductService {
        if (!productDao.isIdTheSameForUpdatingTheSameName(product.getName(), id)){
            return new CustomResponseStatus(Response.FAILED, String.format("Name must be unique and %s already exists in database", product.getName()));
        }
+       if (productDao.isAddressEdited(product.getAddress(), id)){
+           return new CustomResponseStatus(Response.FAILED, "Address can not be edited.");
+       }
        int responseInt = productDao.updateProduct(product, id);
        if (responseInt == 1) {
            return new CustomResponseStatus(Response.SUCCESS, "Updated successfully.");
