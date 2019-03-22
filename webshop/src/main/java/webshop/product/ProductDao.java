@@ -62,13 +62,14 @@ public class ProductDao {
                                 public PreparedStatement createPreparedStatement(Connection connection)
                                         throws SQLException {
                                     PreparedStatement ps =
-                                            connection.prepareStatement("insert into products (code, name, address, manufacturer, price) values (?, ?, ?, ?, ?)",
+                                            connection.prepareStatement("insert into products (code, name, address, manufacturer, price, status ) values (?, ?, ?, ?, ?,?)",
                                                     Statement.RETURN_GENERATED_KEYS);
                                     ps.setString(1, product.getCode());
                                     ps.setString(2, product.getName());
                                     ps.setString(3, product.getAddress());
                                     ps.setString(4, product.getManufacturer());
                                     ps.setInt(5, product.getPrice());
+                                    ps.setString(6, product.getProductStatus().name());
                                     return ps;
                                 }
                             }, keyHolder

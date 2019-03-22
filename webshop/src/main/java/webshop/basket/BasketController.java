@@ -54,4 +54,21 @@ public class BasketController {
     }
 
 
+    @DeleteMapping("/basket")
+    public CustomResponseStatus clearBasket(Authentication authentication) {
+        if (authentication != null) {
+            String loggedInUsername = authentication.getName();
+            int sqlResponse =
+                    basketService.clearBasketByUsername(loggedInUsername);
+            if (sqlResponse == 0) {
+                return new CustomResponseStatus(Response.SUCCESS, "Your basket is already empty.");
+            } else {
+                return new CustomResponseStatus(Response.SUCCESS, "Your basket has been cleared.");
+            }
+        } else {
+            return new CustomResponseStatus(Response.FAILED, "Please sign in to manage your basket.");
+        }
+    }
+
+
 }

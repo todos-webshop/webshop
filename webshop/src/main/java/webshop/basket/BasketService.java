@@ -32,12 +32,7 @@ public class BasketService {
         long userId = user.getId();
         long basketId = getOrCreateAndReturnBasketIdByUserId(userId);
 
-        if (basketId == 0) {
-            throw new IllegalStateException("Basket does not exist.");
-        }
-
         List<BasketItem> actualItemsInBasket = basketDao.getBasketItemsInBasketByBasketId(basketId);
-        System.out.println(actualItemsInBasket);
 
         Basket basket = new Basket(basketId, new UserData(user.getUsername(), user.getUserRole()));
         for (BasketItem basketItem : actualItemsInBasket) {
@@ -60,12 +55,23 @@ public class BasketService {
     }
 
 
-    private long getOrCreateAndReturnBasketIdByUserId(long userId) {
-        if (!basketDao.getAllBasketOwnerIds().contains(userId)) {
-            return basketDao.createBasketForUserIdAndReturnBasketId(userId);
-        } else {
-            return basketDao.getBasketIdByUserId(userId);
-        }
+    public int clearBasketByUsername(String loggedInUsername) {
+        long userId = userDao.getUserByUsername(loggedInUsername).getId();
+        long basketId = getOrCreateAndReturnBasketIdByUserId(userId);
+        return basketDao.clearBasketByBasketId(basketId);
     }
 
+
+    private long getOrCreateAndReturnBasketIdByUserId(long userId) {
+        long basketId = 0;
+        if (!basketDao.getAllBasketOwnerIds().contains(userId)) {
+            basketId = basketDao.createBasketForUserIdAndReturnBasketId(userId);
+        } else {
+            basketId = basketDao.getBasketIdByUserId(userId);
+        }
+        if (basketId == 0) {
+            throw new IllegalStateException("Basket does not exist.");
+        }
+        return basketId;
+    }
 }

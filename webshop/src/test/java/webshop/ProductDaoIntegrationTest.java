@@ -81,7 +81,11 @@ public class ProductDaoIntegrationTest {
         productDao.addNewProductAndGetId(product2);
 
         //then
-       Product prod = productDao.findProductByAddress("sample2_prod");
-       // productDao.updateProduct(prod.getId(), prod.getCode(), prod.getName(),  "manu2", 16000);
+        Product product3 = new Product(15, "PROD3", "Sample3 Prod", "manufacture3", 1560,ProductStatus.ACTIVE);
+        Product prod = productDao.findProductByAddress("sample2_prod");
+        Product prodOriginal = productDao.findProductByAddress("sample2_prod");
+        productDao.updateProduct(product3,prod.getId());
+        Product prodChanged = productDao.findProductByAddress("sample3_prod");
+        assertThat(prodOriginal.getId(),equalTo(prodChanged.getId()));
     }
 }

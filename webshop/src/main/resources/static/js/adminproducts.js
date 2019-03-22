@@ -21,6 +21,8 @@ function showDivs(jsonData) {
   divMain.innerHTML = '';
   for (var i = 0; i < jsonData.length; i++) {
     var divRow = document.createElement('div');
+    divRow.setAttribute('contenteditable', 'false');
+    divRow.setAttribute('id', jsonData[i].id);
 
     var codeDiv = document.createElement('div');
     codeDiv.innerHTML = jsonData[i].code;
@@ -47,20 +49,106 @@ function showDivs(jsonData) {
     priceDiv.setAttribute('class', 'div_class');
     divRow.appendChild(priceDiv);
 
-    var imgDiv = document.createElement('div');
-    imgDiv.innerHTML = '<img alt=' + jsonData[i].address + ' src=img\\products\\' + jsonData[i].address + '.png>';
-
     var statusDiv = document.createElement('div');
     statusDiv.innerHTML = jsonData[i].productStatus;
     statusDiv.setAttribute('class', 'div_class');
     divRow.appendChild(statusDiv);
 
-    imgDiv.classList.add('div_class');
+    var buttonsDiv = document.createElement('div');
+    buttonsDiv.setAttribute('class', 'div_class')
+    buttonsDiv.setAttribute('id', 'buttons-div')
 
-    divRow.appendChild(imgDiv);
+    var deleteBtn = document.createElement('input');
+    deleteBtn.setAttribute('type', 'button');
+    deleteBtn.value = 'Delete';
+    deleteBtn.setAttribute('id', jsonData[i].id)
+    deleteBtn.addEventListener('click', deleteItem);
+    deleteBtn.setAttribute('class', 'delete-button');
+
+    var editBtn = document.createElement('input');
+    editBtn.setAttribute('type', 'button');
+    editBtn.value = 'Edit';
+    editBtn.setAttribute('id', jsonData[i].id)
+    editBtn.addEventListener('click', editItem);
+    editBtn.setAttribute('class', 'delete-button');
+
+    var saveBtn = document.createElement('input');
+    saveBtn.value = 'Save';
+    saveBtn.addEventListener('click', saveUpdatedItem);
+    saveBtn.setAttribute('id', jsonData[i].id);
+    saveBtn.setAttribute('type', 'button');
+    saveBtn.setAttribute('class', 'disabled delete-button edit-button');
+
+    buttonsDiv.appendChild(deleteBtn);
+    buttonsDiv.appendChild(editBtn);
+    buttonsDiv.appendChild(saveBtn);
+
+    divRow.appendChild(buttonsDiv);
 
     divMain.appendChild(divRow);
   }
+}
+
+function deleteItem() {
+  var id = this.id;
+  console.log(id);
+
+  if (!confirm('Are you sure to delete?')) {
+    return;
+  }
+
+  fetch('/api/products/' + id, {
+    method: 'DELETE'
+
+  })
+    .then(function (response) {
+      document.getElementById('message-div').innerHTML = 'Deleted!';
+      fetchProducts();
+    });
+}
+
+function editItem(){
+    var editBtn = document.querySelector('.edit-button');
+    editBtn.setAttribute('class', 'enabled');
+    var row = document.getElementById(this.id);
+    row.setAttribute('contenteditable', 'true');
+}
+
+function saveUpdatedItem(){
+
+      var codeInput = document.getElementById('code').value;
+      var nameInput = document.getElementById('name').value;
+      var addressInput = document.getElementById('address').value;
+      var manufacturerInput = document.getElementById('manufacturer').value;
+      var priceInput = document.getElementById('price').value.split(" ");
+      priceInput = priceInput[0];
+      var statusInput = document.getElementById('status').value;
+      var request = {
+        'code': codeInput,
+        'name': nameInput,
+        'address': addressInput,
+        'manufacturer': manufacturerInput,
+        'price': priceInput,
+        'status': statusInput
+      };
+
+      fetch('/api/products/' + this.id, {
+        method: 'POST',
+        body: JSON.stringify(request),
+        headers: {
+          'Content-type': 'application/json'
+        }
+      })
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (jsonData){
+        console.log('idáig eljutottam!')
+        })
+        return false;
+
+        var row = document.getElementById(this.id);
+        row.setAttribute('contenteditable', 'false')
 }
 
 

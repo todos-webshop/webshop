@@ -34,3 +34,9 @@ border-radius: 8px;
 .enabled {
     display: inline;
 }
+
+.delete-button{
+height: 50px;
+width: 100px;
+background-color: azure;
+}
