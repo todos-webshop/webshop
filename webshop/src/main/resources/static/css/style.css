@@ -48,7 +48,7 @@ border-radius: 8px;
     display: inline;
 }
 
-.delete-button, edit-button{
+.button {
 height: 50px;
 width: 100px;
 background-color: azure;
