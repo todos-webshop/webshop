@@ -1,4 +1,4 @@
-package webshop;
+/*package webshop;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.junit.Before;
@@ -83,4 +83,4 @@ public class ProductDaoIntegrationTest {
        Product prod = productDao.findProductByAddress("sample2_prod");
        // productDao.updateProduct(prod.getId(), prod.getCode(), prod.getName(),  "manu2", 16000);
     }
-}
+}*/
