@@ -4,6 +4,7 @@ package webshop.product;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -13,6 +14,7 @@ import javax.sql.DataSource;
 import java.sql.*;
 import java.text.Normalizer;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class ProductDao {
@@ -74,27 +76,27 @@ public class ProductDao {
         return keyHolder.getKey().longValue();
     }
 
-    public boolean isCodeUnique(String code){
+    public boolean isCodeUnique(String code) {
         List<String> products = jdbcTemplate.query("select code from products where code = ?", new RowMapper<String>() {
             @Override
             public String mapRow(ResultSet resultSet, int i) throws SQLException {
                 return resultSet.getString("code");
             }
         }, code);
-            if (products.size() == 0){
-                return true;
-            }
+        if (products.size() == 0) {
+            return true;
+        }
         return false;
     }
 
-    public boolean isNameUnique(String name){
+    public boolean isNameUnique(String name) {
         List<String> products = jdbcTemplate.query("select name from products where name = ?", new RowMapper<String>() {
             @Override
             public String mapRow(ResultSet resultSet, int i) throws SQLException {
                 return resultSet.getString("name");
             }
         }, name);
-        if (products.size() == 0){
+        if (products.size() == 0) {
             return true;
         }
         return false;
@@ -102,45 +104,56 @@ public class ProductDao {
 
     public int updateProduct(Product product, long id) {
         return jdbcTemplate.update("update products set code = ?, name = ?, address = ?,manufacturer = ?, price = ? where id = ?",
-                product.getCode(), product.getName(),product.getAddress(),product.getManufacturer(),product.getPrice(), id);
+                product.getCode(), product.getName(), product.getAddress(), product.getManufacturer(), product.getPrice(), id);
     }
 
-    public boolean isIdTheSameForUpdatingTheSameCode(String code, long id){
+    public boolean isIdTheSameForUpdatingTheSameCode(String code, long id) {
         List<Long> ids = jdbcTemplate.query("select id from products where code = ?", new RowMapper<Long>() {
             @Override
             public Long mapRow(ResultSet resultSet, int i) throws SQLException {
                 return resultSet.getLong("id");
             }
         }, code);
-        if (isCodeUnique(code) || !isCodeUnique(code) && (ids.get(0) == id)){
+        if (isCodeUnique(code) || !isCodeUnique(code) && (ids.get(0) == id)) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
 
-    public boolean isIdTheSameForUpdatingTheSameName(String name, long id){
+    public boolean isIdTheSameForUpdatingTheSameName(String name, long id) {
         List<Long> ids = jdbcTemplate.query("select id from products where name = ?", new RowMapper<Long>() {
             @Override
             public Long mapRow(ResultSet resultSet, int i) throws SQLException {
                 return resultSet.getLong("id");
             }
         }, name);
-        if (isNameUnique(name) || !isNameUnique(name) && (ids.get(0) == id)){
+        if (isNameUnique(name) || !isNameUnique(name) && (ids.get(0) == id)) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
 
-    public void logicalDeleteProductById(long id){
+    public void logicalDeleteProductById(long id) {
         jdbcTemplate.update("update products set status = ? where id = ?", "DELETED", id);
     }
-    public void deleteAll(){
+
+    public void deleteAll() {
         jdbcTemplate.update("delete from products");
     }
 
 
+    public long getProductIdByProductCode(String productCode) {
+        Long productId =
+                new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).queryForObject(
+                        "SELECT id FROM products WHERE code = " +
+                                "(:code)", Map.of("code",
+                                productCode),
+                        (rs, i) -> rs.getLong("id"));
+        if (productId == null) {
+            throw new IllegalStateException("Product id does not exist for product code: " + productCode);
+        }
+        return productId;
+    }
 }
