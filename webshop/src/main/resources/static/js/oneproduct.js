@@ -1,14 +1,11 @@
-
-console.log("csoki");
-  fetchProduct();
+fetchProduct();
 
 
 
 function fetchProduct() {
-console.log("csoki2");
 var address = (new URL(document.location)).searchParams.get("address");
 console.log(address);
-        var url ="product/" + address;
+        var url ="api/products/" + address;
         fetch(url)
             .then(function(response) {
                 return response.json();
@@ -19,7 +16,7 @@ console.log(address);
             });}
 
 function showDivs(jsonData) {
-    divMain = document.getElementById("main_div");
+    var divMain = document.getElementById("main_div");
     var divRow = document.createElement("div");
 
        var codeDiv = document.createElement("div");
@@ -47,12 +44,12 @@ function showDivs(jsonData) {
                          priceDiv.setAttribute('class', 'div_class');
                         divRow.appendChild(priceDiv);
 
-         var imgDiv = document.createElement("div");
-                                 imgDiv.innerHTML = "<img alt="+jsonData.address+" src=img\\products\\"+jsonData.address+".png>";
+        //  var imgDiv = document.createElement("div");
+        //                          imgDiv.innerHTML = "<img alt="+jsonData.address+" src=img\\products\\"+jsonData.address+".png>";
 
-                                imgDiv.classList.add('div_class');
-                                 //imgDiv.classList.add('div_img');
-                                 divRow.appendChild(imgDiv);
+        //                         imgDiv.classList.add('div_class');
+        //                          //imgDiv.classList.add('div_img');
+        //                          divRow.appendChild(imgDiv);
 
         divMain.appendChild(divRow);
 
