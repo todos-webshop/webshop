@@ -21,6 +21,9 @@ private ProductStatus productStatus;
         address = generateAddress();
         this.manufacturer = manufacturer;
         this.price = price;
+        if (productStatus == null){
+            productStatus = ProductStatus.ACTIVE;
+        }
         this.productStatus = productStatus;
     }
 
@@ -62,6 +65,7 @@ private ProductStatus productStatus;
     public long getId() {
         return id;
     }
+
 
 
     @Override
