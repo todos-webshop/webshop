@@ -22,6 +22,7 @@ function showDivs(jsonData) {
     var divRow = document.createElement('div');
     divRow.setAttribute('contenteditable', 'false');
     divRow.setAttribute('id', jsonData[i].id);
+    divRow.setAttribute('class', 'admin-product-div');
 
     var codeDiv = document.createElement('div');
     codeDiv.innerHTML = jsonData[i].code;
@@ -54,36 +55,33 @@ function showDivs(jsonData) {
     divRow.appendChild(statusDiv);
 
     var buttonsDiv = document.createElement('div');
-    buttonsDiv.setAttribute('class', 'div_class_admin')
+    buttonsDiv.setAttribute('class', 'div_class_admin admin-product-div')
     buttonsDiv.setAttribute('id', 'buttons-div')
 
-    var deleteBtn = document.createElement('input');
-    deleteBtn.setAttribute('type', 'button');
-    deleteBtn.value = 'Delete';
+    var deleteBtn = document.createElement('img');
+    deleteBtn.setAttribute('src','/img/delete-button.png')
+    deleteBtn.setAttribute('class', 'button')
     deleteBtn.setAttribute('id', jsonData[i].id)
     deleteBtn.addEventListener('click', deleteItem);
     deleteBtn.setAttribute('class', 'button');
 
-    var editBtn = document.createElement('input');
-    editBtn.setAttribute('type', 'button');
-    editBtn.value = 'Edit';
+    var editBtn = document.createElement('img');
+    editBtn.setAttribute('src', '/img/edit-button.png');
+    editBtn.setAttribute('class', 'button')
     editBtn.setAttribute('id', jsonData[i].id)
     editBtn.addEventListener('click', editItem);
     editBtn.setAttribute('class', 'button');
 
-    var saveBtn = document.createElement('input');
-    saveBtn.value = 'Save';
+    var saveBtn = document.createElement('img');
     saveBtn.addEventListener('click', saveUpdatedItem);
     saveBtn.setAttribute('id', jsonData[i].id);
-    saveBtn.setAttribute('type', 'button');
-    var attribute = 'disabled button save-button' + jsonData[i].id;
+    saveBtn.setAttribute('src', '/img/save-button.png');
+    var attribute = 'button-disabled button save-button' + jsonData[i].id;
     saveBtn.setAttribute('class', attribute);
 
-    buttonsDiv.appendChild(deleteBtn);
-    buttonsDiv.appendChild(editBtn);
-    buttonsDiv.appendChild(saveBtn);
-
-    divRow.appendChild(buttonsDiv);
+    divRow.appendChild(deleteBtn);
+    divRow.appendChild(editBtn);
+    divRow.appendChild(saveBtn);
 
     divMain.appendChild(divRow);
   }
@@ -118,7 +116,7 @@ function editItem(){
     var attribute = '.save-button' + this.id;
     var saveBtn = document.querySelector(attribute);
     var newClassName = 'save-button' + this.id;
-    var newAttribute = 'enabled button ' + newClassName;
+    var newAttribute = 'button-enabled button ' + newClassName;
 
     saveBtn.setAttribute('class', newAttribute);
 
@@ -168,7 +166,7 @@ function saveUpdatedItem(){
             row.setAttribute('contenteditable', 'false');
             var classAttribute = '.save-button' + id;
             var newClassName = 'save-button' + id;
-            var newAttribute = 'disabled button ' + newClassName;
+            var newAttribute = 'button-disabled button ' + newClassName;
             document.querySelector(classAttribute).setAttribute('class', newAttribute);
             } else{
             fetchProducts();
@@ -177,7 +175,7 @@ function saveUpdatedItem(){
             row.setAttribute('contenteditable', 'false');
             var classAttribute = '.save-button' + id;
             var newClassName = 'save-button' + id;
-            var newAttribute = 'disabled button ' + newClassName;
+            var newAttribute = 'button-disabled button ' + newClassName;
             document.querySelector(classAttribute).setAttribute('class', newAttribute);
                 }
             })
@@ -230,6 +228,9 @@ newProductButton.onclick = function () {
 };
 
 function showInputFields() {
-  var formInput = document.querySelector('.disabled');
+  var formInput = document.querySelector('#form-input');
+  if (formInput.getAttribute('class') == 'disabled'){
   formInput.setAttribute('class', 'enabled');
+  } else {
+  formInput.setAttribute('class', 'disabled')}
 }
