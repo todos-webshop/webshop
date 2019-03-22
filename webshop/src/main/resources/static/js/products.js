@@ -38,11 +38,11 @@ function fetchProducts() {
                             priceDiv.setAttribute("onclick", `window.location.href="product.html?address=${jsonData[i].address}"`);
                            divRow.appendChild(priceDiv);
 
-            var imgDiv = document.createElement("div");
-                                    imgDiv.innerHTML = "<img alt="+jsonData[i].address+" src=img\\products\\"+jsonData[i].address+".png>";
-                                   imgDiv.classList.add('div_class');
-                                   imgDiv.setAttribute("onclick", `window.location.href="product.html?address=${jsonData[i].address}"`);
-                                    divRow.appendChild(imgDiv);
+       //     var imgDiv = document.createElement("div");
+        //                            imgDiv.innerHTML = "<img alt="+jsonData[i].address+" src=img\\products\\"+jsonData[i].address+".png>";
+         //                          imgDiv.classList.add('div_class');
+           //                        imgDiv.setAttribute("onclick", `window.location.href="product.html?address=${jsonData[i].address}"`);
+             //                       divRow.appendChild(imgDiv);
 
            divMain.appendChild(divRow);
 
