@@ -26,36 +26,36 @@ function showDivs(jsonData) {
 
     var codeDiv = document.createElement('div');
     codeDiv.innerHTML = jsonData[i].code;
-    codeDiv.setAttribute('class', 'div_class');
+    codeDiv.setAttribute('class', 'div_class_admin');
     divRow.appendChild(codeDiv);
 
     var nameDiv = document.createElement('div');
     nameDiv.innerHTML = jsonData[i].name;
-    nameDiv.setAttribute('class', 'div_class');
+    nameDiv.setAttribute('class', 'div_class_admin');
     divRow.appendChild(nameDiv);
 
     var addressDiv = document.createElement('div');
     addressDiv.innerHTML = jsonData[i].address;
-    addressDiv.setAttribute('class', 'div_class');
+    addressDiv.setAttribute('class', 'div_class_admin');
     divRow.appendChild(addressDiv);
 
     var manufacturerDiv = document.createElement('div');
     manufacturerDiv.innerHTML = jsonData[i].manufacturer;
-    manufacturerDiv.setAttribute('class', 'div_class');
+    manufacturerDiv.setAttribute('class', 'div_class_admin');
     divRow.appendChild(manufacturerDiv);
 
     var priceDiv = document.createElement('div');
     priceDiv.innerHTML = jsonData[i].price + ' Ft';
-    priceDiv.setAttribute('class', 'div_class');
+    priceDiv.setAttribute('class', 'div_class_admin');
     divRow.appendChild(priceDiv);
 
     var statusDiv = document.createElement('div');
     statusDiv.innerHTML = jsonData[i].productStatus;
-    statusDiv.setAttribute('class', 'div_class');
+    statusDiv.setAttribute('class', 'div_class_admin');
     divRow.appendChild(statusDiv);
 
     var buttonsDiv = document.createElement('div');
-    buttonsDiv.setAttribute('class', 'div_class')
+    buttonsDiv.setAttribute('class', 'div_class_admin')
     buttonsDiv.setAttribute('id', 'buttons-div')
 
     var deleteBtn = document.createElement('input');
@@ -70,7 +70,7 @@ function showDivs(jsonData) {
     editBtn.value = 'Edit';
     editBtn.setAttribute('id', jsonData[i].id)
     editBtn.addEventListener('click', editItem);
-    editBtn.setAttribute('class', 'delete-button');
+    editBtn.setAttribute('class', 'edit-button');
 
     var saveBtn = document.createElement('input');
     saveBtn.value = 'Save';

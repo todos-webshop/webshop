@@ -22,41 +22,6 @@ function fetchProducts() {
        var divRow = document.createElement("div");
 
 
-       var codeDiv = document.createElement("div");
-       codeDiv.innerHTML = jsonData[i].code;
-       codeDiv.setAttribute('class', 'div_class');
-       divRow.appendChild(codeDiv);
-
-       var nameDiv = document.createElement("div");
-       nameDiv.innerHTML = jsonData[i].name;
-       nameDiv.setAttribute('class', 'div_class');
-       divRow.appendChild(nameDiv);
-
-       var addressDiv = document.createElement("div");
-       addressDiv.innerHTML = jsonData[i].address;
-       addressDiv.setAttribute('class', 'div_class');
-       divRow.appendChild(addressDiv);
-
-       var manufacturerDiv = document.createElement("div");
-       manufacturerDiv.innerHTML = jsonData[i].manufacturer;
-       manufacturerDiv.setAttribute('class', 'div_class');
-       divRow.appendChild(manufacturerDiv);
-
-       var priceDiv = document.createElement("div");
-       priceDiv.innerHTML = jsonData[i].price+ " Ft";
-       priceDiv.setAttribute('class', 'div_class');
-       divRow.appendChild(priceDiv);
-
-       var statusDiv = document.createElement('div');
-       statusDiv.innerHTML = jsonData[i].productStatus;
-       statusDiv.setAttribute('class', 'div_class');
-       divRow.appendChild(statusDiv);
-
-      // divRow.appendChild(imgDiv);
-
-       divMain.appendChild(divRow);
-
-
             var nameDiv = document.createElement("div");
 
                    nameDiv.innerHTML = jsonData[i].name;
@@ -73,11 +38,11 @@ function fetchProducts() {
                             priceDiv.setAttribute("onclick", `window.location.href="product.html?address=${jsonData[i].address}"`);
                            divRow.appendChild(priceDiv);
 
-       //     var imgDiv = document.createElement("div");
-        //                            imgDiv.innerHTML = "<img alt="+jsonData[i].address+" src=img\\products\\"+jsonData[i].address+".png>";
-         //                          imgDiv.classList.add('div_class');
-           //                        imgDiv.setAttribute("onclick", `window.location.href="product.html?address=${jsonData[i].address}"`);
-             //                       divRow.appendChild(imgDiv);
+            // var imgDiv = document.createElement("div");
+            //                         imgDiv.innerHTML = "<img alt="+jsonData[i].address+" src=img\\products\\"+jsonData[i].address+".png>";
+            //                        imgDiv.classList.add('div_class');
+            //                        imgDiv.setAttribute("onclick", `window.location.href="product.html?address=${jsonData[i].address}"`);
+            //                         divRow.appendChild(imgDiv);
 
            divMain.appendChild(divRow);
 
