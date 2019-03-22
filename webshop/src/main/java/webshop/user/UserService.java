@@ -21,10 +21,13 @@ public class UserService {
 
     public long createUserAndReturnUserId(User user) {
         long newlyCreatedUserId = userDao.createUserAndReturnUserId(user);
-        if (newlyCreatedUserId == 0){
+        if (newlyCreatedUserId == 0) {
             return 0;
         }
-        basketDao.createBasketForUserIdAndReturnBasketId(newlyCreatedUserId);
+        long basketId = basketDao.createBasketForUserIdAndReturnBasketId(newlyCreatedUserId);
+        if (basketId < 1) {
+            throw new IllegalStateException("Basket was not created for userId: " + newlyCreatedUserId);
+        }
         return newlyCreatedUserId;
     }
 

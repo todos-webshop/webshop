@@ -22,7 +22,7 @@ public class BasketService {
     }
 
     // user id is used from here (instead of username) in case username changes in time
-    public Basket getBasketByUser(String loggedInUsername) {
+    public BasketData getBasketDataByUser(String loggedInUsername) {
 
         User user = userDao.getUserByUsername(loggedInUsername);
 
@@ -46,7 +46,11 @@ public class BasketService {
         for (BasketItem basketItem : actualItemsInBasket) {
             basket.addBasketItem(basketItem);
         }
-        return basket;
+
+        int sumPieces = basketDao.sumProductPiecesInBasketByBasketId(basketId);
+        int sumPrice = basketDao.sumProductPriceInBasketByBasketId(basketId);
+
+        return new BasketData(sumPieces, sumPrice,  basket);
     }
 
 

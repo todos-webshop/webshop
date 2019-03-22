@@ -22,14 +22,15 @@ public class BasketController {
 
     @GetMapping(value = "/basket")
     @ResponseBody
-    public Basket getBasketForActualUser(Authentication authentication) {
+    public BasketData getBasketDataForActualUser(Authentication authentication) {
 
         if (authentication != null) {
             String loggedInUsername = authentication.getName();
 
-            return basketService.getBasketByUser(loggedInUsername);
+            return basketService.getBasketDataByUser(loggedInUsername);
         } else {
-            return new Basket(0, new UserData("", UserRole.NOT_AUTHENTICATED));
+            return (new BasketData(0, 0, new Basket(0, new UserData("",
+                    UserRole.NOT_AUTHENTICATED))));
         }
     }
 

@@ -82,8 +82,41 @@ public class BasketDao {
 
         return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).query(
                 "SELECT id, code, name, manufacturer, price, status FROM basket_items " +
-                        "JOIN products ON basket_items.product_id = products.id where basket_id = (:basket_id)", Map.of("basket_id", basketId),
+                        "JOIN products ON basket_items.product_id = products.id where basket_id =" +
+                        " (:basket_id) ORDER BY name", Map.of("basket_id", basketId),
                 BASKET_ITEM_ROW_MAPPER);
 
+    }
+
+
+    public int sumProductPiecesInBasketByBasketId(long basketId) {
+        Integer sumProductPieces =
+                new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).queryForObject(
+                        "SELECT count(products.id) as sum_pieces FROM basket_items JOIN products " +
+                                "ON " +
+                                "basket_items.product_id = products.id where basket_id = " +
+                                "(:basket_id)", Map.of("basket_id",
+                                basketId),
+                        (rs, i) -> rs.getInt("sum_pieces"));
+        if (sumProductPieces != null) {
+            return sumProductPieces;
+        }
+        return 0;
+    }
+
+
+
+    public int sumProductPriceInBasketByBasketId(long basketId) {
+        Integer sumProductPrice =
+                new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).queryForObject(
+                        "SELECT sum(price) as sum_price FROM basket_items JOIN products ON " +
+                                "basket_items.product_id = products.id where basket_id = " +
+                                "(:basket_id)", Map.of("basket_id",
+                                basketId),
+                        (rs, i) -> rs.getInt("sum_price"));
+        if (sumProductPrice != null) {
+            return sumProductPrice;
+        }
+        return 0;
     }
 }
