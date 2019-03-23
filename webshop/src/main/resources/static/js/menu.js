@@ -22,34 +22,41 @@ function setMenu(){
     div.setAttribute("class", "menu_div");
 
     div.appendChild(createLogoImg());
-    div.appendChild(createLoginButton());
-    div.appendChild(createSignUpButton());
-    div.appendChild(createLogoutButton());
 
-    div.appendChild(createCartButton());
+    body.insertBefore(createMessageDiv(),body.firstChild);
+    body.insertBefore(div, body.firstChild);
 
 
-   console.log(user);
     switch(user["role"]){
-        case "NOT_AUTHENTICATED": break;
+        case "NOT_AUTHENTICATED": 
+            div.appendChild(createLoginButton());
+            div.appendChild(createSignUpButton());
+            addEventListenerToNotLoggedIn();
+            break;
         case "ROLE_USER": {
             createDropdownDivForUser(div);
+            div.appendChild(createLogoutButton());
+            div.appendChild(createCartButton());
             div.appendChild(welcomeUser());
+            addEventListenerToLoggedIn();
             break;
         }
         case "ROLE_ADMIN": {
             createDropdownDivForAdmin(div);
+            div.appendChild(createLogoutButton());
+            div.appendChild(createCartButton());
             div.appendChild(welcomeUser());
+            addEventListenerToLoggedIn();
             break;
         }
     }
     
     
 
-    body.insertBefore(createMessageDiv(),body.firstChild);
-    body.insertBefore(div, body.firstChild);
+    
     setFavicon();
     insertMenuCss();
+    addEventListenerToLogo();
 }
 
 function classChanger() {
@@ -119,6 +126,7 @@ function createDropdownDivForAdmin(div){
             <a href="/history.html">Order history</a>
             <a href="/statistics.html">Statistics</a>
             <a href="/users.html">Users</a>
+            <a href="/adminproducts.html">Products</a>
         </div>
     </div>
     `;
@@ -128,49 +136,39 @@ function createLogoImg(){
     logoImg.setAttribute("src", "img/logo.png");
     logoImg.setAttribute("alt", "Logo");
     logoImg.setAttribute("class", "logo-img");
-    logoImg.onclick = function(){
-        window.location.href = "index.html";
-    }
+    logoImg.id = "logo-img";
     return logoImg;
 }
 
 function createLoginButton(){
     var loginBtn = document.createElement("button");
     loginBtn.innerText = "Login";
-    loginBtn.className="menu-button";
-    loginBtn.onclick = function(){
-        window.location.href = "/login";
-    }
+    loginBtn.className = "menu-button";
+    loginBtn.id = "login-btn";
     return loginBtn;
 }
 
 function createLogoutButton(){
     var logoutBtn = document.createElement("button");
     logoutBtn.innerText = "Logout";
-    logoutBtn.className="menu-button";
-    logoutBtn.onclick = function(){
-        window.location.href = "/logout";
-    }
+    logoutBtn.className = "menu-button";
+    logoutBtn.id = "logout-btn";
     return logoutBtn;
 }
 
 function createSignUpButton(){
     var signUpBtn = document.createElement("button");
     signUpBtn.innerText = "Sign up";
-    signUpBtn.className="menu-button";
-    signUpBtn.onclick = function(){
-        window.location.href = "/register.html";
-    }
+    signUpBtn.className = "menu-button";
+    signUpBtn.id = "signup-btn";
     return signUpBtn;
 }
 
 function createCartButton(){
     var cartBtn = document.createElement("button");
     cartBtn.innerText = "Cart";
-    cartBtn.className="menu-button";
-    cartBtn.onclick = function(){
-        window.location.href = "/basket.html";
-    }
+    cartBtn.className = "menu-button";
+    cartBtn.id = "cart-btn";
     return cartBtn;
 }
 function createMessageDiv(){
@@ -178,4 +176,28 @@ function createMessageDiv(){
     messageDiv.setAttribute("id","message-div");
     messageDiv.setAttribute("class","message-div");
     return messageDiv;
+}
+
+function addEventListenerToNotLoggedIn(){
+    document.getElementById("login-btn").addEventListener("click", function(){
+        window.location.href = "/login";
+    })
+    document.getElementById("signup-btn").addEventListener("click", function(){
+        window.location.href = "/register.html";
+    })
+}
+
+function addEventListenerToLoggedIn(){
+    document.getElementById("logout-btn").addEventListener("click", function(){
+        window.location.href = "/logout";
+    })
+    document.getElementById("cart-btn").addEventListener("click", function(){
+        window.location.href = "/basket.html";
+    })
+}
+
+function addEventListenerToLogo(){
+    document.getElementById("logo-img").addEventListener("click", function(){
+        window.location.href = "index.html";
+    })
 }

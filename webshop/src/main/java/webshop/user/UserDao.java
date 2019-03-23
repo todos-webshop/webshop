@@ -8,6 +8,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -21,8 +22,8 @@ public class UserDao {
 
     private JdbcTemplate jdbcTemplate;
 
-    public UserDao(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public UserDao(DataSource dataSource) {
+        jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
 
@@ -84,6 +85,10 @@ public class UserDao {
         return jdbcTemplate.query("select id, first_name, last_name,username,password,role,enabled from users",
                 (rs, rowNum) -> new User(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("username"), rs.getString("password"), rs.getInt("enabled"), UserRole.valueOf(rs.getString("role"))));
 
+    }
+
+    public void deleteAll() {
+        jdbcTemplate.update("delete from users");
     }
 
 

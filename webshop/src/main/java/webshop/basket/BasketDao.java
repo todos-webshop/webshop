@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import webshop.product.Product;
 import webshop.product.ProductStatus;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -23,8 +24,8 @@ public class BasketDao {
 
     private JdbcTemplate jdbcTemplate;
 
-    public BasketDao(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public BasketDao(DataSource dataSource) {
+        jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
     public List<Long> getAllBasketOwnerIds() {
@@ -145,5 +146,18 @@ public class BasketDao {
     public int clearBasketByBasketId(long basketId) {
         return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).update("DELETE FROM basket_items WHERE basket_id = " +
                 "(:basket_id);", Map.of("basket_id", basketId));
+    }
+
+    public void deleteAll() {
+        jdbcTemplate.update("delete from baskets");
+    }
+
+    public void deleteAllBusketItems() {
+        jdbcTemplate.update("delete from basket_items");
+    }
+
+    public int deleteOneProductFromBusket (long basketId, long productid){
+        return jdbcTemplate.update("DELETE FROM basket_items WHERE basket_id = ? and " +
+                "product_id=?;",basketId,productid);
     }
 }

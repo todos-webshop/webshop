@@ -4,7 +4,8 @@ fetchProduct();
 
 function fetchProduct() {
 var address = (new URL(document.location)).searchParams.get("address");
-        var url ="api/products/" + address;
+        var url ="api/product/" + address;
+        console.log(url);
         fetch(url)
             .then(function(response) {
                 return response.json();
@@ -15,6 +16,7 @@ var address = (new URL(document.location)).searchParams.get("address");
             });}
 
 function showTable(jsonData) {
+    console.log(jsonData);
     var table = document.getElementById("product-table");
     var tr = document.createElement("tr");
  
@@ -35,9 +37,37 @@ function showTable(jsonData) {
                      tr.appendChild(priceTd);
 
     table.appendChild(tr);
+
+    document.querySelector('#purchase').addEventListener('click', function () {
+            addToBasket(jsonData);
+        });
  
 }
 
-function addToBasket(){
-    console.log("baszki");
+function addToBasket(jsonData) {
+  var code = jsonData.code;
+  var request = {
+    'productCode': code
+  };
+//   console.log(request);
+  fetch('/basket', {
+    method: 'POST',
+    body: JSON.stringify(request),
+    headers: {
+      'Content-type': 'application/json'
+    }
+  })
+    .then(function (response) {
+            //  console.log(response);
+             return response.json();
+            }).then(function (jsonData) {
+                // console.log(jsonData);
+      if (jsonData.response === "SUCCESS") {
+        document.getElementById('message-div').setAttribute('class', 'alert alert-success');
+      } else {
+        document.getElementById('message-div').setAttribute('class', 'alert alert-danger');
+      }
+      document.getElementById('message-div').innerHTML = jsonData.message;
+    });
 }
+
