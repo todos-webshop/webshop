@@ -57,7 +57,7 @@ public class UserDao {
 
 
     public List<String> getAllUsernames() {
-        return jdbcTemplate.query("select username from users",
+        return jdbcTemplate.query("select username from users order by username",
                 (resultSet, i) -> resultSet.getString("username"));
     }
 
@@ -82,7 +82,7 @@ public class UserDao {
 
 
     public List<User> listAllUsers() {
-        return jdbcTemplate.query("select id, first_name, last_name,username,password,role,enabled from users",
+        return jdbcTemplate.query("select id, first_name, last_name,username,password,role,enabled from users order by username",
                 (rs, rowNum) -> new User(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("username"), rs.getString("password"), rs.getInt("enabled"), UserRole.valueOf(rs.getString("role"))));
 
     }

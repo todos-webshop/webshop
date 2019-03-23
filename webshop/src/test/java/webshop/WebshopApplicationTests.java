@@ -28,7 +28,9 @@ import java.util.List;
 public class WebshopApplicationTests {
 	@Autowired
 	private ProductController productController;
+	@Autowired
 	private UserController userController;
+	@Autowired
 	private BasketController basketController;
 
 	@Test
