@@ -110,6 +110,7 @@ function deleteItem() {
             document.getElementById('message-div').setAttribute('class', 'alert alert-danger');
         }
     });
+    return false;
 }
 
 function editItem(){
