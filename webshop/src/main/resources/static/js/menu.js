@@ -123,9 +123,6 @@ function createDropdownDivForAdmin(div){
     </div>
     `;
 }
-
-
-
 function createLogoImg(){
     var logoImg = document.createElement("img");
     logoImg.setAttribute("src", "img/logo.png");
@@ -176,7 +173,6 @@ function createCartButton(){
     }
     return cartBtn;
 }
-
 function createMessageDiv(){
     var messageDiv = document.createElement("div");
     messageDiv.setAttribute("id","message-div");
