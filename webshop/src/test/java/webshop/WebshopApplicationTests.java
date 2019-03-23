@@ -1,11 +1,13 @@
 package webshop;
 
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
+import webshop.basket.BasketController;
 import webshop.product.Product;
 import webshop.product.ProductController;
 import webshop.product.ProductStatus;
@@ -27,6 +29,7 @@ public class WebshopApplicationTests {
 	@Autowired
 	private ProductController productController;
 	private UserController userController;
+	private BasketController basketController;
 
 	@Test
 	public void testCreateProduct() {
@@ -123,7 +126,7 @@ public class WebshopApplicationTests {
 
 	@Test
 	public void testCreateUser() {
-		User user1 = new User(123, "Test", "Woman", "testwoman", "passTest", 1, null);
+		User user1 = new User(123, "Test", "Woman", "testwoman", "passTest", 1, UserRole.ROLE_ADMIN);
 		User user2 = new User(123, "Test", "Man", "testman", "passTest", 1, UserRole.ROLE_ADMIN);
 		userController.createUser(user1);
 		userController.createUser(user2);
@@ -132,4 +135,10 @@ public class WebshopApplicationTests {
 		assertEquals(2, users.size());
 		assertEquals(UserRole.ROLE_ADMIN, users.get(1).getUserRole());
 	}
+
+	@Test
+	public void testGetBasketDataForActualUser(){
+
 	}
+
+}
