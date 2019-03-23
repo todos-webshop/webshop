@@ -17,10 +17,13 @@ private ProductStatus productStatus;
                    ProductStatus productStatus) {
         this.id = id;
         this.code = code;
-        this.name = deleteRedundantSpace(name.trim());
+        this.name = name;
         address = generateAddress();
         this.manufacturer = manufacturer;
         this.price = price;
+        if (productStatus == null){
+            productStatus = ProductStatus.ACTIVE;
+        }
         this.productStatus = productStatus;
     }
 
@@ -63,21 +66,8 @@ private ProductStatus productStatus;
         return id;
     }
 
-    private String deleteRedundantSpace(String string){
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < string.length()-1;i++){
-        if (string.charAt(i) == ' ' &&  string.charAt(i+1)==' '){
 
-        }
-        else {
-            stringBuilder.append(string.charAt(i));
-        }
-        }
-        if(string.equals("")){
-            return "";
-        }
-        return stringBuilder.append(string.charAt(string.length()-1)).toString();
-    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

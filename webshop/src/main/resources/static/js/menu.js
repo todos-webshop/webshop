@@ -46,7 +46,7 @@ function setMenu(){
     
     
 
-
+    body.insertBefore(createMessageDiv(),body.firstChild);
     body.insertBefore(div, body.firstChild);
     setFavicon();
     insertMenuCss();
@@ -119,6 +119,7 @@ function createDropdownDivForAdmin(div){
             <a href="/history.html">Order history</a>
             <a href="/statistics.html">Statistics</a>
             <a href="/users.html">Users</a>
+            <a href="/adminproducts.html">Products</a>
         </div>
     </div>
     `;
@@ -130,39 +131,12 @@ function createLogoImg(){
     var logoImg = document.createElement("img");
     logoImg.setAttribute("src", "img/logo.png");
     logoImg.setAttribute("alt", "Logo");
+    logoImg.setAttribute("class", "logo-img");
     logoImg.onclick = function(){
         window.location.href = "index.html";
     }
-    logoImg.setAttribute("style","height: 80px");
     return logoImg;
 }
-
-// function createOrdersButton(){
-//     var ordersBtn = document.createElement("button");
-//     ordersBtn.innerText = "Orders";
-//     ordersBtn.onclick = function(){
-//         window.location.href = "orders.html";
-//     }
-//     return ordersBtn;
-// }
-
-// function createHistoryButton(){
-//     var historyBtn = document.createElement("button");
-//     historyBtn.innerText = "History";
-//     historyBtn.onclick = function(){
-//         window.location.href = "history.html";
-//     }
-//     return historyBtn;
-// }
-
-// function createStatButton(){
-//     var statisticsBtn = document.createElement("button");
-//     statisticsBtn.innerText = "Statistics";
-//     statisticsBtn.onclick = function(){
-//         window.location.href = "statistics.html";
-//     }
-//     return statisticsBtn;
-// }
 
 function createLoginButton(){
     var loginBtn = document.createElement("button");
@@ -199,7 +173,14 @@ function createCartButton(){
     cartBtn.innerText = "Cart";
     cartBtn.className="menu-button";
     cartBtn.onclick = function(){
-        window.location.href = "cart.html";
+        window.location.href = "/basket.html";
     }
     return cartBtn;
+}
+
+function createMessageDiv(){
+    var messageDiv = document.createElement("div");
+    messageDiv.setAttribute("id","message-div");
+    messageDiv.setAttribute("class","message-div");
+    return messageDiv;
 }

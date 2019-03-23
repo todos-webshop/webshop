@@ -22,7 +22,6 @@ public class ProductController {
         return productService.listAllProducts();
     }
 
-
     @GetMapping("/api/product/{address}")
     public Product findProductByAddress(@PathVariable String address) {
         return productService.findProductByAddress(address);
@@ -54,7 +53,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/api/product/{productId}")
-    public void logicalDeleteProductById(@PathVariable long productId){
-        productService.logicalDeleteProductById(productId);
+    public CustomResponseStatus logicalDeleteProductById(@PathVariable long productId){
+        return productService.logicalDeleteProductById(productId);
     }
 }

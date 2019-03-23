@@ -1,59 +1,73 @@
-
-console.log("csoki");
-  fetchProduct();
+fetchProduct();
 
 
 
 function fetchProduct() {
-console.log("csoki2");
 var address = (new URL(document.location)).searchParams.get("address");
-console.log(address);
-        var url ="product/" + address;
+        var url ="api/product/" + address;
+        console.log(url);
         fetch(url)
             .then(function(response) {
                 return response.json();
                 })
             .then(function(jsonData) {
 
-                showDivs(jsonData);
+                showTable(jsonData);
             });}
 
-function showDivs(jsonData) {
-    divMain = document.getElementById("main_div");
-    var divRow = document.createElement("div");
+function showTable(jsonData) {
+    console.log(jsonData);
+    var table = document.getElementById("product-table");
+    var tr = document.createElement("tr");
+ 
+    var codeTd = document.createElement("td");
+              codeTd.innerHTML = jsonData.code;
+              tr.appendChild(codeTd);
 
-       var codeDiv = document.createElement("div");
-                 codeDiv.innerHTML = jsonData.code;
-                 codeDiv.setAttribute('class', 'div_class');
-                 divRow.appendChild(codeDiv);
+    var nameTd = document.createElement("td");
+             nameTd.innerHTML = jsonData.name;
+             tr.appendChild(nameTd);
 
-         var nameDiv = document.createElement("div");
-                nameDiv.innerHTML = jsonData.name;
-                 nameDiv.setAttribute('class', 'div_class');
-                divRow.appendChild(nameDiv);
+    var manufacturerTd = document.createElement("td");
+                     manufacturerTd.innerHTML = jsonData.manufacturer;
+                     tr.appendChild(manufacturerTd);
 
-        var addressDiv = document.createElement("div");
-                        addressDiv.innerHTML = jsonData.address;
-                         addressDiv.setAttribute('class', 'div_class');
-                        divRow.appendChild(addressDiv);
+    var priceTd = document.createElement("td");
+                     priceTd.innerHTML = jsonData.price;
+                     tr.appendChild(priceTd);
 
-        var manufacturerDiv = document.createElement("div");
-                        manufacturerDiv.innerHTML = jsonData.manufacturer;
-                         manufacturerDiv.setAttribute('class', 'div_class');
-                        divRow.appendChild(manufacturerDiv);
+    table.appendChild(tr);
 
-        var priceDiv = document.createElement("div");
-                        priceDiv.innerHTML = jsonData.price+ " Ft";
-                         priceDiv.setAttribute('class', 'div_class');
-                        divRow.appendChild(priceDiv);
-
-         var imgDiv = document.createElement("div");
-                                 imgDiv.innerHTML = "<img alt="+jsonData.address+" src=img\\products\\"+jsonData.address+".png>";
-
-                                imgDiv.classList.add('div_class');
-                                 //imgDiv.classList.add('div_img');
-                                 divRow.appendChild(imgDiv);
-
-        divMain.appendChild(divRow);
-
+    document.querySelector('#purchase').addEventListener('click', function () {
+            addToBasket(jsonData);
+        });
+ 
 }
+
+function addToBasket(jsonData) {
+  var code = jsonData.code;
+  var request = {
+    'productCode': code
+  };
+//   console.log(request);
+  fetch('/basket', {
+    method: 'POST',
+    body: JSON.stringify(request),
+    headers: {
+      'Content-type': 'application/json'
+    }
+  })
+    .then(function (response) {
+            //  console.log(response);
+             return response.json();
+            }).then(function (jsonData) {
+                // console.log(jsonData);
+      if (jsonData.response === "SUCCESS") {
+        document.getElementById('message-div').setAttribute('class', 'alert alert-success');
+      } else {
+        document.getElementById('message-div').setAttribute('class', 'alert alert-danger');
+      }
+      document.getElementById('message-div').innerHTML = jsonData.message;
+    });
+}
+
