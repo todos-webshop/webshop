@@ -3,6 +3,9 @@ package webshop.product;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.junit.Before;
 import org.junit.Test;
+import webshop.basket.BasketDao;
+import webshop.user.UserDao;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 import java.util.List;
@@ -11,6 +14,8 @@ import static junit.framework.TestCase.assertEquals;
 
 public class ProductDaoIntegrationTest {
 
+    private BasketDao basketDao;
+    private UserDao userDao;
     private ProductDao productDao;
 
 
@@ -22,14 +27,19 @@ public class ProductDaoIntegrationTest {
         dataSource.setUser("root");
         dataSource.setPassword("");
 
+        basketDao = new BasketDao(dataSource);
+        userDao = new UserDao(dataSource);
         productDao = new ProductDao(dataSource);
+        basketDao.deleteAllBusketItems();
+        basketDao.deleteAll();
+        productDao.deleteAll();
+        userDao.deleteAll();
 
     }
 
     @Test
     public void testCreateAndList(){
         //Given
-        productDao.deleteAll();
 
         //When
         Product product1 = new Product(15, "PROD", "Sample", "manufacture", 1546, ProductStatus.ACTIVE);
@@ -46,7 +56,6 @@ public class ProductDaoIntegrationTest {
     }
     public void testDeleteAll(){
         //Given
-        productDao.deleteAll();
 
         //When
         Product product1 = new Product(15, "PROD", "Sample", "manufacture", 1546, ProductStatus.ACTIVE);
@@ -63,7 +72,6 @@ public class ProductDaoIntegrationTest {
     @Test
     public void testFindProductByAddress(){
         //Given
-        productDao.deleteAll();
 
         //When
         Product product1 = new Product(15, "PROD", "Sample", "manufacture", 1546, ProductStatus.ACTIVE);
@@ -80,7 +88,7 @@ public class ProductDaoIntegrationTest {
     @Test
     public void  testUpdateProduct(){
         //Given
-        productDao.deleteAll();
+
 
         //When
         Product product1 = new Product(15, "PROD", "Sample", "manufacture", 1546, ProductStatus.ACTIVE);
@@ -100,7 +108,7 @@ public class ProductDaoIntegrationTest {
     @Test
     public void  testGetProductIdByProductCode(){
         //Given
-        productDao.deleteAll();
+
 
         //When
         Product product1 = new Product(15, "PROD", "Sample", "manufacture", 1546, ProductStatus.ACTIVE);
@@ -119,7 +127,7 @@ public class ProductDaoIntegrationTest {
     @Test
     public void  testLogicalDeleteProductById(){
         //Given
-        productDao.deleteAll();
+
 
         //When
         Product product1 = new Product(15, "PROD", "Sample", "manufacture", 1546, ProductStatus.ACTIVE);
@@ -137,7 +145,6 @@ public class ProductDaoIntegrationTest {
     @Test
     public void  testIsCodeUnique(){
         //Given
-        productDao.deleteAll();
 
         //When
         Product product1 = new Product(15, "PROD", "Sample", "manufacture", 1546, ProductStatus.ACTIVE);
@@ -153,7 +160,6 @@ public class ProductDaoIntegrationTest {
     @Test
     public void  testIsIdTheSameForUpdatingTheSameName(){
         //Given
-        productDao.deleteAll();
 
         //When
         Product product1 = new Product(15, "PROD", "Sample", "manufacture", 1546, ProductStatus.ACTIVE);

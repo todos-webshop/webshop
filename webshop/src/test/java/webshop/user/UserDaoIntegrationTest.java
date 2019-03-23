@@ -16,7 +16,7 @@ import static org.junit.Assert.assertThat;
 public class UserDaoIntegrationTest {
     private UserDao userDao;
     private BasketDao basketDao;
-
+    private ProductDao productDao;
 
     @Before
     public void init(){
@@ -26,16 +26,20 @@ public class UserDaoIntegrationTest {
         dataSource.setUser("root");
         dataSource.setPassword("");
 
-        userDao = new UserDao(dataSource);
         basketDao = new BasketDao(dataSource);
+        userDao = new UserDao(dataSource);
+        productDao = new ProductDao(dataSource);
+        basketDao.deleteAllBusketItems();
+        basketDao.deleteAll();
+        productDao.deleteAll();
+        userDao.deleteAll();
 
     }
 
     @Test
     public void testCreateAndList(){
         //Given
-        basketDao.deleteAll();
-        userDao.deleteAll();
+
 
         //When
         User user1 = new User(123, "Test", "Woman", "testwoman", "passTest", 1, null);

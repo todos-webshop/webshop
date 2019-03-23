@@ -64,9 +64,11 @@ public class WebshopApplicationTests {
 		Product product3 = new Product(15, "PROD3", "Sample3 Prod", "manufacture", 1560,ProductStatus.ACTIVE);
 
 		Product prod = productController.findProductByAddress("sample");
-		productController.updateProduct(prod.getId(), product3) ;
+		CustomResponseStatus customResponseStatus = productController.updateProduct(prod.getId(), product3);
 		List<Product> products = productController.listAllProducts();
 		assertEquals(2, products.size());
+		//assertEquals(customResponseStatus.getResponse(), Response.SUCCESS);
+		assertEquals(customResponseStatus.getMessage(), "");
 		assertEquals("Sample2 Prod", products.get(0).getName());
 		assertEquals("Sample3 Prod", products.get(1).getName());
 	}
