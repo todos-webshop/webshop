@@ -78,12 +78,12 @@ function showBasket(jsonData) {
     quantityDiv.setAttribute('class', 'div_class');
     divRow.appendChild(quantityDiv);
 
-    var imgDiv = document.createElement('div');
+    /*var imgDiv = document.createElement('div');
     imgDiv.innerHTML = '<img alt=' + jsonData.basket.basketItems[i].product.address + ' src=img\\products\\' + jsonData.basket.basketItems[i].product.address + '.png>';
 
     imgDiv.classList.add('div_class');
 
-    divRow.appendChild(imgDiv);
+    divRow.appendChild(imgDiv);*/
 
     divMain.appendChild(divRow);
   }

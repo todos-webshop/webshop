@@ -2,7 +2,7 @@ package webshop.order;
 
 public enum OrderStatus {
 
-    ORDERED,
+    ACTIVE,
     DELIVERED,
     DELETED
 }
