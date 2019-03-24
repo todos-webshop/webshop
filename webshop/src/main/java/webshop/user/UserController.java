@@ -70,7 +70,7 @@ public class UserController {
         return new CustomResponseStatus(Response.FAILED, "Failed to update user.");
     }
     @DeleteMapping("/api/users/{id}")
-    public CustomResponseStatus logicalDeleteProductById(@PathVariable long id){
-        return userService.logicalDeleteProductById(id);
+    public CustomResponseStatus logicalDeleteUserById(@PathVariable long id){
+        return userService.logicalDeleteUserById(id);
     }
 }

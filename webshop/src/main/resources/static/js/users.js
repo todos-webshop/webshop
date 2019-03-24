@@ -91,7 +91,7 @@ function deleteUser() {
     return;
   }
 
-  fetch('/api/users' + id, {
+  fetch('/api/users/' + id, {
     method: 'DELETE'
   })
     .then(function (response) {

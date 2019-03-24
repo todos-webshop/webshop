@@ -48,7 +48,8 @@ public class UserService {
     public void modifyUser(long id, User user) {
         userDao.modifyUser(id, user);
     }
-    public CustomResponseStatus logicalDeleteProductById(long id){
+
+    public CustomResponseStatus logicalDeleteUserById(long id){
         if (userDao.isAlreadyDeleted(id)){
             return new CustomResponseStatus(Response.FAILED, "This user no longer exists.");
         }
