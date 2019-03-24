@@ -9,6 +9,7 @@
 
 
 .div_class_user {
+    font-family: 'webshopFontMedium';
     margin-top: 25px;
     background: #555;
     box-sizing: border-box;
@@ -22,19 +23,20 @@
 }
 
 .div_class_admin {
-    color: #00FF00;
+    font-family: 'webshopFontMedium';
+    color: #000000;
     overflow: hidden;
     position: relative;
 }
 
 .div_class img {
-
     border-radius: 8px;
     border: 1px solid #ddd;
     width: 100px;
 }
 
 .disabled, .button-disabled {
+    font-family: 'webshopFontMedium';
     display: none;
 }
 
@@ -48,6 +50,7 @@
 }
 
 .product-div {
+    font-family: 'webshopFontMedium';
     float: left;
     width: 20%;
     margin: 90px;
@@ -60,6 +63,7 @@
 }
 
 .admin-product-div {
+    font-family: 'webshopFontMedium';
     float: left;
     width: 20%;
     margin: 30px;
@@ -72,7 +76,23 @@
 }
 
 .form-input{
-width: 150px;
-float: left;
-margin-left: 30px;
+    font-family: 'webshopFontMedium';
+    width: 150px;
+    float: left;
+    margin-left: 30px;
+}
+
+@font-face {
+  font-family: 'webshopFontLight';
+  src: url('/fonts/Chevin Light.otf')
+}
+
+@font-face {
+  font-family: 'webshopFontMedium';
+  src: url('/fonts/Chevin Medium.otf')
+}
+
+@font-face {
+  font-family: 'webshopFontBold';
+  src: url('/fonts/Chevin Bold.ttf')
 }

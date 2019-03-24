@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import webshop.product.Product;
 import webshop.product.ProductStatus;
 
+import java.sql.*;
+import java.time.LocalDateTime;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

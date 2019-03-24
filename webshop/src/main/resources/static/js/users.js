@@ -1,14 +1,14 @@
-fetchProducts();
+fetchUsers();
 
 
-function fetchProducts() {
+function fetchUsers() {
   var url = "/api/users";
   fetch(url)
     .then(function (response) {
       return response.json();
     })
     .then(function (jsonData) {
-      showDivs(jsonData);console.log(jsonData);
+      showDivs(jsonData);
     });
 }
 
@@ -21,35 +21,35 @@ function showDivs(jsonData) {
     divRow.setAttribute('id', jsonData[i].id);
     divRow.setAttribute('class', 'admin-product-div');
 
-    var codeDiv = document.createElement('div');
-    codeDiv.innerHTML = jsonData[i].code;
-    codeDiv.setAttribute('class', 'div_class_admin');
-    divRow.appendChild(codeDiv);
+    var firstNameDiv = document.createElement('div');
+    firstNameDiv.innerHTML = jsonData[i].firstName;
+    firstNameDiv.setAttribute('class', 'div_class_admin');
+    divRow.appendChild(firstNameDiv);
 
-    var nameDiv = document.createElement('div');
-    nameDiv.innerHTML = jsonData[i].name;
-    nameDiv.setAttribute('class', 'div_class_admin');
-    divRow.appendChild(nameDiv);
+    var lastNameDiv = document.createElement('div');
+    lastNameDiv.innerHTML = jsonData[i].lastName;
+    lastNameDiv.setAttribute('class', 'div_class_admin');
+    divRow.appendChild(lastNameDiv);
 
-    var addressDiv = document.createElement('div');
-    addressDiv.innerHTML = jsonData[i].address;
-    addressDiv.setAttribute('class', 'div_class_admin');
-    divRow.appendChild(addressDiv);
+    var usernameDiv = document.createElement('div');
+    usernameDiv.innerHTML = jsonData[i].username;
+    usernameDiv.setAttribute('class', 'div_class_admin');
+    divRow.appendChild(usernameDiv);
 
-    var manufacturerDiv = document.createElement('div');
-    manufacturerDiv.innerHTML = jsonData[i].manufacturer;
-    manufacturerDiv.setAttribute('class', 'div_class_admin');
-    divRow.appendChild(manufacturerDiv);
+    var passwordDiv = document.createElement('div');
+    passwordDiv.innerHTML = jsonData[i].password;
+    passwordDiv.setAttribute('class', 'div_class_admin');
+    divRow.appendChild(passwordDiv);
 
-    var priceDiv = document.createElement('div');
-    priceDiv.innerHTML = jsonData[i].price + ' Ft';
-    priceDiv.setAttribute('class', 'div_class_admin');
-    divRow.appendChild(priceDiv);
+   var enabledDiv = document.createElement('div');
+    enabledDiv.innerHTML = jsonData[i].enabled;
+    enabledDiv.setAttribute('class', 'div_class_admin');
+     divRow.appendChild(enabledDiv);
 
-    var statusDiv = document.createElement('div');
-    statusDiv.innerHTML = jsonData[i].productStatus;
-    statusDiv.setAttribute('class', 'div_class_admin');
-    divRow.appendChild(statusDiv);
+    var userRoleDiv = document.createElement('div');
+    userRoleDiv.innerHTML = jsonData[i].userRole;
+    userRoleDiv.setAttribute('class', 'div_class_admin');
+    divRow.appendChild(userRoleDiv);
 
     var buttonsDiv = document.createElement('div');
     buttonsDiv.setAttribute('class', 'div_class_admin admin-product-div')
@@ -59,18 +59,18 @@ function showDivs(jsonData) {
     deleteBtn.setAttribute('src','/img/delete-button.png')
     deleteBtn.setAttribute('class', 'button')
     deleteBtn.setAttribute('id', jsonData[i].id)
-    deleteBtn.addEventListener('click', deleteItem);
+    deleteBtn.addEventListener('click', deleteUser);
     deleteBtn.setAttribute('class', 'button');
 
     var editBtn = document.createElement('img');
     editBtn.setAttribute('src', '/img/edit-button.png');
     editBtn.setAttribute('class', 'button')
     editBtn.setAttribute('id', jsonData[i].id)
-    editBtn.addEventListener('click', editItem);
+    editBtn.addEventListener('click', editUser);
     editBtn.setAttribute('class', 'button');
 
     var saveBtn = document.createElement('img');
-    saveBtn.addEventListener('click', saveUpdatedItem);
+    saveBtn.addEventListener('click', saveUpdatedUser);
     saveBtn.setAttribute('id', jsonData[i].id);
     saveBtn.setAttribute('src', '/img/save-button.png');
     var attribute = 'button-disabled button save-button' + jsonData[i].id;
@@ -84,7 +84,7 @@ function showDivs(jsonData) {
   }
 }
 
-function deleteItem() {
+function deleteUser() {
   var id = this.id;
 
   if (!confirm('Are you sure to delete?')) {
@@ -99,18 +99,18 @@ function deleteItem() {
         })
     .then(function(jsonData){
         if (jsonData.response == 'SUCCESS'){
-            fetchProducts();
+            fetchUsers();
             document.getElementById('message-div').innerHTML = jsonData.message;
             document.getElementById('message-div').setAttribute('class', 'alert alert-success');
         }else{
-            document.getElementById('message-div').innerHTML = 'This product is already deleted.';
+            document.getElementById('message-div').innerHTML = "This user no longer exists.";
             document.getElementById('message-div').setAttribute('class', 'alert alert-danger');
         }
     });
     return false;
 }
 
-function editItem(){
+function editUser(){
     var attribute = '.save-button' + this.id;
     var saveBtn = document.querySelector(attribute);
     var newClassName = 'save-button' + this.id;
@@ -122,30 +122,30 @@ function editItem(){
     row.setAttribute('contenteditable', 'true');
 }
 
-function saveUpdatedItem(){
+function saveUpdatedUser(){
       var row = document.getElementById(this.id);
       var childenOfRow = row.children;
       var id = this.id;
 
-      var code = childenOfRow[0].innerHTML;
-      var name = childenOfRow[1].innerHTML;
-      var address = childenOfRow[2].innerHTML;
-      var manufacturer = childenOfRow[3].innerHTML;;
-      var price = childenOfRow[4].innerHTML.split(" ");
-      var status = childenOfRow[5].innerHTML;
+      var firstName = childenOfRow[0].innerHTML;
+      var lastName = childenOfRow[1].innerHTML;
+      var username = childenOfRow[2].innerHTML;
+      var password = childenOfRow[3].innerHTML;;
+      var enabled = childenOfRow[4].innerHTML;
+      var userRole = childenOfRow[5].innerHTML;
 
-      price = price[0];
+
 
       var request = {
-        'code': code,
-        'name': name,
-        'address': address,
-        'manufacturer': manufacturer,
-        'price': price,
-        'status': status
+        'firstName': firstName,
+        'lastName': lastName,
+        'username': username,
+        'password': password,
+        'enabled': enabled,
+        'userRole': userRole
       };
 
-      fetch('/api/product/' + id, {
+      fetch('/api/users/' + id, {
             method: 'POST',
             body: JSON.stringify(request),
             headers: {
@@ -158,8 +158,8 @@ function saveUpdatedItem(){
         .then(function(jsonData){
             console.log(jsonData)
             if (jsonData.response == 'SUCCESS'){
-            fetchProducts();
-            document.getElementById('message-div').innerHTML = 'Updated!';
+            fetchUsers();
+            document.getElementById('message-div').innerHTML = 'User updated!';
             document.getElementById('message-div').setAttribute('class', 'alert alert-success')
             row.setAttribute('contenteditable', 'false');
             var classAttribute = '.save-button' + id;
@@ -167,7 +167,7 @@ function saveUpdatedItem(){
             var newAttribute = 'button-disabled button ' + newClassName;
             document.querySelector(classAttribute).setAttribute('class', newAttribute);
             } else{
-            fetchProducts();
+            fetchUsers();
             document.getElementById('message-div').innerHTML = jsonData.message;
             document.getElementById('message-div').setAttribute('class', 'alert alert-danger')
             row.setAttribute('contenteditable', 'false');
@@ -179,48 +179,6 @@ function saveUpdatedItem(){
             })
         return false;
 }
-
-
-function addNewProduct() {
-  var codeInput = document.getElementById('code').value;
-  var nameInput = document.getElementById('name').value;
-  var manufacturerInput = document.getElementById('manufacturer').value;
-  var priceInput = document.getElementById('price').value;
-  var request = {
-    'code': codeInput,
-    'name': nameInput,
-    'manufacturer': manufacturerInput,
-    'price': priceInput,
-  };
-
-  fetch('/api/users', {
-    method: 'POST',
-    body: JSON.stringify(request),
-    headers: {
-      'Content-type': 'application/json'
-    }
-  })
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (jsonData) {
-      if (jsonData.response == 'SUCCESS') {
-        document.getElementById('code').value = '';
-        document.getElementById('name').value = '';
-        document.getElementById('manufacturer').value = '';
-        document.getElementById('price').value = '';
-        fetchProducts();
-        document.getElementById('message-div').innerHTML = jsonData.message;
-        document.getElementById('message-div').setAttribute('class', 'alert alert-success');
-      } else {
-        document.getElementById('message-div').innerHTML = jsonData.message;
-        document.getElementById('message-div').setAttribute('class', 'alert alert-danger');
-      }
-    });
-  return false;
-}
-
-
 function showInputFields() {
   var formInput = document.querySelector('#form-input');
   if (formInput.getAttribute('class') == 'disabled'){

@@ -10,10 +10,7 @@ import org.springframework.stereotype.Repository;
 import webshop.CustomResponseStatus;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.List;
 import java.util.Map;
 
@@ -58,7 +55,7 @@ public class UserDao {
 
 
     public List<String> getAllUsernames() {
-        return jdbcTemplate.query("select username from users",
+        return jdbcTemplate.query("select username from users order by username",
                 (resultSet, i) -> resultSet.getString("username"));
     }
 
@@ -83,7 +80,7 @@ public class UserDao {
 
 
     public List<User> listAllUsers() {
-        return jdbcTemplate.query("select id, first_name, last_name,username,password,role,enabled from users",
+        return jdbcTemplate.query("select id, first_name, last_name,username,password,role,enabled from users order by username",
                 (rs, rowNum) -> new User(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("username"), rs.getString("password"), rs.getInt("enabled"), UserRole.valueOf(rs.getString("role"))));
 
     }
@@ -95,6 +92,21 @@ public class UserDao {
     public void modifyUser(long id, User user) {
         jdbcTemplate.update("update users set  first_name= ?, last_name= ?,username= ?,password= ?,role= ?,enabled= ? where id = ?",
                 user.getFirstName(), user.getLastName(), user.getUsername(), user.getPassword(), user.getUserRole().toString(),user.getEnabled(), id);
+    }
+    public void logicalDeleteUserById(long id) {
+        jdbcTemplate.update("update users set first_name = ?,last_name= ?,username = ? where id = ?", "John","Doe","DELETED_USER" + id, id);
+    }
+    public boolean isAlreadyDeleted(long id){
+        List<String> status = jdbcTemplate.query("select username from users where id = ?", new RowMapper<String>() {
+            @Override
+            public String mapRow(ResultSet resultSet, int i) throws SQLException {
+                return resultSet.getString("username");
+            }
+        }, id);
+        if (status.get(0).equals("DELETED_USER"+id)){
+            return true;
+        }
+        return false;
     }
 }
 

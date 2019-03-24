@@ -2,6 +2,7 @@ body{
 background-color:#F5F5F5;}
 
 .menu_div{
+    font-family: 'webshopFontMedium';
     background-color:#F5F5F5;
     width: 100%;
 position:center;
@@ -13,26 +14,30 @@ position:center;
 }
 
 .dropbtn {
-padding: 15px 32px;
-      text-align: center;
-          font-size: 16px;
-          cursor: pointer;
-              border-radius: 3px;
-              background-color: white;
-              color: black;
-              border: 2px solid #4CAF50;
+    font-family: 'webshopFontMedium';
+    padding: 15px 32px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 3px;
+    background-color: white;
+    color: black;
+    border: 2px solid #4CAF50;
   }
   
   .dropbtn:hover, .dropbtn:focus {
+    font-family: 'webshopFontMedium';
     background-color: #2980B9;
   }
   
   .dropdown {
+    font-family: 'webshopFontMedium';
     position: relative;
     display: inline-block;
   }
   
   .dropdown-content {
+    font-family: 'webshopFontMedium';
     display: none;
     position: absolute;
     background-color: #f1f1f1;
@@ -43,6 +48,7 @@ padding: 15px 32px;
   }
   
   .dropdown-content a {
+    font-family: 'webshopFontMedium';
     color: black;
     padding: 12px 16px;
     text-decoration: none;
@@ -54,6 +60,7 @@ padding: 15px 32px;
   .show {display: block;}
 
   .menu-button{
+  font-family: 'webshopFontMedium';
   padding: 15px 32px;
       text-align: center;
           font-size: 16px;

@@ -78,7 +78,7 @@ window.onclick = function(event) {
 
 function welcomeUser(){
     var welcomeLabel = document.createElement("label");
-    welcomeLabel.innerHTML = "Welcome " + user["username"];
+    welcomeLabel.innerHTML = "Welcome " + user["username"]+"!";
     return welcomeLabel;
 }
 
