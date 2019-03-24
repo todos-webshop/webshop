@@ -7,9 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
+import webshop.basket.Basket;
 import webshop.basket.BasketController;
+import webshop.basket.BasketData;
+import webshop.basket.BasketService;
 import webshop.product.Product;
 import webshop.product.ProductController;
+import webshop.product.ProductData;
 import webshop.product.ProductStatus;
 import webshop.user.User;
 import webshop.user.UserController;
@@ -35,6 +39,8 @@ public class WebshopApplicationTests {
     private UserService userService;
     @Autowired
     private BasketController basketController;
+    @Autowired
+    BasketService basketService;
 
     @Test
     public void testCreateProduct() {
@@ -205,6 +211,37 @@ public class WebshopApplicationTests {
         assertEquals("Error! All fields are required.", responseStatus3.getMessage());
 
         assertEquals(0, users.size());
+    }
+
+    @Test
+    public void basketTest() {
+        User user1 = new User(45, "Angéla", "Tömlőssy", "edvin23", "diSzno!%sajt", 2, UserRole.ROLE_USER);
+        userController.createUser(user1);
+        String user1name = userController.listAllUsers().get(0).getUsername();
+
+        Product product1 = new Product(15, "PROD", "Sample", "manufacture", 1546, ProductStatus.ACTIVE);
+        Product product2 = new Product(15, "PROD2", "Sample2 Prod", "manufacture", 156, ProductStatus.ACTIVE);
+        productController.addNewProduct(product1);
+        productController.addNewProduct(product2);
+
+        ProductData productData1 = new ProductData("PROD", 3);
+        ProductData productData2 = new ProductData("PROD2", 1);
+        basketService.addProductToLoggedInBasketByProductData(user1name, productData1);
+        basketService.addProductToLoggedInBasketByProductData(user1name, productData2);
+
+        BasketData userBasketData = basketService.getBasketDataByUser(user1name);
+
+        assertEquals(2, userBasketData.getSumPieces());     //only 1 allowed for now
+        assertEquals(product1.getPrice() + product2.getPrice(), userBasketData.getSumPrice());
+        assertEquals(2, userBasketData.getBasket().getBasketItems().size());
+        assertEquals("Sample2 Prod", userBasketData.getBasket().getBasketItems().get(1).getProduct().getName());
+
+        basketService.clearBasketByUsername(user1name);
+        userBasketData = basketService.getBasketDataByUser(user1name);
+
+        assertEquals(0, userBasketData.getSumPieces());
+        assertEquals(0, userBasketData.getSumPrice());
+        assertEquals(0, userBasketData.getBasket().getBasketItems().size());
     }
 
     @Test
