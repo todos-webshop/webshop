@@ -32,8 +32,8 @@ public class UserValidator implements Validator {
         return true;
     }
 
-    @Override
-    public boolean isEmpty(String str) {
-        return false;
-    }
+//    @Override
+//    public boolean isEmpty(String str) {
+//        return false;
+//    }
 }
