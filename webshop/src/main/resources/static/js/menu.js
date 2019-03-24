@@ -110,7 +110,7 @@ function createDropdownDivForUser(div){
     <div class="dropdown">
         <button onclick="classChanger()" class="dropbtn">User</button>
         <div id="myDropdown" class="dropdown-content">
-            <a href="/orders.html">Orders</a>
+            <a href="/myorders.html">Orders</a>
             <a href="/user.html">Profile</a>
             <a href="#contact">Contact</a>
         </div>

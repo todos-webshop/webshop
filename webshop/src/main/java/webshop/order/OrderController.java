@@ -12,6 +12,8 @@ import webshop.basket.BasketData;
 import webshop.user.UserData;
 import webshop.user.UserRole;
 
+import java.util.List;
+
 @RestController
 public class OrderController {
 
@@ -31,6 +33,17 @@ public class OrderController {
             return orderService.placeOrder(loggedInUsername);
         } else {
             return new CustomResponseStatus(Response.FAILED, "You must log in to order items.");
+        }
+    }
+
+    @GetMapping("/myorders")
+    public List<Order> listOrdersByUserId(Authentication authentication){
+        if (authentication != null) {
+            String loggedInUsername = authentication.getName();
+
+            return orderService.listOrdersByUserId(loggedInUsername);
+        } else {
+            return null;
         }
     }
 }
