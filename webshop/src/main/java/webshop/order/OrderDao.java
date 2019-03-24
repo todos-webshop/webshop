@@ -6,6 +6,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import webshop.basket.BasketItem;
+import webshop.product.Product;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -20,19 +22,7 @@ public class OrderDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public long getItemsFromBasketAndAddToMyOrders(long userId){
-        List<OrderData> orderData = jdbcTemplate.query("select id, user_id from baskets where id = ?", new RowMapper<OrderData>() {
-            @Override
-            public OrderData mapRow(ResultSet resultSet, int i) throws SQLException {
-                return new OrderData(
-                        resultSet.getLong("id"),
-                        resultSet.getLong("user_id"));
-            }
-        }, userId);
-        if (orderData.size() == 0){
-            return 0;
-        }
-
+    public long insertIntoOrdersFromBasketsByUserId(long userId) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(new PreparedStatementCreator() {
@@ -44,11 +34,15 @@ public class OrderDao {
                                                     Statement.RETURN_GENERATED_KEYS);
                                     ps.setLong(1, userId);
                                     ps.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
-                                    ps.setString(3, OrderStatus.ORDERED.name());
+                                    ps.setString(3, OrderStatus.ACTIVE.name());
                                     return ps;
                                 }
                             }, keyHolder
         );
         return keyHolder.getKey().longValue();
+    }
+
+    public void insertIntoOrderedItemsFromBasketItemsByOrderId(long orderId, long productId, long totalPrice) {
+        jdbcTemplate.update("insert into ordered_items set order_id = ?, product_id = ?, order_price = ?", orderId, productId, totalPrice);
     }
 }

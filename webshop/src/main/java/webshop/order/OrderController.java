@@ -28,7 +28,7 @@ public class OrderController {
         if (authentication != null) {
             String loggedInUsername = authentication.getName();
 
-            return orderService.getItemsFromBasketAndAddToMyOrders(loggedInUsername);
+            return orderService.placeOrder(loggedInUsername);
         } else {
             return new CustomResponseStatus(Response.FAILED, "You must log in to order items.");
         }
