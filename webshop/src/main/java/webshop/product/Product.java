@@ -17,7 +17,7 @@ private ProductStatus productStatus;
                    ProductStatus productStatus) {
         this.id = id;
         this.code = code;
-        this.name = name;
+        this.name = deleteRedundantSpace(name.trim());;
         address = generateAddress();
         this.manufacturer = manufacturer;
         this.price = price;
@@ -66,6 +66,21 @@ private ProductStatus productStatus;
         return id;
     }
 
+    private String deleteRedundantSpace(String string){
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < string.length()-1;i++){
+            if (string.charAt(i) == ' ' &&  string.charAt(i+1)==' '){
+
+            }
+            else {
+                stringBuilder.append(string.charAt(i));
+            }
+        }
+        if(string.equals("")){
+            return "";
+        }
+        return stringBuilder.append(string.charAt(string.length()-1)).toString();
+    }
 
 
     @Override
