@@ -185,6 +185,29 @@ public class WebshopApplicationTests {
     }
 
     @Test
+    public void testCreateUserWithEmptyFields() {
+        User user1 = new User(1000, "       ", "Connor", "skynet", "illbeback", 6, UserRole.ROLE_ADMIN);
+        User user2 = new User(1000, "John", null, "skynet", "illbeback", 6, UserRole.ROLE_ADMIN);
+        User user3 = new User(1000, "John", "Connor", " \n \t", "illbeback", 6, UserRole.ROLE_ADMIN);
+
+        CustomResponseStatus responseStatus1 = userController.createUser(user1);
+        CustomResponseStatus responseStatus2 = userController.createUser(user2);
+        CustomResponseStatus responseStatus3 = userController.createUser(user3);
+        List<User> users = userController.listAllUsers();
+
+        assertEquals("Failed", responseStatus1.getResponse().getDescription());
+        assertEquals("Error! All fields are required.", responseStatus1.getMessage());
+
+        assertEquals("Failed", responseStatus2.getResponse().getDescription());
+        assertEquals("Error! All fields are required.", responseStatus2.getMessage());
+
+        assertEquals("Failed", responseStatus3.getResponse().getDescription());
+        assertEquals("Error! All fields are required.", responseStatus3.getMessage());
+
+        assertEquals(0, users.size());
+    }
+
+    @Test
     public void testGetBasketDataForActualUser() {
 
     }
