@@ -12,11 +12,11 @@ import java.util.List;
 @RestController
 public class UserController {
 
-    private UserValidator validator = new UserValidator();
 
     @Autowired
     private UserService userService;
-
+    private UserValidator validator = new UserValidator();
+    private UserValidator userValidator;
 
     @PostMapping("/users")
     public CustomResponseStatus createUser(@RequestBody User user) {
@@ -56,5 +56,13 @@ public class UserController {
 public List<User> listAllUsers(){
 return userService.listAllUsers();}
 
-
+    @PostMapping("/api/users/{id}")
+    public CustomResponseStatus modifyUser(@PathVariable long id, @RequestBody User user) {
+       UserValidator userValidator = new UserValidator();
+        if (userValidator.userCanBeUpdated(user)) {
+            userService.modifyUser(id, user);
+            return new CustomResponseStatus(Response.SUCCESS, "User updated!");
+        }
+        return new CustomResponseStatus(Response.FAILED, "Failed to update user.");
+    }
 }

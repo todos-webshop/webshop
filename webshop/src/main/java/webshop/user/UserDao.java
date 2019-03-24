@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import webshop.CustomResponseStatus;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -91,5 +92,9 @@ public class UserDao {
         jdbcTemplate.update("delete from users");
     }
 
-
+    public void modifyUser(long id, User user) {
+        jdbcTemplate.update("update users set  first_name= ?, last_name= ?,username= ?,password= ?,role= ?,enabled= ? where id = ?",
+                user.getFirstName(), user.getLastName(), user.getUsername(), user.getPassword(), user.getUserRole().toString(),user.getEnabled(), id);
+    }
 }
+

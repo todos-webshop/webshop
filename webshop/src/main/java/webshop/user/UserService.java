@@ -42,5 +42,9 @@ public class UserService {
     public List<User> listAllUsers() {
         return userDao.listAllUsers();
     }
+
+    public void modifyUser(long id, User user) {
+        userDao.modifyUser(id, user);
+    }
 }
 
