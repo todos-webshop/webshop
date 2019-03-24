@@ -78,7 +78,7 @@ window.onclick = function(event) {
 
 function welcomeUser(){
     var welcomeLabel = document.createElement("label");
-    welcomeLabel.innerHTML = "Welcome " + user["username"];
+    welcomeLabel.innerHTML = "Welcome " + user["username"]+"!";
     return welcomeLabel;
 }
 
@@ -131,9 +131,6 @@ function createDropdownDivForAdmin(div){
     </div>
     `;
 }
-
-
-
 function createLogoImg(){
     var logoImg = document.createElement("img");
     logoImg.setAttribute("src", "img/logo.png");
@@ -174,7 +171,6 @@ function createCartButton(){
     cartBtn.id = "cart-btn";
     return cartBtn;
 }
-
 function createMessageDiv(){
     var messageDiv = document.createElement("div");
     messageDiv.setAttribute("id","message-div");

@@ -7,12 +7,10 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import webshop.CustomResponseStatus;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.List;
 import java.util.Map;
 
@@ -91,5 +89,24 @@ public class UserDao {
         jdbcTemplate.update("delete from users");
     }
 
-
+    public void modifyUser(long id, User user) {
+        jdbcTemplate.update("update users set  first_name= ?, last_name= ?,username= ?,password= ?,role= ?,enabled= ? where id = ?",
+                user.getFirstName(), user.getLastName(), user.getUsername(), user.getPassword(), user.getUserRole().toString(),user.getEnabled(), id);
+    }
+    public void logicalDeleteUserById(long id) {
+        jdbcTemplate.update("update users set first_name = ?,last_name= ?,username = ? where id = ?", "John","Doe","DELETED_USER" + id, id);
+    }
+    public boolean isAlreadyDeleted(long id){
+        List<String> status = jdbcTemplate.query("select username from users where id = ?", new RowMapper<String>() {
+            @Override
+            public String mapRow(ResultSet resultSet, int i) throws SQLException {
+                return resultSet.getString("username");
+            }
+        }, id);
+        if (status.get(0).equals("DELETED_USER"+id)){
+            return true;
+        }
+        return false;
+    }
 }
+

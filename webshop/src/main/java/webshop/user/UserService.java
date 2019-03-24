@@ -2,6 +2,8 @@ package webshop.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import webshop.CustomResponseStatus;
+import webshop.Response;
 import webshop.basket.BasketDao;
 
 import java.util.Collection;
@@ -41,6 +43,18 @@ public class UserService {
 
     public List<User> listAllUsers() {
         return userDao.listAllUsers();
+    }
+
+    public void modifyUser(long id, User user) {
+        userDao.modifyUser(id, user);
+    }
+
+    public CustomResponseStatus logicalDeleteUserById(long id){
+        if (userDao.isAlreadyDeleted(id)){
+            return new CustomResponseStatus(Response.FAILED, "This user no longer exists.");
+        }
+        userDao.logicalDeleteUserById(id);
+        return new CustomResponseStatus(Response.SUCCESS, "User Deleted!");
     }
 }
 
