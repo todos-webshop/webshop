@@ -53,8 +53,8 @@ public class UserDaoIntegrationTest {
         List<String> names = userDao.getAllUsernames();
         assertThat(users.size() ,equalTo(2));
         assertThat(names.size() ,equalTo(2));
-        assertThat(users.get(0).getUsername(),equalTo("testwoman"));
-        assertThat(users.get(1).getUsername(),equalTo("testman"));
+        assertThat(users.get(1).getUsername(),equalTo("testwoman"));
+        assertThat(users.get(0).getUsername(),equalTo("testman"));
         assertThat(names.get(1),equalTo("testwoman"));
         assertThat(names.get(0),equalTo("testman"));
 
