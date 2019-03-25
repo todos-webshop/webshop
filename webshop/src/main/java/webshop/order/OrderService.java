@@ -31,12 +31,12 @@ public class OrderService {
 
         List<BasketItem> products = basketDao.getBasketItemsInBasketByBasketId(basketId);
 
-        if (products.size() == 0){
+        if (products.size() == 0) {
             return new CustomResponseStatus(Response.FAILED, "Your cart is empty.");
         }
         long orderid = orderDao.insertIntoOrdersFromBasketsByUserId(userId, basketDao.sumProductPriceInBasketByBasketId(basketId));
 
-        for (BasketItem basketItem : products){
+        for (BasketItem basketItem : products) {
             orderDao.insertIntoOrderedItemsFromBasketItemsByOrderId(orderid, basketItem.getProduct().getId(), basketItem.getProduct().getPrice());
         }
 
@@ -44,10 +44,16 @@ public class OrderService {
         return new CustomResponseStatus(Response.SUCCESS, "Your order was placed, thank you for your purchase.");
     }
 
-    public List<Order> listOrdersByUserId(String loggedInUsername){
+    public List<Order> listOrdersByUserId(String loggedInUsername) {
         User user = userDao.getUserByUsername(loggedInUsername);
 
         long userId = user.getId();
         return orderDao.listOrdersByUserId(userId);
     }
+
+    public List<Order> listAllOrders() {
+        return orderDao.listAllOrders();
+    }
+
+
 }

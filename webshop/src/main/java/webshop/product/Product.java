@@ -96,4 +96,8 @@ private ProductStatus productStatus;
     public int hashCode() {
         return Objects.hash(code);
     }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
 }

@@ -37,7 +37,7 @@ public class OrderController {
     }
 
     @GetMapping("/myorders")
-    public List<Order> listOrdersByUserId(Authentication authentication){
+    public List<Order> listOrdersByUserId(Authentication authentication) {
         if (authentication != null) {
             String loggedInUsername = authentication.getName();
 
@@ -46,4 +46,12 @@ public class OrderController {
             return null;
         }
     }
+
+
+    @GetMapping("/orders")
+    public List<Order> listAllOrders() {
+        return orderService.listAllOrders();
+    }
+
+
 }
