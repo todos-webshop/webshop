@@ -17,7 +17,7 @@ function fetchOrderItems() {
 
 
   function showDivs(jsonData) {
-    console.log(jsonData);
+    // console.log(jsonData);
     var divMain = document.getElementById('main_div');
     divMain.innerHTML = '';
     for (var i = 0; i < jsonData.length; i++) {
