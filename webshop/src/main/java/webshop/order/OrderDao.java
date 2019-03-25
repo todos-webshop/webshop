@@ -55,7 +55,7 @@ public class OrderDao {
     public List<Order> listOrdersByUserId(long userId) {
         return jdbcTemplate.query("SELECT orders.id, orders.user_id, orders.order_time, orders.status, products.id, code, name, address, manufacturer,price, products.status, orders.total_order FROM products JOIN " +
                 "ordered_items ON products.id = ordered_items.product_id JOIN orders ON orders.id = ordered_items.order_id " +
-                "WHERE orders.user_id = ? order by orders.order_time", new RowMapper<Order>() {
+                "WHERE orders.user_id = ? order by orders.order_time desc", new RowMapper<Order>() {
             @Override
             public Order mapRow(ResultSet resultSet, int i) throws SQLException {
                 String price = resultSet.getString("price");
