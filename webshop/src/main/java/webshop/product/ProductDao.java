@@ -182,4 +182,12 @@ public class ProductDao {
         }
         return productId;
     }
+
+    public int countActiveProducts() {
+        return jdbcTemplate.queryForObject("Select count(id) from products where status = 'ACTIVE'", (rs, i) -> rs.getInt("count(id)"));
+    }
+
+    public int countAllProducts() {
+        return jdbcTemplate.queryForObject("Select count(id) from products", (rs, i) -> rs.getInt("count(id)"));
+    }
 }

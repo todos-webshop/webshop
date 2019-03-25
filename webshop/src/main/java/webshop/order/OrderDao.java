@@ -120,4 +120,12 @@ public class OrderDao {
                 ORDER_ITEM_ROW_MAPPER);
 
     }
+
+    public int countActiveOrders() {
+        return jdbcTemplate.queryForObject("SELECT count(id) FROM `orders` WHERE status = 'ACTIVE'", (rs, i) -> rs.getInt("count(id)"));
+    }
+
+    public int countAllOrders() {
+        return jdbcTemplate.queryForObject("SELECT count(id) FROM `orders`", (rs, i) -> rs.getInt("count(id)"));
+    }
 }

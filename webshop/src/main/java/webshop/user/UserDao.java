@@ -108,5 +108,9 @@ public class UserDao {
         }
         return false;
     }
+
+    public int countAllUsers() {
+        return jdbcTemplate.queryForObject("select count(id) from users", ((rs, i) -> rs.getInt("count(id)")));
+    }
 }
 
