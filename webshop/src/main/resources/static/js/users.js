@@ -37,14 +37,14 @@ function showDivs(jsonData) {
     divRow.appendChild(usernameDiv);
 
     var passwordDiv = document.createElement('div');
-    passwordDiv.innerHTML = jsonData[i].password;
-    passwordDiv.setAttribute('class', 'div_class_admin');
+    passwordDiv.innerHTML ="";
+    passwordDiv.setAttribute('class', 'div_class_admin','placeholder');
     divRow.appendChild(passwordDiv);
 
-   var enabledDiv = document.createElement('div');
-    enabledDiv.innerHTML = jsonData[i].enabled;
-    enabledDiv.setAttribute('class', 'div_class_admin');
-     divRow.appendChild(enabledDiv);
+ //  var enabledDiv = document.createElement('div');
+ //   enabledDiv.innerHTML = jsonData[i].enabled;
+ //   enabledDiv.setAttribute('class', 'div_class_admin');
+ //    divRow.appendChild(enabledDiv);
 
     var userRoleDiv = document.createElement('div');
     userRoleDiv.innerHTML = jsonData[i].userRole;
@@ -134,9 +134,9 @@ function saveUpdatedUser(){
       var firstName = childenOfRow[0].innerHTML;
       var lastName = childenOfRow[1].innerHTML;
       var username = childenOfRow[2].innerHTML;
-      var password = childenOfRow[3].innerHTML;;
-      var enabled = childenOfRow[4].innerHTML;
-      var userRole = childenOfRow[5].innerHTML;
+      var password = childenOfRow[3].innerHTML;
+   //   var enabled = childenOfRow[4].innerHTML;
+      var userRole = childenOfRow[4].innerHTML;
 
 
 
@@ -145,7 +145,7 @@ function saveUpdatedUser(){
         'lastName': lastName,
         'username': username,
         'password': password,
-        'enabled': enabled,
+    //    'enabled': enabled,
         'userRole': userRole
       };
 

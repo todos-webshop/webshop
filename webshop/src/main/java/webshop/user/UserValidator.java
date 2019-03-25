@@ -2,6 +2,8 @@ package webshop.user;
 
 import webshop.validator.Validator;
 
+import javax.validation.ConstraintValidatorContext;
+
 public class UserValidator implements Validator {
     UserService userService;
 
@@ -13,7 +15,7 @@ public class UserValidator implements Validator {
 
     public boolean userCanBeUpdated(User user) {
         return nameIsNotEmptyOrNull(user.getFirstName() + user.getLastName()) && passwordIsNotEmptyOrNull(user.getPassword())
-                && isUsernameValid(user) && userIsNotRegisteredWithThisNameYet(user.getUsername());
+                && isUsernameValid(user);
     }
 
     private boolean nameIsNotEmptyOrNull(String name) {

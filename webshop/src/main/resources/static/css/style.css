@@ -36,7 +36,6 @@
 }
 
 .disabled, .button-disabled {
-    font-family: 'webshopFontMedium';
     display: none;
 }
 
@@ -62,6 +61,21 @@
     background-color: rgb(223, 223, 223)
 }
 
+.orders-div {
+    font-family: 'webshopFontMedium';
+    margin: 90px;
+    height: 550px;
+    padding: 20px;
+    text-align: center;
+    border: solid 2px rgb(100, 100, 100);
+    border-radius: 10px;
+    background-color: rgb(223, 223, 223)
+}
+
+.bold {
+    font-family: 'webshopFontBold';
+}
+
 .admin-product-div {
     font-family: 'webshopFontMedium';
     float: left;
@@ -73,6 +87,10 @@
     border: solid 2px rgb(100, 100, 100);
     border-radius: 10px;
     background-color: rgb(223, 223, 223)
+}
+
+.h1-orders{
+    font-family: 'webshopFontMedium';
 }
 
 .form-input{

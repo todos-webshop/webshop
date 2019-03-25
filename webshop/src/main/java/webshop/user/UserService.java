@@ -45,11 +45,18 @@ public class UserService {
         return userDao.listAllUsers();
     }
 
-    public void modifyUser(long id, User user) {
+    public void checkPasswordAndmodifyUser(long id, User user) {
+        if (user.getPassword().trim().equals("")){
+            userDao.modifyUserNoPassword(id,user);
+        }
         userDao.modifyUser(id, user);
     }
-    public void logicalDeleteUserById(long id) {
-       userDao.logicalDeleteUserById(id);
+    public CustomResponseStatus logicalDeleteUserById(long id) {
+        if (userDao.isAlreadyDeleted(id)) {
+            return new CustomResponseStatus(Response.FAILED, "This user no longer exists.");
+        }
+        userDao.logicalDeleteUserById(id);
+        return new CustomResponseStatus(Response.SUCCESS, "User Deleted!");
     }
 }
 

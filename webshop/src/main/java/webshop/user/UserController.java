@@ -66,17 +66,15 @@ public class UserController {
     public CustomResponseStatus modifyUser(@PathVariable long id, @RequestBody User user) {
        UserValidator userValidator = new UserValidator();
         if (userValidator.userCanBeUpdated(user)) {
-            userService.modifyUser(id, user);
-            return new CustomResponseStatus(Response.SUCCESS, "User updated!");
+            try {
+                userService.checkPasswordAndmodifyUser(id, user);
+                return new CustomResponseStatus(Response.SUCCESS, "User updated!");
+            } catch (org.springframework.dao.DuplicateKeyException exc) {
+            }}
+        return new CustomResponseStatus(Response.FAILED, "User update invalid!");}
+
+            @DeleteMapping("/api/users/{id}")
+            public CustomResponseStatus logicalDeleteUserById ( @PathVariable long id){
+                return userService.logicalDeleteUserById(id);
+            }
         }
-        return new CustomResponseStatus(Response.FAILED, "Failed to update user.");
-    }
-    @DeleteMapping("/api/users/{id}")
-    public CustomResponseStatus logicalDeleteUserById(@PathVariable long id){
-        if (userDao.isAlreadyDeleted(id)){
-            return new CustomResponseStatus(Response.FAILED, "This user no longer exists.");
-        }
-        userService.logicalDeleteUserById(id);
-        return new CustomResponseStatus(Response.SUCCESS, "User Deleted!");
-    }
-}

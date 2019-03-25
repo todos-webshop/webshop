@@ -1,18 +1,23 @@
 package webshop.order;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Order {
     private long id;
     private long userId;
     private LocalDateTime orderTime;
     private OrderStatus orderStatus;
+    private long totalOrderPrice;
+    private List<OrderItem> orderItems;
 
-    public Order(long id, long userId, LocalDateTime orderTime, OrderStatus orderStatus) {
+    public Order(long id, long userId, LocalDateTime orderTime, OrderStatus orderStatus, long totalOrderPrice, List<OrderItem> orderItems) {
         this.id = id;
         this.userId = userId;
         this.orderTime = orderTime;
         this.orderStatus = orderStatus;
+        this.totalOrderPrice = totalOrderPrice;
+        this.orderItems = orderItems;
     }
 
     public long getId() {
@@ -45,5 +50,21 @@ public class Order {
 
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
+
+    public long getTotalOrderPrice() {
+        return totalOrderPrice;
+    }
+
+    public void setTotalOrderPrice(long totalOrderPrice) {
+        this.totalOrderPrice = totalOrderPrice;
     }
 }
