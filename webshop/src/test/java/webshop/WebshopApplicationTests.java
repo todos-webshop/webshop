@@ -40,7 +40,7 @@ public class WebshopApplicationTests {
     @Autowired
     private BasketController basketController;
     @Autowired
-    BasketService basketService;
+    private BasketService basketService;
 
     @Test
     public void testCreateProduct() {

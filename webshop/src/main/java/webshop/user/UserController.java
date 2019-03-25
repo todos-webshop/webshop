@@ -17,8 +17,11 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    private UserValidator validator = new UserValidator();
+    @Autowired
+    private UserValidator validator;
+    @Autowired
     private UserValidator userValidator;
+    @Autowired
     private UserDao userDao;
 
     @PostMapping("/users")
@@ -64,7 +67,6 @@ public class UserController {
 
     @PostMapping("/api/users/{id}")
     public CustomResponseStatus modifyUser(@PathVariable long id, @RequestBody User user) {
-       UserValidator userValidator = new UserValidator();
         if (userValidator.userCanBeUpdated(user)) {
             try {
                 userService.checkPasswordAndmodifyUser(id, user);
