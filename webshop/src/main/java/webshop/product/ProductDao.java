@@ -103,8 +103,8 @@ public class ProductDao {
     }
 
     public int updateProduct(Product product, long id) {
-        return jdbcTemplate.update("update products set code = ?, name = ?, address = ?,manufacturer = ?, price = ? where id = ?",
-                product.getCode(), product.getName(), product.getAddress(), product.getManufacturer(), product.getPrice(), id);
+        return jdbcTemplate.update("update products set code = ?, name = ?, address = ?,manufacturer = ?, price = ?, status = ? where id = ?",
+                product.getCode(), product.getName(), product.getAddress(), product.getManufacturer(), product.getPrice(), product.getProductStatus().name(), id);
     }
 
     public boolean isAddressEdited(String address, long id){
@@ -181,5 +181,13 @@ public class ProductDao {
             throw new IllegalStateException("Product id does not exist for product code: " + productCode);
         }
         return productId;
+    }
+
+    public int countActiveProducts() {
+        return jdbcTemplate.queryForObject("Select count(id) from products where status = 'ACTIVE'", (rs, i) -> rs.getInt("count(id)"));
+    }
+
+    public int countAllProducts() {
+        return jdbcTemplate.queryForObject("Select count(id) from products", (rs, i) -> rs.getInt("count(id)"));
     }
 }

@@ -51,7 +51,7 @@ function showDivs(jsonData) {
 
     var statusDiv = document.createElement('div');
     statusDiv.innerHTML = jsonData[i].productStatus;
-    statusDiv.setAttribute('class', 'div_class_admin');
+    statusDiv.setAttribute('class', 'div_class_admin status-div');
     divRow.appendChild(statusDiv);
 
     var buttonsDiv = document.createElement('div');
@@ -122,7 +122,18 @@ function editItem(){
     saveBtn.setAttribute('class', newAttribute);
 
     var row = document.getElementById(this.id);
-    row.setAttribute('contenteditable', 'true');
+    var c = row.childNodes;
+    for (var i = 0; i < c.length; i++){
+        if (i == 5){
+            c[i].innerHTML = `<select class="select-element">
+                <option value="ACTIVE">ACTIVE</option>
+                <option value="DELETED">DELETED</option>
+            </select>`
+        }
+        else {
+        c[i].setAttribute('contenteditable', 'true');
+        }
+        }
 }
 
 function saveUpdatedItem(){
@@ -135,7 +146,9 @@ function saveUpdatedItem(){
       var address = childenOfRow[2].innerHTML;
       var manufacturer = childenOfRow[3].innerHTML;;
       var price = childenOfRow[4].innerHTML.split(" ");
-      var status = childenOfRow[5].innerHTML;
+
+      var selectElement = document.querySelector('.select-element');
+      var value = selectElement.options[selectElement.selectedIndex].value;
 
       price = price[0];
 
@@ -145,9 +158,8 @@ function saveUpdatedItem(){
         'address': address,
         'manufacturer': manufacturer,
         'price': price,
-        'status': status
+        'productStatus': value
       };
-
       fetch('/api/product/' + id, {
             method: 'POST',
             body: JSON.stringify(request),
@@ -159,12 +171,22 @@ function saveUpdatedItem(){
             return response.json();
             })
         .then(function(jsonData){
-            console.log(jsonData)
             if (jsonData.response == 'SUCCESS'){
             fetchProducts();
             document.getElementById('message-div').innerHTML = 'Updated!';
             document.getElementById('message-div').setAttribute('class', 'alert alert-success')
-            row.setAttribute('contenteditable', 'false');
+
+                        var row = document.getElementById(this.id);
+                            var c = row.childNodes;
+                            for (var i = 0; i < c.length; i++){
+                                if (i == 5){
+                                    c[i].innerHTML = `<div>$value</div>`
+                                }
+                                else {
+                                c[i].setAttribute('contenteditable', 'false');
+                                }
+                                }
+
             var classAttribute = '.save-button' + id;
             var newClassName = 'save-button' + id;
             var newAttribute = 'button-disabled button ' + newClassName;
@@ -173,7 +195,18 @@ function saveUpdatedItem(){
             fetchProducts();
             document.getElementById('message-div').innerHTML = jsonData.message;
             document.getElementById('message-div').setAttribute('class', 'alert alert-danger')
-            row.setAttribute('contenteditable', 'false');
+
+            var row = document.getElementById(this.id);
+                var c = row.childNodes;
+                for (var i = 0; i < c.length; i++){
+                    if (i == 5){
+                        c[i].innerHTML = `<div>$value</div>`
+                    }
+                    else {
+                    c[i].setAttribute('contenteditable', 'false');
+                    }
+                    }
+            //row.setAttribute('contenteditable', 'false');
             var classAttribute = '.save-button' + id;
             var newClassName = 'save-button' + id;
             var newAttribute = 'button-disabled button ' + newClassName;

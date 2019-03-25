@@ -22,6 +22,7 @@ function fetchBasket() {
 
 
 function showBasket(jsonData) {
+//console.log(jsonData);
   var divMain = document.getElementById('basket-div');
   divMain.innerHTML = '';
   divMain.setAttribute('class', 'container');
@@ -78,6 +79,18 @@ function showBasket(jsonData) {
     quantityDiv.setAttribute('class', 'div_class');
     divRow.appendChild(quantityDiv);
 
+    var buttonDiv = document.createElement('div');
+    //buttonDiv.innerHTML = 'delete';
+    buttonDiv.setAttribute('class', 'div_class');
+    var deleteButton = document.createElement("button");
+    //buttonDiv.setAttribute("onclick", function () { deleteFromBasket(jsonData);});
+    deleteButton.innerHTML = "Delete product";
+            deleteButton.onclick = deleteFromBasket;
+            //deleteButton.setAttribute('id',jsonData[i].id);
+           deleteButton["raw-data"] = jsonData.basket.basketItems[i];
+    buttonDiv.appendChild(deleteButton);
+    divRow.appendChild(buttonDiv);
+
     /*var imgDiv = document.createElement('div');
     imgDiv.innerHTML = '<img alt=' + jsonData.basket.basketItems[i].product.address + ' src=img\\products\\' + jsonData.basket.basketItems[i].product.address + '.png>';
 
@@ -108,6 +121,24 @@ function clearBasket() {
       document.getElementById('message-div').innerHTML = jsonData.message;
       fetchBasket();
     });
+}
+
+function deleteFromBasket() {
+console.log(this);
+console.log(this["raw-data"].product.id);
+    id = this["raw-data"].product.id;
+
+    if (!confirm("Are you sure to delete?")) {
+            return;
+        }
+
+     fetch("/basketitem/" + id, {
+            method: "DELETE",
+        })
+        .then(function(response) {
+            document.getElementById("message-div").innerHTML = "Deleted";
+            fetchBasket();
+        });
 }
 
 function orderItems(){

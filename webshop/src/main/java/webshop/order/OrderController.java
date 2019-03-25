@@ -1,10 +1,7 @@
 package webshop.order;
 
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import webshop.CustomResponseStatus;
 import webshop.Response;
 import webshop.basket.Basket;
@@ -12,6 +9,7 @@ import webshop.basket.BasketData;
 import webshop.user.UserData;
 import webshop.user.UserRole;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 @RestController
@@ -49,9 +47,23 @@ public class OrderController {
 
 
     @GetMapping("/orders")
-    public List<Order> listAllOrders() {
-        return orderService.listAllOrders();
+    public List<OrderData> listAllOrderData() {
+        return orderService.listAllOrderData();
     }
 
+
+    @GetMapping("/orders/{orderId}")
+    public List<OrderItem> listOrderItemsByOrderId(@PathVariable long orderId) {
+        return orderService.listOrderItemsByOrderId(orderId);
+    }
+
+
+    @DeleteMapping("/orders/{orderId}")
+    public CustomResponseStatus logicalDeleteOrderByOrderId(@PathVariable long orderId) {
+        if (orderService.logicalDeleteOrderByOrderId(orderId) == 1) {
+            return new CustomResponseStatus(Response.SUCCESS, String.format("Order %s successfully deleted.", orderId));
+        }
+        return new CustomResponseStatus(Response.FAILED, "An error occured during order delete.");
+    }
 
 }

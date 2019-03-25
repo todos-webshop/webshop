@@ -5,13 +5,13 @@ import java.util.Objects;
 
 public class Product {
 
-private long id;
-private String code;
-private String name;
-private String address;
-private String manufacturer;
-private int price;
-private ProductStatus productStatus;
+    private long id;
+    private String code;
+    private String name;
+    private String address;
+    private String manufacturer;
+    private int price;
+    private ProductStatus productStatus;
 
     public Product(long id, String code, String name, String manufacturer, int price,
                    ProductStatus productStatus) {
@@ -21,9 +21,6 @@ private ProductStatus productStatus;
         address = generateAddress();
         this.manufacturer = manufacturer;
         this.price = price;
-        if (productStatus == null){
-            productStatus = ProductStatus.ACTIVE;
-        }
         this.productStatus = productStatus;
     }
 
