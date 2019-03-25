@@ -103,8 +103,8 @@ public class ProductDao {
     }
 
     public int updateProduct(Product product, long id) {
-        return jdbcTemplate.update("update products set code = ?, name = ?, address = ?,manufacturer = ?, price = ? where id = ?",
-                product.getCode(), product.getName(), product.getAddress(), product.getManufacturer(), product.getPrice(), id);
+        return jdbcTemplate.update("update products set code = ?, name = ?, address = ?,manufacturer = ?, price = ?, status = ? where id = ?",
+                product.getCode(), product.getName(), product.getAddress(), product.getManufacturer(), product.getPrice(), product.getProductStatus().name(), id);
     }
 
     public boolean isAddressEdited(String address, long id){

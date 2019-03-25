@@ -108,7 +108,7 @@ function insertMenuCss(){
 function createDropdownDivForUser(div){
     div.innerHTML += `
     <div class="dropdown">
-        <button onclick="classChanger()" class="dropbtn">User</button>
+        <button onmouseover="classChanger()" class="dropbtn">User</button>
         <div id="myDropdown" class="dropdown-content">
             <a href="/myorders.html">Orders</a>
             <a href="/user.html">Profile</a>
@@ -121,7 +121,7 @@ function createDropdownDivForUser(div){
 function createDropdownDivForAdmin(div){
     div.innerHTML += `
     <div class="dropdown">
-        <button onclick="classChanger()" class="dropbtn">Admin</button>
+        <button onmouseover="classChanger()" class="dropbtn">Admin</button>
         <div id="myDropdown" class="dropdown-content">
             <a href="/history.html">Order history</a>
             <a href="/statistics.html">Statistics</a>
