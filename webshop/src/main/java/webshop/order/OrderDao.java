@@ -120,7 +120,8 @@ public class OrderDao {
 
 
     public int logicalDeleteOrderByOrderId(long orderId) {
-        return 1;
+        return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).update("UPDATE orders SET status = 'DELETED' where " +
+                "id = (:order_id);", Map.of("order_id", orderId));
     }
 
     public int countActiveOrders() {
@@ -131,4 +132,21 @@ public class OrderDao {
         return jdbcTemplate.queryForObject("SELECT count(id) FROM `orders`", (rs, i) -> rs.getInt("count(id)"));
     }
 
+    public int deleteItemFromOrderByProductAddress(long orderId, String productAddress) {
+        return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).update("DELETE FROM ordered_items where order_id = " +
+                        "(:order_id) AND product_id = (SELECT id FROM products WHERE address = (:product_address));",
+                Map.of("order_id", orderId, "product_address", productAddress));
+    }
+
+    public List<OrderData> listFilteredOrderData(String filter) {
+        return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).query("SELECT orders.id order_id, username, " +
+                        "order_time, status, SUM(order_price) sum_price, COUNT(orders.id) sum_pieces FROM orders JOIN users ON " +
+                        "orders.user_id = users.id JOIN ordered_items ON order_id = orders.id WHERE status = (:status) GROUP BY orders.id, username, " +
+                        "order_time, status ORDER BY orders.order_time DESC", Map.of("status", filter),
+                ORDER_DATA_ROW_MAPPER);
+    }
+
+    public OrderStatus getOrderStatusByOrderId(long orderId) {
+        return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).queryForObject("SELECT status FROM orders WHERE id = (:id)", Map.of("id", orderId), (resultSet, i) -> OrderStatus.valueOf(resultSet.getString("status")));
+    }
 }
