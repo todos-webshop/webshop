@@ -31,7 +31,7 @@ body {
   cursor: pointer;
   width: 77px;
   position: relative;
-  left: 240px;
+  right: -240px;
 }
 
 .dropbtn {

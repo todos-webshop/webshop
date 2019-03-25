@@ -162,4 +162,6 @@ public class BasketDao {
         return jdbcTemplate.update("DELETE FROM basket_items WHERE basket_id = ? and " +
                 "product_id=?;",basketId,productid);
     }
+
+
 }

@@ -128,7 +128,7 @@ function createDropdownDivForAdmin(div) {
         <button onmouseover="classChanger()" class="dropbtn">Admin</button>
         <div id="myDropdown" class="dropdown-content">
             <a href="/history.html">Order history</a>
-            <a href="/statistics.html">Statistics</a>
+            <a href="/dashboard.html">Dashboard</a>
             <a href="/users.html">Users</a>
             <a href="/adminproducts.html">Products</a>
         </div>

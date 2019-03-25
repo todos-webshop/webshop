@@ -40,7 +40,7 @@ public class WebshopApplicationTests {
     @Autowired
     private BasketController basketController;
     @Autowired
-    BasketService basketService;
+    private BasketService basketService;
 
     @Test
     public void testCreateProduct() {
@@ -243,10 +243,18 @@ public class WebshopApplicationTests {
         assertEquals(0, userBasketData.getSumPrice());
         assertEquals(0, userBasketData.getBasket().getBasketItems().size());
     }
-
-    @Test
-    public void testGetBasketDataForActualUser() {
-
-    }
+//    @Test
+//    //@WithMockUser(username="admin",roles="ADMIN")
+//    public void testAddProductToLoggedInBasket() {
+//
+//        User user1 = new User(123, "Test", "Woman", "testwoman", "passTest", 1, UserRole.ROLE_ADMIN);
+//        userController.createUser(user1);
+//        Product product1 = new Product(15, "PROD", "", "manufacture", 1546, ProductStatus.ACTIVE);
+//        productController.addNewProduct(product1);
+//        ProductData productData = new ProductData(product1.getCode(),1);
+//        basketController.addProductToLoggedInBasket(productData);
+//        BasketData basketData = basketController.getBasketDataForActualUser();
+//        assertEquals(1,basketData.getBasket().getBasketItems().size());
+//    }
 
 }

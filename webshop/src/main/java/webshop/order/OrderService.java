@@ -8,6 +8,7 @@ import webshop.basket.BasketItem;
 import webshop.user.User;
 import webshop.user.UserDao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -51,9 +52,17 @@ public class OrderService {
         return orderDao.listOrdersByUserId(userId);
     }
 
-    public List<Order> listAllOrders() {
-        return orderDao.listAllOrders();
+
+    public List<OrderData> listAllOrderData() {
+        return orderDao.listAllOrderData();
     }
 
 
+    public List<OrderItem> listOrderItemsByOrderId(long orderId) {
+        return orderDao.listOrderItemsByOrderId(orderId);
+    }
+
+    public int logicalDeleteOrderByOrderId(long orderId) {
+        return orderDao.logicalDeleteOrderByOrderId(orderId);
+    }
 }
