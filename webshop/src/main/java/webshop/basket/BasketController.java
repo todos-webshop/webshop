@@ -69,14 +69,13 @@ public class BasketController {
             return new CustomResponseStatus(Response.FAILED, "Please sign in to manage your basket.");
         }
     }
-@DeleteMapping("/basketitem")
-    public CustomResponseStatus deleteOneProductFromBusket(Authentication authentication,
-                                                           @RequestBody ProductData productData){
+@DeleteMapping("/basketitem/{productId}")
+    public CustomResponseStatus deleteOneProductFromBusket(Authentication authentication,@PathVariable long productId
+                                                           ){
     if (authentication != null) {
         String loggedInUsername = authentication.getName();
         int sqlResponse =
-                basketService.deleteOneProductFromBusket(loggedInUsername,
-                        productData);
+                basketService.deleteOneProductFromBusket(loggedInUsername,productId);
         if (sqlResponse != 1) {
             return new CustomResponseStatus(Response.FAILED, "Error. Could not delete from basket.");
         } else {

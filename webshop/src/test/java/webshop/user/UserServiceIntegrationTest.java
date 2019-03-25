@@ -75,6 +75,6 @@ public class UserServiceIntegrationTest {
 
         List<User> users = userService.listAllUsers();
         assertThat(users.size(),equalTo(3));
-        assertThat(users.get(2).getUsername(),equalTo("testkid"));
+        assertThat(users.get(0).getUsername(),equalTo("testkid"));
     }
 }
