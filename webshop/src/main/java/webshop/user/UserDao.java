@@ -111,11 +111,17 @@ public class UserDao {
         return false;
     }
 
+<<<<<<< HEAD
     public User getUserByUserId(long userId) {
         return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).queryForObject(
                 "select id, first_name, last_name, username, password, enabled, role from users " +
                         "where id = (:id)", Map.of("id", userId), USER_ROW_MAPPER);
     }
 
+=======
+    public int countAllUsers() {
+        return jdbcTemplate.queryForObject("select count(id) from users", ((rs, i) -> rs.getInt("count(id)")));
+    }
+>>>>>>> 398812c736fc71156d51da4371d3dc4e82ec3441
 }
 

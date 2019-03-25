@@ -118,8 +118,17 @@ public class OrderDao {
 
     }
 
+<<<<<<< HEAD
 
     public int logicalDeleteOrderByOrderId(long orderId) {
         return 1;
+=======
+    public int countActiveOrders() {
+        return jdbcTemplate.queryForObject("SELECT count(id) FROM `orders` WHERE status = 'ACTIVE'", (rs, i) -> rs.getInt("count(id)"));
+    }
+
+    public int countAllOrders() {
+        return jdbcTemplate.queryForObject("SELECT count(id) FROM `orders`", (rs, i) -> rs.getInt("count(id)"));
+>>>>>>> 398812c736fc71156d51da4371d3dc4e82ec3441
     }
 }
