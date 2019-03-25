@@ -8,11 +8,12 @@ public class UserValidator implements Validator {
 
     public boolean userCanBeSaved(User user) {
         return nameIsNotEmptyOrNull(user.getFirstName() + user.getLastName()) && passwordIsNotEmptyOrNull(user.getPassword()) &&
-                userIsNotRegisteredWithThisNameYet(user.getUsername());
+                userIsNotRegisteredWithThisNameYet(user.getUsername())&& isUsernameValid(user);
     }
 
     public boolean userCanBeUpdated(User user) {
-        return nameIsNotEmptyOrNull(user.getFirstName() + user.getLastName()) && passwordIsNotEmptyOrNull(user.getPassword());
+        return nameIsNotEmptyOrNull(user.getFirstName() + user.getLastName()) && passwordIsNotEmptyOrNull(user.getPassword())
+                && isUsernameValid(user) && userIsNotRegisteredWithThisNameYet(user.getUsername());
     }
 
     private boolean nameIsNotEmptyOrNull(String name) {
@@ -31,9 +32,9 @@ public class UserValidator implements Validator {
         }
         return true;
     }
-
-    @Override
-    public boolean isEmpty(String str) {
-        return false;
-    }
+private boolean isUsernameValid(User user){
+        if (user.getUsername().toUpperCase().contains("DELETED_USER")){
+            return false;
+        }return true;
+}
 }

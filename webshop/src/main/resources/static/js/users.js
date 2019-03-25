@@ -110,17 +110,21 @@ function deleteUser() {
     return false;
 }
 
-function editUser(){
-    var attribute = '.save-button' + this.id;
-    var saveBtn = document.querySelector(attribute);
-    var newClassName = 'save-button' + this.id;
-    var newAttribute = 'button-enabled button ' + newClassName;
+    function editUser(){
+        var attribute = '.save-button' + this.id;
+        var saveBtn = document.querySelector(attribute);
+        var newClassName = 'save-button' + this.id;
+        var newAttribute = 'button-enabled button ' + newClassName;
 
-    saveBtn.setAttribute('class', newAttribute);
+        saveBtn.setAttribute('class', newAttribute);
 
-    var row = document.getElementById(this.id);
-    row.setAttribute('contenteditable', 'true');
-}
+        var row = document.getElementById(this.id);
+        var c = row.childNodes;
+        for (var i = 0; i < c.length; i++){
+            c[i].setAttribute('contenteditable', 'true');
+        }
+
+    }
 
 function saveUpdatedUser(){
       var row = document.getElementById(this.id);

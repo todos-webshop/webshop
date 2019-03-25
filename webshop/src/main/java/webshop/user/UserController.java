@@ -19,6 +19,7 @@ public class UserController {
     private UserService userService;
     private UserValidator validator = new UserValidator();
     private UserValidator userValidator;
+    private UserDao userDao;
 
     @PostMapping("/users")
     public CustomResponseStatus createUser(@RequestBody User user) {
@@ -32,11 +33,12 @@ public class UserController {
                     user.getUsername()));
         }
         if (userService.createUserAndReturnUserId(user) > 0) {
-            return new CustomResponseStatus(Response.SUCCESS, String.format("User %s " +
-                            "successfully created.",
-                    user.getUsername()));
+            if (userValidator.userCanBeSaved(user)){
+                return new CustomResponseStatus(Response.FAILED, "Error! User was not created.");}
         }
-        return new CustomResponseStatus(Response.FAILED, "Error! User was not created.");
+            return new CustomResponseStatus(Response.SUCCESS, String.format("User %s " +
+                        "successfully created.",
+                user.getUsername()));
 
     }
 
@@ -71,6 +73,10 @@ public class UserController {
     }
     @DeleteMapping("/api/users/{id}")
     public CustomResponseStatus logicalDeleteUserById(@PathVariable long id){
-        return userService.logicalDeleteUserById(id);
+        if (userDao.isAlreadyDeleted(id)){
+            return new CustomResponseStatus(Response.FAILED, "This user no longer exists.");
+        }
+        userService.logicalDeleteUserById(id);
+        return new CustomResponseStatus(Response.SUCCESS, "User Deleted!");
     }
 }
