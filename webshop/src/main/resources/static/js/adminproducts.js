@@ -60,12 +60,14 @@ function showDivs(jsonData) {
 
     var deleteBtn = document.createElement('img');
     deleteBtn.setAttribute('src','/img/delete-button.png')
+    deleteBtn.setAttribute('class', 'button')
     deleteBtn.setAttribute('id', jsonData[i].id)
     deleteBtn.addEventListener('click', deleteItem);
     deleteBtn.setAttribute('class', 'button');
 
     var editBtn = document.createElement('img');
     editBtn.setAttribute('src', '/img/edit-button.png');
+    editBtn.setAttribute('class', 'button')
     editBtn.setAttribute('id', jsonData[i].id)
     editBtn.addEventListener('click', editItem);
     editBtn.setAttribute('class', 'button');

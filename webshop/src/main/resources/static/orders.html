@@ -26,6 +26,7 @@
                         <th>Order status</th>
                         <th>Order value</th>
                         <th>Order quantity</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody id="orders-table"></tbody>
@@ -35,11 +36,12 @@
 
 
             <div id="filter">
-                <button onclick="Filter()">Filter</button>
+                <button id="filter-button" onclick="filterByOrderStatus()">Filter</button>
             </div>
             <br>
             <select name="order-filter" id="order-filter" class="mdb-select md-form">
                 <option value="" disabled selected>Select order status to filter to</option>
+                <option value="">List all</option>
                 <option value="ACTIVE">Active</option>
                 <option value="DELIVERED">Delivered</option>
                 <option value="DELETED">Deleted</option>

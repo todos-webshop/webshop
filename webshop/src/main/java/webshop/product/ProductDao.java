@@ -83,7 +83,10 @@ public class ProductDao {
                 return resultSet.getString("code");
             }
         }, code);
-        return products.size() == 0;
+        if (products.size() == 0) {
+            return true;
+        }
+        return false;
     }
 
     public boolean isNameUnique(String name) {
@@ -93,7 +96,10 @@ public class ProductDao {
                 return resultSet.getString("name");
             }
         }, name);
-        return products.size() == 0;
+        if (products.size() == 0) {
+            return true;
+        }
+        return false;
     }
 
     public int updateProduct(Product product, long id) {
@@ -108,7 +114,10 @@ public class ProductDao {
                 return resultSet.getString("address");
             }
         },id);
-        return !address.equals(addressFromDB.get(0));
+        if (address.equals(addressFromDB.get(0))){
+            return false;
+        }
+        return true;
     }
 
     public boolean isIdTheSameForUpdatingTheSameCode(String code, long id) {
@@ -118,7 +127,11 @@ public class ProductDao {
                 return resultSet.getLong("id");
             }
         }, code);
-        return isCodeUnique(code) || !isCodeUnique(code) && (ids.get(0) == id);
+        if (isCodeUnique(code) || !isCodeUnique(code) && (ids.get(0) == id)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public boolean isIdTheSameForUpdatingTheSameName(String name, long id) {
@@ -128,7 +141,11 @@ public class ProductDao {
                 return resultSet.getLong("id");
             }
         }, name);
-        return isNameUnique(name) || !isNameUnique(name) && (ids.get(0) == id);
+        if (isNameUnique(name) || !isNameUnique(name) && (ids.get(0) == id)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void logicalDeleteProductById(long id) {
@@ -142,7 +159,10 @@ public class ProductDao {
                 return resultSet.getString("status");
             }
         }, id);
-        return status.get(0).equals("DELETED");
+        if (status.get(0).equals("DELETED")){
+            return true;
+        }
+        return false;
     }
 
     public void deleteAll() {

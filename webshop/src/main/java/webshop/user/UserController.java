@@ -2,6 +2,7 @@ package webshop.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import webshop.CustomResponseStatus;
@@ -9,6 +10,8 @@ import webshop.Response;
 import webshop.basket.BasketDao;
 import webshop.user.UserService;
 
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 @RestController
@@ -17,31 +20,29 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private UserValidator validator;
-    @Autowired
+    private UserValidator validator = new UserValidator();
     private UserValidator userValidator;
-    @Autowired
-    private UserDao userDao;
 
     @PostMapping("/users")
     public CustomResponseStatus createUser(@RequestBody User user) {
         if (validator.isEmpty(user.getUsername()) || validator.isEmpty(user.getFirstName()) || validator.isEmpty(user.getLastName())) {
             return new CustomResponseStatus(Response.FAILED, "Error! All fields are required.");
         }
-        if (userService.getAllUsernames().contains(user.getUsername())) {
+        long newUserId = 0;
+        try {
+            newUserId = userService.createUserAndReturnUserId(user);
+        } catch (DuplicateKeyException dke) {
             return new CustomResponseStatus(Response.FAILED, String.format("User already exists. " +
                             "New user can " +
                             "not be created for %s.",
                     user.getUsername()));
         }
-        if (userService.createUserAndReturnUserId(user) > 0) {
-            if (userValidator.userCanBeSaved(user)){
-                return new CustomResponseStatus(Response.FAILED, "Error! User was not created.");}
-        }
+        if (newUserId > 0) {
             return new CustomResponseStatus(Response.SUCCESS, String.format("User %s " +
-                        "successfully created.",
-                user.getUsername()));
+                            "successfully created.",
+                    user.getUsername()));
+        }
+        return new CustomResponseStatus(Response.FAILED, "Error! User was not created.");
 
     }
 
@@ -67,16 +68,16 @@ public class UserController {
 
     @PostMapping("/api/users/{id}")
     public CustomResponseStatus modifyUser(@PathVariable long id, @RequestBody User user) {
+        UserValidator userValidator = new UserValidator();
         if (userValidator.userCanBeUpdated(user)) {
-            try {
-                userService.checkPasswordAndmodifyUser(id, user);
-                return new CustomResponseStatus(Response.SUCCESS, "User updated!");
-            } catch (org.springframework.dao.DuplicateKeyException exc) {
-            }}
-        return new CustomResponseStatus(Response.FAILED, "User update invalid!");}
-
-            @DeleteMapping("/api/users/{id}")
-            public CustomResponseStatus logicalDeleteUserById ( @PathVariable long id){
-                return userService.logicalDeleteUserById(id);
-            }
+            userService.modifyUser(id, user);
+            return new CustomResponseStatus(Response.SUCCESS, "User updated!");
         }
+        return new CustomResponseStatus(Response.FAILED, "Failed to update user.");
+    }
+
+    @DeleteMapping("/api/users/{id}")
+    public CustomResponseStatus logicalDeleteUserById(@PathVariable long id) {
+        return userService.logicalDeleteUserById(id);
+    }
+}

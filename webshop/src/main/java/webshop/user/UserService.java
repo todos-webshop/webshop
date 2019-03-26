@@ -1,11 +1,14 @@
 package webshop.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import webshop.CustomResponseStatus;
 import webshop.Response;
 import webshop.basket.BasketDao;
 
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Collection;
 import java.util.List;
 
@@ -21,7 +24,7 @@ public class UserService {
         this.basketDao = basketDao;
     }
 
-    public long createUserAndReturnUserId(User user) {
+    public long createUserAndReturnUserId(User user) throws DuplicateKeyException {
         long newlyCreatedUserId = userDao.createUserAndReturnUserId(user);
         if (newlyCreatedUserId == 0) {
             return 0;
@@ -45,14 +48,12 @@ public class UserService {
         return userDao.listAllUsers();
     }
 
-    public void checkPasswordAndmodifyUser(long id, User user) {
-        if (user.getPassword().trim().equals("")){
-            userDao.modifyUserNoPassword(id,user);
-        }
+    public void modifyUser(long id, User user) {
         userDao.modifyUser(id, user);
     }
-    public CustomResponseStatus logicalDeleteUserById(long id) {
-        if (userDao.isAlreadyDeleted(id)) {
+
+    public CustomResponseStatus logicalDeleteUserById(long id){
+        if (userDao.isAlreadyDeleted(id)){
             return new CustomResponseStatus(Response.FAILED, "This user no longer exists.");
         }
         userDao.logicalDeleteUserById(id);

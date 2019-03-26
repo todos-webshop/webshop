@@ -22,14 +22,6 @@ function fetchProducts() {
        var divRow = document.createElement("div");
        divRow.setAttribute('class', 'product-div')
 
-       var imgDiv = document.createElement('img');
-       imgDiv.setAttribute('src', '/img/coming_soon.jpg');
-       imgDiv.setAttribute('alt', '');
-       imgDiv.setAttribute('class', 'products_img');
-       imgDiv.setAttribute("onclick", `window.location.href="product.html?address=${jsonData[i].address}"`);
-
-
-       divRow.appendChild(imgDiv);
 
        var nameDiv = document.createElement("div");
 
@@ -55,8 +47,4 @@ function fetchProducts() {
            divMain.appendChild(divRow);
 
    }
-
-        var clearerDiv = document.createElement('div');
-        clearerDiv.setAttribute('class', 'clearer');
-        divMain.appendChild(clearerDiv);
 }
