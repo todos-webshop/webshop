@@ -149,4 +149,9 @@ public class OrderDao {
     public OrderStatus getOrderStatusByOrderId(long orderId) {
         return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).queryForObject("SELECT status FROM orders WHERE id = (:id)", Map.of("id", orderId), (resultSet, i) -> OrderStatus.valueOf(resultSet.getString("status")));
     }
+
+    public int updateOrderStatus(long orderId, String newOrderStatus) {
+        return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).update("UPDATE orders SET status = (:new_status) " +
+                "where id = (:order_id);", Map.of("order_id", orderId, "new_status", newOrderStatus));
+    }
 }
