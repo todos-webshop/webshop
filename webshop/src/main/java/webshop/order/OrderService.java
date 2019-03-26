@@ -81,4 +81,12 @@ public class OrderService {
     public boolean isOrderDeleted(long orderId) {
         return getOrderStatusByOrderId(orderId) == OrderStatus.DELETED;
     }
+
+    public boolean isOrderDelivered(long orderId) {
+        return getOrderStatusByOrderId(orderId) == OrderStatus.DELIVERED;
+    }
+
+    public int updateOrderStatus(long orderId, String newOrderStatus) {
+        return orderDao.updateOrderStatus(orderId, newOrderStatus);
+    }
 }

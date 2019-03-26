@@ -53,7 +53,8 @@ public class OrderDao {
     }
 
     public List<Order> listOrdersByUserId(long userId) {
-        return jdbcTemplate.query("SELECT orders.id, orders.user_id, orders.order_time, orders.status, products.id, code, name, address, manufacturer,price, products.status, orders.total_order FROM products JOIN " +
+        return jdbcTemplate.query("SELECT orders.id, orders.user_id, orders.order_time, orders.status order_status, products" +
+                ".id, code, name, address, manufacturer,price, products.status product_status, orders.total_order FROM products JOIN " +
                 "ordered_items ON products.id = ordered_items.product_id JOIN orders ON orders.id = ordered_items.order_id " +
                 "WHERE orders.user_id = ? order by orders.order_time", new RowMapper<Order>() {
             @Override
@@ -64,7 +65,7 @@ public class OrderDao {
                         resultSet.getLong("orders.id"),
                         resultSet.getLong("user_id"),
                         resultSet.getTimestamp("orders.order_time").toLocalDateTime(),
-                        OrderStatus.valueOf(resultSet.getString("orders.status")),
+                        OrderStatus.valueOf(resultSet.getString("order_status")),
                         resultSet.getLong("total_order"),
                         List.of(new OrderItem(new Product(
                                 Long.parseLong(resultSet.getString("id")),
@@ -72,7 +73,7 @@ public class OrderDao {
                                 resultSet.getString("name"),
                                 resultSet.getString("manufacturer"),
                                 Integer.parseInt(price),
-                                ProductStatus.valueOf(resultSet.getString("status"))),
+                                ProductStatus.valueOf(resultSet.getString("product_status"))),
                                 1
                         )));
             }
@@ -148,5 +149,10 @@ public class OrderDao {
 
     public OrderStatus getOrderStatusByOrderId(long orderId) {
         return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).queryForObject("SELECT status FROM orders WHERE id = (:id)", Map.of("id", orderId), (resultSet, i) -> OrderStatus.valueOf(resultSet.getString("status")));
+    }
+
+    public int updateOrderStatus(long orderId, String newOrderStatus) {
+        return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).update("UPDATE orders SET status = (:new_status) " +
+                "where id = (:order_id);", Map.of("order_id", orderId, "new_status", newOrderStatus));
     }
 }

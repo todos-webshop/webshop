@@ -60,7 +60,7 @@ public class OrderController {
 
     @DeleteMapping("/orders/{orderId}")
     public CustomResponseStatus logicalDeleteOrderByOrderId(@PathVariable long orderId) {
-        if (orderService.isOrderDeleted(orderId)){
+        if (orderService.isOrderDeleted(orderId)) {
             return new CustomResponseStatus(Response.SUCCESS, String.format("Order %d is already deleted.", orderId));
         }
         if (orderService.logicalDeleteOrderByOrderId(orderId) == 1) {
@@ -84,6 +84,17 @@ public class OrderController {
         return orderService.listFilteredOrderData(filter);
     }
 
-
+    @PostMapping("/orders/{orderId}/status")
+    public CustomResponseStatus updateOrderStatus(@PathVariable long orderId) {
+        String newOrderStatus = "DELIVERED";
+        if (orderService.isOrderDelivered(orderId)) {
+            return new CustomResponseStatus(Response.SUCCESS, String.format("Order %d is already delivered.", orderId));
+        }
+        if (orderService.updateOrderStatus(orderId, newOrderStatus) == 1) {
+            return new CustomResponseStatus(Response.SUCCESS, String.format("Order status successfully updated for order %d.",
+                    orderId));
+        }
+        return new CustomResponseStatus(Response.FAILED, "An error occured during order status update.");
+    }
 
 }

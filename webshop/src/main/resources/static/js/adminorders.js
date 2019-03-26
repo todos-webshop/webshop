@@ -32,7 +32,7 @@ function showTable(jsonData) {
     tr.appendChild(usernameTd);
 
     var orderTimeTd = document.createElement('td');
-    orderTimeTd.innerHTML = jsonData[i].orderTime;
+    orderTimeTd.innerHTML = `${jsonData[i].orderTime.split('T')[0]} ${jsonData[i].orderTime.split('T')[1]}`;
     tr.appendChild(orderTimeTd);
 
     var orderStatusTd = document.createElement('td');
@@ -55,14 +55,16 @@ function showTable(jsonData) {
     deleteButtonTd.appendChild(deleteButton);
     tr.appendChild(deleteButtonTd);
 
+    var updateStatusButtonTd = document.createElement('td');
+    var updateStatusButton = document.createElement('button');
+    updateStatusButton.innerHTML = 'Delivered';
+    updateStatusButton.setAttribute('data-id', jsonData[i].orderId);
+    updateStatusButton.addEventListener('click', updateOrderStatus, true);
+    updateStatusButtonTd.appendChild(updateStatusButton);
+    tr.appendChild(updateStatusButtonTd);
 
     tableBody.appendChild(tr);
     tr.setAttribute('onclick', `window.location.href="/order.html?id=${jsonData[i].orderId}"`);
-
-
-    // document.querySelector('#purchase').addEventListener('click', function () {
-    //   showOrder(jsonData);
-    // });
 
   }
 }
@@ -96,7 +98,6 @@ function showOrder(jsonData) {
 
 function deleteOrder(event) {
   event.stopPropagation();
-  console.log('dsdfbdgb');
   var id = this.getAttribute('data-id');
 
   var url = `/orders/${id}`;
@@ -123,7 +124,37 @@ function deleteOrder(event) {
       }
     });
   return false;
+}
 
+
+function updateOrderStatus(event) {
+  event.stopPropagation();
+  var id = this.getAttribute('data-id');
+
+  var url = `/orders/${id}/status`;
+  // console.log(url);
+
+  if (!confirm('Are you sure to change order status?')) {
+    return;
+  }
+
+  fetch(url, {
+      method: 'POST'
+    })
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (jsonData) {
+      if (jsonData.response === 'SUCCESS') {
+        fetchAllOrders();
+        document.getElementById('message-div').innerHTML = jsonData.message;
+        document.getElementById('message-div').setAttribute('class', 'alert alert-success');
+      } else {
+        document.getElementById('message-div').innerHTML = jsonData.message;
+        document.getElementById('message-div').setAttribute('class', 'alert alert-danger');
+      }
+    });
+  return false;
 }
 
 
@@ -137,8 +168,6 @@ function filterByOrderStatus() {
 }
 
 function fetchOrdersFilteredByStatus(filter) {
-  console.log(filter);
-
   var url = `/orders/filtered/${filter}`;
   fetch(url)
     .then(function (response) {
@@ -147,5 +176,4 @@ function fetchOrdersFilteredByStatus(filter) {
     .then(function (jsonData) {
       showTable(jsonData);
     });
-
 }
