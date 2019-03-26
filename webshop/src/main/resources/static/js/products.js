@@ -11,7 +11,7 @@ function fetchProducts() {
                 })
             .then(function(jsonData) {
 
-                console.log(jsonData);
+
                 showDivs(jsonData);
             });}
 
@@ -60,6 +60,7 @@ function fetchProducts() {
         clearerDiv.setAttribute('class', 'clearer');
         divMain.appendChild(clearerDiv);
 }
+
 window.onscroll = function() {scrollFunction()};
 
 function scrollFunction() {

@@ -4,7 +4,8 @@ import java.time.LocalDate;
 
 public class StatusOrderReport {
 
-    private LocalDate when;
+    private int year ;
+    private int month ;
     private Integer sumOfActiveOrdersForThisMonth;
     private Integer sumOfAmountForActiveOrdersForThisMonth;
     private Integer sumOfDeliveredOrdersForThisMonth;
@@ -12,8 +13,11 @@ public class StatusOrderReport {
     private Integer sumOfDeletedOrdersForThisMonth;
     private Integer sumOfAmountForDeletedOrdersForThisMonth;
 
-    public StatusOrderReport(LocalDate when, Integer sumOfActiveOrdersForThisMonth, Integer sumOfAmountForActiveOrdersForThisMonth, Integer sumOfDeliveredOrdersForThisMonth, Integer sumOfAmountForDeliveredOrdersForThisMonth, Integer sumOfDeletedOrdersForThisMonth, Integer sumOfAmountForDeletedOrdersForThisMonth) {
-        this.when = when;
+    public StatusOrderReport(int year, int month, Integer sumOfActiveOrdersForThisMonth,
+                             Integer sumOfAmountForActiveOrdersForThisMonth, Integer sumOfDeliveredOrdersForThisMonth, Integer sumOfAmountForDeliveredOrdersForThisMonth,
+                             Integer sumOfDeletedOrdersForThisMonth, Integer sumOfAmountForDeletedOrdersForThisMonth) {
+        this.year = year;
+        this.month = month;
         this.sumOfActiveOrdersForThisMonth = sumOfActiveOrdersForThisMonth;
         this.sumOfAmountForActiveOrdersForThisMonth = sumOfAmountForActiveOrdersForThisMonth;
         this.sumOfDeliveredOrdersForThisMonth = sumOfDeliveredOrdersForThisMonth;
@@ -22,8 +26,12 @@ public class StatusOrderReport {
         this.sumOfAmountForDeletedOrdersForThisMonth = sumOfAmountForDeletedOrdersForThisMonth;
     }
 
-    public LocalDate getWhen() {
-        return when;
+    public int getYear() {
+        return year;
+    }
+
+    public int getMonth() {
+        return month;
     }
 
     public Integer getSumOfActiveOrdersForThisMonth() {
@@ -48,5 +56,44 @@ public class StatusOrderReport {
 
     public Integer getSumOfAmountForDeletedOrdersForThisMonth() {
         return sumOfAmountForDeletedOrdersForThisMonth;
+    }
+
+
+    public void setSumOfActiveOrdersForThisMonth(Integer sumOfActiveOrdersForThisMonth) {
+        this.sumOfActiveOrdersForThisMonth = sumOfActiveOrdersForThisMonth;
+    }
+
+    public void setSumOfAmountForActiveOrdersForThisMonth(Integer sumOfAmountForActiveOrdersForThisMonth) {
+        this.sumOfAmountForActiveOrdersForThisMonth = sumOfAmountForActiveOrdersForThisMonth;
+    }
+
+    public void setSumOfDeliveredOrdersForThisMonth(Integer sumOfDeliveredOrdersForThisMonth) {
+        this.sumOfDeliveredOrdersForThisMonth = sumOfDeliveredOrdersForThisMonth;
+    }
+
+    public void setSumOfAmountForDeliveredOrdersForThisMonth(Integer sumOfAmountForDeliveredOrdersForThisMonth) {
+        this.sumOfAmountForDeliveredOrdersForThisMonth = sumOfAmountForDeliveredOrdersForThisMonth;
+    }
+
+    public void setSumOfDeletedOrdersForThisMonth(Integer sumOfDeletedOrdersForThisMonth) {
+        this.sumOfDeletedOrdersForThisMonth = sumOfDeletedOrdersForThisMonth;
+    }
+
+    public void setSumOfAmountForDeletedOrdersForThisMonth(Integer sumOfAmountForDeletedOrdersForThisMonth) {
+        this.sumOfAmountForDeletedOrdersForThisMonth = sumOfAmountForDeletedOrdersForThisMonth;
+    }
+
+    @Override
+    public String toString() {
+        return "StatusOrderReport{" +
+                "year=" + year +
+                ", month=" + month +
+                ", sumOfActiveOrdersForThisMonth=" + sumOfActiveOrdersForThisMonth +
+                ", sumOfAmountForActiveOrdersForThisMonth=" + sumOfAmountForActiveOrdersForThisMonth +
+                ", sumOfDeliveredOrdersForThisMonth=" + sumOfDeliveredOrdersForThisMonth +
+                ", sumOfAmountForDeliveredOrdersForThisMonth=" + sumOfAmountForDeliveredOrdersForThisMonth +
+                ", sumOfDeletedOrdersForThisMonth=" + sumOfDeletedOrdersForThisMonth +
+                ", sumOfAmountForDeletedOrdersForThisMonth=" + sumOfAmountForDeletedOrdersForThisMonth +
+                '}';
     }
 }

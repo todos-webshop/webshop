@@ -2,6 +2,7 @@ package webshop.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import webshop.CustomResponseStatus;
@@ -29,19 +30,21 @@ public class UserController {
         if (validator.isEmpty(user.getUsername()) || validator.isEmpty(user.getFirstName()) || validator.isEmpty(user.getLastName())) {
             return new CustomResponseStatus(Response.FAILED, "Error! All fields are required.");
         }
-        if (userService.getAllUsernames().contains(user.getUsername())) {
+        long newUserId = 0;
+        try {
+            newUserId = userService.createUserAndReturnUserId(user);
+        } catch (DuplicateKeyException dke) {
             return new CustomResponseStatus(Response.FAILED, String.format("User already exists. " +
                             "New user can " +
                             "not be created for %s.",
                     user.getUsername()));
         }
-        if (userService.createUserAndReturnUserId(user) > 0) {
-            if (userValidator.userCanBeSaved(user)){
-                return new CustomResponseStatus(Response.FAILED, "Error! User was not created.");}
-        }
+        if (newUserId > 0) {
             return new CustomResponseStatus(Response.SUCCESS, String.format("User %s " +
-                        "successfully created.",
-                user.getUsername()));
+                            "successfully created.",
+                    user.getUsername()));
+        }
+        return new CustomResponseStatus(Response.FAILED, "Error! User was not created.");
 
     }
 

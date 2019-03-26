@@ -19,7 +19,7 @@ function showDivs(jsonData) {
     var divRow = document.createElement('div');
     divRow.setAttribute('contenteditable', 'false');
     divRow.setAttribute('id', jsonData[i].id);
-    divRow.setAttribute('class', 'admin-product-div');
+    divRow.setAttribute('class', 'users-div');
 
     var firstNameDiv = document.createElement('div');
     firstNameDiv.innerHTML = jsonData[i].firstName;
@@ -82,6 +82,9 @@ function showDivs(jsonData) {
 
     divMain.appendChild(divRow);
   }
+var clearerDiv = document.createElement('div');
+clearerDiv.setAttribute('class', 'clearer');
+divMain.appendChild(clearerDiv);
 }
 
 function deleteUser() {

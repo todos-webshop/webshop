@@ -256,5 +256,9 @@ public class WebshopApplicationTests {
 //        BasketData basketData = basketController.getBasketDataForActualUser();
 //        assertEquals(1,basketData.getBasket().getBasketItems().size());
 //    }
+  @Test
+public void testStatistics(){
+      //select count(*) order_time   FROM `orders` group by YEAR(order_time) ,  month(order_time)
 
+    }
 }

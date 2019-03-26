@@ -55,7 +55,7 @@ public class OrderDao {
     public List<Order> listOrdersByUserId(long userId) {
         return jdbcTemplate.query("SELECT orders.id, orders.user_id, orders.order_time, orders.status, products.id, code, name, address, manufacturer,price, products.status, orders.total_order FROM products JOIN " +
                 "ordered_items ON products.id = ordered_items.product_id JOIN orders ON orders.id = ordered_items.order_id " +
-                "WHERE orders.user_id = ? order by orders.order_time desc", new RowMapper<Order>() {
+                "WHERE orders.user_id = ? order by orders.order_time", new RowMapper<Order>() {
             @Override
             public Order mapRow(ResultSet resultSet, int i) throws SQLException {
                 String price = resultSet.getString("price");
@@ -120,7 +120,8 @@ public class OrderDao {
 
 
     public int logicalDeleteOrderByOrderId(long orderId) {
-        return 1;
+        return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).update("UPDATE orders SET status = 'DELETED' where " +
+                "id = (:order_id);", Map.of("order_id", orderId));
     }
 
     public int countActiveOrders() {
@@ -131,4 +132,21 @@ public class OrderDao {
         return jdbcTemplate.queryForObject("SELECT count(id) FROM `orders`", (rs, i) -> rs.getInt("count(id)"));
     }
 
+    public int deleteItemFromOrderByProductAddress(long orderId, String productAddress) {
+        return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).update("DELETE FROM ordered_items where order_id = " +
+                        "(:order_id) AND product_id = (SELECT id FROM products WHERE address = (:product_address));",
+                Map.of("order_id", orderId, "product_address", productAddress));
+    }
+
+    public List<OrderData> listFilteredOrderData(String filter) {
+        return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).query("SELECT orders.id order_id, username, " +
+                        "order_time, status, SUM(order_price) sum_price, COUNT(orders.id) sum_pieces FROM orders JOIN users ON " +
+                        "orders.user_id = users.id JOIN ordered_items ON order_id = orders.id WHERE status = (:status) GROUP BY orders.id, username, " +
+                        "order_time, status ORDER BY orders.order_time DESC", Map.of("status", filter),
+                ORDER_DATA_ROW_MAPPER);
+    }
+
+    public OrderStatus getOrderStatusByOrderId(long orderId) {
+        return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).queryForObject("SELECT status FROM orders WHERE id = (:id)", Map.of("id", orderId), (resultSet, i) -> OrderStatus.valueOf(resultSet.getString("status")));
+    }
 }
