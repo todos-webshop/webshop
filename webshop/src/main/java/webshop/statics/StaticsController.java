@@ -3,6 +3,8 @@ package webshop.statics;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class StaticsController {
     private StaticsService staticsService;
@@ -23,6 +25,16 @@ public class StaticsController {
 
     @GetMapping("/reports/products")
     public void getProductsReport(){
+
+    }
+    @GetMapping("/reports/reportone")
+    public List<StatusOrderReport> doReportOne(){
+       return staticsService.doReportOne();
+
+    }
+    @GetMapping("/reports/reportonesummary")
+    public List<StatSummary> doReportOneSummary(){
+       return staticsService.doReportOneSummary();
 
     }
 }

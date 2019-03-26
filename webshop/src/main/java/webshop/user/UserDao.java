@@ -1,5 +1,6 @@
 package webshop.user;
 
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
@@ -25,7 +26,7 @@ public class UserDao {
     }
 
 
-    public long createUserAndReturnUserId(User user) {
+    public long createUserAndReturnUserId(User user) throws DuplicateKeyException {
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 

@@ -11,7 +11,7 @@ function fetchProducts() {
                 })
             .then(function(jsonData) {
 
-                console.log(jsonData);
+
                 showDivs(jsonData);
             });}
 
