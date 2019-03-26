@@ -14,7 +14,14 @@
 }
 
 .welcome-pic {
+  background: url("/img/Coconut_Bowl_Banner.jpg") no-repeat center center fixed;
+  background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  -webkit-background-size: cover;
+
   background-image: url("/img/Coconut_Bowl_Banner.jpg");
+
   width: 100%;
   height: 800px;
   position: relative;
@@ -26,8 +33,9 @@
 .clearer {
   clear: both;
 }
+
 .div_class_user {
-  font-family: "webshopFontMedium";
+  font-family: "Montserrat-Regular";
   margin-top: 25px;
   background: rgb(223, 223, 223);
   box-sizing: border-box;
@@ -41,7 +49,7 @@
 }
 
 .div_class_admin {
-  font-family: "webshopFontMedium";
+  font-family: "Montserrat-Regular";
   color: #000000;
   overflow: hidden;
 }
@@ -68,16 +76,26 @@
   height: 30px;
 }
 
-#new-product-btn, #form-input {
+#new-product-btn {
   border-radius: 10px;
   text-align: center;
   position: absolute;
+  top: 180px;
+  left: 20px;
+}
+
+#form-input {
+  border-radius: 10px;
+  text-align: center;
+  position: absolute;
+  top: 230px;
   left: 20px;
 }
 
 #add-btn {
   border-radius: 10px;
-  width: 50px;
+  width: 100px;
+  height: 40px;
   text-align: center;
   position: relative;
   left: 20px;
@@ -89,25 +107,28 @@
   padding: 5px;
 }
 
-#new-product-btn:hover {
-  background-color: rgb(175, 172, 169);
+#add-btn:hover {
+  background-color: rgb(38, 71, 43);
   color: white;
 }
 
+#new-product-btn:hover {
+  border-color: rgb(38, 71, 43);
+}
+
 .product-div {
-  font-family: "webshopFontMedium";
+  font-family: "Montserrat-Regular";
   float: left;
-  width: 25%;
+  max-width: 24%;
   margin: 60px;
-  padding: 20px;
+  overflow: hidden;
+  padding: 7px;
   text-align: center;
-  border: solid 2px rgb(100, 100, 100);
-  border-radius: 10px;
   background-color: rgb(223, 223, 223);
 }
 
 .orders-div {
-  font-family: "webshopFontMedium";
+  font-family: "Montserrat-Regular";
   margin: 90px;
   padding: 20px;
   text-align: center;
@@ -117,12 +138,12 @@
 }
 
 .bold {
-  font-family: "webshopFontBold";
+  font-family: "Montserrat-Regular";
 }
 
 .admin-product-div,
 #basket-div {
-  font-family: "webshopFontMedium";
+  font-family: "Montserrat-Regular";
   float: left;
   width: 20%;
   margin: 30px;
@@ -136,11 +157,11 @@
 }
 
 .h1-orders {
-  font-family: "webshopFontMedium";
+  font-family: "Montserrat-Regular";
 }
 
 .form-input {
-  font-family: "webshopFontMedium";
+  font-family: "Montserrat-Regular";
   width: 150px;
   float: left;
   margin-left: 30px;
@@ -155,38 +176,71 @@ footer img {
 }
 
 .footer {
-  background-color: rgb(171, 172, 172);
-  font-family: "Montserrat", sans-serif;
+  background-color: rgb(97, 97, 97);
+  font-family: "Montserrat-Regular";
   font-size: 12px;
+  color: white;
   padding: 10px 0 20px 30px;
-  position: relative;
   width: 100%;
 }
 
 .products_img {
   height: 400px;
 }
-#myBtn{
-display: none;
-background: transparent url("/img/uparrow.png") no-repeat;
-  position: fixed;
-  bottom: 15px;
-  right: 25px;
-  z-index: 99;
-  cursor: pointer;
-  padding: 28px;
-  border: none;
+
+.product-div:hover {
+  background-color: rgb(98, 126, 104);
+  color: white;
 }
 
-#myBtn:hover {
-
+.cleaner-div {
+  position: relative;
 }
 
+.main_div_adminproducts {
+  position: absolute;
+  top: 230px;
+  z-index: 1;
+}
 
+.main_div_adminproducts_modified {
+  position: absolute;
+  top: 400px;
+  z-index: 1;
+}
 
+.title {
+  position: absolute;
+  top: 520px;
+  right: 220px;
+  z-index: 3;
+  width: 250px;
+  height: 48px;
+  font-family: "Roboto-Light";
+  font-size: 30px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  letter-spacing: 3px;
+  text-align: center;
+  z-index: -1;
+}
 
+.title-two {
+  position: absolute;
+  top: 568px;
+  right: 130px;
+  z-index: 3;
+  width: 4 50px;
+  height: 48px;
+  font-family: "Roboto-Light";
+  font-size: 30px;
+  background-color: rgba(180, 180, 180, 0.4);
+  color: black;
+  letter-spacing: 3px;
+  text-align: center;
+  z-index: -1;
+}
 
-
-
-
-
+.div_class_name {
+  padding-top: 5px;
+}
