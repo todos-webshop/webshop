@@ -163,7 +163,7 @@ public class WebshopApplicationTests {
         assertEquals("User skynet successfully created.", responseStatus2.getMessage());
         assertEquals(3, users.size());
         assertEquals("John", users.get(2).getFirstName());
-        assertEquals(1, users.get(2).getEnabled());
+        assertEquals(6, users.get(2).getEnabled());
         assertEquals(UserRole.ROLE_USER, users.get(2).getUserRole());
 
         assertEquals("Mák", users.get(1).getLastName());

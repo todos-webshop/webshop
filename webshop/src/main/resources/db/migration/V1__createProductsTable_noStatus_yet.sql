@@ -21,7 +21,7 @@ INSERT INTO products (code, name, address, manufacturer, price) VALUES
 	('BP2', 'Bamboo Water Bottle', 'bamboo_water_bottle', 'Funk Trunk', 4490),
 	('BP3', 'Bamboo Phone Case', 'bamboo_phone_case', 'Funk Trunk', 6490),
 	('BP4', 'Bamboo Twist Pen', 'bamboo_twist_pen', 'Funk Trunk', 1190),
-	('BP5', 'Bamboo Notebook & Pen', 'bamboo_notebook_pen', 'Funk Trunk', 2190),
+	('BP5', 'Bamboo Notebook and Pen', 'bamboo_notebook_and_pen', 'Funk Trunk', 2190),
 	('BP6', 'Bamboo Cutlery Set', 'bamboo_cutlery_set', 'Funk Trunk', 2990),
 	('BP7', 'Bamboo Cotton Buds', 'bamboo_cotton_buds', 'Go Bamboo', 990),
 	('CUP1', 'Glass Keep Cup', 'glass_keep_cup', 'Keep Cup', 4990),

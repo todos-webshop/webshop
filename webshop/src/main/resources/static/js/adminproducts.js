@@ -180,8 +180,6 @@ function saveUpdatedItem(){
             document.getElementById('message-div').setAttribute('class', 'alert alert-success')
 
                         var row = document.getElementById(this.id);
-
-
                             var c = row.childNodes;
                             for (var i = 0; i < c.length; i++){
                                 if (i == 5){
@@ -200,10 +198,9 @@ function saveUpdatedItem(){
             fetchProducts();
             document.getElementById('message-div').innerHTML = jsonData.message;
             document.getElementById('message-div').setAttribute('class', 'alert alert-danger')
-console.log(this.id);
+
             var row = document.getElementById(this.id);
                 var c = row.childNodes;
-                     console.log(row);
                 for (var i = 0; i < c.length; i++){
                     if (i == 5){
                         c[i].innerHTML = `<div>$value</div>`
@@ -278,10 +275,11 @@ function showInputFields() {
   mainDiv.setAttribute('class', 'main_div_adminproducts')
   }
 }
+
 window.onscroll = function() {scrollFunction()};
 
 function scrollFunction() {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+  if (document.body.scrollTop > 250 || document.documentElement.scrollTop > 250) {
     document.getElementById("myBtn").style.display = "block";
   } else {
     document.getElementById("myBtn").style.display = "none";
