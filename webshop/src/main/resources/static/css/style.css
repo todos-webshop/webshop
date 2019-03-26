@@ -329,7 +329,7 @@ display: none;
 background: transparent url("/img/uparrow.png") no-repeat;
   position: fixed;
   bottom: 15px;
-  right: 25px;
+  right: 17px;
   z-index: 99;
   cursor: pointer;
   padding: 28px;
@@ -344,8 +344,11 @@ background: transparent url("/img/uparrow.png") no-repeat;
 min-height: 690px;
 }
 
-#orders-div,.stat-table {
+#orders-div,.stat-table, .product-container {
   position: relative;
   top: 150px;
 }
 
+.product-img{
+
+}
