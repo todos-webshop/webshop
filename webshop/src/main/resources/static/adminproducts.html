@@ -9,26 +9,25 @@
 </head>
 <body>
 
-<button id="new-product-btn">
-    <img src="/img/add logo.png" alt="" onclick="showInputFields()">Add new item
-</button>
-<br><br><br>
-
-<form class="disabled" id="form-input">
-    <div class="form-input">Code</div> <input type="text" name="code" id="code"><br>
-    <div class="form-input">Name</div> <input type="text" name="name" id="name"><br>
-    <div class="form-input">Manufacturer</div> <input type="text" name="manufacturer" id="manufacturer"><br>
-    <div class="form-input">Price</div> <input type="text" name="price" id="price"><br><br>
 
 
-    <input type="submit" value="Add" id="add-btn"><br>
+<div class="cleaner-div">
+    <button id="new-product-btn">
+        <img src="/img/add logo.png" alt="">Add new item
+    </button>
+    <br><br><br>
 
-</form>
+    <form class="disabled" id="form-input">
+        <div class="form-input">Code</div> <input type="text" name="code" id="code"><br>
+        <div class="form-input">Name</div> <input type="text" name="name" id="name"><br>
+        <div class="form-input">Manufacturer</div> <input type="text" name="manufacturer" id="manufacturer"><br>
+        <div class="form-input">Price</div> <input type="text" name="price" id="price"><br><br>
 
-<div id ="main_div">
-
+        <input type="submit" value="Add" id="add-btn"><br>
+    </form>
+    <div id ="main_div_adminproducts" class="main_div_adminproducts">
 </div>
-
+</div>
 
 <script src="js/adminproducts.js"></script> <script src="js/menu.js"></script>
 

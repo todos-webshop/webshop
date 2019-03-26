@@ -34,7 +34,7 @@ function fetchProducts() {
        var nameDiv = document.createElement("div");
 
        nameDiv.innerHTML = jsonData[i].name;
-       nameDiv.setAttribute('class', 'div_class');
+       nameDiv.setAttribute('class', 'div_class_name');
 
        nameDiv.setAttribute("onclick", `window.location.href="product.html?address=${jsonData[i].address}"`);
        divRow.appendChild(nameDiv);
@@ -42,7 +42,6 @@ function fetchProducts() {
 
        var priceDiv = document.createElement("div");
        priceDiv.innerHTML = jsonData[i].price+ " Ft";
-       priceDiv.setAttribute('class', 'div_class');
 
        priceDiv.setAttribute("onclick", `window.location.href="product.html?address=${jsonData[i].address}"`);
        divRow.appendChild(priceDiv);

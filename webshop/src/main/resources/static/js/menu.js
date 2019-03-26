@@ -25,7 +25,10 @@ function setMenu() {
   div.setAttribute('id', 'menu_div');
   div.setAttribute('class', 'menu_div');
 
-  body.insertBefore(createMessageDiv(), body.firstChild);
+  var cleanerDiv = document.querySelector('.cleaner-div');
+  cleanerDiv.insertBefore(createMessageDiv(), cleanerDiv.firstChild);
+
+  //body.insertBefore(createMessageDiv(), body.firstChild);
   body.insertBefore(div, body.firstChild);
   body.insertBefore(freeShippingDiv, body.firstChild);
 
@@ -61,6 +64,9 @@ function setMenu() {
   setFavicon();
   insertMenuCss();
   addEventListenerToLogo();
+
+  insertFooter();
+
 }
 
 function classChanger() {
@@ -109,6 +115,14 @@ function insertMenuCss() {
   head.appendChild(cssLink);
 }
 
+function insertFooter(){
+  var body = document.querySelector('body');
+  var script = document.createElement('script');
+  script.setAttribute('src', 'js/footer.js')
+
+  body.appendChild(script);
+}
+
 function createDropdownDivForUser(div) {
   div.innerHTML += `
     <div class="dropdown">
@@ -127,7 +141,7 @@ function createDropdownDivForAdmin(div) {
     <div class="dropdown">
         <button onmouseover="classChanger()" class="dropbtn">Admin</button>
         <div id="myDropdown" class="dropdown-content">
-            <a href="/history.html">Order history</a>
+            <a href="/orders.html">Order history</a>
             <a href="/dashboard.html">Dashboard</a>
             <a href="/users.html">Users</a>
             <a href="/adminproducts.html">Products</a>
