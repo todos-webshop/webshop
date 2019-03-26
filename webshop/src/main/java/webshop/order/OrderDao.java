@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import webshop.basket.BasketItem;
 import webshop.product.Product;
 import webshop.product.ProductStatus;
+import webshop.statics.StatusOrderReport;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -80,16 +81,6 @@ public class OrderDao {
     }
 
 
-    private static final RowMapper<Order> EMPTY_ORDER_ROW_MAPPER = (resultSet, i) -> {
-        long orderId = resultSet.getLong("orders.id");
-        long userId = resultSet.getLong("user_id");
-        LocalDateTime orderTime = resultSet.getTimestamp("orders.order_time").toLocalDateTime();
-        OrderStatus orderStatus = OrderStatus.valueOf(resultSet.getString("orders.status"));
-        long totalOrderPrice = resultSet.getLong("total_order");
-        List<OrderItem> orderItems = new ArrayList<>();
-        return new Order(orderId, userId, orderTime, orderStatus, totalOrderPrice, orderItems);
-    };
-
     private static final RowMapper<OrderItem> ORDER_ITEM_ROW_MAPPER = (resultSet, i) -> {
         String priceString = resultSet.getString("order_price").split(" ")[0];
 
@@ -105,20 +96,33 @@ public class OrderDao {
     };
 
 
-    public List<Order> listAllOrders() {
-        List<Order> ordersList = jdbcTemplate.query("SELECT orders.id, orders.user_id, orders.order_time, orders.status, orders.total_order FROM orders ORDER BY orders.order_time", EMPTY_ORDER_ROW_MAPPER);
-        for (Order order : ordersList) {
-            order.setOrderItems(listOrderItemsByOrderId(order.getId()));
-        }
-        return ordersList;
+    private static final RowMapper<OrderData> ORDER_DATA_ROW_MAPPER = (resultSet, i) -> {
+        long orderId = resultSet.getLong("order_id");
+        String username = resultSet.getString("username");
+        LocalDateTime orderTime = resultSet.getTimestamp("order_time").toLocalDateTime();
+        OrderStatus orderStatus = OrderStatus.valueOf(resultSet.getString("status"));
+        long sumOrderPrice = resultSet.getLong("sum_price");
+        int sumOrderPieces = resultSet.getInt("sum_pieces");
+        return new OrderData(orderId, username, orderTime, orderStatus, sumOrderPrice, sumOrderPieces);
+    };
+
+
+    public List<OrderData> listAllOrderData() {
+        return jdbcTemplate.query("SELECT orders.id order_id, username, order_time, status, SUM(order_price) sum_price, COUNT(orders.id) sum_pieces FROM orders JOIN users ON orders.user_id = users.id JOIN ordered_items ON order_id = orders.id GROUP BY orders.id, username, order_time, status ORDER BY orders.order_time DESC", ORDER_DATA_ROW_MAPPER);
     }
 
-    private List<OrderItem> listOrderItemsByOrderId(long orderId) {
+    public List<OrderItem> listOrderItemsByOrderId(long orderId) {
         return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).query(
                 "SELECT id, code, name, manufacturer, order_price, status FROM ordered_items JOIN products ON ordered_items" +
                         ".product_id = products.id where order_id = (:order_id) ORDER BY name", Map.of("order_id", orderId),
                 ORDER_ITEM_ROW_MAPPER);
 
+    }
+
+
+    public int logicalDeleteOrderByOrderId(long orderId) {
+        return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).update("UPDATE orders SET status = 'DELETED' where " +
+                "id = (:order_id);", Map.of("order_id", orderId));
     }
 
     public int countActiveOrders() {
@@ -127,5 +131,23 @@ public class OrderDao {
 
     public int countAllOrders() {
         return jdbcTemplate.queryForObject("SELECT count(id) FROM `orders`", (rs, i) -> rs.getInt("count(id)"));
+    }
+
+    public int deleteItemFromOrderByProductAddress(long orderId, String productAddress) {
+        return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).update("DELETE FROM ordered_items where order_id = " +
+                        "(:order_id) AND product_id = (SELECT id FROM products WHERE address = (:product_address));",
+                Map.of("order_id", orderId, "product_address", productAddress));
+    }
+
+    public List<OrderData> listFilteredOrderData(String filter) {
+        return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).query("SELECT orders.id order_id, username, " +
+                        "order_time, status, SUM(order_price) sum_price, COUNT(orders.id) sum_pieces FROM orders JOIN users ON " +
+                        "orders.user_id = users.id JOIN ordered_items ON order_id = orders.id WHERE status = (:status) GROUP BY orders.id, username, " +
+                        "order_time, status ORDER BY orders.order_time DESC", Map.of("status", filter),
+                ORDER_DATA_ROW_MAPPER);
+    }
+
+    public OrderStatus getOrderStatusByOrderId(long orderId) {
+        return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).queryForObject("SELECT status FROM orders WHERE id = (:id)", Map.of("id", orderId), (resultSet, i) -> OrderStatus.valueOf(resultSet.getString("status")));
     }
 }

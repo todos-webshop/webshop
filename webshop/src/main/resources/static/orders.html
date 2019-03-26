@@ -5,46 +5,53 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Basket</title>
+    <title>Orders</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
 <body>
 
+    <div id="message-div"></div>
+    
     <div class="container">
 
+        <div id="orders-div">
+            <table class="table table-striped" id="table">
+                <thead>
+                    <tr>
+                        <th>Order id</th>
+                        <th>Username</th>
+                        <th>Order time</th>
+                        <th>Order status</th>
+                        <th>Order value</th>
+                        <th>Order quantity</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="orders-table"></tbody>
+            </table>
 
-        <a href="/">Main Page</a>
-        <br>
+            <br>
 
-        <a href="/register.html">Sign up</a>
-        <a href="/login">Login</a>
-        <a href="/logout">Logout</a>
 
-        <br>
-        
-        <br>
-        <div id="clear-basket">
-            <button>Clear basket</button>
+            <div id="filter">
+                <button id="filter-button" onclick="filterByOrderStatus()">Filter</button>
+            </div>
+            <br>
+            <select name="order-filter" id="order-filter" class="mdb-select md-form">
+                <option value="" disabled selected>Select order status to filter to</option>
+                <option value="">List all</option>
+                <option value="ACTIVE">Active</option>
+                <option value="DELIVERED">Delivered</option>
+                <option value="DELETED">Deleted</option>
+            </select>
         </div>
-        <br>
-
-        <div id="message-div"></div>
-
-        <br>
-        <div id="basket-div"></div>
-        <br>
-
-        <div id="order-items">
-            <button onclick="orderItems()">Order items</button>
-        </div>
-
     </div>
 
     <script src="js/menu.js"></script>
-    <script src="/js/basket.js"></script>
-    <script src="/js/orders.js"></script>
+    <!-- <script src="/js/basket.js"></script> -->
+    <script src="/js/adminorders.js"></script>
 
 </body>
 

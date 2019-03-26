@@ -3,6 +3,7 @@ package webshop.basket;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.dao.DuplicateKeyException;
 import webshop.product.Product;
 import webshop.product.ProductDao;
 import webshop.product.ProductStatus;
@@ -10,6 +11,7 @@ import webshop.user.User;
 import webshop.user.UserDao;
 import webshop.user.UserRole;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -42,7 +44,7 @@ public class BasketDaoIntegrationTest {
 
 
     @Test
-    public void testCreateAndList(){
+    public void testCreateAndList() throws DuplicateKeyException {
 
         //When
         User user1 = new User(123, "Test", "Woman", "testwoman", "passTest", 1, null);
@@ -66,7 +68,7 @@ public class BasketDaoIntegrationTest {
 
 
     @Test
-    public void testAddProductToBasket(){
+    public void testAddProductToBasket()throws DuplicateKeyException{
 
         //When
         User user1 = new User(123, "Test", "Woman", "testwoman", "passTest", 1, null);
@@ -98,7 +100,7 @@ public class BasketDaoIntegrationTest {
 
     }
     @Test
-    public void testSumProductPriceInBasketByBasketId(){
+    public void testSumProductPriceInBasketByBasketId()throws DuplicateKeyException{
 
 
         //When
@@ -130,7 +132,7 @@ public class BasketDaoIntegrationTest {
     }
 
     @Test
-    public void testClearBasketByBasketId(){
+    public void testClearBasketByBasketId()throws DuplicateKeyException{
         //Given
 
 
@@ -164,7 +166,7 @@ public class BasketDaoIntegrationTest {
 
 
     @Test
-    public void testSumProductPiecesInBasketByBasketId(){
+    public void testSumProductPiecesInBasketByBasketId()throws DuplicateKeyException{
 
 
         //When
@@ -197,7 +199,7 @@ public class BasketDaoIntegrationTest {
 
 
     @Test
-    public void testDeleteOneProductFromBusket(){
+    public void testDeleteOneProductFromBusket()throws DuplicateKeyException {
 
 
         //When
