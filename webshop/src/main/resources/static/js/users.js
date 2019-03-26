@@ -37,14 +37,14 @@ function showDivs(jsonData) {
     divRow.appendChild(usernameDiv);
 
     var passwordDiv = document.createElement('div');
-    passwordDiv.innerHTML = jsonData[i].password;
-    passwordDiv.setAttribute('class', 'div_class_admin');
+    passwordDiv.innerHTML ="";
+    passwordDiv.setAttribute('class', 'div_class_admin','placeholder');
     divRow.appendChild(passwordDiv);
 
-   var enabledDiv = document.createElement('div');
-    enabledDiv.innerHTML = jsonData[i].enabled;
-    enabledDiv.setAttribute('class', 'div_class_admin');
-     divRow.appendChild(enabledDiv);
+ //  var enabledDiv = document.createElement('div');
+ //   enabledDiv.innerHTML = jsonData[i].enabled;
+ //   enabledDiv.setAttribute('class', 'div_class_admin');
+ //    divRow.appendChild(enabledDiv);
 
     var userRoleDiv = document.createElement('div');
     userRoleDiv.innerHTML = jsonData[i].userRole;
@@ -110,17 +110,21 @@ function deleteUser() {
     return false;
 }
 
-function editUser(){
-    var attribute = '.save-button' + this.id;
-    var saveBtn = document.querySelector(attribute);
-    var newClassName = 'save-button' + this.id;
-    var newAttribute = 'button-enabled button ' + newClassName;
+    function editUser(){
+        var attribute = '.save-button' + this.id;
+        var saveBtn = document.querySelector(attribute);
+        var newClassName = 'save-button' + this.id;
+        var newAttribute = 'button-enabled button ' + newClassName;
 
-    saveBtn.setAttribute('class', newAttribute);
+        saveBtn.setAttribute('class', newAttribute);
 
-    var row = document.getElementById(this.id);
-    row.setAttribute('contenteditable', 'true');
-}
+        var row = document.getElementById(this.id);
+        var c = row.childNodes;
+        for (var i = 0; i < c.length; i++){
+            c[i].setAttribute('contenteditable', 'true');
+        }
+
+    }
 
 function saveUpdatedUser(){
       var row = document.getElementById(this.id);
@@ -130,9 +134,9 @@ function saveUpdatedUser(){
       var firstName = childenOfRow[0].innerHTML;
       var lastName = childenOfRow[1].innerHTML;
       var username = childenOfRow[2].innerHTML;
-      var password = childenOfRow[3].innerHTML;;
-      var enabled = childenOfRow[4].innerHTML;
-      var userRole = childenOfRow[5].innerHTML;
+      var password = childenOfRow[3].innerHTML;
+   //   var enabled = childenOfRow[4].innerHTML;
+      var userRole = childenOfRow[4].innerHTML;
 
 
 
@@ -141,7 +145,7 @@ function saveUpdatedUser(){
         'lastName': lastName,
         'username': username,
         'password': password,
-        'enabled': enabled,
+    //    'enabled': enabled,
         'userRole': userRole
       };
 

@@ -90,37 +90,33 @@ public class UserDao {
         jdbcTemplate.update("delete from users");
     }
 
+    public void modifyUserNoPassword(long id, User user) {
+        jdbcTemplate.update("update users set  first_name= ?, last_name= ?,username= ?,role= ?,enabled= ? where id = ?",
+                user.getFirstName(), user.getLastName(), user.getUsername(),  user.getUserRole().toString(),user.getEnabled(), id);
+    }
+
+
     public void modifyUser(long id, User user) {
         jdbcTemplate.update("update users set  first_name= ?, last_name= ?,username= ?,password= ?,role= ?,enabled= ? where id = ?",
-                user.getFirstName(), user.getLastName(), user.getUsername(), user.getPassword(), user.getUserRole().toString(), user.getEnabled(), id);
+                user.getFirstName(), user.getLastName(), user.getUsername(), user.getPassword(), user.getUserRole().toString(),user.getEnabled(), id);
     }
-
     public void logicalDeleteUserById(long id) {
-        jdbcTemplate.update("update users set first_name = ?,last_name= ?,username = ? where id = ?", "John", "Doe", "DELETED_USER" + id, id);
+        jdbcTemplate.update("update users set first_name = ?,last_name= ?,username = ? where id = ?", "John","Doe","DELETED_USER" + id, id);
     }
-
-    public boolean isAlreadyDeleted(long id) {
+    public boolean isAlreadyDeleted(long id){
         List<String> status = jdbcTemplate.query("select username from users where id = ?", new RowMapper<String>() {
             @Override
             public String mapRow(ResultSet resultSet, int i) throws SQLException {
                 return resultSet.getString("username");
             }
         }, id);
-        if (status.get(0).equals("DELETED_USER" + id)) {
+        if (status.get(0).equals("DELETED_USER"+id)){
             return true;
         }
         return false;
     }
-
-    public User getUserByUserId(long userId) {
-        return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).queryForObject(
-                "select id, first_name, last_name, username, password, enabled, role from users " +
-                        "where id = (:id)", Map.of("id", userId), USER_ROW_MAPPER);
-    }
-
     public int countAllUsers() {
         return jdbcTemplate.queryForObject("select count(id) from users", ((rs, i) -> rs.getInt("count(id)")));
     }
-
 }
 

@@ -7,8 +7,6 @@ import webshop.CustomResponseStatus;
 import webshop.Response;
 import webshop.basket.BasketDao;
 
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Collection;
 import java.util.List;
 
@@ -48,12 +46,14 @@ public class UserService {
         return userDao.listAllUsers();
     }
 
-    public void modifyUser(long id, User user) {
+    public void checkPasswordAndmodifyUser(long id, User user) {
+        if (user.getPassword().trim().equals("")){
+            userDao.modifyUserNoPassword(id,user);
+        }
         userDao.modifyUser(id, user);
     }
-
-    public CustomResponseStatus logicalDeleteUserById(long id){
-        if (userDao.isAlreadyDeleted(id)){
+    public CustomResponseStatus logicalDeleteUserById(long id) {
+        if (userDao.isAlreadyDeleted(id)) {
             return new CustomResponseStatus(Response.FAILED, "This user no longer exists.");
         }
         userDao.logicalDeleteUserById(id);

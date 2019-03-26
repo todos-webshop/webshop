@@ -71,7 +71,7 @@ public class OrderController {
 
     @DeleteMapping("/orders/{orderId}/{productAddress}")
     public CustomResponseStatus deleteItemFromOrderByProductAddress(@PathVariable long orderId,
-                                                                 @PathVariable String productAddress) {
+                                                                    @PathVariable String productAddress) {
         if (orderService.deleteItemFromOrderByProductAddress(orderId, productAddress) > 0) {
             return new CustomResponseStatus(Response.SUCCESS, String.format("Order item successfully removed from order.",
                     orderId));

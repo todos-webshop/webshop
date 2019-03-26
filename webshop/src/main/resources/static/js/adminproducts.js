@@ -16,7 +16,7 @@ function fetchProducts() {
 
 
 function showDivs(jsonData) {
-  divMain = document.getElementById('main_div');
+  divMain = document.getElementById('main_div_adminproducts');
   divMain.innerHTML = '';
   for (var i = 0; i < jsonData.length; i++) {
     var divRow = document.createElement('div');
@@ -60,14 +60,12 @@ function showDivs(jsonData) {
 
     var deleteBtn = document.createElement('img');
     deleteBtn.setAttribute('src','/img/delete-button.png')
-    deleteBtn.setAttribute('class', 'button')
     deleteBtn.setAttribute('id', jsonData[i].id)
     deleteBtn.addEventListener('click', deleteItem);
     deleteBtn.setAttribute('class', 'button');
 
     var editBtn = document.createElement('img');
     editBtn.setAttribute('src', '/img/edit-button.png');
-    editBtn.setAttribute('class', 'button')
     editBtn.setAttribute('id', jsonData[i].id)
     editBtn.addEventListener('click', editItem);
     editBtn.setAttribute('class', 'button');
@@ -124,6 +122,7 @@ function editItem(){
     var row = document.getElementById(this.id);
     var c = row.childNodes;
     for (var i = 0; i < c.length; i++){
+        if (i != 2){
         if (i == 5){
             c[i].innerHTML = `<select class="select-element">
                 <option value="ACTIVE">ACTIVE</option>
@@ -132,6 +131,7 @@ function editItem(){
         }
         else {
         c[i].setAttribute('contenteditable', 'true');
+        }
         }
         }
 }
@@ -262,9 +262,13 @@ newProductButton.onclick = function () {
 };
 
 function showInputFields() {
+  var mainDiv = document.querySelector('#main_div_adminproducts');
   var formInput = document.querySelector('#form-input');
   if (formInput.getAttribute('class') == 'disabled'){
   formInput.setAttribute('class', 'enabled');
+  mainDiv.setAttribute('class', 'main_div_adminproducts_modified')
   } else {
-  formInput.setAttribute('class', 'disabled')}
+  formInput.setAttribute('class', 'disabled')
+  mainDiv.setAttribute('class', 'main_div_adminproducts')
+  }
 }

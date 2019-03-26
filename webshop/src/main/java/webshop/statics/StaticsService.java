@@ -25,12 +25,12 @@ public class StaticsService {
     }
 
     public Stat getStat() {
-        int users = userDao.countAllUsers();
+      int users = userDao.countAllUsers();
         int countProducts = productDao.countAllProducts();
         int activeProducts = productDao.countActiveProducts();
         int activeOrders = orderDao.countActiveOrders();
         int countOrders = orderDao.countAllOrders();
-        return new Stat(users, activeProducts, countProducts, activeOrders, countOrders);
+      return new Stat(users, activeProducts, countProducts, activeOrders, countOrders);
     }
 
     public List<StatusOrderReport> doReportOne() {

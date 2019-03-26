@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import webshop.basket.Basket;
@@ -26,7 +25,6 @@ import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 
-import java.sql.SQLException;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -42,7 +40,7 @@ public class WebshopApplicationTests {
     @Autowired
     private BasketController basketController;
     @Autowired
-    BasketService basketService;
+    private BasketService basketService;
 
     @Test
     public void testCreateProduct() {
@@ -151,7 +149,7 @@ public class WebshopApplicationTests {
     }
 
     @Test
-    public void testCreateUserCheckAttributes() throws DuplicateKeyException {
+    public void testCreateUserCheckAttributes() {
         User user1 = new User(45, "Angéla", "Tömlőssy", "edvin23", "diSzno!%sajt", 2, UserRole.ROLE_USER);
         User user2 = new User(1000, "John", "Connor", "skynet", "illbeback", 6, null);
         User user3 = new User(0, "Elemér", "Mák", "margitbacsi", "máknéni", 1, UserRole.ROLE_ADMIN);

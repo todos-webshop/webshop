@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import webshop.basket.BasketItem;
 import webshop.product.Product;
 import webshop.product.ProductStatus;
-import webshop.statics.StatusOrderReport;
 
 import java.sql.*;
 import java.time.LocalDateTime;

@@ -10,8 +10,6 @@ import webshop.Response;
 import webshop.basket.BasketDao;
 import webshop.user.UserService;
 
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 @RestController
@@ -20,8 +18,12 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    private UserValidator validator = new UserValidator();
+    @Autowired
+    private UserValidator validator;
+    @Autowired
     private UserValidator userValidator;
+    @Autowired
+    private UserDao userDao;
 
     @PostMapping("/users")
     public CustomResponseStatus createUser(@RequestBody User user) {
@@ -68,16 +70,16 @@ public class UserController {
 
     @PostMapping("/api/users/{id}")
     public CustomResponseStatus modifyUser(@PathVariable long id, @RequestBody User user) {
-        UserValidator userValidator = new UserValidator();
         if (userValidator.userCanBeUpdated(user)) {
-            userService.modifyUser(id, user);
-            return new CustomResponseStatus(Response.SUCCESS, "User updated!");
-        }
-        return new CustomResponseStatus(Response.FAILED, "Failed to update user.");
-    }
+            try {
+                userService.checkPasswordAndmodifyUser(id, user);
+                return new CustomResponseStatus(Response.SUCCESS, "User updated!");
+            } catch (org.springframework.dao.DuplicateKeyException exc) {
+            }}
+        return new CustomResponseStatus(Response.FAILED, "User update invalid!");}
 
-    @DeleteMapping("/api/users/{id}")
-    public CustomResponseStatus logicalDeleteUserById(@PathVariable long id) {
-        return userService.logicalDeleteUserById(id);
-    }
-}
+            @DeleteMapping("/api/users/{id}")
+            public CustomResponseStatus logicalDeleteUserById ( @PathVariable long id){
+                return userService.logicalDeleteUserById(id);
+            }
+        }

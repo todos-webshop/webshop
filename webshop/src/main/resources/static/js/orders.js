@@ -76,7 +76,7 @@ function showDivs(jsonData) {
       divRow.appendChild(numberOfOrder);
 
       var date = document.createElement('div');
-      date.innerText = 'Date of order: ' + jsonData[i].orderTime;
+      date.innerText = 'Date of order: ' + jsonData[i].orderTime.split("T")[0] + " " + jsonData[i].orderTime.split("T")[1];
       divRow.appendChild(date);
 
       var totalOrder = document.createElement('div');
