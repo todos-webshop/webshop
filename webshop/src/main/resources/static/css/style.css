@@ -127,8 +127,8 @@
 .product-div {
   font-family: "Montserrat-Regular";
   float: left;
-  max-width: 24%;
-  margin: 60px;
+  max-width: 25%;
+  margin: 80px;
   overflow: hidden;
   padding: 7px;
   text-align: center;
@@ -159,7 +159,7 @@
   border: solid 2px rgb(100, 100, 100);
   border-radius: 10px;
   background-color: rgb(223, 223, 223);
-  min-height: 210px;
+  min-height: 230px;
   max-height: 220px;
 }
 
@@ -325,7 +325,7 @@ display: block;
 min-height: 100vh;
 position: relative;
 bottom: 0;
-top: 100px;
+top: 170px;
 }
 
 #myBtn{
@@ -344,6 +344,12 @@ background: transparent url("/img/uparrow.png") no-repeat;
 
 }
 
-.basket-main{
-min-height: 780px;
+.basket-main, .orders-main{
+min-height: 690px;
 }
+
+#orders-div,.stat-table {
+  position: relative;
+  top: 150px;
+}
+

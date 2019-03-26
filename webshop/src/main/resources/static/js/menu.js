@@ -68,7 +68,7 @@ function setMenu() {
   insertMenuCss();
   addEventListenerToLogo();
 
-  insertFooter();
+/*  insertFooter();*/
 
 }
 
@@ -118,13 +118,13 @@ function insertMenuCss() {
   head.appendChild(cssLink);
 }
 
-function insertFooter(){
+/*function insertFooter(){
   var body = document.querySelector('body');
   var script = document.createElement('script');
   script.setAttribute('src', 'js/footer.js')
 
   body.appendChild(script);
-}
+}*/
 
 function createDropdownDivForUser(div) {
   div.innerHTML += `
