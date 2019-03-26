@@ -166,3 +166,27 @@ footer img {
 .products_img {
   height: 400px;
 }
+#myBtn{
+display: none;
+background: transparent url("/img/uparrow.png") no-repeat;
+  position: fixed;
+  bottom: 15px;
+  right: 25px;
+  z-index: 99;
+  cursor: pointer;
+  padding: 28px;
+  border: none;
+}
+
+#myBtn:hover {
+
+}
+
+
+
+
+
+
+
+
+
