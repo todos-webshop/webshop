@@ -75,4 +75,6 @@ function addToBasket(jsonData) {
       document.getElementById('message-div').innerHTML = jsonData.message;
     });
 }
-
+function goBack() {
+  window.history.back();
+}
