@@ -2,7 +2,10 @@ package webshop.product;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import webshop.basket.BasketDao;
 import webshop.user.UserDao;
 
@@ -18,6 +21,8 @@ public class ProductDaoIntegrationTest {
     private UserDao userDao;
     private ProductDao productDao;
 
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     @Before
     public void init(){
@@ -82,6 +87,23 @@ public class ProductDaoIntegrationTest {
         //then
         Product prod = productDao.findProductByAddress("sample2_prod");
         assertThat(prod.getCode(),equalTo("PROD2"));
+    }
+
+    @Test
+    public void testFindBadProductByAddress(){
+        //Given
+
+        //When
+        Product product1 = new Product(15, "PROD", "Sample", "manufacture", 1546, ProductStatus.ACTIVE);
+        Product product2 = new Product(15, "PROD2", "Sample2 Prod", "manufacture", 156, ProductStatus.ACTIVE);
+        productDao.addNewProductAndGetId(product1);
+        productDao.addNewProductAndGetId(product2);
+
+        //then
+        expectedException.expect(EmptyResultDataAccessException.class);
+
+        Product prod = productDao.findProductByAddress("sample13_prod");
+
     }
 
 
