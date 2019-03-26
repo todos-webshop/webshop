@@ -17,6 +17,7 @@ function fetchAllOrders() {
 
 function showTable(jsonData) {
   var tableBody = document.getElementById('orders-table');
+  tableBody.innerHTML = '';
   tableBody.setAttribute('class', 'table table-striped');
 
   for (var i = 0; i < jsonData.length; i++) {
@@ -45,6 +46,14 @@ function showTable(jsonData) {
     var sumOrderPiecesTd = document.createElement('td');
     sumOrderPiecesTd.innerHTML = jsonData[i].sumOrderPieces;
     tr.appendChild(sumOrderPiecesTd);
+
+    var deleteButtonTd = document.createElement('td');
+    var deleteButton = document.createElement('button');
+    deleteButton.innerHTML = 'Delete order';
+    deleteButton.setAttribute('data-id', jsonData[i].orderId);
+    deleteButton.addEventListener('click', deleteOrder, true);
+    deleteButtonTd.appendChild(deleteButton);
+    tr.appendChild(deleteButtonTd);
 
 
     tableBody.appendChild(tr);
@@ -83,4 +92,60 @@ function showOrder(jsonData) {
       }
       document.getElementById('message-div').innerHTML = jsonData.message;
     });
+}
+
+function deleteOrder(event) {
+  event.stopPropagation();
+  console.log('dsdfbdgb');
+  var id = this.getAttribute('data-id');
+
+  var url = `/orders/${id}`;
+  console.log(url);
+
+  if (!confirm('Are you sure to delete?')) {
+    return;
+  }
+
+  fetch(url, {
+      method: 'DELETE'
+    })
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (jsonData) {
+      if (jsonData.response === 'SUCCESS') {
+        fetchAllOrders();
+        document.getElementById('message-div').innerHTML = jsonData.message;
+        document.getElementById('message-div').setAttribute('class', 'alert alert-success');
+      } else {
+        document.getElementById('message-div').innerHTML = jsonData.message;
+        document.getElementById('message-div').setAttribute('class', 'alert alert-danger');
+      }
+    });
+  return false;
+
+}
+
+
+function filterByOrderStatus() {
+  var filter = document.getElementById('order-filter').value;
+  if (filter === '') {
+    fetchAllOrders();
+  } else {
+    fetchOrdersFilteredByStatus(filter);
+  }
+}
+
+function fetchOrdersFilteredByStatus(filter) {
+  console.log(filter);
+
+  var url = `/orders/filtered/${filter}`;
+  fetch(url)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (jsonData) {
+      showTable(jsonData);
+    });
+
 }

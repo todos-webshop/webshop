@@ -1,6 +1,7 @@
 package webshop.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import webshop.CustomResponseStatus;
 import webshop.Response;
@@ -21,7 +22,7 @@ public class UserService {
         this.basketDao = basketDao;
     }
 
-    public long createUserAndReturnUserId(User user) {
+    public long createUserAndReturnUserId(User user) throws DuplicateKeyException {
         long newlyCreatedUserId = userDao.createUserAndReturnUserId(user);
         if (newlyCreatedUserId == 0) {
             return 0;
