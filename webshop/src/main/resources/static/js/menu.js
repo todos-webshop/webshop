@@ -25,7 +25,10 @@ function setMenu() {
   div.setAttribute('id', 'menu_div');
   div.setAttribute('class', 'menu_div');
 
-  var cleanerDiv = document.querySelector('.cleaner-div');
+
+  var cleanerDiv = document.createElement('div');
+  cleanerDiv.setAttribute('class', 'cleaner-div');
+  body.appendChild(cleanerDiv);
   cleanerDiv.insertBefore(createMessageDiv(), cleanerDiv.firstChild);
 
   //body.insertBefore(createMessageDiv(), body.firstChild);
@@ -65,7 +68,7 @@ function setMenu() {
   insertMenuCss();
   addEventListenerToLogo();
 
-  insertFooter();
+/*  insertFooter();*/
 
 }
 
@@ -115,13 +118,13 @@ function insertMenuCss() {
   head.appendChild(cssLink);
 }
 
-function insertFooter(){
+/*function insertFooter(){
   var body = document.querySelector('body');
   var script = document.createElement('script');
   script.setAttribute('src', 'js/footer.js')
 
   body.appendChild(script);
-}
+}*/
 
 function createDropdownDivForUser(div) {
   div.innerHTML += `

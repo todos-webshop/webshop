@@ -11,7 +11,7 @@ function fetchProducts() {
                 })
             .then(function(jsonData) {
 
-                console.log(jsonData);
+
                 showDivs(jsonData);
             });}
 
@@ -59,4 +59,19 @@ function fetchProducts() {
         var clearerDiv = document.createElement('div');
         clearerDiv.setAttribute('class', 'clearer');
         divMain.appendChild(clearerDiv);
+}
+
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 250 || document.documentElement.scrollTop > 250) {
+    document.getElementById("myBtn").style.display = "block";
+  } else {
+    document.getElementById("myBtn").style.display = "none";
+  }
+}
+
+
+function topFunction() {
+  document.documentElement.scrollTop = 0;
 }

@@ -17,6 +17,11 @@ var address = (new URL(document.location)).searchParams.get("address");
 
 function showTable(jsonData) {
     console.log(jsonData);
+
+    var productImg = document.querySelector('.product-img');
+    productImg.setAttribute('src', '/img/coming_soon.jpg')
+    productImg.setAttribute('alt', '');
+
     var table = document.getElementById("product-table");
     var tr = document.createElement("tr");
  

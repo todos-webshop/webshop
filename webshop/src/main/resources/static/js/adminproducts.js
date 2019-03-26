@@ -83,6 +83,9 @@ function showDivs(jsonData) {
 
     divMain.appendChild(divRow);
   }
+  var clearerDiv = document.createElement('div');
+  clearerDiv.setAttribute('class', 'clearer');
+  divMain.appendChild(clearerDiv);
 }
 
 function deleteItem() {
@@ -271,4 +274,19 @@ function showInputFields() {
   formInput.setAttribute('class', 'disabled')
   mainDiv.setAttribute('class', 'main_div_adminproducts')
   }
+}
+
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 250 || document.documentElement.scrollTop > 250) {
+    document.getElementById("myBtn").style.display = "block";
+  } else {
+    document.getElementById("myBtn").style.display = "none";
+  }
+}
+
+
+function topFunction() {
+  document.documentElement.scrollTop = 0;
 }

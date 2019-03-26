@@ -57,7 +57,6 @@ function fetchOrders() {
 
 function showDivs(jsonData) {
   divMain = document.getElementById('main_div');
-  divMain.innerHTML = '';
   var id = 0;
   for (var i = 0; i < jsonData.length; i++) {
   if (jsonData[i].id !== id){
