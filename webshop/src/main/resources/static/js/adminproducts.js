@@ -180,6 +180,8 @@ function saveUpdatedItem(){
             document.getElementById('message-div').setAttribute('class', 'alert alert-success')
 
                         var row = document.getElementById(this.id);
+
+
                             var c = row.childNodes;
                             for (var i = 0; i < c.length; i++){
                                 if (i == 5){
@@ -198,9 +200,10 @@ function saveUpdatedItem(){
             fetchProducts();
             document.getElementById('message-div').innerHTML = jsonData.message;
             document.getElementById('message-div').setAttribute('class', 'alert alert-danger')
-
+console.log(this.id);
             var row = document.getElementById(this.id);
                 var c = row.childNodes;
+                     console.log(row);
                 for (var i = 0; i < c.length; i++){
                     if (i == 5){
                         c[i].innerHTML = `<div>$value</div>`

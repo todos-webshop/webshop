@@ -124,9 +124,10 @@ function deleteUser() {
         var row = document.getElementById(this.id);
         var c = row.childNodes;
         for (var i = 0; i < c.length; i++){
+        if (i != 4){
             c[i].setAttribute('contenteditable', 'true');
         }
-
+}
     }
 
 function saveUpdatedUser(){

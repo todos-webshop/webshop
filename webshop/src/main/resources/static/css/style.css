@@ -293,8 +293,7 @@ min-height:1000px
 }
 
 #main-div{
-  position: relative;
-  top: 100px;
+
 }
 
 .button{
@@ -321,11 +320,9 @@ box-sizing: border-box;
 }
 
 .main-container{
-display: block;
-min-height: 100vh;
-position: relative;
-bottom: 0;
-top: 170px;
+  position: absolute;
+  top: 230px;
+  z-index: 1;
 }
 
 #myBtn{
