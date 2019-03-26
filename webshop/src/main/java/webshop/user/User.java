@@ -20,7 +20,7 @@ public class User {
         this.username = username;
         this.password = new BCryptPasswordEncoder(4).encode(password);
         this.userRole = roleMaker(userRole);
-        this.enabled = enabled;
+        this.enabled = 1;
     }
 
 

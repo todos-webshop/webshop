@@ -65,4 +65,20 @@ public class OrderService {
     public int logicalDeleteOrderByOrderId(long orderId) {
         return orderDao.logicalDeleteOrderByOrderId(orderId);
     }
+
+    public int deleteItemFromOrderByProductAddress(long orderId, String productAddress) {
+        return orderDao.deleteItemFromOrderByProductAddress(orderId, productAddress);
+    }
+
+    public List<OrderData> listFilteredOrderData(String filter) {
+        return orderDao.listFilteredOrderData(filter);
+    }
+
+    public OrderStatus getOrderStatusByOrderId(long orderId) {
+        return orderDao.getOrderStatusByOrderId(orderId);
+    }
+
+    public boolean isOrderDeleted(long orderId) {
+        return getOrderStatusByOrderId(orderId) == OrderStatus.DELETED;
+    }
 }

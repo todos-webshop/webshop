@@ -18,8 +18,7 @@ function createUser() {
       'firstName': firstName,
       'lastName': lastName,
       'username': username,
-      'password': pass1,
-      'enabled' : 1
+      'password': pass1
     };
 
     fetch('/users', {

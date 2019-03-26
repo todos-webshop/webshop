@@ -3,11 +3,13 @@ package webshop.user;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.dao.DuplicateKeyException;
 import webshop.basket.BasketDao;
 import webshop.product.Product;
 import webshop.product.ProductDao;
 import webshop.product.ProductStatus;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -37,7 +39,7 @@ public class UserDaoIntegrationTest {
     }
 
     @Test
-    public void testCreateAndList(){
+    public void testCreateAndList()throws DuplicateKeyException {
         //Given
 
 

@@ -60,10 +60,30 @@ public class OrderController {
 
     @DeleteMapping("/orders/{orderId}")
     public CustomResponseStatus logicalDeleteOrderByOrderId(@PathVariable long orderId) {
+        if (orderService.isOrderDeleted(orderId)){
+            return new CustomResponseStatus(Response.SUCCESS, String.format("Order %d is already deleted.", orderId));
+        }
         if (orderService.logicalDeleteOrderByOrderId(orderId) == 1) {
-            return new CustomResponseStatus(Response.SUCCESS, String.format("Order %s successfully deleted.", orderId));
+            return new CustomResponseStatus(Response.SUCCESS, String.format("Order %d successfully deleted.", orderId));
         }
         return new CustomResponseStatus(Response.FAILED, "An error occured during order delete.");
     }
+
+    @DeleteMapping("/orders/{orderId}/{productAddress}")
+    public CustomResponseStatus deleteItemFromOrderByProductAddress(@PathVariable long orderId,
+                                                                 @PathVariable String productAddress) {
+        if (orderService.deleteItemFromOrderByProductAddress(orderId, productAddress) > 0) {
+            return new CustomResponseStatus(Response.SUCCESS, String.format("Order item successfully removed from order.",
+                    orderId));
+        }
+        return new CustomResponseStatus(Response.FAILED, "An error occured during item delete from order.");
+    }
+
+    @GetMapping("/orders/filtered/{filter}")
+    public List<OrderData> listFilteredOrderData(@PathVariable String filter) {
+        return orderService.listFilteredOrderData(filter);
+    }
+
+
 
 }
