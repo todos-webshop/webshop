@@ -83,6 +83,9 @@ function showDivs(jsonData) {
 
     divMain.appendChild(divRow);
   }
+  var clearerDiv = document.createElement('div');
+  clearerDiv.setAttribute('class', 'clearer');
+  divMain.appendChild(clearerDiv);
 }
 
 function deleteItem() {

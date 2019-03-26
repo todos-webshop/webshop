@@ -70,10 +70,18 @@
   display: inline;
 }
 
-.button {
+#order-items, #purchase {
   position: relative;
-  width: 30px;
-  height: 30px;
+  width: 200px;
+  font-family: "Montserrat-Regular";
+  text-align: center;
+  height: 40px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.button:hover, #purchase:hover, #clear-basket:hover{
+  border: 1px solid black;
 }
 
 #new-product-btn {
@@ -141,8 +149,7 @@
   font-family: "Montserrat-Regular";
 }
 
-.admin-product-div,
-#basket-div {
+.admin-product-div {
   font-family: "Montserrat-Regular";
   float: left;
   width: 20%;
@@ -154,6 +161,32 @@
   background-color: rgb(223, 223, 223);
   min-height: 210px;
   max-height: 220px;
+}
+
+.users-div{
+  font-family: "Montserrat-Regular";
+  float: left;
+  width: 20%;
+  margin: 30px;
+  padding: 20px;
+  text-align: center;
+  border: solid 2px rgb(100, 100, 100);
+  border-radius: 10px;
+  background-color: rgb(223, 223, 223);
+  min-height: 210px;
+  max-height: 220px;
+}
+
+#basket-div{
+font-family: "Montserrat-Regular";
+  float: left;
+  margin-top: 160px;
+  margin-bottom: 30px;
+  text-align: center;
+  border: solid 2px rgb(100, 100, 100);
+  border-radius: 10px;
+  background-color: rgb(223, 223, 223);
+  position:relative;
 }
 
 .h1-orders {
@@ -243,4 +276,70 @@ footer img {
 
 .div_class_name {
   padding-top: 5px;
+}
+
+#clear-basket{
+  top: 160px;
+  position: relative;
+    width: 200px;
+    font-family: "Montserrat-Regular";
+    text-align: center;
+    height: 40px;
+    border-radius: 10px;
+}
+
+#main-div{
+  position: relative;
+  top: 100px;
+}
+
+.button{
+  width: 30px;
+  height: 30px;
+}
+
+.users-container{
+  position: relative;
+  top: 120px;
+}
+
+html, body{
+  height: 100%;
+  position: relative;
+}
+
+*{
+box-sizing: border-box;
+}
+
+*:before, *:after {
+box-sizing: border-box;
+}
+
+.main-container{
+display: block;
+min-height: 100vh;
+position: relative;
+bottom: 0;
+top: 100px;
+}
+
+#myBtn{
+display: none;
+background: transparent url("/img/uparrow.png") no-repeat;
+  position: fixed;
+  bottom: 15px;
+  right: 25px;
+  z-index: 99;
+  cursor: pointer;
+  padding: 28px;
+  border: none;
+}
+
+#myBtn:hover {
+
+}
+
+.basket-main{
+min-height: 780px;
 }
