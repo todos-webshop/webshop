@@ -29,14 +29,16 @@ public class WebshopApplication extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(  "/", "/register.html",
-                        "product.html").permitAll()
-                .antMatchers("/basket.html").authenticated()
-                .antMatchers("/myorders.html").hasRole("USER")
-                .antMatchers("/orders.html", "/dashboard.html", "/users.html", "/adminproducts.html").hasRole(
-                        "ADMIN")
+                .antMatchers("/**").permitAll()
+//                .antMatchers("/basket.html", "/orders", "/myorders").authenticated()
+//                .antMatchers("/myorders.html").hasRole("USER")
+//                .antMatchers("/orders.html", "/dashboard.html", "/users.html", "/adminproducts.html", "/dashboard", "/reports" +
+//                        "/**", "/api/users", "/api/users/**", "api/products", "api/product/**",
+//                        "/orders/**", "orders/**/**", "/orders/filtered/**", "/basket/**").hasRole(
+//                        "ADMIN")
                 .and()
-                .formLogin()
+                .formLogin().loginPage("/login.html")
+                .loginProcessingUrl("/login")
                 .and()
                 .logout()
                 .logoutSuccessUrl("/");
