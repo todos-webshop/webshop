@@ -151,6 +151,7 @@ public class ProductDao {
 
 
     public long getProductIdByProductCode(String productCode) {
+        System.out.println(productCode);
         Long productId =
                 new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).queryForObject(
                         "SELECT id FROM products WHERE code = " +
