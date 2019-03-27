@@ -26,6 +26,13 @@ public class ProductTest {
     }
 
     @Test
+    public void testCreateProducts(){
+        Product product = new Product(12,"NaP2","Bamboo Notebook & Pen", "manuf", 3900, ProductStatus.ACTIVE);
+
+        assertThat(product.getAddress(),equalTo("bamboo_notebook_&_pen"));
+    }
+
+    @Test
     public void testNormalize() {
         Product product = new Product(1266, "H59L", "árvíztűrő tükörfúrógép ", "manufact", 1255,
                 ProductStatus.ACTIVE );

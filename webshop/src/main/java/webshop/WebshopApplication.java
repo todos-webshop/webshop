@@ -29,11 +29,12 @@ public class WebshopApplication extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers( "/**", "/", "/js/**", "/css/**", "/api/**", "/register.html",
-                        "/users",
-                        "/username").permitAll()
-//                .antMatchers("/basket.html").hasRole("USER")
-//                .antMatchers("/basket.html").hasRole("ADMIN")
+                .antMatchers(  "/", "/register.html",
+                        "product.html").permitAll()
+                .antMatchers("/basket.html").authenticated()
+                .antMatchers("/myorders.html").hasRole("USER")
+                .antMatchers("/orders.html", "/dashboard.html", "/users.html", "/adminproducts.html").hasRole(
+                        "ADMIN")
                 .and()
                 .formLogin()
                 .and()

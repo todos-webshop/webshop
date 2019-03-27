@@ -56,8 +56,7 @@ function fetchOrders() {
 }
 
 function showDivs(jsonData) {
-  divMain = document.getElementById('main_div');
-  divMain.innerHTML = '';
+  divMain = document.getElementById('main_div_orders');
   var id = 0;
   for (var i = 0; i < jsonData.length; i++) {
   if (jsonData[i].id !== id){
@@ -114,4 +113,18 @@ function showDivs(jsonData) {
         + 'Piece: ' + jsonData[i].orderItems[0].pieces + "\n" + 'Price: ' + jsonData[i].orderItems[0].product.price + " Ft \n"
         }
     }
+}
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    document.getElementById("myBtn").style.display = "block";
+  } else {
+    document.getElementById("myBtn").style.display = "none";
+  }
+}
+
+
+function topFunction() {
+  document.documentElement.scrollTop = 0;
 }
