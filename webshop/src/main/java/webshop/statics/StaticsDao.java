@@ -37,6 +37,23 @@ public class StaticsDao {
 
     }
 
+    public List<StatByProduct> doReportTwo() {
+        return jdbcTemplate.query(
+                        "select year(orders.order_time), \n" +
+                        "month(orders.order_time), \n" +
+                        "products.name, products.price, \n" +
+                        "count(ordered_items.product_id), \n" +
+                        "sum(ordered_items.order_price) \n" +
+                        "from products join ordered_items on products.id=ordered_items.product_id   join orders on ordered_items.order_id= orders.id \n" +
+                        " where orders.status ='ACTIVE'\n"+
+                        "group by year(orders.order_time), month(orders.order_time), \n" +
+                        "products.name order by year(orders.order_time),\n" +
+                        "month(orders.order_time), products.name\n"
+                        ,
+                (rs,rowNum)-> new StatByProduct( rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getInt(4),rs.getInt(5),rs.getInt(6)));
+
+    }
+
 
 
 }

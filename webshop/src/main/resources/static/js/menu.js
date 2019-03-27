@@ -148,6 +148,7 @@ function createDropdownDivForAdmin(div) {
             <a href="/dashboard.html">Dashboard</a>
             <a href="/users.html">Users</a>
             <a href="/adminproducts.html">Products</a>
+             <a href="/reports.html">Reports</a>
         </div>
     </div>
     `;

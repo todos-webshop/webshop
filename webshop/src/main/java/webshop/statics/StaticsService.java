@@ -34,26 +34,39 @@ public class StaticsService {
     }
 
     public List<StatusOrderReport> doReportOne() {
+
         List<StatData> statDatas = staticsDao.doReportOne();
-        System.out.println(statDatas.toString());
+
+
         List<StatusOrderReport> statusOrderReports = new ArrayList<>();
         for (StatData statData : statDatas) {
             StatusOrderReport actReport = findYearMonth(statData, statusOrderReports);
             if (actReport == null) {
                 StatusOrderReport newReport = new StatusOrderReport(statData.getYear(), statData.getMonth(), null,
                         null, null, null, null, null);
-                addStatus(statData, newReport);
-                statusOrderReports.add(newReport);
+                StatusOrderReport changedReport=addStatus(statData, newReport);
+                statusOrderReports.add(changedReport);
             } else {
-                addStatus(statData, actReport);
+                int index = findStatusOrderReportInList (actReport, statusOrderReports);
+                statusOrderReports.set(index,addStatus(statData,statusOrderReports.get(index)));
+                //addStatus(statData, actReport);
 
             }
         }
+
         removeNull(statusOrderReports);
+
         return statusOrderReports;
     }
 
-
+    private int findStatusOrderReportInList (StatusOrderReport statusOrderReport,List<StatusOrderReport> statusOrderReports){
+        for (int i=0 ; i< statusOrderReports.size();i++){
+            if (statusOrderReport.getYear() == statusOrderReports.get(i).getYear() && statusOrderReport.getMonth()==statusOrderReports.get(i).getMonth()){
+                return i;
+            }
+        }
+        return -1;
+    }
     private StatusOrderReport findYearMonth(StatData statdata, List<StatusOrderReport> statusOrderReports) {
         for (StatusOrderReport statusOrderReport : statusOrderReports) {
             if (statusOrderReport.getYear() == statdata.getYear() && statusOrderReport.getMonth() == statdata.getMonth()) {
@@ -64,26 +77,33 @@ public class StaticsService {
         return null;
     }
 
-    private void addStatus(StatData statData, StatusOrderReport statusOrderReport) {
-        System.out.println("statdata"+statData.toString());
-        System.out.println("statdatareport"+statusOrderReport.toString());
+    private StatusOrderReport addStatus(StatData statData, StatusOrderReport statusOrderReport) {
+
         switch (statData.getOrderStatus()) {
             case ACTIVE: {
                 statusOrderReport.setSumOfAmountForActiveOrdersForThisMonth(statData.getAmount());
                 statusOrderReport.setSumOfActiveOrdersForThisMonth(statData.getPiece());
             }
-            ;
+            break;
+
             case DELIVERED: {
                 statusOrderReport.setSumOfAmountForDeliveredOrdersForThisMonth(statData.getAmount());
                 statusOrderReport.setSumOfDeliveredOrdersForThisMonth(statData.getPiece());
             }
-            ;
+            break;
+
             case DELETED: {
                 statusOrderReport.setSumOfAmountForDeletedOrdersForThisMonth(statData.getAmount());
                 statusOrderReport.setSumOfDeletedOrdersForThisMonth(statData.getPiece());
             }
+            break;
+
+            default: {
+
+            }
             ;
         }
+        return statusOrderReport;
     }
 
     private void removeNull(List<StatusOrderReport> statusOrderReports) {
@@ -110,10 +130,34 @@ public class StaticsService {
         }
     }
 
-    public List<StatSummary> doReportOneSummary() {
-        return staticsDao.doReportOneSummary();
-
+    public StatRowSummary doReportOneSummary() {
+       List <StatSummary> statSummaries =staticsDao.doReportOneSummary();
+        StatRowSummary statRowSummary = new StatRowSummary();
+        for (StatSummary statSummary:statSummaries){
+            switch(statSummary.getOrderStatus()){
+                case ACTIVE:{
+                    statRowSummary.setActPiece(statSummary.getPiece());
+                    statRowSummary.setActAmount(statSummary.getAmount());
+                }
+                break;
+                case DELIVERED:{
+                    statRowSummary.setDeliPiece(statSummary.getPiece());
+                    statRowSummary.setDeliAmount(statSummary.getAmount());
+                }
+                break;
+                case DELETED:{
+                    statRowSummary.setDelPiece(statSummary.getPiece());
+                    statRowSummary.setDelAmount(statSummary.getAmount());
+                }
+                break;
+                default:
+            }
+        }
+        return statRowSummary;
 }
+     public List<StatByProduct> doReportTwo(){
+        return staticsDao.doReportTwo();
+     }
 
 
 
