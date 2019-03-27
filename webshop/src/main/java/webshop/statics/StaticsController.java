@@ -19,22 +19,26 @@ public class StaticsController {
     }
 
     @GetMapping("/reports/orders")
-    public void getOrdersReport(){
+    public StatReportOne getOrdersReport(){
+        StatRowSummary statRowSummary =  staticsService.doReportOneSummary();
+        List<StatusOrderReport> statusOrderReports = staticsService.doReportOne();
+        return new StatReportOne(statusOrderReports,statRowSummary);
+
 
     }
 
     @GetMapping("/reports/products")
-    public void getProductsReport(){
-
+    public List<StatByProduct>  getProductsReport(){
+    return staticsService.doReportTwo();
     }
     @GetMapping("/reports/reportone")
     public List<StatusOrderReport> doReportOne(){
        return staticsService.doReportOne();
 
     }
-    @GetMapping("/reports/reportonesummary")
-    public List<StatSummary> doReportOneSummary(){
-       return staticsService.doReportOneSummary();
-
-    }
+//    @GetMapping("/reports/reportonesummary")
+//    public List<StatSummary> doReportOneSummary(){
+//       return staticsService.doReportOneSummary();
+//
+//    }
 }

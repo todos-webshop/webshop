@@ -13,4 +13,16 @@ public class StatSummary {
         this.piece = piece;
         this.amount = amount;
     }
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public int getPiece() {
+        return piece;
+    }
+
+    public long getAmount() {
+        return amount;
+    }
 }
