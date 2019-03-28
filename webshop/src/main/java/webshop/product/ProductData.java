@@ -5,10 +5,9 @@ public class ProductData {
     private String productCode;
     private int productPieces;
 
-    // only one piece per product for now
     public ProductData(String productCode, int productPieces) {
         this.productCode = productCode;
-        this.productPieces = 1;
+        this.productPieces = productPieces;
     }
 
     public String getProductCode() {

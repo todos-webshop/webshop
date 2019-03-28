@@ -9,7 +9,7 @@ public class OrderItem {
 
     public OrderItem (Product product, int pieces) {
         this.product = product;
-        this.pieces = 1;
+        this.pieces = pieces;
     }
 
     public Product getProduct() {

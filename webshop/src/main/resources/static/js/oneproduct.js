@@ -55,9 +55,12 @@ function showTable(jsonData) {
 }
 
 function addToBasket(jsonData) {
+  var quantity = document.getElementById('quantity').value;
+  console.log(quantity);
   var code = jsonData.code;
   var request = {
-    'productCode': code
+    'productCode': code,
+    'productPieces': quantity
   };
 //   console.log(request);
   fetch('/basket', {

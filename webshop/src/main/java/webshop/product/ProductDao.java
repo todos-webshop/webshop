@@ -182,4 +182,4 @@ public class ProductDao {
     public int countAllProducts() {
         return jdbcTemplate.queryForObject("Select count(id) from products", (rs, i) -> rs.getInt("count(id)"));
     }
-}
+   }

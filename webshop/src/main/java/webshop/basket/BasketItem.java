@@ -8,10 +8,9 @@ public class BasketItem {
     private int pieces;
 
 
-    // pieces default 1 for now - explicitly given here for Spring/Jackson
     public BasketItem(Product product, int pieces) {
         this.product = product;
-        this.pieces = 1;
+        this.pieces = pieces;
     }
 
 
