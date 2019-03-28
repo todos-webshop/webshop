@@ -1,9 +1,10 @@
 package webshop.rate;
 
+import org.springframework.stereotype.Service;
 import webshop.product.Product;
 
 import java.util.List;
-
+@Service
 public class RateService {
     private RateDao rateDao;
 
@@ -14,10 +15,12 @@ public class RateService {
     public List<Rate> getRatesForProduct(Product product){
         return rateDao.getRatesForProduct(product);
     }
+
     public double getAvgRatesForProduct(Product product){
         return rateDao.getAvgRatesForProduct(product);
     }
-    public  long  addRate(Rate rate, long id){
+
+    public long addRate(Rate rate, long id){
         if (rateDao.getRateForUserAndProduct(rate).size()!=0){
             rateDao.updateRate(rate, id );
               }
