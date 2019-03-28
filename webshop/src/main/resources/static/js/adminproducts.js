@@ -26,12 +26,12 @@ function showDivs(jsonData) {
 
     var codeDiv = document.createElement('div');
     codeDiv.innerHTML = jsonData[i].code;
-    codeDiv.setAttribute('class', 'div_class_admin');
+    codeDiv.setAttribute('class', 'admin-product-code');
     divRow.appendChild(codeDiv);
 
     var nameDiv = document.createElement('div');
     nameDiv.innerHTML = jsonData[i].name;
-    nameDiv.setAttribute('class', 'div_class_admin');
+    nameDiv.setAttribute('class', 'admin-product-name');
     divRow.appendChild(nameDiv);
 
     var addressDiv = document.createElement('div');
@@ -51,7 +51,7 @@ function showDivs(jsonData) {
 
     var statusDiv = document.createElement('div');
     statusDiv.innerHTML = jsonData[i].productStatus;
-    statusDiv.setAttribute('class', 'div_class_admin status-div');
+    statusDiv.setAttribute('class', 'admin-product-status status-div');
     divRow.appendChild(statusDiv);
 
     var buttonsDiv = document.createElement('div');

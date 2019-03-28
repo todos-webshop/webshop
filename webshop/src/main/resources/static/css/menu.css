@@ -47,8 +47,8 @@ body {
 .logo-img {
   cursor: pointer;
   width: 77px;
-  position: relative;
-  right: -100px;
+  position: fixed;
+  right: 47.5%;
 }
 
 .dropbtn {
@@ -137,8 +137,8 @@ body {
 }
 
 #message-div {
-  position: absolute;
-  top: 24px;
+  position: relative;
+  top: 120px;
   width: 100%;
   left: 0;
 }

@@ -19,6 +19,7 @@ function fetchProducts() {
    function showDivs(jsonData) {
        divMain = document.getElementById("main_div");
        for (var i = 0; i < jsonData.length; i++) {
+       if (jsonData[i].productStatus === "ACTIVE"){
        var divRow = document.createElement("div");
        divRow.setAttribute('class', 'product-div')
 
@@ -54,6 +55,7 @@ function fetchProducts() {
 
            divMain.appendChild(divRow);
 
+   }
    }
 
         var clearerDiv = document.createElement('div');
