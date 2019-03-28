@@ -19,38 +19,44 @@ function showDivs(jsonData) {
   divMain = document.getElementById('main_div_adminproducts');
   divMain.innerHTML = '';
   for (var i = 0; i < jsonData.length; i++) {
+  for (var j = 0; j < jsonData[i].products.length; j++){
     var divRow = document.createElement('div');
     divRow.setAttribute('contenteditable', 'false');
-    divRow.setAttribute('id', jsonData[i].id);
+    divRow.setAttribute('id', jsonData[i].products[j].id);
     divRow.setAttribute('class', 'admin-product-div');
 
     var codeDiv = document.createElement('div');
-    codeDiv.innerHTML = jsonData[i].code;
+    codeDiv.innerHTML = jsonData[i].products[j].code;
     codeDiv.setAttribute('class', 'admin-product-code');
     divRow.appendChild(codeDiv);
 
     var nameDiv = document.createElement('div');
-    nameDiv.innerHTML = jsonData[i].name;
+    nameDiv.innerHTML = jsonData[i].products[j].name;
     nameDiv.setAttribute('class', 'admin-product-name');
     divRow.appendChild(nameDiv);
 
     var addressDiv = document.createElement('div');
-    addressDiv.innerHTML = jsonData[i].address;
+    addressDiv.innerHTML = jsonData[i].products[j].address;
     addressDiv.setAttribute('class', 'div_class_admin');
     divRow.appendChild(addressDiv);
 
     var manufacturerDiv = document.createElement('div');
-    manufacturerDiv.innerHTML = jsonData[i].manufacturer;
+    manufacturerDiv.innerHTML = jsonData[i].products[j].manufacturer;
     manufacturerDiv.setAttribute('class', 'div_class_admin');
     divRow.appendChild(manufacturerDiv);
 
     var priceDiv = document.createElement('div');
-    priceDiv.innerHTML = jsonData[i].price + ' Ft';
+    priceDiv.innerHTML = jsonData[i].products[j].price + ' Ft';
     priceDiv.setAttribute('class', 'div_class_admin');
     divRow.appendChild(priceDiv);
 
+    var categoryDiv = document.createElement('div');
+    categoryDiv.innerHTML = jsonData[i].categoryName;
+    categoryDiv.setAttribute('class', 'div_class_admin');
+    divRow.appendChild(categoryDiv);
+
     var statusDiv = document.createElement('div');
-    statusDiv.innerHTML = jsonData[i].productStatus;
+    statusDiv.innerHTML = jsonData[i].products[j].productStatus;
     statusDiv.setAttribute('class', 'admin-product-status status-div');
     divRow.appendChild(statusDiv);
 
@@ -60,21 +66,21 @@ function showDivs(jsonData) {
 
     var deleteBtn = document.createElement('img');
     deleteBtn.setAttribute('src','/img/delete-button.png')
-    deleteBtn.setAttribute('id', jsonData[i].id)
+    deleteBtn.setAttribute('id', jsonData[i].products[j].id)
     deleteBtn.addEventListener('click', deleteItem);
     deleteBtn.setAttribute('class', 'button');
 
     var editBtn = document.createElement('img');
     editBtn.setAttribute('src', '/img/edit-button.png');
-    editBtn.setAttribute('id', jsonData[i].id)
+    editBtn.setAttribute('id', jsonData[i].products[j].id)
     editBtn.addEventListener('click', editItem);
     editBtn.setAttribute('class', 'button');
 
     var saveBtn = document.createElement('img');
     saveBtn.addEventListener('click', saveUpdatedItem);
-    saveBtn.setAttribute('id', jsonData[i].id);
+    saveBtn.setAttribute('id', jsonData[i].products[j].id);
     saveBtn.setAttribute('src', '/img/save-button.png');
-    var attribute = 'button-disabled button save-button' + jsonData[i].id;
+    var attribute = 'button-disabled button save-button' + jsonData[i].products[j].id;
     saveBtn.setAttribute('class', attribute);
 
     divRow.appendChild(deleteBtn);
@@ -86,6 +92,7 @@ function showDivs(jsonData) {
   var clearerDiv = document.createElement('div');
   clearerDiv.setAttribute('class', 'clearer');
   divMain.appendChild(clearerDiv);
+    }
 }
 
 function deleteItem() {

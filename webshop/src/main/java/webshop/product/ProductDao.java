@@ -1,6 +1,7 @@
 package webshop.product;
 
 
+import webshop.category.Category;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
@@ -8,11 +9,9 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-import webshop.CustomResponseStatus;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.text.Normalizer;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +35,7 @@ public class ProductDao {
                         resultSet.getString("manufacturer"),
                         resultSet.getInt("price"),
                         ProductStatus.valueOf(resultSet.getString("status")));
-            }
+                }
         });
     }
 
@@ -54,7 +53,7 @@ public class ProductDao {
         },address);
     }
 
-    public long addNewProductAndGetId(Product product) {
+    public long addNewProductAndGetId(Product product, Category category) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(new PreparedStatementCreator() {
@@ -62,13 +61,14 @@ public class ProductDao {
                                 public PreparedStatement createPreparedStatement(Connection connection)
                                         throws SQLException {
                                     PreparedStatement ps =
-                                            connection.prepareStatement("insert into products (code, name, address, manufacturer, price) values (?, ?, ?, ?, ?)",
+                                            connection.prepareStatement("insert into products (code, name, address, manufacturer, price, category_id) values (?, ?, ?, ?, ?, ?)",
                                                     Statement.RETURN_GENERATED_KEYS);
                                     ps.setString(1, product.getCode());
                                     ps.setString(2, product.getName());
                                     ps.setString(3, product.getAddress());
                                     ps.setString(4, product.getManufacturer());
                                     ps.setInt(5, product.getPrice());
+                                    ps.setLong(6, category.getId());
                                     return ps;
                                 }
                             }, keyHolder
@@ -169,5 +169,23 @@ public class ProductDao {
 
     public int countAllProducts() {
         return jdbcTemplate.queryForObject("Select count(id) from products", (rs, i) -> rs.getInt("count(id)"));
+    }
+
+    public List<Product> listAllProductsByCategory(Category category){
+        return jdbcTemplate.query("select products.id, code, products.name, address, manufacturer, price, " +
+                "status, categories.name from products join categories on products.category_id = categories" +
+                ".id where categories.id = ?", new RowMapper<Product>() {
+            @Override
+            public Product mapRow(ResultSet resultSet, int i) throws SQLException {
+                return new Product(
+                        resultSet.getLong("products.id"),
+                        resultSet.getString("code"),
+                        resultSet.getString("products.name"),
+                        resultSet.getString("manufacturer"),
+                        resultSet.getInt("price"),
+                        ProductStatus.valueOf(resultSet.getString("status"))
+                );
+            }
+        }, category.getId());
     }
 }

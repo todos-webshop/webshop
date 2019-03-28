@@ -1,0 +1,47 @@
+package webshop.category;
+
+import webshop.product.Product;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Category {
+    private long id;
+    private String categoryName;
+    private int sequence;
+    private List<Product> products;
+
+    public Category() {
+    }
+
+    public Category(long id, String categoryName, int sequence) {
+        this.id = id;
+        if (categoryName == null){
+            this.categoryName = "No webshop.category";
+        }
+        else {
+            this.categoryName = categoryName;
+        }
+        this.sequence = sequence;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public int getSequence() {
+        return sequence;
+    }
+
+    public List<Product> getProducts() {
+        return new ArrayList<>(products);
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+}

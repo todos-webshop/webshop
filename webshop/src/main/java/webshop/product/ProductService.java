@@ -1,5 +1,6 @@
 package webshop.product;
 
+import webshop.category.Category;
 import org.springframework.stereotype.Service;
 import webshop.CustomResponseStatus;
 import webshop.Response;
@@ -23,14 +24,14 @@ public class ProductService {
        return productDao.findProductByAddress(address);
    }
 
-    public long addNewProductAndGetId(Product product){
+    public long addNewProductAndGetId(Product product, Category category){
        if (!productDao.isCodeUnique(product.getCode())){
            throw new IllegalArgumentException("This code already exists.");
        }
        if (!productDao.isNameUnique(product.getName())){
            throw new IllegalArgumentException("This name already exists.");
        }
-       return productDao.addNewProductAndGetId(product);
+       return productDao.addNewProductAndGetId(product, category);
     }
     public CustomResponseStatus updateProduct(Product product, long id){
        if (!productDao.isIdTheSameForUpdatingTheSameCode(product.getCode(), id)){

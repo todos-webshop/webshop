@@ -1,5 +1,6 @@
 package webshop.product;
 
+import webshop.category.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import webshop.CustomResponseStatus;
@@ -17,10 +18,12 @@ public class ProductController {
 
     private ProductValidator productValidator = new ProductValidator();
 
+/*
     @GetMapping("/api/products")
     public List<Product> listAllProducts() {
         return productService.listAllProducts();
     }
+*/
 
     @GetMapping("/api/product/{address}")
     public Product findProductByAddress(@PathVariable String address) {
@@ -28,11 +31,11 @@ public class ProductController {
     }
 
     @PostMapping("/api/products")
-    public CustomResponseStatus addNewProduct(@RequestBody Product product) {
+    public CustomResponseStatus addNewProduct(@RequestBody Product product, Category category) {
         try {
             CustomResponseStatus responseStatus = productValidator.validateProduct(product);
             if (responseStatus.getResponse().equals(Response.SUCCESS)) {
-                long id = productService.addNewProductAndGetId(product);
+                long id = productService.addNewProductAndGetId(product, category);
                 return new CustomResponseStatus(Response.SUCCESS, String.format("Successfully created with %d id", id));
             } else {
                 return responseStatus;

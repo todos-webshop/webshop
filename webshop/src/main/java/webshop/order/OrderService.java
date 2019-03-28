@@ -49,7 +49,17 @@ public class OrderService {
         User user = userDao.getUserByUsername(loggedInUsername);
 
         long userId = user.getId();
-        return orderDao.listOrdersByUserId(userId);
+
+        List<Order> orders = orderDao.listAllOrders();
+
+        List<Order> orderByUser = new ArrayList<>();
+
+        for (Order order : orders){
+            if (order.getUserId() == userId){
+                orderByUser.add(order);
+            }
+        }
+        return orderByUser;
     }
 
 
