@@ -204,7 +204,7 @@ function createMessageDiv() {
 
 function addEventListenerToNotLoggedIn() {
   document.getElementById('login-btn').addEventListener('click', function () {
-    window.location.href = '/login';
+    window.location.href = '/login.html';
   });
   document.getElementById('signup-btn').addEventListener('click', function () {
     window.location.href = '/register.html';

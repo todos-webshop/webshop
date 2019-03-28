@@ -80,7 +80,7 @@
   margin-bottom: 20px;
 }
 
-#purchase {
+.purchase {
   position: relative;
   left: 800px;
   bottom: 800px;
@@ -96,7 +96,7 @@
   border: 1px solid black;
 }
 
-#purchase:hover {
+.purchase:hover {
   background-color: rgb(93, 133, 101);
   color: white;
 }
@@ -377,4 +377,8 @@ body {
   height: 600px;
   margin-left: 200px;
   float: left;
+}
+
+.product-div:hover{
+  cursor: pointer;
 }
