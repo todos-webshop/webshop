@@ -30,6 +30,8 @@ public class WebshopApplication extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/**").permitAll()
+//                .antMatchers(  "/", "/register.html",
+//                        "product.html**", "/js/**", "/css/**", "/img/**", "/fonts/**", "/userdata", "/basket", "/users").permitAll()
 //                .antMatchers("/basket.html", "/orders", "/myorders").authenticated()
 //                .antMatchers("/myorders.html").hasRole("USER")
 //                .antMatchers("/orders.html", "/dashboard.html", "/users.html", "/adminproducts.html", "/dashboard", "/reports" +
