@@ -47,9 +47,9 @@ public class UserService {
     }
 
     public void checkPasswordAndmodifyUser(long id, User user) {
-        if (user.getPassword().trim().equals("")){
-            userDao.modifyUserNoPassword(id,user);
-        }
+       // if (user.getPassword().trim().equals("")){
+       //     userDao.modifyUserNoPassword(id,user);
+     //   }
         userDao.modifyUser(id, user);
     }
     public CustomResponseStatus logicalDeleteUserById(long id) {
