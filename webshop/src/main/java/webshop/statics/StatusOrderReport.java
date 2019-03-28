@@ -13,17 +13,9 @@ public class StatusOrderReport {
     private Integer sumOfDeletedOrdersForThisMonth;
     private Integer sumOfAmountForDeletedOrdersForThisMonth;
 
-    public StatusOrderReport(int year, int month, Integer sumOfActiveOrdersForThisMonth,
-                             Integer sumOfAmountForActiveOrdersForThisMonth, Integer sumOfDeliveredOrdersForThisMonth, Integer sumOfAmountForDeliveredOrdersForThisMonth,
-                             Integer sumOfDeletedOrdersForThisMonth, Integer sumOfAmountForDeletedOrdersForThisMonth) {
+    public StatusOrderReport(int year, int month) {
         this.year = year;
         this.month = month;
-        this.sumOfActiveOrdersForThisMonth = sumOfActiveOrdersForThisMonth;
-        this.sumOfAmountForActiveOrdersForThisMonth = sumOfAmountForActiveOrdersForThisMonth;
-        this.sumOfDeliveredOrdersForThisMonth = sumOfDeliveredOrdersForThisMonth;
-        this.sumOfAmountForDeliveredOrdersForThisMonth = sumOfAmountForDeliveredOrdersForThisMonth;
-        this.sumOfDeletedOrdersForThisMonth = sumOfDeletedOrdersForThisMonth;
-        this.sumOfAmountForDeletedOrdersForThisMonth = sumOfAmountForDeletedOrdersForThisMonth;
     }
 
     public int getYear() {
