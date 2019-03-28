@@ -222,7 +222,7 @@ footer img {
   opacity: 0.9;
   position: inline;
   padding-right: 10px;
-  width: 30px;
+  width: 35px;
 }
 
 .footer {
@@ -308,7 +308,8 @@ footer img {
 }
 
 #main-div {
-
+  position: relative;
+  top: 100px;
 }
 
 .button {
@@ -337,9 +338,11 @@ body {
 }
 
 .main-container {
-  position: absolute;
-  top: 230px;
-  z-index: 1;
+  display: block;
+  min-height: 100vh;
+  position: relative;
+  bottom: 0;
+  top: 170px;
 }
 
 #myBtn {
@@ -376,6 +379,6 @@ body {
   float: left;
 }
 
-.product-div:hover {
-  cursor:pointer;
+.product-div:hover{
+  cursor: pointer;
 }

@@ -17,7 +17,7 @@ var facebookLink = document.createElement('a');
 facebookLink.setAttribute('href', 'http://facebook.com');
 
 var facebookImg = document.createElement('img');
-facebookImg.setAttribute('src', '/img/facebook.png');
+facebookImg.setAttribute('src', '/img/facebook_icon.png');
 facebookImg.setAttribute('alt', '');
 facebookLink.appendChild(facebookImg);
 
@@ -25,7 +25,7 @@ var instagramLink = document.createElement('a');
 instagramLink.setAttribute('href', 'http://instagram.com');
 
 var instagramImg = document.createElement('img');
-instagramImg.setAttribute('src', '/img/instagram.png');
+instagramImg.setAttribute('src', '/img/instagram_icon.png');
 instagramImg.setAttribute('alt', '');
 instagramLink.appendChild(instagramImg);
 
@@ -33,7 +33,7 @@ var youtubeLink = document.createElement('a');
 youtubeLink.setAttribute('href', 'http://youtube.com');
 
 var youtubeImg = document.createElement('img');
-youtubeImg.setAttribute('src', '/img/youtube.png');
+youtubeImg.setAttribute('src', '/img/youtube2.png');
 youtubeImg.setAttribute('alt', '');
 youtubeLink.appendChild(youtubeImg);
 

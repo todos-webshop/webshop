@@ -1,0 +1,21 @@
+@font-face {
+  font-family: "Roboto-Bold";
+  src: url("/fonts/Roboto-Bold.ttf");
+}
+h1{
+  font-family: "Roboto-Bold";
+}
+h3{font-family: "Roboto-Bold";
+}
+body {
+background:url("/img/cactus2.gif")no-repeat center center fixed;
+background-size: 280px 280px;
+  position: relative;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+}
+main{
+  position: relative;
+top:150px;
+}
