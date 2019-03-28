@@ -8,6 +8,8 @@ public class Order {
     private long userId;
     private LocalDateTime orderTime;
     private OrderStatus orderStatus;
+
+    // totalOrderPrice must be dynamically calculated according to the actual OrderItem list
     private long totalOrderPrice;
     private List<OrderItem> orderItems;
 

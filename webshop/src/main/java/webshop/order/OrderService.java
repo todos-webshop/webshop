@@ -35,7 +35,7 @@ public class OrderService {
         if (products.size() == 0) {
             return new CustomResponseStatus(Response.FAILED, "Your cart is empty.");
         }
-        long orderid = orderDao.insertIntoOrdersFromBasketsByUserId(userId, basketDao.sumProductPriceInBasketByBasketId(basketId));
+        long orderid = orderDao.insertIntoOrdersFromBasketsByUserId(userId);
 
         for (BasketItem basketItem : products) {
             orderDao.insertIntoOrderedItemsFromBasketItemsByOrderId(orderid, basketItem.getProduct().getId(), basketItem.getProduct().getPrice());
