@@ -25,13 +25,7 @@ function setMenu() {
   div.setAttribute('id', 'menu_div');
   div.setAttribute('class', 'menu_div');
 
-
-  var cleanerDiv = document.createElement('div');
-  cleanerDiv.setAttribute('class', 'cleaner-div');
-  body.appendChild(cleanerDiv);
-  cleanerDiv.insertBefore(createMessageDiv(), cleanerDiv.firstChild);
-
-  //body.insertBefore(createMessageDiv(), body.firstChild);
+  body.insertBefore(createMessageDiv(), body.firstChild);
   body.insertBefore(div, body.firstChild);
   body.insertBefore(freeShippingDiv, body.firstChild);
 
