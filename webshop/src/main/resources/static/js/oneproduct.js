@@ -5,15 +5,20 @@ fetchProduct();
 function fetchProduct() {
 var address = (new URL(document.location)).searchParams.get("address");
         var url ="api/product/" + address;
-        console.log(url);
+        console.log(url );
         fetch(url)
             .then(function(response) {
                 return response.json();
                 })
             .then(function(jsonData) {
 
+            if ( jsonData.response == 'FAILED'){
+            showProductNotFound(jsonData);
+            } else {
                 showTable(jsonData);
-            });}
+            }});
+            return false;
+            }
 
 function showTable(jsonData) {
     console.log(jsonData);
@@ -77,4 +82,12 @@ function addToBasket(jsonData) {
 }
 function goBack() {
   window.history.back();
+}
+   // function getUrlParam(name) {
+  //  var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
+ //   return results;
+//}
+function showProductNotFound(jsonData){
+   window.location.href = 'http://localhost:8080/error.html';
+   // reviews.innerHTML = "";
 }
