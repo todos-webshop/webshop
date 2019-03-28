@@ -12,8 +12,9 @@
 
 
                    showTables(jsonData);
-               });}
-     function fetchReportsTwo() {
+               });
+   }
+   function fetchReportsTwo() {
                           var url ="/reports/products";
                           fetch(url)
                               .then(function(response) {
@@ -22,9 +23,12 @@
                               .then(function(jsonData) {
 
                                   showTables2(jsonData);
-                              });}
+                                  console.log(jsonData);
+                              });
+   }
 
    function showTables(jsonData) {
+   document.getElementById("report-table").innerHTML="";
         tableMain = document.getElementById("report-table");
         for (var i = 0; i < jsonData["statusOrderReportList"].length; i++) {
         var oneRow = document.createElement("tr");
@@ -114,7 +118,7 @@
 
 
                 tableMain.appendChild(oneRow);
-                console.log("vége");
+
     }
 
 
@@ -123,6 +127,7 @@
 
 
  function showTables2(jsonData) {
+ document.getElementById("report-table_prod").innerHTML="";
              tableMain = document.getElementById("report-table_prod");
              for (var i = 0; i < jsonData.length; i++) {
              var oneRow = document.createElement("tr");

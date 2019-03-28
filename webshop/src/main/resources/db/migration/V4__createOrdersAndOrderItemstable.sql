@@ -2,7 +2,6 @@ CREATE TABLE orders (
 id BIGINT AUTO_INCREMENT,
 user_id BIGINT,
 order_time DATETIME,
-total_order BIGINT,
 status VARCHAR(255) NOT NULL,
 CONSTRAINT pk_orders PRIMARY KEY (id),
 CONSTRAINT fk_orders_users FOREIGN KEY (user_id) REFERENCES users(id)

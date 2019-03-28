@@ -42,8 +42,8 @@ public class StaticsService {
         for (StatData statData : statDatas) {
             StatusOrderReport actReport = findYearMonth(statData, statusOrderReports);
             if (actReport == null) {
-                StatusOrderReport newReport = new StatusOrderReport(statData.getYear(), statData.getMonth(), null,
-                        null, null, null, null, null);
+                StatusOrderReport newReport = new StatusOrderReport(statData.getYear(), statData.getMonth());
+
                 StatusOrderReport changedReport=addStatus(statData, newReport);
                 statusOrderReports.add(changedReport);
             } else {

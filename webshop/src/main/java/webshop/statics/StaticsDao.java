@@ -22,6 +22,8 @@ public class StaticsDao {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    // needs to be rewritten
+
     public List<StatData> doReportOne() {
         return jdbcTemplate.query("select year(order_time), month(order_time), status, count(*), sum(total_order) from orders"+
        " group by  year(order_time), month(order_time)  , STATUS  order by year(order_time), month(order_time) , status"
@@ -29,6 +31,8 @@ public class StaticsDao {
                 (rs,rowNum)-> new StatData(rs.getInt(1),rs.getInt(2), OrderStatus.valueOf(rs.getString(3)),rs.getInt(4),rs.getInt(5)));
 
     }
+
+    // needs to be rewritten
 
     public List<StatSummary> doReportOneSummary() {
         return jdbcTemplate.query("select  status, count(*), sum(total_order) from orders group by   STATUS order by  status"
