@@ -23,6 +23,10 @@ public class StaticsDao {
     }
 
     // needs to be rewritten
+    //good but not working because of the quantity
+    // select year(order_time), month(order_time), status, count(*), sum(ordered_items.order_price*ordered_items.quantity)
+    // from orders join ordered_items on ordered_items.order_id=orders.id
+    //       group by  year(order_time), month(order_time)  , STATUS  order by year(order_time), month(order_time) , status
 
     public List<StatData> doReportOne() {
         return jdbcTemplate.query("select year(order_time), month(order_time), status, count(*), sum(total_order) from orders"+
@@ -33,6 +37,10 @@ public class StaticsDao {
     }
 
     // needs to be rewritten
+    //good but not working because of the quantity
+    //select  status, count(*), sum(ordered_items.order_price*ordered_items.quantity)
+    // from orders join ordered_items on ordered_items.order_id=orders.id group by   STATUS order by  status
+
 
     public List<StatSummary> doReportOneSummary() {
         return jdbcTemplate.query("select  status, count(*), sum(total_order) from orders group by   STATUS order by  status"
@@ -40,6 +48,18 @@ public class StaticsDao {
                 (rs,rowNum)-> new StatSummary( OrderStatus.valueOf(rs.getString(1)),rs.getInt(2),rs.getLong(3)));
 
     }
+    // needs to be rewritten
+    //good but not working because of the quantity
+    //select year(orders.order_time),
+    //                        month(orders.order_time),
+    //                        products.name, products.price,
+    //                        count(ordered_items.product_id),
+    //                        sum(ordered_items.order_price*ordered_items.quantity)
+    //                        from products join ordered_items on products.id=ordered_items.product_id   join orders on ordered_items.order_id= orders.id
+    //                        where orders.status ='ACTIVE'
+    //                        group by year(orders.order_time), month(orders.order_time),
+    //                        products.name order by year(orders.order_time),
+    //                        month(orders.order_time), products.name
 
     public List<StatByProduct> doReportTwo() {
         return jdbcTemplate.query(
