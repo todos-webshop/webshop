@@ -9,6 +9,8 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import webshop.CustomResponseStatus;
+import webshop.user.User;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -201,4 +203,12 @@ public class ProductDao {
             }
         }, category.getId());
     }
-}
+
+    public boolean OrderedProductByUser(Product product, User user) {
+        int counter = jdbcTemplate.queryForObject("select count(*) from products join \n" +
+                "ordered_items on ordered_items.product_id=products.id join orders on orders.id=ordered_items.order_id\n" +
+                "join users on users.id=orders.user_id \n" +
+                "where users.id=? and products.id=? and orders.status='DELIVERED'\n", (rs, i) -> rs.getInt(1),user.getId(),product.getId());
+        return counter>0;
+    }
+   }
