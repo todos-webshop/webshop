@@ -22,7 +22,6 @@ function fetchBasket() {
 
 
 function showBasket(jsonData) {
-  //console.log(jsonData);
   var divBasket = document.getElementById('basket-div');
   var sumsDiv = document.querySelector('.sums-div');
   divBasket.innerHTML = '';
@@ -65,7 +64,7 @@ function showBasket(jsonData) {
   trHeading.appendChild(manufacturerTh);
 
   var priceTh = document.createElement('th');
-  priceTh.innerHTML = 'Price';
+  priceTh.innerHTML = 'Unit price';
   trHeading.appendChild(priceTh);
 
   var quantityTh = document.createElement('th');
@@ -73,59 +72,58 @@ function showBasket(jsonData) {
   trHeading.appendChild(quantityTh);
 
 
-
-
   for (var i = 0; i < jsonData.basket.basketItems.length; i++) {
     var trRow = document.createElement('tr');
 
     var codeTd = document.createElement('td');
     codeTd.innerHTML = jsonData.basket.basketItems[i].product.code;
-    // codeTd.setAttribute('class', 'div_class');
     trRow.appendChild(codeTd);
 
     var nameTd = document.createElement('td');
     nameTd.innerHTML = jsonData.basket.basketItems[i].product.name;
-    // nameTd.setAttribute('class', 'div_class');
     trRow.appendChild(nameTd);
-
-    // var addressTd = document.createElement('td');
-    // addressTd.innerHTML = jsonData.basket.basketItems[i].product.address;
-    // addressTd.setAttribute('class', 'div_class');
-    // trRow.appendChild(addressTd);
 
     var manufacturerTd = document.createElement('td');
     manufacturerTd.innerHTML = jsonData.basket.basketItems[i].product.manufacturer;
-    // manufacturerTd.setAttribute('class', 'div_class');
     trRow.appendChild(manufacturerTd);
 
     var priceTd = document.createElement('td');
     priceTd.innerHTML = jsonData.basket.basketItems[i].product.price + ' Ft';
-    // priceTd.setAttribute('class', 'div_class');
     trRow.appendChild(priceTd);
 
     var quantityTd = document.createElement('td');
     quantityTd.innerHTML = jsonData.basket.basketItems[i].pieces;
-    // quantityTd.setAttribute('class', 'div_class');
+    quantityTd.setAttribute('id', 'quantityTd' + jsonData.basket.basketItems[i].product.id);
     trRow.appendChild(quantityTd);
 
-    var buttonTd = document.createElement('td');
-    //buttonTd.innerHTML = 'delete';
-    // buttonTd.setAttribute('class', 'div_class');
-    var deleteButton = document.createElement("button");
-    //buttonTd.setAttribute("onclick", function () { deleteFromBasket(jsonData);});
-    deleteButton.innerHTML = "Delete product";
+
+    var editSaveButtonTd = document.createElement('td');
+    trRow.appendChild(editSaveButtonTd);
+
+    var editBtn = document.createElement('img');
+    editSaveButtonTd.appendChild(editBtn);
+    editBtn.setAttribute('src', '/img/edit-button.png');
+    editBtn['raw-data'] = jsonData.basket.basketItems[i];
+    editBtn.addEventListener('click', editBasketItemQuantity);
+    editBtn.setAttribute('class', 'button-enabled button edit-button edit-enabled');
+    editBtn.setAttribute('id', 'edit' + jsonData.basket.basketItems[i].product.id);
+
+    var saveBtn = document.createElement('img');
+    editSaveButtonTd.appendChild(saveBtn);
+    saveBtn.addEventListener('click', saveUpdatedItemQuantity);
+    saveBtn['raw-data'] = jsonData.basket.basketItems[i];
+    saveBtn.setAttribute('src', '/img/save-button.png');
+    saveBtn.setAttribute('class', 'button-disabled button save-button save-disabled');
+    saveBtn.setAttribute('id', 'save' + jsonData.basket.basketItems[i].product.id);
+
+    var deleteButtonTd = document.createElement('td');
+    var deleteButton = document.createElement('button');
+    deleteButton.innerHTML = 'Delete product';
     deleteButton.onclick = deleteFromBasket;
-    //deleteButton.setAttribute('id',jsonData[i].id);
-    deleteButton["raw-data"] = jsonData.basket.basketItems[i];
-    buttonTd.appendChild(deleteButton);
-    trRow.appendChild(buttonTd);
+    deleteButton['raw-data'] = jsonData.basket.basketItems[i];
+    deleteButtonTd.appendChild(deleteButton);
+    trRow.appendChild(deleteButtonTd);
 
-    /*var imgDiv = document.createElement('div');
-    imgDiv.innerHTML = '<img alt=' + jsonData.basket.basketItems[i].product.address + ' src=img\\products\\' + jsonData.basket.basketItems[i].product.address + '.png>';
-
-    imgDiv.classList.add('div_class');
-
-    trRow.appendChild(imgDiv);*/
 
     table.appendChild(trRow);
   }
@@ -137,8 +135,8 @@ function clearBasket() {
     return;
   }
   fetch('/basket', {
-      method: 'DELETE'
-    })
+    method: 'DELETE'
+  })
     .then(function (response) {
       return response.json();
     }).then(function (jsonData) {
@@ -153,14 +151,14 @@ function clearBasket() {
 }
 
 function deleteFromBasket() {
-  id = this["raw-data"].product.id;
+  var id = this["raw-data"].product.id;
 
   if (!confirm("Are you sure to delete?")) {
     return;
   }
 
   fetch("/basketitem/" + id, {
-      method: "DELETE",
+      method: "DELETE"
     })
     .then(function (response) {
       return response.json();
@@ -180,3 +178,66 @@ function orderItems() {
     return;
   }
 }
+
+
+function editBasketItemQuantity() {
+  if (document.querySelectorAll('.save-enabled').length < 1) {
+    var data = this['raw-data'];
+    var id = data.product.id;
+
+    var editBtn = document.getElementById('edit' + id);
+    editBtn.setAttribute('class', 'button-disabled button edit-button edit-disabled');
+
+    var saveBtn = document.getElementById('save' + id);
+    saveBtn.setAttribute('class', 'button-enabled button save-button save-enabled');
+
+
+    var quantityTd = document.getElementById('quantityTd' + id);
+    quantityTd.innerHTML = `
+                        <div><input class="quantity-input" type="number" name="quantityinput" id="quantityinput${id}" min="1" value="${data.pieces}"></div>
+  `;
+  }
+}
+
+
+
+function saveUpdatedItemQuantity() {
+  var data = this['raw-data'];
+  var id = data.product.id;
+  var code = data.product.code;
+
+  var quantity = document.getElementById('quantityinput' + id).value;
+
+  var saveBtn = document.getElementById('save' + id);
+  saveBtn.setAttribute('class', 'button-disabled button save-button save-disabled');
+
+  var editBtn = document.getElementById('edit' + id);
+  editBtn.setAttribute('class', 'button-enabled button edit-button edit-enabled');
+
+  var quantityTd = document.getElementById('quantityTd' + id);
+  quantityTd.innerHTML = quantity;
+
+  var request = {
+    'productCode': code,
+    'productPieces': quantity
+  };
+  fetch('/basket/update', {
+    method: 'POST',
+    body: JSON.stringify(request),
+    headers: {
+      'Content-type': 'application/json'
+    }
+  })
+    .then(function (response) {
+      return response.json();
+    }).then(function (jsonData) {
+      if (jsonData.response === 'SUCCESS') {
+        document.getElementById('message-div').setAttribute('class', 'alert alert-success');
+      } else {
+        document.getElementById('message-div').setAttribute('class', 'alert alert-danger');
+      }
+      document.getElementById('message-div').innerHTML = jsonData.message;
+      fetchBasket();
+    });
+}
+

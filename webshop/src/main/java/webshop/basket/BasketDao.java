@@ -161,4 +161,10 @@ public class BasketDao {
     }
 
 
+    public int updateProductQuantityInBasket(long basketId, long productId, int quantity) {
+        return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).update(
+                "UPDATE basket_items SET quantity = (:quantity) where basket_id = (:basket_id) " +
+                        "AND product_id = (:product_id)",
+                Map.of("basket_id", basketId, "product_id", productId, "quantity", quantity));
+    }
 }
