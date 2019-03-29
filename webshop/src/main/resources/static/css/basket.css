@@ -9,3 +9,12 @@
   background-color: rgb(223, 223, 223);
   position: relative;
 }
+
+#order-items:hover {
+  border: 1px solid black;
+}
+
+.quantity-input {
+  width: 80px;
+  text-align: center;
+}
