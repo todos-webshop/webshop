@@ -41,21 +41,20 @@ public class ProductService {
        return productDao.addNewProductAndGetId(product, category);
     }
 
-    // ez nem megy
-    public CustomResponseStatus updateProduct(Product product, long id, Category category){
+    public CustomResponseStatus updateProduct(long id, Category category){
 
-        long categoryId = categoryDao.getIdOfTheUpdatedName(category);
+        Category foundCategory = categoryDao.getIdOfTheUpdatedName(category);
 
-       if (!productDao.isIdTheSameForUpdatingTheSameCode(product.getCode(), id)){
-           return new CustomResponseStatus(Response.FAILED, String.format("Code must be unique and %s already exists in database", product.getCode()));
+       if (!productDao.isIdTheSameForUpdatingTheSameCode(category.getProducts().get(0).getCode(), id)){
+           return new CustomResponseStatus(Response.FAILED, String.format("Code must be unique and %s already exists in database", category.getProducts().get(0).getCode()));
        }
-       if (!productDao.isIdTheSameForUpdatingTheSameName(product.getName(), id)){
-           return new CustomResponseStatus(Response.FAILED, String.format("Name must be unique and %s already exists in database", product.getName()));
+       if (!productDao.isIdTheSameForUpdatingTheSameName(category.getProducts().get(0).getName(), id)){
+           return new CustomResponseStatus(Response.FAILED, String.format("Name must be unique and %s already exists in database", category.getProducts().get(0).getName()));
        }
-       if (productDao.isAddressEdited(product.getAddress(), id)){
+       if (productDao.isAddressEdited(category.getProducts().get(0).getAddress(), id)){
            return new CustomResponseStatus(Response.FAILED, "Address can not be edited.");
        }
-       int responseInt = productDao.updateProduct(product, id, categoryId);
+       int responseInt = productDao.updateProduct(id, category, foundCategory.getId());
        if (responseInt == 1) {
            return new CustomResponseStatus(Response.SUCCESS, "Updated successfully.");
        } else {
