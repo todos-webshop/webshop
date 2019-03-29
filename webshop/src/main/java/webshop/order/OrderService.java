@@ -45,21 +45,18 @@ public class OrderService {
         return new CustomResponseStatus(Response.SUCCESS, "Your order was placed, thank you for your purchase.");
     }
 
-    public List<Order> listOrdersByUserId(String loggedInUsername) {
+    public List<Order> listOrdersByOrderId(String loggedInUsername) {
         User user = userDao.getUserByUsername(loggedInUsername);
 
         long userId = user.getId();
 
         List<Order> orders = orderDao.listAllOrders();
 
-        List<Order> orderByUser = new ArrayList<>();
-
         for (Order order : orders){
-            if (order.getUserId() == userId){
-                orderByUser.add(order);
+                order.setOrderItems(orderDao.listOrderItemsByOrderId(order.getId()));
             }
-        }
-        return orderByUser;
+        System.out.println(orders.size());
+        return orders;
     }
 
 

@@ -20,6 +20,7 @@ function orderItems(){
       return response.json();
     })
     .then(function (jsonData) {
+        console.log(jsonData)
       if (jsonData.response == 'SUCCESS') {
         fetchBasket();
         document.getElementById('message-div').innerHTML = jsonData.message;
@@ -56,75 +57,133 @@ function fetchOrders() {
 }
 
 function showDivs(jsonData) {
-  divMain = document.getElementById('main_div_orders');
+
   var id = 0;
+
   for (var i = 0; i < jsonData.length; i++) {
-  if (jsonData[i].id !== id){
-      var divRow = document.createElement('div');
-      divRow.setAttribute('id', jsonData[i].id);
-      divRow.setAttribute('class', 'orders-div');
+  for (var j = 0; j < jsonData[i].orderItems.length; j++){
+  /*    if (jsonData[i].id !== id){*/
 
-      var bold = document.createElement('b');
-      bold.class = 'bold';
-      divRow.appendChild(bold);
+      var divMain = document.getElementById('main_div_orders');
 
-      var numberOfOrder = document.createElement('div');
-      numberOfOrder.innerText = 'Order ' + jsonData[i].id + "\n";
-      numberOfOrder.setAttribute('class', 'bold');
-      bold.appendChild(numberOfOrder);
-      divRow.appendChild(numberOfOrder);
+      var tableMain = document.createElement('table');
+      tableMain.setAttribute('class', 'orders-table');
+      divMain.appendChild(tableMain);
 
-      var date = document.createElement('div');
-      date.innerText = 'Date of order: ' + jsonData[i].orderTime.split("T")[0] + " " + jsonData[i].orderTime.split("T")[1];
-      divRow.appendChild(date);
+      var tbodyMain = document.createElement('tbody');
+      tbodyMain.setAttribute('class', 'orders-tbody');
+      tableMain.appendChild(tbodyMain);
 
-      var totalOrder = document.createElement('div');
-      totalOrder.innerText = 'Total purchase value: ' + jsonData[i].totalOrderPrice + "\n";
-      divRow.appendChild(totalOrder);
+      var trMain = document.createElement('tr');
+      trMain.setAttribute('id', jsonData[i].id);
+      tbodyMain.appendChild(trMain);
+
+      var tdMain = document.createElement('td');
+      tdMain.setAttribute('class', 'orders-list-summary');
+      trMain.appendChild(tdMain);
+
+      var pFirst = document.createElement('p');
+      pFirst.setAttribute('class', 'orders-list-order');
+      pFirst.innerText = 'Order ' + jsonData[i].id;
+      tdMain.appendChild(pFirst);
+
+      var span = document.createElement('span');
+      span.setAttribute('class', 'orders-list-span')
+      span.innerText = '– ' + jsonData[i].orderStatus;
+      pFirst.appendChild(span);
+
+      var pSecond = document.createElement('p');
+      pSecond.setAttribute('class', 'orders-list-date');
+      pSecond.innerText = jsonData[i].orderTime.split("T")[0] + " " + jsonData[i].orderTime.split("T")[1];
+      tdMain.appendChild(pSecond);
+
+      var pThird = document.createElement('p');
+      pThird.setAttribute('class', 'orders-list-amount');
+      pThird.innerText =  jsonData[i].totalOrderPrice + " Ft";
+      tdMain.appendChild(pThird);
+
+      var tdButton = document.createElement('td');
+      tdButton.setAttribute('class', 'orders-list-actions');
+      trMain.appendChild(tdButton);
+
+      var button = document.createElement('button');
+      button.setAttribute('id', jsonData[i].id)
+      button.setAttribute('class', 'orders-button')
+      button.innerHTML = 'SEE DETAILS';
+      button.addEventListener('click', showDetails);
+      tdButton.appendChild(button);
+
+      var tableDetail = document.createElement('table');
+      var attribute = 'button' + jsonData[i].id;
+      tableDetail.setAttribute('class', 'disabled');
+      tableDetail.setAttribute('id', attribute);
+      divMain.appendChild(tableDetail);
+
+      var tbodyDetail = document.createElement('tbody');
+      tbodyDetail.setAttribute('class', 'orders-list-summary');
+      tableDetail.appendChild(tbodyDetail);
+
+      var trDetail = document.createElement('tr');
+      var id = 'order-' + jsonData[i].id;
+      trDetail.setAttribute('id', id);
+      tbodyDetail.appendChild(trDetail);
+
+      var tdDetail = document.createElement('td');
+      tdDetail.setAttribute('class', 'orders-list-summary');
+      trDetail.appendChild(tdDetail);
+
+      var productNumber = document.createElement('div');
+      productNumber.innerText = 'Product ' + (parseInt(j) + 1)
+      productNumber.setAttribute('class', 'myorders-div');
+      tdDetail.appendChild(productNumber);
 
       var codeDiv = document.createElement('div');
-      codeDiv.innerText = 'Product code: ' + jsonData[i].orderItems[0].product.code;
-      divRow.appendChild(codeDiv);
+      codeDiv.setAttribute('class', 'myorders-div');
+      codeDiv.innerText = 'Product code: ' + jsonData[i].orderItems[j].product.code;
+      tdDetail.appendChild(codeDiv);
 
       var nameDiv = document.createElement('div');
-      nameDiv.innerText = 'Product name: ' + jsonData[i].orderItems[0].product.name;
-      divRow.appendChild(nameDiv);
+      nameDiv.innerText = 'Product name: ' + jsonData[i].orderItems[j].product.name;
+      nameDiv.setAttribute('class', 'myorders-div');
+      tdDetail.appendChild(nameDiv);
 
       var manufacturerDiv = document.createElement('div');
-      manufacturerDiv.innerText = 'Product manufacturer: ' + jsonData[i].orderItems[0].product.manufacturer;
-      divRow.appendChild(manufacturerDiv);
+      manufacturerDiv.setAttribute('class', 'myorders-div');
+      manufacturerDiv.innerText = 'Product manufacturer: ' + jsonData[i].orderItems[j].product.manufacturer;
+      tdDetail.appendChild(manufacturerDiv);
 
       var pieceDiv = document.createElement('div');
-      pieceDiv.innerText = 'Piece: ' + jsonData[i].orderItems[0].pieces;
-      divRow.appendChild(pieceDiv);
+      pieceDiv.setAttribute('class', 'myorders-div');
+      pieceDiv.innerText = 'Piece: ' + jsonData[i].orderItems[j].pieces;
+      tdDetail.appendChild(pieceDiv);
 
       var priceDiv = document.createElement('div');
-      priceDiv.innerText = 'Price: ' + jsonData[i].orderItems[0].product.price + ' Ft' +"\n";
-      divRow.appendChild(priceDiv);
+      priceDiv.setAttribute('class', 'myorders-div');
+      priceDiv.innerText = 'Price: ' + jsonData[i].orderItems[j].product.price + ' Ft' +"\n";
+      tdDetail.appendChild(priceDiv);
 
-      divMain.appendChild(divRow)
-      id = jsonData[i].id
-  } else {
+      id = jsonData[i].id;
+
+ /* } else {
         var foundDivRow = document.getElementById(jsonData[i].id);
 
-        foundDivRow.innerText = foundDivRow.innerText + "\n" + 'Product code: ' + jsonData[i].orderItems[0].product.code + "\n"
-        +'Product name: ' + jsonData[i].orderItems[0].product.name + "\n"
-        + 'Product manufacturer: ' + jsonData[i].orderItems[0].product.manufacturer + "\n"
-        + 'Piece: ' + jsonData[i].orderItems[0].pieces + "\n" + 'Price: ' + jsonData[i].orderItems[0].product.price + " Ft \n"
+        foundDivRow.innerText = foundDivRow.innerText + "\nProduct "+ (parseInt(j)+1) +  "\nProduct code: " +
+        jsonData[i].orderItems[j].product.code + "\n" + 'Product name: ' + jsonData[i].orderItems[j].product.name + "\n"
+        + 'Product manufacturer: ' + jsonData[i].orderItems[j].product.manufacturer + "\n"
+        + 'Piece: ' + jsonData[i].orderItems[j].pieces + "\n" + 'Price: ' + jsonData[i].orderItems[j].product
+        .price + " Ft \n"
+            }*/
         }
     }
 }
-window.onscroll = function() {scrollFunction()};
 
-function scrollFunction() {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    document.getElementById("myBtn").style.display = "block";
+function showDetails() {
+  var id = this.id;
+  var attribute = 'button' + id;
+  var tableDetails = document.getElementById(attribute);
+  if (tableDetails.getAttribute('class') == 'disabled'){
+  tableDetails.setAttribute('class', 'enabled');
   } else {
-    document.getElementById("myBtn").style.display = "none";
+  tableDetails.setAttribute('class', 'disabled')
   }
-}
-
-
-function topFunction() {
-  document.documentElement.scrollTop = 0;
 }

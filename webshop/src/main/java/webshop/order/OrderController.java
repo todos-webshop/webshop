@@ -39,7 +39,7 @@ public class OrderController {
         if (authentication != null) {
             String loggedInUsername = authentication.getName();
 
-            return orderService.listOrdersByUserId(loggedInUsername);
+            return orderService.listOrdersByOrderId(loggedInUsername);
         } else {
             return null;
         }

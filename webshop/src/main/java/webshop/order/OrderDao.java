@@ -9,6 +9,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import webshop.product.Product;
 import webshop.product.ProductStatus;
+import webshop.user.User;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -49,16 +50,11 @@ public class OrderDao {
     }
 
     public List<Order> listAllOrders() {
-        return jdbcTemplate.query("select orders.id, user_id, order_time, orders.status, (SELECT SUM(order_price)" +
-                " from ordered_items where order_id = orders.id) total_order, shipping_address FROM orders " +
-                "JOIN ordered_items ON orders.id = ordered_items.order_id JOIN products " +
-                "ON products.id = ordered_items.product_id order by orders.order_time DESC;", ORDER_ROW_MAPPER);
+        return jdbcTemplate.query("SELECT id, user_id, order_time, status, (SELECT SUM(order_price) from " +
+                        "ordered_items WHERE orders.id = ordered_items.order_id) total_price, " +
+                        "shipping_address from orders;",
+                ORDER_ROW_MAPPER);
     }
-
-/*    public List<OrderItem> listOrderItemsByOrderId(long is){
-        return jdbcTemplate.query(("select order_id, product_id, order_price, quantity from ordered_items",
-                ORDER_ITEM_ROW_MAPPER);
-    }*/
 
     private static final RowMapper<Order> ORDER_ROW_MAPPER = (resultSet, i) -> {
 
@@ -66,7 +62,7 @@ public class OrderDao {
         long userId = resultSet.getLong("user_id");
         LocalDateTime orderTime = resultSet.getTimestamp("order_time").toLocalDateTime();
         OrderStatus orderStatus = OrderStatus.valueOf(resultSet.getString("status"));
-        long totalOrderPrice = resultSet.getLong("total_order");
+        long totalOrderPrice =  resultSet.getLong("total_price");
         String shippingAddress = resultSet.getString("shipping_address");
 
         return new Order(orderId, userId, orderTime, orderStatus, totalOrderPrice, shippingAddress);
@@ -104,10 +100,10 @@ public class OrderDao {
 
     public List<OrderItem> listOrderItemsByOrderId(long orderId) {
         return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).query(
-                "SELECT id, code, name, manufacturer, order_price, status FROM ordered_items JOIN products ON ordered_items" +
+                "SELECT id, code, name, manufacturer, order_price, status, quantity FROM ordered_items JOIN" +
+                        " products ON ordered_items" +
                         ".product_id = products.id where order_id = (:order_id) ORDER BY name", Map.of("order_id", orderId),
                 ORDER_ITEM_ROW_MAPPER);
-
     }
 
 
