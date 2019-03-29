@@ -18,4 +18,9 @@ public class CategoryController {
     public List<Category> listAllProducts(){
         return categoryService.listAllProducts();
     }
+
+    @GetMapping("/api/categories")
+    public List<String> listAllCategories(){
+        return categoryService.listAllCategories();
+    }
 }

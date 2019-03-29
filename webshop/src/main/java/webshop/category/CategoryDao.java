@@ -30,13 +30,15 @@ public class CategoryDao {
         });
     }
 
-    //ez nem megy
-    public long getIdOfTheUpdatedName(Category category){
-        return jdbcTemplate.queryForObject("select id from categories where name = ?", new RowMapper<Long>() {
+    public Category getIdOfTheUpdatedName(Category category){
+        return jdbcTemplate.queryForObject("select id, name, sequence from categories where name = ?", new RowMapper<Category>() {
             @Override
-            public Long mapRow(ResultSet resultSet, int i) throws SQLException {
+            public Category mapRow(ResultSet resultSet, int i) throws SQLException {
                 System.out.println(category.getCategoryName());
-                return resultSet.getLong("id");
+                return new Category(
+                        resultSet.getLong("id"),
+                        resultSet.getString("name"),
+                        resultSet.getInt("sequence"));
             }
         }, category.getCategoryName());
     }

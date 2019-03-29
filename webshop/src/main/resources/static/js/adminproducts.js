@@ -11,6 +11,18 @@ function fetchProducts() {
     })
     .then(function (jsonData) {
       showDivs(jsonData);
+      console.log(jsonData)
+    });
+}
+
+function fetchCategories() {
+  var url = '/api/categories';
+  fetch(url)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (jsonData) {
+    return jsonData;
     });
 }
 
@@ -50,15 +62,15 @@ function showDivs(jsonData) {
     priceDiv.setAttribute('class', 'div_class_admin');
     divRow.appendChild(priceDiv);
 
-    var categoryDiv = document.createElement('div');
-    categoryDiv.innerHTML = jsonData[i].categoryName;
-    categoryDiv.setAttribute('class', 'div_class_admin');
-    divRow.appendChild(categoryDiv);
-
     var statusDiv = document.createElement('div');
     statusDiv.innerHTML = jsonData[i].products[j].productStatus;
     statusDiv.setAttribute('class', 'admin-product-status status-div');
     divRow.appendChild(statusDiv);
+
+    var categoryDiv = document.createElement('div');
+    categoryDiv.innerHTML = jsonData[i].categoryName;
+    categoryDiv.setAttribute('class', 'div_class_admin admin-category');
+    divRow.appendChild(categoryDiv);
 
     var buttonsDiv = document.createElement('div');
     buttonsDiv.setAttribute('class', 'div_class_admin admin-product-div')
@@ -129,6 +141,9 @@ function editItem(){
 
     saveBtn.setAttribute('class', newAttribute);
 
+    var jsonData = fetchCategories;
+    console.log(jsonData)
+
     var row = document.getElementById(this.id);
     var c = row.childNodes;
     for (var i = 0; i < c.length; i++){
@@ -139,6 +154,13 @@ function editItem(){
                 <option value="DELETED">DELETED</option>
             </select>`
         }
+/*        if (i == 6){
+        for (i = 0; i < categoryNames.length; i++){
+                    c[i].innerHTML += `<select class="select-element">
+                        <option value=$categoryNames[i]>ACTIVE</option>
+                        </select>`
+                    }
+                }*/
         else {
         c[i].setAttribute('contenteditable', 'true');
         }
@@ -149,6 +171,7 @@ function editItem(){
 function saveUpdatedItem(){
       var row = document.getElementById(this.id);
       var childenOfRow = row.children;
+      console.log(childenOfRow)
       var id = this.id;
 
       var code = childenOfRow[0].innerHTML;
@@ -156,7 +179,7 @@ function saveUpdatedItem(){
       var address = childenOfRow[2].innerHTML;
       var manufacturer = childenOfRow[3].innerHTML;;
       var price = childenOfRow[4].innerHTML.split(" ");
-
+      var category = childenOfRow[6].innerHTML;
       var selectElement = document.querySelector('.select-element');
       var value = selectElement.options[selectElement.selectedIndex].value;
 
@@ -168,7 +191,8 @@ function saveUpdatedItem(){
         'address': address,
         'manufacturer': manufacturer,
         'price': price,
-        'productStatus': value
+        'productStatus': value,
+        'categoryName' : category
       };
       fetch('/api/product/' + id, {
             method: 'POST',
