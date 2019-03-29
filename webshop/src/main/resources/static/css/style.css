@@ -28,6 +28,11 @@
   src: url("/fonts/Helvetica-Light.ttf");
 }
 
+@font-face {
+  font-family: "Helvetica-Italic";
+  src: url("/fonts/Helvetica-Italic.ttf");
+}
+
 .welcome-pic {
   background: url("/img/Coconut_Bowl_Banner.jpg") no-repeat center center fixed;
   background-size: cover;
@@ -95,39 +100,8 @@
   margin-bottom: 20px;
 }
 
-.purchase {
-  position: relative;
-  left: 800px;
-  bottom: 800px;
-  width: 200px;
-  font-family: "Montserrat-Regular";
-  text-align: center;
-  height: 40px;
-  border-radius: 10px;
-}
-
-.purchase-quantity {
-  position: relative;
-  left: 800px;
-  bottom: 800px;
-  width: 200px;
-  font-family: "Montserrat-Regular";
-  text-align: center;
-  height: 40px;
-  border-radius: 10px;
-}
-
-.button:hover,
-#clear-basket:hover {
-  border: 1px solid black;
-}
-
-.purchase:hover {
-  background-color: rgb(93, 133, 101);
-  color: white;
-}
-
 #new-product-btn {
+  font-family: "Helvetica-Medium";
   border-radius: 5px;
   text-align: center;
   position: absolute;
@@ -137,6 +111,7 @@
 }
 
 #form-input {
+  font-family: "Helvetica-Medium";
   border-radius: 10px;
   text-align: center;
   position: absolute;
@@ -190,7 +165,7 @@
   margin: 50px;
   text-align: center;
   background-color: rgb(230, 230, 230);
-  min-height: 430px;
+  min-height: 450px;
   color: grey;
   margin-left: 80px;
 }
@@ -284,13 +259,13 @@ footer img {
 
 .main_div_adminproducts {
   position: absolute;
-  top: 230px;
+  top: 270px;
   z-index: 1;
 }
 
 .main_div_adminproducts_modified {
   position: absolute;
-  top: 400px;
+  top: 440px;
   z-index: 1;
 }
 
@@ -401,8 +376,9 @@ body {
 }
 
 .product-img {
-  margin: 140px;
-  height: 600px;
+  margin: 120px;
+  margin-left: 150px;
+  height: 500px;
   left: 400px;
   float: left;
 }
@@ -418,14 +394,14 @@ body {
 
 .orders-table {
   font-family: 'Helvetica-Medium';
-  width: 1000px;
+  width: 900px;
   border-top: solid 1px grey;
 }
 
 #main_div_orders {
   position: relative;
   top: 50px;
-  left: 230px;
+  left: 280px;
   min-height: 1000px;
   margin-bottom: 100px;
 }
@@ -447,14 +423,14 @@ body {
   font-family: 'Helvetica-Bold';
   position: relative;
   top: 20px;
-  left: 240px;
+  left: 280px;
 }
 
 .header-div {
   font-family: 'Helvetica-Medium';
   position: relative;
   top: 20px;
-  left: 240px;
+  left: 280px;
 }
 
 .myorders-div {
@@ -467,7 +443,7 @@ body {
   border: solid 1px black;
   height: 40px;
   width: 120px;
-  margin-left: 600px;
+  margin-left: 630px;
 }
 
 .orders-button:hover {
@@ -507,4 +483,131 @@ body {
   border-radius: 5px;
   background-color: white;
   left: 10%;
+}
+
+.admin-product-filter{
+    position: relative;
+}
+
+.option-category{
+  width: 177px;
+  height: 28px;
+  margin: 3px;
+}
+
+.admin-category-names{
+  font-family: Helvetica-Bold;
+  left: 6%;
+  top: 20px;
+  font-size: 30px;
+  position: relative;
+}
+
+.menu-button-cart{
+  padding: 0;
+  width: 40px;
+  margin: 5px;
+  margin-bottom: 10px;
+  margin-left: 17px;
+}
+
+html{
+  scroll-behavior: smooth;
+}
+
+.page-title{
+  font-family: 'Helvetica-Bold';
+  position: relative;
+  top: 140px;
+  bottom: 70px;
+  left: 150px;
+}
+
+.product-category{
+    position: relative;
+    top: 100px;
+    left: 150px;
+    font-family: 'Helvetica-Italic';
+    font-size: 13px;
+}
+
+.link{
+    font-family: 'Helvetica-Bold';
+    text-decoration: underline;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.purchase {
+  position: relative;
+  top: 250px;
+  right: 160px;
+  width: 160px;
+  font-family: "Helvetica-Medium";
+  text-align: center;
+  height: 40px;
+}
+
+.purchase-quantity {
+  position: relative;
+  top: 180px;
+  width: 160px;
+  font-family: "Helvetica-Medium";
+  text-align: center;
+  height: 40px;
+}
+
+.button:hover,
+#clear-basket:hover {
+  border: 1px solid black;
+}
+
+.purchase:hover {
+  background-color: rgb(93, 133, 101);
+  color: white;
+}
+
+.td-right div{
+    position: relative;
+    top: 280px;
+}
+
+.product-name{
+    font-family: 'Helvetica-Bold';
+    font-size: 40px;
+    padding-bottom: 10px;
+}
+
+.category{
+    font-family: 'Helvetica-Medium';
+    font-size: 30px;
+}
+
+.product-man{
+    font-family: 'Helvetica-Light';
+    font-size: 15px;
+    padding-top: 10px;
+}
+
+.product-code{
+    font-family: 'Helvetica-Light';
+    font-size: 15px;
+    padding-bottom: 20px;
+}
+
+.product-price{
+    font-family: 'Helvetica-Medium';
+    font-size: 20px;
+    padding-top: 20px;
+}
+
+.rating{
+    position: relative;
+    top: 320px;
+    left: 330px;
+    max-width: 300px;
+}
+
+.td-left{
+    width: 35%;
 }

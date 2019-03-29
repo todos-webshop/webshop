@@ -15,22 +15,20 @@ function fetchProducts() {
     });
 }
 
-function fetchCategories() {
-  var url = '/api/categories';
-  fetch(url)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (jsonData) {
-    return jsonData;
-    });
-}
-
 
 function showDivs(jsonData) {
   divMain = document.getElementById('main_div_adminproducts');
   divMain.innerHTML = '';
   for (var i = 0; i < jsonData.length; i++) {
+    var categoryName = document.createElement('div');
+    if (jsonData[i].products.length == 1){
+    categoryName.innerHTML = jsonData[i].categoryName + '  (1 product)';
+    } else{
+    categoryName.innerHTML = jsonData[i].categoryName + '  (' + jsonData[i].products.length + ' products)';
+    }
+    categoryName.setAttribute('class', 'admin-category-names')
+    divMain.appendChild(categoryName)
+
   for (var j = 0; j < jsonData[i].products.length; j++){
     var divRow = document.createElement('div');
     divRow.setAttribute('contenteditable', 'false');
@@ -141,9 +139,6 @@ function editItem(){
 
     saveBtn.setAttribute('class', newAttribute);
 
-    var jsonData = fetchCategories;
-    console.log(jsonData)
-
     var row = document.getElementById(this.id);
     var c = row.childNodes;
     for (var i = 0; i < c.length; i++){
@@ -154,24 +149,24 @@ function editItem(){
                 <option value="DELETED">DELETED</option>
             </select>`
         }
-/*        if (i == 6){
-        for (i = 0; i < categoryNames.length; i++){
-                    c[i].innerHTML += `<select class="select-element">
-                        <option value=$categoryNames[i]>ACTIVE</option>
+        if (i == 6){
+                    c[i].innerHTML = `<select class="select-element-category">
+                        <option value='No category'>No category</option>
+                        <option value='Bamboo products'>Bamboo products</option>
+/                       <!--option value='Straws'>Straws</option>
+                        <option value='Coconut bowls'>Coconut bowls</option-->
                         </select>`
                     }
-                }*/
         else {
         c[i].setAttribute('contenteditable', 'true');
-        }
-        }
+                }
+            }
         }
 }
 
 function saveUpdatedItem(){
       var row = document.getElementById(this.id);
       var childenOfRow = row.children;
-      console.log(childenOfRow)
       var id = this.id;
 
       var code = childenOfRow[0].innerHTML;
@@ -180,19 +175,25 @@ function saveUpdatedItem(){
       var manufacturer = childenOfRow[3].innerHTML;;
       var price = childenOfRow[4].innerHTML.split(" ");
       var category = childenOfRow[6].innerHTML;
+
       var selectElement = document.querySelector('.select-element');
       var value = selectElement.options[selectElement.selectedIndex].value;
+
+      var selectElementCategory = document.querySelector('.select-element-category');
+      var valueCategory = selectElementCategory.options[selectElementCategory.selectedIndex].value;
 
       price = price[0];
 
       var request = {
-        'code': code,
-        'name': name,
-        'address': address,
-        'manufacturer': manufacturer,
-        'price': price,
-        'productStatus': value,
-        'categoryName' : category
+        'categoryName' : valueCategory,
+        'products': [{
+                'code': code,
+                'name': name,
+                'address': address,
+                'manufacturer': manufacturer,
+                'price': price,
+                'productStatus': value
+        }]
       };
       fetch('/api/product/' + id, {
             method: 'POST',
@@ -210,7 +211,7 @@ function saveUpdatedItem(){
             document.getElementById('message-div').innerHTML = 'Updated!';
             document.getElementById('message-div').setAttribute('class', 'alert alert-success')
 
-                        var row = document.getElementById(this.id);
+                        var row = document.getElementById(id);
                             var c = row.childNodes;
                             for (var i = 0; i < c.length; i++){
                                 if (i == 5){
@@ -230,7 +231,8 @@ function saveUpdatedItem(){
             document.getElementById('message-div').innerHTML = jsonData.message;
             document.getElementById('message-div').setAttribute('class', 'alert alert-danger')
 
-            var row = document.getElementById(this.id);
+            var row = document.getElementById(id);
+            console.log(id)
                 var c = row.childNodes;
                 for (var i = 0; i < c.length; i++){
                     if (i == 5){
@@ -256,11 +258,18 @@ function addNewProduct() {
   var nameInput = document.getElementById('name').value;
   var manufacturerInput = document.getElementById('manufacturer').value;
   var priceInput = document.getElementById('price').value;
+  var categoryInput = document.getElementById('select-category');
+
+  var valueSelectCategory = categoryInput.options[categoryInput.selectedIndex].value;
+
   var request = {
-    'code': codeInput,
-    'name': nameInput,
-    'manufacturer': manufacturerInput,
-    'price': priceInput,
+    'categoryName': valueSelectCategory,
+    'products': [{
+        'code': codeInput,
+        'name': nameInput,
+        'manufacturer': manufacturerInput,
+        'price': priceInput
+    }]
   };
 
   fetch('/api/products', {

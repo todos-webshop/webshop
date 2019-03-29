@@ -28,17 +28,21 @@ public class ProductService {
    public Object findProductByAddressTwo(String address){
        return productDao.findProductByAddressTwo(address);
    }
-    public Product findProductByAddress(String address){
-        return productDao.findProductByAddress(address);
+    public Category findProductByAddress(String address){
+        return productDao.findProductByAddressWithCategory(address);
     }
-    public long addNewProductAndGetId(Product product, Category category){
-       if (!productDao.isCodeUnique(product.getCode())){
+
+    public long addNewProductAndGetId(Category category){
+
+        Category foundCategory = categoryDao.getIdOfTheUpdatedName(category);
+
+       if (!productDao.isCodeUnique(category.getProducts().get(0).getCode())){
            throw new IllegalArgumentException("This code already exists.");
        }
-       if (!productDao.isNameUnique(product.getName())){
+       if (!productDao.isNameUnique(category.getProducts().get(0).getName())){
            throw new IllegalArgumentException("This name already exists.");
        }
-       return productDao.addNewProductAndGetId(product, category);
+       return productDao.addNewProductAndGetId(category, foundCategory.getId());
     }
 
     public CustomResponseStatus updateProduct(long id, Category category){
@@ -51,9 +55,9 @@ public class ProductService {
        if (!productDao.isIdTheSameForUpdatingTheSameName(category.getProducts().get(0).getName(), id)){
            return new CustomResponseStatus(Response.FAILED, String.format("Name must be unique and %s already exists in database", category.getProducts().get(0).getName()));
        }
-       if (productDao.isAddressEdited(category.getProducts().get(0).getAddress(), id)){
+       /*if (productDao.isAddressEdited(category.getProducts().get(0).getAddress(), id)){
            return new CustomResponseStatus(Response.FAILED, "Address can not be edited.");
-       }
+       }*/
        int responseInt = productDao.updateProduct(id, category, foundCategory.getId());
        if (responseInt == 1) {
            return new CustomResponseStatus(Response.SUCCESS, "Updated successfully.");

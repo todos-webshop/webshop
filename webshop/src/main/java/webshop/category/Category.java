@@ -25,6 +25,13 @@ public class Category {
         this.sequence = sequence;
     }
 
+    public Category(long id, String categoryName, int sequence, List<Product> products) {
+        this.id = id;
+        this.categoryName = categoryName;
+        this.sequence = sequence;
+        this.products = products;
+    }
+
     public long getId() {
         return id;
     }

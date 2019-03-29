@@ -41,7 +41,7 @@ public class ProductDao {
         });
     }
 
-    public Product findProductByAddress(String address) {
+/*    public Product findProductByAddress(String address) {
         return jdbcTemplate.queryForObject("select id,code,name,manufacturer,price, status from products where address = ?", new RowMapper<Product>() {
             @Override
             public Product mapRow(ResultSet resultSet, int i) throws SQLException {
@@ -53,7 +53,7 @@ public class ProductDao {
                         ProductStatus.valueOf(resultSet.getString("status")));
             }
         },address);
-    }
+    }*/
     public Object findProductByAddressTwo(String address) {
         return jdbcTemplate.queryForObject("select id,code,name,manufacturer,price, status from products where address = ?", new RowMapper<Product>() {
             @Override
@@ -67,7 +67,7 @@ public class ProductDao {
             }
         },address);
     }
-    public long addNewProductAndGetId(Product product, Category category) {
+    public long addNewProductAndGetId(Category category, long categoryId) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(new PreparedStatementCreator() {
@@ -78,12 +78,12 @@ public class ProductDao {
                                             connection.prepareStatement("insert into products (code, name, address, " +
                                                             "manufacturer, price, category_id) values (?, ?, ?, ?, ?, ?)",
                                                     Statement.RETURN_GENERATED_KEYS);
-                                    ps.setString(1, product.getCode());
-                                    ps.setString(2, product.getName());
-                                    ps.setString(3, product.getAddress());
-                                    ps.setString(4, product.getManufacturer());
-                                    ps.setInt(5, product.getPrice());
-                                    ps.setLong(6, category.getId());
+                                    ps.setString(1, category.getProducts().get(0).getCode());
+                                    ps.setString(2, category.getProducts().get(0).getName());
+                                    ps.setString(3, category.getProducts().get(0).getAddress());
+                                    ps.setString(4, category.getProducts().get(0).getManufacturer());
+                                    ps.setInt(5, category.getProducts().get(0).getPrice());
+                                    ps.setLong(6, categoryId);
                                     return ps;
                                 }
                             }, keyHolder
@@ -215,4 +215,27 @@ public class ProductDao {
                 "where users.id=? and products.id=? and orders.status='DELIVERED'\n", (rs, i) -> rs.getInt(1),user.getId(),product.getId());
         return counter>0;
     }
-   }
+
+    //query returns only one product in the list so here it is okay to use this
+    public Category findProductByAddressWithCategory(String address) {
+        return jdbcTemplate.queryForObject("select categories.id, categories.name, sequence, products.id, code, products.name," +
+                "manufacturer,price, status from products join categories on categories.id = category_id where address = ?",
+                new RowMapper<Category>() {
+            @Override
+            public Category mapRow(ResultSet resultSet, int i) throws SQLException {
+                return new Category(
+                        resultSet.getLong("categories.id"),
+                        resultSet.getString("categories.name"),
+                        resultSet.getInt("sequence"),
+                        List.of(new Product(resultSet.getLong("id"),
+                        resultSet.getString("code"),
+                        resultSet.getString("products.name"),
+                        resultSet.getString("manufacturer"),
+                        resultSet.getInt("price"),
+                        ProductStatus.valueOf(resultSet.getString("status"))))
+                );
+            }
+        },address);
+    }
+
+}
