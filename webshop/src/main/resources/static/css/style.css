@@ -271,8 +271,6 @@ footer img {
   color: white;
   padding: 10px 0 20px 30px;
   width: 100%;
-  position: relative;
-  bottom: 0;
 }
 
 .products_img {
@@ -358,11 +356,11 @@ footer img {
   top: 120px;
 }
 
-html,
+/*html,
 body {
   height: 100%;
   position: relative;
-}
+}*/
 
 * {
   box-sizing: border-box;
@@ -429,6 +427,7 @@ body {
   top: 50px;
   left: 230px;
   min-height: 1000px;
+  margin-bottom: 100px;
 }
 
 .order-list-summary,

@@ -17,7 +17,7 @@ public class Product {
                    ProductStatus productStatus) {
         this.id = id;
         this.code = code;
-        this.name = deleteRedundantSpace(name.trim());;
+        this.name = deleteRedundantSpace(name.trim());
         address = generateAddress();
         this.manufacturer = manufacturer;
         this.price = price;

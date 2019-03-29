@@ -65,7 +65,6 @@ public class ProductController {
         }
     }
 
-    //ez nem megy
     //@RequestMapping(value = "/api/product/{productId}", method = RequestMethod.POST)
     @PostMapping("/api/product/{productId}")
     public CustomResponseStatus updateProduct(@PathVariable Long productId, @RequestBody Category category) {
@@ -73,7 +72,7 @@ public class ProductController {
             if (responseStatus.getResponse().equals(Response.FAILED)) {
                 return responseStatus;
             } else {
-                return productService.updateProduct(category.getProducts().get(0), productId, category);
+                return productService.updateProduct(productId, category);
             }
     }
 
