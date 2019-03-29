@@ -17,7 +17,7 @@ public class Category {
     public Category(long id, String categoryName, int sequence) {
         this.id = id;
         if (categoryName == null){
-            this.categoryName = "No webshop.category";
+            this.categoryName = "No category";
         }
         else {
             this.categoryName = categoryName;
@@ -43,5 +43,17 @@ public class Category {
 
     public void setProducts(List<Product> products) {
         this.products = products;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public void setSequence(int sequence) {
+        this.sequence = sequence;
     }
 }

@@ -111,9 +111,12 @@ public class ProductDao {
         return products.size() == 0;
     }
 
-    public int updateProduct(Product product, long id) {
-        return jdbcTemplate.update("update products set code = ?, name = ?, address = ?,manufacturer = ?, price = ?, status = ? where id = ?",
-                product.getCode(), product.getName(), product.getAddress(), product.getManufacturer(), product.getPrice(), product.getProductStatus().name(), id);
+    //ez nem megy
+    public int updateProduct(Product product, long id, long categoryId) {
+        return jdbcTemplate.update("update products set code = ?, name = ?, address = ?,manufacturer = ?, price = ?, status = ?" +
+                        ", category_id = ? where id = ?",
+                product.getCode(), product.getName(), product.getAddress(), product.getManufacturer(), product.getPrice(),
+                product.getProductStatus().name(), categoryId, id);
     }
 
     public boolean isAddressEdited(String address, long id){
