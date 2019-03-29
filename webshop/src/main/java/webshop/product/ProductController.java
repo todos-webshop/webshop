@@ -7,6 +7,8 @@ import webshop.CustomResponseStatus;
 import webshop.Response;
 import webshop.validator.ProductValidator;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -64,19 +66,27 @@ public class ProductController {
     }
 
     //ez nem megy
-    @RequestMapping(value = "/api/product/{productId}", method = RequestMethod.POST)
-    /*@PostMapping("/api/product/{productId}")*/
-    public CustomResponseStatus updateProduct(@PathVariable Long productId, @RequestBody Product product, Category category) {
-            CustomResponseStatus responseStatus = productValidator.validateProduct(product);
+    //@RequestMapping(value = "/api/product/{productId}", method = RequestMethod.POST)
+    @PostMapping("/api/product/{productId}")
+    public CustomResponseStatus updateProduct(@PathVariable Long productId, @RequestBody Category category) {
+            CustomResponseStatus responseStatus = productValidator.validateProduct(category.getProducts().get(0));
             if (responseStatus.getResponse().equals(Response.FAILED)) {
                 return responseStatus;
             } else {
-                return productService.updateProduct(product, productId, category);
+                return productService.updateProduct(category.getProducts().get(0), productId, category);
             }
     }
 
     @DeleteMapping("/api/product/{productId}")
     public CustomResponseStatus logicalDeleteProductById(@PathVariable long productId){
         return productService.logicalDeleteProductById(productId);
+    }
+
+    // just to know how the JSON should be
+    @GetMapping("/api/productg")
+    public Category get(){
+        Category category = new Category(1,"Cat_name",2);
+        category.setProducts(Arrays.asList(new Product(1,"code","name","manu",123,ProductStatus.ACTIVE)));
+        return category;
     }
 }
