@@ -17,27 +17,26 @@ public class RateController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/api/rating")
-    public List<Rate> getRatesForProduct(@RequestBody Product product) {
-        return rateService.getRatesForProduct(product);
-    }
-
-    @GetMapping("/api/rating/avg")
-    public double getAvgRatesForProduct(@RequestBody Product product) {
-        return rateService.getAvgRatesForProduct(product);
-    }
-
-    @PostMapping("/api/rating/userrating/{id}")
+    @GetMapping("/api/rating/{productId}")
     @ResponseBody
-    public CustomResponseStatus addRate(Authentication authentication, @PathVariable long id,@RequestBody Rate rate) {
-        System.out.println(authentication == null);
-        if (authentication != null) {
-            String loggedInUsername = authentication.getName();
-           User loggedInUser = userService.getUserByUsername(loggedInUsername);
-             rateService.addRate(rate,id);
-             return new CustomResponseStatus(Response.SUCCESS, "Successful rating!");
+    public List<Rate> getRatesForProduct(@PathVariable long productId) {
+        return rateService.getRatesForProduct(productId);
+    }
+
+    @GetMapping("/api/rating/avg{productId}")
+    public double getAvgRatesForProduct(@PathVariable long productId) {
+        return rateService.getAvgRatesForProduct(productId);
+    }
+
+    @PostMapping("/api/rating/userrating/{productId}")
+    public CustomResponseStatus addRate(Authentication authentication, @PathVariable long productId,@RequestBody Rate rate) {
+        if (authentication == null) {
+            return new CustomResponseStatus(Response.FAILED, "Please sign in to rate.");
         }
-        return new CustomResponseStatus(Response.FAILED, "Please sign in to rate.");
+        rate.setUser(userService.getUserByUsername(authentication.getName()));
+        long returnLong = rateService.addRate(rate,productId);
+        System.out.println(returnLong);
+        return new CustomResponseStatus(Response.SUCCESS, "Successful rating!");
     }
 
 

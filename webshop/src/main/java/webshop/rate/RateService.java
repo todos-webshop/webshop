@@ -12,18 +12,18 @@ public class RateService {
         this.rateDao = rateDao;
     }
 
-    public List<Rate> getRatesForProduct(Product product){
-        return rateDao.getRatesForProduct(product);
+    public List<Rate> getRatesForProduct(long productId){
+        return rateDao.getRatesForProduct(productId);
     }
 
-    public double getAvgRatesForProduct(Product product){
-        return rateDao.getAvgRatesForProduct(product);
+    public double getAvgRatesForProduct(long productId){
+        return rateDao.getAvgRatesForProduct(productId);
     }
 
-    public long addRate(Rate rate, long id){
+    public long addRate(Rate rate, long rateId){
         if (rateDao.getRateForUserAndProduct(rate).size()!=0){
-            rateDao.updateRate(rate, id );
-              }
+            return rateDao.updateRate(rate, rateId);
+        }
         return rateDao.addNewRateAndGetId(rate);
     }
 

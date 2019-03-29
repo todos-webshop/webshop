@@ -30,7 +30,7 @@ public class RateDao {
                                 public PreparedStatement createPreparedStatement(Connection connection)
                                         throws SQLException {
                                     PreparedStatement ps =
-                                            connection.prepareStatement("insert into rates ( user_id, product_id, stars, message, rating_time) values (?, ?, ?, ?, ?)",
+                                            connection.prepareStatement("insert into ratings ( user_id, product_id, stars, message, rating_time) values (?, ?, ?, ?, ?)",
                                                     Statement.RETURN_GENERATED_KEYS);
                                     ps.setLong(1, rate.getUser().getId());
                                     ps.setLong(2, rate.getProduct().getId());
@@ -44,14 +44,14 @@ public class RateDao {
         return keyHolder.getKey().longValue();
     }
 
-    public List<Rate> getRatesForProduct(Product product) {
+    public List<Rate> getRatesForProduct(long productId) {
         return jdbcTemplate.query("Select ratings.id, ratings.message, ratings.stars,ratings.rating_time from ratings join products on ratings.product_id=products.id where products.id = ? order by ratings.rating_time",
-                (rs,rowNum)-> new Rate( rs.getLong(1),rs.getString(2),rs.getInt(3), rs.getDate(4).toLocalDate(),null,product),product.getId());
+                (rs,rowNum)-> new Rate( rs.getLong(1),rs.getString(2),rs.getInt(3), rs.getDate(4).toLocalDate(),null,null),productId);
 
     }
-    public double getAvgRatesForProduct(Product product) {
+    public double getAvgRatesForProduct(long productId) {
         return jdbcTemplate.queryForObject("Select avg(ratings.stars) from ratings join products on ratings.product_id=products.id where products.id =? order by ratings.rating_time",
-                (rs, i) -> rs.getDouble(1),product.getId());
+                (rs, i) -> rs.getDouble(1),productId);
     }
 
     public List<Rate> getRateForUserAndProduct(Rate rate){

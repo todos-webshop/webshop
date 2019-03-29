@@ -52,4 +52,8 @@ public class Rate {
     public Product getProduct() {
         return product;
     }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
