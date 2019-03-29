@@ -29,4 +29,24 @@ public class CategoryDao {
             }
         });
     }
+
+    //ez nem megy
+    public long getIdOfTheUpdatedName(Category category){
+        return jdbcTemplate.queryForObject("select id from categories where name = ?", new RowMapper<Long>() {
+            @Override
+            public Long mapRow(ResultSet resultSet, int i) throws SQLException {
+                System.out.println(category.getCategoryName());
+                return resultSet.getLong("id");
+            }
+        }, category.getCategoryName());
+    }
+
+    public List<String> listAllCategoryNames() {
+        return jdbcTemplate.query("select name from categories group by name", new RowMapper<String>() {
+            @Override
+            public String mapRow(ResultSet resultSet, int i) throws SQLException {
+                return resultSet.getString("name");
+            }
+        });
+    }
 }

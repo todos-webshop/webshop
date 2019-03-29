@@ -63,13 +63,15 @@ public class ProductController {
         }
     }
 
-    @PostMapping("/api/product/{productId}")
-    public CustomResponseStatus updateProduct(@PathVariable Long productId, @RequestBody Product product) {
+    //ez nem megy
+    @RequestMapping(value = "/api/product/{productId}", method = RequestMethod.POST)
+    /*@PostMapping("/api/product/{productId}")*/
+    public CustomResponseStatus updateProduct(@PathVariable Long productId, @RequestBody Product product, Category category) {
             CustomResponseStatus responseStatus = productValidator.validateProduct(product);
             if (responseStatus.getResponse().equals(Response.FAILED)) {
                 return responseStatus;
             } else {
-                return productService.updateProduct(product, productId);
+                return productService.updateProduct(product, productId, category);
             }
     }
 

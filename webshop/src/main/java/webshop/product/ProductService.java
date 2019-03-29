@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import webshop.CustomResponseStatus;
 import webshop.Response;
 import webshop.category.Category;
+import webshop.category.CategoryDao;
 
 import java.util.List;
 
@@ -13,12 +14,14 @@ import java.util.List;
 public class ProductService {
 
    private ProductDao productDao;
+   private CategoryDao categoryDao;
 
-   public ProductService(ProductDao productDao){
-       this.productDao = productDao;
-   }
+    public ProductService(ProductDao productDao, CategoryDao categoryDao) {
+        this.productDao = productDao;
+        this.categoryDao = categoryDao;
+    }
 
-   public List<Product> listAllProducts(){
+    public List<Product> listAllProducts(){
        return productDao.listAllProducts();
    }
 
@@ -37,7 +40,12 @@ public class ProductService {
        }
        return productDao.addNewProductAndGetId(product, category);
     }
-    public CustomResponseStatus updateProduct(Product product, long id){
+
+    // ez nem megy
+    public CustomResponseStatus updateProduct(Product product, long id, Category category){
+
+        long categoryId = categoryDao.getIdOfTheUpdatedName(category);
+
        if (!productDao.isIdTheSameForUpdatingTheSameCode(product.getCode(), id)){
            return new CustomResponseStatus(Response.FAILED, String.format("Code must be unique and %s already exists in database", product.getCode()));
        }
@@ -47,13 +55,15 @@ public class ProductService {
        if (productDao.isAddressEdited(product.getAddress(), id)){
            return new CustomResponseStatus(Response.FAILED, "Address can not be edited.");
        }
-       int responseInt = productDao.updateProduct(product, id);
+       int responseInt = productDao.updateProduct(product, id, categoryId);
        if (responseInt == 1) {
            return new CustomResponseStatus(Response.SUCCESS, "Updated successfully.");
        } else {
            return new CustomResponseStatus(Response.FAILED, "Can not update.");
        }
     }
+
+
 
     public CustomResponseStatus logicalDeleteProductById(long id){
        if (productDao.isAlreadyDeleted(id)){
