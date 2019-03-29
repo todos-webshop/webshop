@@ -15,7 +15,7 @@ var address = (new URL(document.location)).searchParams.get("address");
                 showTable(jsonData);
             });}
 
-function showTable(jsonData) {
+ function showTable(jsonData) {
     console.log(jsonData);
 
     var productImg = document.querySelector('.product-img');
@@ -46,7 +46,7 @@ function showTable(jsonData) {
     document.querySelector('#purchase').addEventListener('click', function () {
             addToBasket(jsonData);
         });
- 
+
 }
 
 function addToBasket(jsonData) {
