@@ -10,15 +10,12 @@
 
 <body>
 
-    <div class="product-container">
-        <div class="rating" id="rating" >
-            <div class="rating" id="stars" > </div>
-            <div class="rating" id="message" > </div>
-        </div>
-        <img class="product-img">
+    <div class="product-container" id ="product-text">
+        <img class="product-img" id="picture">
         <div id="product-div">
             <table class="table table-striped" id="table">
                 <thead>
+
                     <tr>
                         <th>Code</th>
                         <th>Name</th>
@@ -26,6 +23,7 @@
                         <th>Price</th>
                     </tr>
                 </thead>
+
                 <tbody id="product-table"></tbody>
             </table>
 
@@ -38,6 +36,9 @@
         <br>
 
         <div>
+            <input class="purchase-quantity" type="number" name="quantity" id="quantity" min="1" value="1">
+            <br>
+            <br>
             <button class="purchase add-to-cart" id="purchase" >Add to cart</button>
             <br>
             <br>
@@ -48,7 +49,6 @@
     <script src="js/oneproduct.js"></script>
     <script src="js/menu.js"></script>
     <script src="/js/footer.js"></script>
-    <script src="js/ratings.js"></script>
 
 
 </body>

@@ -1,199 +1,197 @@
-fetchUsers();
-
+window.onload = function() {
+  fetchUsers();
+};
 
 function fetchUsers() {
-  var url = "/api/users";
-  fetch(url)
-    .then(function (response) {
+  fetch("/api/users")
+    .then(function(response) {
       return response.json();
     })
-    .then(function (jsonData) {
-      showDivs(jsonData);
+    .then(function(jsonData) {
+      console.log(jsonData);
+      showTable(jsonData);
     });
 }
 
-function showDivs(jsonData) {
-  divMain = document.getElementById('main_div');
-  divMain.innerHTML = '';
+function showTable(jsonData) {
+  var table = document.querySelector("#users-table");
+
+  table.innerHTML = "";
   for (var i = 0; i < jsonData.length; i++) {
-    var divRow = document.createElement('div');
-    divRow.setAttribute('contenteditable', 'false');
-    divRow.setAttribute('id', jsonData[i].id);
-    divRow.setAttribute('class', 'users-div');
+    var tr = document.createElement("tr");
+    tr["raw-data"] = jsonData[i];
 
-    var firstNameDiv = document.createElement('div');
-    firstNameDiv.innerHTML = jsonData[i].firstName;
-    firstNameDiv.setAttribute('class', 'div_class_admin');
-    divRow.appendChild(firstNameDiv);
+    var idTd = document.createElement("td");
+    idTd.innerHTML = jsonData[i].id;
+    var idTdId = "idTd" + i;
+    idTd.setAttribute("id", idTdId);
+    tr.appendChild(idTd);
 
-    var lastNameDiv = document.createElement('div');
-    lastNameDiv.innerHTML = jsonData[i].lastName;
-    lastNameDiv.setAttribute('class', 'div_class_admin');
-    divRow.appendChild(lastNameDiv);
+    var firstNameTd = document.createElement("td");
+    firstNameTd.innerHTML = jsonData[i].firstName;
+    var firstNameTdId = "firstNameTd" + i;
+    firstNameTd.setAttribute("id", firstNameTdId);
+    tr.appendChild(firstNameTd);
 
-    var usernameDiv = document.createElement('div');
-    usernameDiv.innerHTML = jsonData[i].username;
-    usernameDiv.setAttribute('class', 'div_class_admin');
-    divRow.appendChild(usernameDiv);
+    var lastNameTd = document.createElement("td");
+    lastNameTd.innerHTML = jsonData[i].lastName;
+    var lastNameTdId = "lastNameTd" + i;
+    lastNameTd.setAttribute("id", lastNameTdId);
+    tr.appendChild(lastNameTd);
 
-    var passwordDiv = document.createElement('div');
-    passwordDiv.innerHTML ="";
-    passwordDiv.setAttribute('class', 'div_class_admin','placeholder');
-    divRow.appendChild(passwordDiv);
+    var usernameTd = document.createElement("td");
+    usernameTd.innerHTML = jsonData[i].username;
+    var usernameTdId = "usernameTd" + i;
+    usernameTd.setAttribute("id", usernameTdId);
+    tr.appendChild(usernameTd);
 
- //  var enabledDiv = document.createElement('div');
- //   enabledDiv.innerHTML = jsonData[i].enabled;
- //   enabledDiv.setAttribute('class', 'div_class_admin');
- //    divRow.appendChild(enabledDiv);
+    var passwordTd = document.createElement("td");
+    passwordTd.innerHTML = jsonData[i].password;
+    var passwordTdId = "passwordTd" + i;
+    passwordTd.setAttribute("id", passwordTdId);
+    passwordTd.setAttribute("style", "width: 12%");
 
-    var userRoleDiv = document.createElement('div');
-    userRoleDiv.innerHTML = jsonData[i].userRole;
-    userRoleDiv.setAttribute('class', 'div_class_admin');
-    divRow.appendChild(userRoleDiv);
+    tr.appendChild(passwordTd);
 
-    var buttonsDiv = document.createElement('div');
-    buttonsDiv.setAttribute('class', 'div_class_admin admin-product-div')
-    buttonsDiv.setAttribute('id', 'buttons-div')
+var roleTd = document.createElement("td");
+    roleTd.innerHTML = jsonData[i].userRole;
+    var roleTdId = "roleTd" + i;
+    roleTd.setAttribute("id", roleTdId);
+    tr.appendChild(roleTd);
 
-    var deleteBtn = document.createElement('img');
-    deleteBtn.setAttribute('src','/img/delete-button.png')
-    deleteBtn.setAttribute('class', 'button')
-    deleteBtn.setAttribute('id', jsonData[i].id)
-    deleteBtn.addEventListener('click', deleteUser);
-    deleteBtn.setAttribute('class', 'button');
 
-    var editBtn = document.createElement('img');
-    editBtn.setAttribute('src', '/img/edit-button.png');
-    editBtn.setAttribute('class', 'button')
-    editBtn.setAttribute('id', jsonData[i].id)
-    editBtn.addEventListener('click', editUser);
-    editBtn.setAttribute('class', 'button');
 
-    var saveBtn = document.createElement('img');
-    saveBtn.addEventListener('click', saveUpdatedUser);
-    saveBtn.setAttribute('id', jsonData[i].id);
-    saveBtn.setAttribute('src', '/img/save-button.png');
-    var attribute = 'button-disabled button save-button' + jsonData[i].id;
-    saveBtn.setAttribute('class', attribute);
+    var editButtonTd = document.createElement("td");
+    var editButton = document.createElement("button");
+    var editButtonId = 'editbutton' + i;
+    editButton.setAttribute('id', editButtonId);
+    editButton.setAttribute('class', 'btn');
+    editButton.setAttribute('onclick', `editTds(${i})`);
+    editButton.innerHTML = `<i class="fas fa-edit"></i>Edit`;
+    tr.appendChild(editButtonTd);
+    editButtonTd.appendChild(editButton);
 
-    divRow.appendChild(deleteBtn);
-    divRow.appendChild(editBtn);
-    divRow.appendChild(saveBtn);
+     var saveButton = document.createElement("button");
+                var saveButtonId = 'savebutton' + i;
+                saveButton.innerHTML = `<i class="fa fa-save"></i>Save `;
+                saveButton.setAttribute('id', saveButtonId);
+                saveButton.setAttribute('class', 'btn');
+                saveButton.setAttribute('onclick', `saveTds(${i})`);
+                saveButton.style.display = 'none';
+                editButtonTd.appendChild(saveButton);
 
-    divMain.appendChild(divRow);
+
+    var deleteButtonTd = document.createElement("td");
+            var deleteButton = document.createElement("button");
+            var deleteButtonId = 'deletebutton' + i;
+            deleteButton.setAttribute('id', deleteButtonId);
+            deleteButton.setAttribute('class', 'btn');
+            deleteButton.setAttribute('onclick', `deleteUser(${i})`);
+            deleteButton['raw-data'] = jsonData[i];
+
+            deleteButton.innerHTML = `<i class="fas fa-trash-alt"></i>Delete`;
+
+            deleteButtonTd.appendChild(deleteButton);
+            tr.appendChild(deleteButtonTd);
+
+            table.appendChild(tr);
+
   }
-var clearerDiv = document.createElement('div');
-clearerDiv.setAttribute('class', 'clearer');
-divMain.appendChild(clearerDiv);
-}
-
-function deleteUser() {
-  var id = this.id;
-
-  if (!confirm('Are you sure to delete?')) {
-    return;
   }
+  function deleteUser(num){
 
-  fetch('/api/users/' + id, {
-    method: 'DELETE'
-  })
-    .then(function (response) {
-        return response.json();
-        })
-    .then(function(jsonData){
-        if (jsonData.response == 'SUCCESS'){
-            fetchUsers();
-            document.getElementById('message-div').innerHTML = jsonData.message;
-            document.getElementById('message-div').setAttribute('class', 'alert alert-success');
-        }else{
-            document.getElementById('message-div').innerHTML = "This user no longer exists.";
-            document.getElementById('message-div').setAttribute('class', 'alert alert-danger');
-        }
-    });
-    return false;
+          var id = document.getElementById(`deletebutton${num}`)['raw-data'].id;
+          var name = document.getElementById(`deletebutton${num}`)['raw-data'].name;
+
+          if (!confirm("Are you sure to delete user?")) {
+              return;
+          }
+
+           fetch("/api/users/" + id, {
+                          method: "DELETE",
+                      })
+                      .then(function (response) {
+                          document.getElementById("message-div").setAttribute("class", "alert alert-success");
+                          document.querySelector("#message-div").innerHTML = name + " User Deleted!"
+                          fetchUsers();
+                          });
 }
+function editTds(num){
 
-    function editUser(){
-        var attribute = '.save-button' + this.id;
-        var saveBtn = document.querySelector(attribute);
-        var newClassName = 'save-button' + this.id;
-        var newAttribute = 'button-enabled button ' + newClassName;
+        var firstName = document.getElementById(`firstNameTd${num}`);
+         var lastName = document.getElementById(`lastNameTd${num}`);
+         var username = document.getElementById(`usernameTd${num}`);
+        var password = document.getElementById(`passwordTd${num}`);
 
-        saveBtn.setAttribute('class', newAttribute);
 
-        var row = document.getElementById(this.id);
-        var c = row.childNodes;
-        for (var i = 0; i < c.length; i++){
-        if (i != 4){
-            c[i].setAttribute('contenteditable', 'true');
-        }
-}
+
+        var firstNameData = firstName.innerHTML;
+        var lastNameData = lastName.innerHTML;
+        var usernameData = username.innerHTML;
+        var passwordData = password.innerHTML;
+
+        firstName.innerHTML = `<input id="firstNameInput${num}" type='text' minLength='1' maxLength='255' class='input-box'  value = '${firstNameData}' required>`
+        lastName.innerHTML = `<input id="lastNameInput${num}" type='text' minLength='1' maxLength='255' class='input-box'  value = '${lastNameData}' required>`
+        username.innerHTML = `<input id="usernameInput${num}" type='text' minLength='1' maxLength='255' class='input-box'  value = '${usernameData}' required>`
+        password.innerHTML = `<input id="passwordInput${num}" type='text' minLength='1' maxLength='255' class='input-box'  value='${passwordData}' required>`
+
+        var edit = document.getElementById(`editbutton${num}`);
+        edit.style.display = 'none';
+        var save = document.getElementById(`savebutton${num}`);
+        save.style.display = 'inline';
     }
 
-function saveUpdatedUser(){
-      var row = document.getElementById(this.id);
-      var childenOfRow = row.children;
-      var id = this.id;
+    function saveTds(num){
 
-      var firstName = childenOfRow[0].innerHTML;
-      var lastName = childenOfRow[1].innerHTML;
-      var username = childenOfRow[2].innerHTML;
-      var password = childenOfRow[3].innerHTML;
-   //   var enabled = childenOfRow[4].innerHTML;
-      var userRole = childenOfRow[4].innerHTML;
+            var id = document.getElementById(`savebutton${num}`).parentElement.parentElement['raw-data'].id;
+            var firstName = document.getElementById(`firstNameInput${num}`).value;
+            var lastName = document.getElementById(`lastNameInput${num}`).value;
+            var username = document.getElementById(`usernameInput${num}`).value;
+            var password = document.getElementById(`passwordInput${num}`).value;
+            var userRole = document.getElementById(`savebutton${num}`).parentElement.parentElement['raw-data'].userRole;
 
 
+            var request =
+                    {
+                            "id": id,
+                            "firstName": firstName,
+                            "lastName": lastName,
+                            "username": username,
+                            "password": password,
+                             'enabled': 1,
+                            'userRole': userRole
+                        }
 
-      var request = {
-        'firstName': firstName,
-        'lastName': lastName,
-        'username': username,
-        'password': password,
-    //    'enabled': enabled,
-        'userRole': userRole
-      };
 
-      fetch('/api/users/' + id, {
-            method: 'POST',
-            body: JSON.stringify(request),
-            headers: {
-                'Content-type': 'application/json'
-            }
-        })
-        .then(function (response) {
-            return response.json();
-            })
-        .then(function(jsonData){
-            console.log(jsonData)
-            if (jsonData.response == 'SUCCESS'){
-            fetchUsers();
-            document.getElementById('message-div').innerHTML = 'User updated!';
-            document.getElementById('message-div').setAttribute('class', 'alert alert-success')
-            row.setAttribute('contenteditable', 'false');
-            var classAttribute = '.save-button' + id;
-            var newClassName = 'save-button' + id;
-            var newAttribute = 'button-disabled button ' + newClassName;
-            document.querySelector(classAttribute).setAttribute('class', newAttribute);
-            } else{
-            fetchUsers();
-            document.getElementById('message-div').innerHTML = jsonData.message;
-            document.getElementById('message-div').setAttribute('class', 'alert alert-danger')
-            row.setAttribute('contenteditable', 'false');
-            var classAttribute = '.save-button' + id;
-            var newClassName = 'save-button' + id;
-            var newAttribute = 'button-disabled button ' + newClassName;
-            document.querySelector(classAttribute).setAttribute('class', newAttribute);
+            fetch("/api/users/" + id, {
+                    method: "POST",
+                    body: JSON.stringify(request),
+                    headers: {
+                        "Content-type": "application/json"
+                    }
+                })
+                .then(function (response) {
+                    return response.json();
+                }).
+            then(function (jsonData) {
+
+                if (jsonData.response == 'SUCCESS') {
+
+                   document.getElementById(`firstNameTd${num}`).innerHTML = firstName;
+                   document.getElementById(`lastNameTd${num}`).innerHTML = lastName;
+                   document.getElementById(`usernameInput${num}`).innerHTML = username;
+                   document.getElementById(`passwordTd${num}`).innerHTML = password;
+
+                    fetchUsers();
+                   document.getElementById("message-div").setAttribute("class", "alert alert-success");
+                   document.getElementById("message-div").innerHTML = 'User updated!';
+                } else {
+                    document.getElementById("message-div").setAttribute("class", "alert alert-danger");
+                    document.getElementById("message-div").innerHTML = jsonData.message;
                 }
-            })
-        return false;
-}
-function showInputFields() {
-  var formInput = document.querySelector('#form-input');
-  if (formInput.getAttribute('class') == 'disabled'){
-  formInput.setAttribute('class', 'enabled');
-  } else {
-  formInput.setAttribute('class', 'disabled')}
-}
+            });
+            return false;
+        }
 window.onscroll = function() {scrollFunction()};
 
 function scrollFunction() {

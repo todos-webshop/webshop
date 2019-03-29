@@ -54,7 +54,19 @@ public class ProductDao {
             }
         },address);
     }
-
+    public Object findProductByAddressTwo(String address) {
+        return jdbcTemplate.queryForObject("select id,code,name,manufacturer,price, status from products where address = ?", new RowMapper<Product>() {
+            @Override
+            public Product mapRow(ResultSet resultSet, int i) throws SQLException {
+                return new Product(resultSet.getLong("id"),
+                        resultSet.getString("code"),
+                        resultSet.getString("name"),
+                        resultSet.getString("manufacturer"),
+                        resultSet.getInt("price"),
+                        ProductStatus.valueOf(resultSet.getString("status")));
+            }
+        },address);
+    }
     public long addNewProductAndGetId(Product product) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 

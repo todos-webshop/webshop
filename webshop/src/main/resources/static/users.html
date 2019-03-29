@@ -5,6 +5,7 @@
     <title>Title</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/dashboard3.0.css">
 </head>
 <body>
 
@@ -12,8 +13,24 @@
     <br><br><br>
 <div class="main-container">
 <div id ="main_div">
+    <table >
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Username</th>
+            <th scope="col">Password</th>
+            <th scope="col">Role</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+        <tr>
+        <thead>
+        <tbody id="users-table"></tbody>
+    </table>
 </div>
 </div>
+    <button onclick="topFunction()" id="myBtn"></button>
 
 <script src="js/users.js"></script> <script src="js/menu.js"></script>
 </body>
