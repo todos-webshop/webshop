@@ -17,15 +17,16 @@ public class Rate {
         this.id = id;
         this.message = message;
         this.starts = starts;
-        changeNullDate();
+        this.date = changeNullDate(date);
         this.user = user;
         this.product = product;
     }
 
-    private void changeNullDate(){
+    private LocalDate changeNullDate(LocalDate date){
         if (date == null){
-            date = LocalDate.now();
+            return LocalDate.now();
         }
+        return date;
     }
 
     public long getId() {

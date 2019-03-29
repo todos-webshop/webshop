@@ -1,6 +1,7 @@
 package webshop.basket;
 
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
@@ -75,7 +76,7 @@ public class BasketDao {
         String name = resultSet.getString("name");
         String manufacturer = resultSet.getString("manufacturer");
         int price = resultSet.getInt("price");
-        int quantity = 1;
+        int quantity = resultSet.getInt("quantity");
         ProductStatus productStatus = ProductStatus.valueOf(resultSet.getString("status"));
         return new BasketItem(new Product(id, code, name, manufacturer, price, productStatus),
                 quantity);
@@ -84,7 +85,7 @@ public class BasketDao {
     public List<BasketItem> getBasketItemsInBasketByBasketId(long basketId) {
 
         return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).query(
-                "SELECT id, code, name, manufacturer, price, status FROM basket_items " +
+                "SELECT id, code, name, manufacturer, price, status, quantity FROM basket_items " +
                         "JOIN products ON basket_items.product_id = products.id where basket_id =" +
                         " (:basket_id) ORDER BY name", Map.of("basket_id", basketId),
                 BASKET_ITEM_ROW_MAPPER);
@@ -95,9 +96,7 @@ public class BasketDao {
     public int sumProductPiecesInBasketByBasketId(long basketId) {
         Integer sumProductPieces =
                 new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).queryForObject(
-                        "SELECT count(products.id) as sum_pieces FROM basket_items JOIN products " +
-                                "ON " +
-                                "basket_items.product_id = products.id where basket_id = " +
+                        "SELECT sum(quantity) as sum_pieces FROM basket_items where basket_id = " +
                                 "(:basket_id)", Map.of("basket_id",
                                 basketId),
                         (rs, i) -> rs.getInt("sum_pieces"));
@@ -111,9 +110,7 @@ public class BasketDao {
     public int sumProductPriceInBasketByBasketId(long basketId) {
         Integer sumProductPrice =
                 new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).queryForObject(
-                        "SELECT sum(price) as sum_price FROM basket_items JOIN products ON " +
-                                "basket_items.product_id = products.id where basket_id = " +
-                                "(:basket_id)", Map.of("basket_id",
+                        "SELECT SUM(products.price * basket_items.quantity) as sum_price FROM basket_items JOIN products ON basket_items.product_id = products.id where basket_id = (:basket_id)", Map.of("basket_id",
                                 basketId),
                         (rs, i) -> rs.getInt("sum_price"));
         if (sumProductPrice != null) {
@@ -124,24 +121,24 @@ public class BasketDao {
 
 
     public int addProductToBasket(long basketId, long productId, int quantity) {
-        quantity = 1;
-        Integer productCount =
-                new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).queryForObject(
-                        "SELECT count(product_id) as product_id_count FROM basket_items where " +
-                                "basket_id = (:basket_id) AND product_id = (:product_id)", Map.of(
-                                "basket_id", basketId, "product_id", productId),
-                        (rs, i) -> rs.getInt("product_id_count"));
-        if (productCount == 0) {
+        Integer productQuantityInBasketAlready = 0;
+        try {
+            productQuantityInBasketAlready = new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).queryForObject(
+                    "SELECT quantity FROM basket_items where " +
+                            "basket_id = (:basket_id) AND product_id = (:product_id)", Map.of(
+                            "basket_id", basketId, "product_id", productId),
+                    (rs, i) -> rs.getInt("quantity"));
+        } catch (EmptyResultDataAccessException erdae) {
             return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).update(
-                    "INSERT INTO basket_items (product_id, basket_id) values (:product_id, " +
-                            ":basket_id)",
-                    Map.of("product_id", productId, "basket_id", basketId));
+                    "INSERT INTO basket_items (product_id, basket_id, quantity) values (:product_id, " +
+                            ":basket_id, :quantity)",
+                    Map.of("product_id", productId, "basket_id", basketId, "quantity", quantity));
         }
-        return 1;
-//                new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).update(
-//                "UPDATE basket_items SET quantity = (:quantity) where basket_id = (:basket_id) " +
-//                        "AND product_id = (:product_id)",
-//                Map.of("basket_id", basketId, "product_id", productId, "quantity", quantity));
+        quantity += productQuantityInBasketAlready;
+        return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).update(
+                "UPDATE basket_items SET quantity = (:quantity) where basket_id = (:basket_id) " +
+                        "AND product_id = (:product_id)",
+                Map.of("basket_id", basketId, "product_id", productId, "quantity", quantity));
     }
 
 
@@ -158,9 +155,9 @@ public class BasketDao {
         jdbcTemplate.update("delete from basket_items");
     }
 
-    public int deleteOneProductFromBusket (long basketId, long productid){
+    public int deleteOneProductFromBusket(long basketId, long productid) {
         return jdbcTemplate.update("DELETE FROM basket_items WHERE basket_id = ? and " +
-                "product_id=?;",basketId,productid);
+                "product_id=?;", basketId, productid);
     }
 
 

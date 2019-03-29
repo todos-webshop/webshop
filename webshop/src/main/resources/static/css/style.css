@@ -106,6 +106,17 @@
   border-radius: 10px;
 }
 
+.purchase-quantity {
+  position: relative;
+  left: 800px;
+  bottom: 800px;
+  width: 200px;
+  font-family: "Montserrat-Regular";
+  text-align: center;
+  height: 40px;
+  border-radius: 10px;
+}
+
 .button:hover,
 #clear-basket:hover {
   border: 1px solid black;
@@ -392,9 +403,9 @@ body {
 }
 
 .product-img {
-  margin: 80px;
+  margin: 140px;
   height: 600px;
-  margin-left: 200px;
+  left: 400px;
   float: left;
 }
 

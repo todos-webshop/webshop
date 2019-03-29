@@ -4,6 +4,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 import webshop.product.Product;
 import webshop.statics.StatByProduct;
 import webshop.user.User;
@@ -12,7 +13,7 @@ import javax.sql.DataSource;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.List;
-
+@Repository
 public class RateDao {
 
     private JdbcTemplate jdbcTemplate;
@@ -43,27 +44,24 @@ public class RateDao {
         return keyHolder.getKey().longValue();
     }
 
-    public List<Rate> getRatesForProduct(Product product ) {
-        return jdbcTemplate.query("Select ratings.id, ratings.message,"+
-                        "ratings.stars,ratings.rating_time  "+
-                "   from ratings join on products "+
-                "ratings.product_id=products.id where products.id =? order by ratings.rating_time",
+    public List<Rate> getRatesForProduct(Product product) {
+        return jdbcTemplate.query("Select ratings.id, ratings.message, ratings.stars,ratings.rating_time from ratings join products on ratings.product_id=products.id where products.id = ? order by ratings.rating_time",
                 (rs,rowNum)-> new Rate( rs.getLong(1),rs.getString(2),rs.getInt(3), rs.getDate(4).toLocalDate(),null,product),product.getId());
 
     }
-    public double getAvgRatesForProduct(Product product ) {
-        return jdbcTemplate.queryForObject("Select avg(ratings.stars)"+
-                        "   from ratings join on products "+
-                        "ratings.product_id=products.id where products.id =? order by ratings.rating_time",
+    public double getAvgRatesForProduct(Product product) {
+        return jdbcTemplate.queryForObject("Select avg(ratings.stars) from ratings join products on ratings.product_id=products.id where products.id =? order by ratings.rating_time",
                 (rs, i) -> rs.getDouble(1),product.getId());
     }
 
     public List<Rate> getRateForUserAndProduct(Rate rate){
-        return jdbcTemplate.query("Select ratings.id, ratings.message,"+
-                        "ratings.stars,ratings.rating_time,  ratings.product_id, "+
-                        "   from ratings join on products "+
-                        "ratings.product_id=products.id where ratings.user_id =?  and products.id =? ratings.user_id =? order by ratings.rating_time",
-                (rs,rowNum)-> new Rate( rs.getLong(1),rs.getString(2),rs.getInt(3), rs.getDate(4).toLocalDate(),rate.getUser(),rate.getProduct()),rate.getUser().getId(), rate.getProduct().getId());
+        return jdbcTemplate.query("Select ratings.id, ratings.message, ratings.stars,ratings.rating_time, ratings.product_id from ratings join products on ratings.product_id=products.id where ratings.user_id =? and products.id =? and ratings.user_id =? order by ratings.rating_time",
+                (rs,rowNum)-> new Rate( rs.getLong(1),
+                        rs.getString(2),rs.getInt(3),
+                        rs.getDate(4).toLocalDate(),rate.getUser(),rate.getProduct())
+                ,rate.getUser().getId(),
+                rate.getProduct().getId(),
+                rate.getUser().getId());
 
     }
 
