@@ -24,13 +24,14 @@ function fetchBasket() {
 function showBasket(jsonData) {
   //console.log(jsonData);
   var divBasket = document.getElementById('basket-div');
+  var sumsDiv = document.querySelector('.sums-div');
   divBasket.innerHTML = '';
+  sumsDiv.innerHTML = '';
   divBasket.setAttribute('class', 'container');
 
   var sumPieces = jsonData.sumPieces;
   var sumPrice = jsonData.sumPrice;
 
-  var sumsDiv = document.querySelector('.sums-div');
 
   var sumPiecesDiv = document.createElement('div');
   var sumpriceDiv = document.createElement('div');
@@ -51,25 +52,25 @@ function showBasket(jsonData) {
   var trHeading = document.createElement('tr');
   table.appendChild(trHeading);
 
-    var codeTh = document.createElement('th');
-    codeTh.innerHTML = 'Product code';
-    trHeading.appendChild(codeTh);
+  var codeTh = document.createElement('th');
+  codeTh.innerHTML = 'Product code';
+  trHeading.appendChild(codeTh);
 
-    var nameTh = document.createElement('th');
-    nameTh.innerHTML = 'Name';
-    trHeading.appendChild(nameTh);
-  
-    var manufacturerTh = document.createElement('th');
-    manufacturerTh.innerHTML = 'Manufacturer';
-    trHeading.appendChild(manufacturerTh);
+  var nameTh = document.createElement('th');
+  nameTh.innerHTML = 'Name';
+  trHeading.appendChild(nameTh);
 
-    var priceTh = document.createElement('th');
-    priceTh.innerHTML = 'Price';
-    trHeading.appendChild(priceTh);
+  var manufacturerTh = document.createElement('th');
+  manufacturerTh.innerHTML = 'Manufacturer';
+  trHeading.appendChild(manufacturerTh);
 
-    var quantityTh = document.createElement('th');
-    quantityTh.innerHTML = 'Quantity';
-    trHeading.appendChild(quantityTh);
+  var priceTh = document.createElement('th');
+  priceTh.innerHTML = 'Price';
+  trHeading.appendChild(priceTh);
+
+  var quantityTh = document.createElement('th');
+  quantityTh.innerHTML = 'Quantity';
+  trHeading.appendChild(quantityTh);
 
 
 
@@ -152,8 +153,6 @@ function clearBasket() {
 }
 
 function deleteFromBasket() {
-  console.log(this);
-  console.log(this["raw-data"].product.id);
   id = this["raw-data"].product.id;
 
   if (!confirm("Are you sure to delete?")) {
@@ -164,7 +163,14 @@ function deleteFromBasket() {
       method: "DELETE",
     })
     .then(function (response) {
-      document.getElementById("message-div").innerHTML = "Deleted";
+      return response.json();
+    }).then(function (jsonData) {
+      if (jsonData.response === 'SUCCESS') {
+        document.getElementById('message-div').setAttribute('class', 'alert alert-success');
+      } else {
+        document.getElementById('message-div').setAttribute('class', 'alert alert-danger');
+      }
+      document.getElementById('message-div').innerHTML = jsonData.message;
       fetchBasket();
     });
 }
