@@ -81,7 +81,7 @@ public class OrderIntegrationTest {
     public void test(){
         List<Order> orders = orderController.listOrdersByUserId(authentication);
         System.out.println(orders.toString());
-        assertEquals(orders.size(),3);
+        assertEquals(3, orders.size());
         assertEquals(orders.get(0).getId(),1);
         assertEquals(orders.get(2).getUserId(),2);
         assertEquals(orders.get(1).getOrderItems().size(),2);

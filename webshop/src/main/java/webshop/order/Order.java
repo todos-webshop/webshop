@@ -11,15 +11,17 @@ public class Order {
 
     // totalOrderPrice must be dynamically calculated according to the actual OrderItem list
     private long totalOrderPrice;
+    private String shippingAddress;
+
     private List<OrderItem> orderItems;
 
-    public Order(long id, long userId, LocalDateTime orderTime, OrderStatus orderStatus, long totalOrderPrice, List<OrderItem> orderItems) {
+    public Order(long id, long userId, LocalDateTime orderTime, OrderStatus orderStatus, long totalOrderPrice, String shippingAddress) {
         this.id = id;
         this.userId = userId;
         this.orderTime = orderTime;
         this.orderStatus = orderStatus;
         this.totalOrderPrice = totalOrderPrice;
-        this.orderItems = orderItems;
+        this.shippingAddress = shippingAddress;
     }
 
     public long getId() {
@@ -68,5 +70,18 @@ public class Order {
 
     public void setTotalOrderPrice(long totalOrderPrice) {
         this.totalOrderPrice = totalOrderPrice;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", orderTime=" + orderTime +
+                ", orderStatus=" + orderStatus +
+                ", totalOrderPrice=" + totalOrderPrice +
+                ", shippingAddress='" + shippingAddress + '\'' +
+                ", orderItems=" + orderItems +
+                '}';
     }
 }

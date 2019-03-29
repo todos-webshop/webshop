@@ -2,10 +2,7 @@ package webshop.rate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 import webshop.CustomResponseStatus;
 import webshop.Response;
 import webshop.product.Product;
@@ -13,7 +10,7 @@ import webshop.user.User;
 import webshop.user.UserService;
 
 import java.util.List;
-
+@RestController
 public class RateController {
     @Autowired
     private RateService rateService;
@@ -30,8 +27,10 @@ public class RateController {
         return rateService.getAvgRatesForProduct(product);
     }
 
-    @PostMapping("/api/rating/userrating/")
-    public CustomResponseStatus addRate( Authentication authentication,  @PathVariable long id,@RequestBody Rate rate) {
+    @PostMapping("/api/rating/userrating/{id}")
+    @ResponseBody
+    public CustomResponseStatus addRate(Authentication authentication, @PathVariable long id,@RequestBody Rate rate) {
+        System.out.println(authentication == null);
         if (authentication != null) {
             String loggedInUsername = authentication.getName();
            User loggedInUser = userService.getUserByUsername(loggedInUsername);

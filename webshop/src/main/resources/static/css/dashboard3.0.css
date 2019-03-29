@@ -1,0 +1,125 @@
+.stat-table {
+  top: 300px;
+  position: relative;
+
+}
+
+@font-face {
+  font-family: "Roboto-Bold";
+  src: url("/fonts/Roboto-Bold.ttf");
+}
+
+@font-face {
+  font-family: "Roboto-Bold";
+  src: url("/fonts/Roboto-Bold.ttf");
+}
+
+@import url(https://fonts.googleapis.com/css?family=Patua+One|Open+Sans);
+
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+table {
+  border-collapse: separate;
+  background: #fff;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  margin-right: 5px;
+  margin-left: 5px;
+  -moz-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+  font-family: "Roboto-Bold";
+}
+
+thead {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+
+thead th {
+  font-family: "Roboto-Bold";
+  font-size: 16px;
+  font-weight: 400;
+  color: #fff;
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  padding: 5px;
+  background-size: 100%;
+  background-color: rgb(63, 87, 68);
+  border-top: 1px solid #858d99;
+}
+
+thead th:first-child {
+  -moz-border-radius-topleft: 5px;
+  -webkit-border-top-left-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+thead th:last-child {
+  -moz-border-radius-topright: 5px;
+  -webkit-border-top-right-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+tbody tr td {
+  font-weight: 400;
+  color: #5f6062;
+  font-size: 13px;
+  padding: 5px;
+  border-bottom: 1px solid #e0e0e0;
+  font-family: "Roboto-Bold";
+}
+
+
+tbody tr:nth-child(2n) {
+  background: #f0f3f5;
+  font-family: "Roboto-Bold";
+}
+
+
+tbody tr:last-child td {
+  border-bottom: none;
+  font-family: "Roboto-Bold";
+}
+
+
+tbody tr:last-child td:first-child {
+  -moz-border-radius-bottomleft: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+tbody tr:last-child td:last-child {
+  -moz-border-radius-bottomright: 5px;
+  -webkit-border-bottom-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  font-family: "Roboto-Bold";
+}
+
+
+tbody:hover>tr td {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+  opacity: 0.5;
+  /* uncomment for blur effect */
+  /* color:transparent;
+    @include text-shadow(0px 0px 2px rgba(0,0,0,0.8));*/
+}
+
+tbody:hover>tr:hover td {
+  text-shadow: none;
+  color: #2d2d2d;
+  filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+  opacity: 1;
+}
+
+td {
+  text-align: center;
+  vertical-align: middle;
+  font-family: "Roboto-Bold";
+}
