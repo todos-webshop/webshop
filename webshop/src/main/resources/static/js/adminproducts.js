@@ -1,4 +1,7 @@
+var categories;
+
 fetchProducts();
+fetchCategories();
 
 var addButton = document.getElementById('add-btn');
 addButton.onclick = addNewProduct;
@@ -11,6 +14,19 @@ function fetchProducts() {
     })
     .then(function (jsonData) {
       showDivs(jsonData);
+      console.log(jsonData)
+    });
+}
+
+function fetchCategories() {
+  var url = '/api/categories';
+  fetch(url)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (jsonData) {
+      categories = jsonData;
+      editItem();
       console.log(jsonData)
     });
 }
@@ -141,8 +157,9 @@ function editItem(){
 
     var row = document.getElementById(this.id);
     var c = row.childNodes;
+    console.log(c);
     for (var i = 0; i < c.length; i++){
-        if (i != 2){
+        /*if (i != 2){*/
         if (i == 5){
             c[i].innerHTML = `<select class="select-element">
                 <option value="ACTIVE">ACTIVE</option>
@@ -150,17 +167,17 @@ function editItem(){
             </select>`
         }
         if (i == 6){
-                    c[i].innerHTML = `<select class="select-element-category">
-                        <option value='No category'>No category</option>
-                        <option value='Bamboo products'>Bamboo products</option>
-/                       <!--option value='Straws'>Straws</option>
-                        <option value='Coconut bowls'>Coconut bowls</option-->
-                        </select>`
-                    }
+        c[i].innerHTML = `<select class="select-element-category">
+                                <option value='No category'>No category</option>
+                                <option value='Bamboo products'>Bamboo products</option>
+        /                       <option value='Straws'>Straws</option>
+                                <option value='Coconut bowls'>Coconut bowls</option>
+                                <option value='Coconut bowls'>Eco bags</option>
+                                </select>`
+                }
         else {
         c[i].setAttribute('contenteditable', 'true');
                 }
-            }
         }
 }
 
@@ -175,6 +192,7 @@ function saveUpdatedItem(){
       var manufacturer = childenOfRow[3].innerHTML;;
       var price = childenOfRow[4].innerHTML.split(" ");
       var category = childenOfRow[6].innerHTML;
+    console.log(address);
 
       var selectElement = document.querySelector('.select-element');
       var value = selectElement.options[selectElement.selectedIndex].value;
