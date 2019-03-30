@@ -378,7 +378,7 @@ body {
 .product-img {
   margin: 120px;
   margin-left: 150px;
-  height: 500px;
+  height: 550px;
   left: 400px;
   float: left;
 }
@@ -519,7 +519,7 @@ html{
 
 .product-category{
     position: relative;
-    top: 100px;
+    top: 110px;
     left: 150px;
     font-family: 'Helvetica-Italic';
     font-size: 13px;
@@ -534,7 +534,7 @@ html{
 
 .purchase {
   position: relative;
-  top: 250px;
+  top: 210px;
   right: 160px;
   width: 160px;
   font-family: "Helvetica-Medium";
@@ -544,7 +544,7 @@ html{
 
 .purchase-quantity {
   position: relative;
-  top: 180px;
+  top: 155px;
   width: 160px;
   font-family: "Helvetica-Medium";
   text-align: center;
@@ -556,14 +556,14 @@ html{
   border: 1px solid black;
 }
 
-.purchase:hover {
+.purchase:hover, .rating-button:hover {
   background-color: rgb(93, 133, 101);
   color: white;
 }
 
 .td-right div{
     position: relative;
-    top: 280px;
+    top: 240px;
 }
 
 .product-name{
@@ -627,3 +627,72 @@ html{
   font-family: 'Helvetica-Bold';
   font-size: 15px;
 }
+
+#avg_product{
+  font-family: 'Helvetica-Medium';
+}
+
+#rating-div{
+  margin: 50px;
+  text-align: center;
+  font-size: 30px;
+  color: rgb(63, 87, 68);
+  font-family: 'Helvetica-Bold';
+}
+
+.rate-number{
+  padding: 5px;
+  font-family: 'Helvetica-Medium';
+  font-size: 20px;
+  color: black;
+}
+
+.rate-date{
+  padding: 10px;
+  font-family: 'Helvetica-Light';
+  font-size: 18px;
+  color: black;
+}
+
+.rate-name{
+  padding: 10px;
+  font-family: 'Helvetica-Light';
+  font-size: 16px;
+  color: rgb(110,110,110);
+  color: black;
+  letter-spacing: 4px;
+}
+
+.rate-comment{
+  padding: 10px;
+  font-family: 'Helvetica-Italic';
+  font-size: 17px;
+  color: black;
+}
+
+.review-div{
+    margin: 40px;
+    border-bottom: solid 1px lightgrey;
+    margin-left: 180px;
+    margin-right: 180px;
+}
+
+.rating-div-main{
+    padding-top: 20px;
+    position: relative;
+}
+
+.rating-message{
+    padding-top: 10px;
+    position: relative;
+}
+
+.rating-button{
+    margin-top: 20px;
+    position: relative;
+    width: 80px;
+    font-family: "Helvetica-Medium";
+    text-align: center;
+    height: 40px;
+}
+
