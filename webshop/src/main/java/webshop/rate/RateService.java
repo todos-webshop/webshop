@@ -22,7 +22,7 @@ public class RateService {
 
     public long addRate(Rate rate, long id){
         if (rateDao.getRateForUserAndProduct(rate).size()!=0){
-            rateDao.updateRate(rate, id );
+           return rateDao.updateRate(rate, id );
               }
         return rateDao.addNewRateAndGetId(rate);
     }

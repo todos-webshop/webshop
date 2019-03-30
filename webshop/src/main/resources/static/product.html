@@ -10,22 +10,62 @@
 
 <body>
 
-    <div class="product-container" id ="product-text">
-        <div class="rating" id="rating" >
-            <div class="rating" id="stars" > </div>
-            <div class="rating" id="message" > </div>
-        </div>
-            <table class="table table-striped" id="product-table">
 
-            </table>
 
-    </div>
 
-    <script src="js/oneproduct.js"></script>
-    <script src="js/menu.js"></script>
-    <script src="/js/footer.js"></script>
-    <script src="js/ratings.js"></script>
+
+
+
+
+        <table class="table table-striped" id="product-table">
+
+        </table>
+
+        <table class="table table-striped" id="table_rates">
+            <thead>
+
+            <tr>
+                <th>Username</th>
+                <th>Date</th>
+                <th>Star</th>
+
+                <th>Opinion</th>
+            </tr>
+            </thead>
+
+            <tbody id="product-rate-table"></tbody>
+        </table>
+
+
+
+        <div class="product-container" id ="product-text">
+            <div class="rating" id="rating" >
+                <div class="rating" id="stars" >
+                    <select id="select_star">
+                        <option value="5" selected>5</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2" >2</option>
+                        <option value="1" >1</option>
+                    </select>
+                </div>
+                <div class="rating" id="message" >
+               <textarea id="message_text" rows="2" cols="50">
+               </textarea></div>
+                <div class="rating" id="button">
+                    <button id="rate_button">Rate</button>
+                </div>
+                <div class="avg" id="avg_product"></div>
+            </div>
+
+        <script src="js/oneproduct.js"></script>
+<script src="js/menu.js"></script>
+<script src="/js/footer.js"></script>
+
 
 </body>
 
 </html>
+
+
+
