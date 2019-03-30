@@ -9,12 +9,14 @@ function getCategories(){
 function setCat(jsonData){
     var ul = document.getElementById("columns");
     var sequenceUL = document.getElementById("sequence");
-
+    ul.innerHTML = "";
+    sequenceUL.innerHTML = "";
+    
     for (const key in jsonData) {
         if (jsonData.hasOwnProperty(key)) {
             const element = jsonData[key];
             ul.innerHTML += 
-            `<li class="column" draggable="true"><header><div class="drag-box" id="id-${element["sequence"]}">
+            `<li class="column"><header><div class="drag-box" id="id-${element["sequence"]}">
                 ${element["categoryName"]}
             </div></header></li>`;
             sequenceUL.innerHTML += 
@@ -23,13 +25,29 @@ function setCat(jsonData){
             </div></header></li>`
         }
     }
-    var cols = document.querySelectorAll('#columns .column');
+}
+
+function changeSequence(){
+    document.querySelectorAll('#columns .column').forEach(function(e){
+        e.setAttribute("class","edit-column");
+        e.setAttribute("draggable", "true")
+    });
+    var cols = document.querySelectorAll('#columns .edit-column');
     [].forEach.call(cols, addDnDHandlers);
 }
 
 function save(){
-    //ide jöhet a fetch
-    console.log("fetchke");
+    var request = [];
+    var sequence = 0;
+    document.querySelectorAll('#columns .edit-column').forEach(function(e){
+        e.setAttribute("class","column");
+        request.push({"categoryName": e.firstChild.firstChild.innerHTML.trim(), "sequence": sequence});
+        sequence++;
+    });
+
+    // ide jöhet az update fetch
+
+    getCategories();
 }
 
 
