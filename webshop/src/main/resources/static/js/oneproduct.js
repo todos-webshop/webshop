@@ -32,18 +32,14 @@ var address = (new URL(document.location)).searchParams.get("address");
             return false;
             }
 function fetchRate() {
-//console.log(actProduct["id"]);
         var url ="/api/rating/"+actProduct["products"][0]["id"] ;
-        //console.log(url );
         fetch(url)
             .then(function(response) {
                 return response.json();
                 })
             .then(function(jsonData) {
 
-//console.log("fetchRate url"+url);
                 actRate =jsonData;
-                //console.log("fetchRate"+jsonData);
             });
             return false;
             }
@@ -109,6 +105,11 @@ function fetchRate() {
     nameDiv.setAttribute('class', 'product-name');
     tdRight.appendChild(nameDiv);
 
+    var avgDiv = document.createElement('div');
+    avgDiv.setAttribute('class', 'avg');
+    avgDiv.setAttribute('id', 'avg_product');
+    tdRight.appendChild(avgDiv);
+
     var categoryDiv = document.createElement('div');
     categoryDiv.innerText = jsonData.categoryName;
     categoryDiv.setAttribute('class', 'category');
@@ -130,12 +131,12 @@ function fetchRate() {
     tdRight.appendChild(priceDiv);
 
 
+    createRatingDiv();
 
     document.querySelector('#purchase').addEventListener('click', function () {
             addToBasket(jsonData);
         });
     document.querySelector('#rate_button').addEventListener('click', function () {
-                           // console.log("hello");
                            sendRate(jsonData);
                            document.getElementById('message_text').value = "";
                            setTimeout(fetchRates, 100);
@@ -158,7 +159,6 @@ function sendRate(jsonData) {
     'user':null,
     'product':actProduct["products"][0]
   };
-//   console.log(request);
   fetch('/api/rating/userrating/'+actProduct["products"][0]["id"], {
     method: 'POST',
     body: JSON.stringify(request),
@@ -167,12 +167,8 @@ function sendRate(jsonData) {
     }
   })
     .then(function (response) {
-            //  console.log(response);
-          //console.log( "textarea"+ document.getElementById('message_text'));
-          //  console.log( "message"+message);
              return response.json();
             }).then(function (jsonData) {
-                // console.log(jsonData);
 
       if (jsonData.response === "SUCCESS") {
         document.getElementById('message-div').setAttribute('class', 'alert alert-success');
@@ -186,7 +182,6 @@ function sendRate(jsonData) {
 function fetchAvg() {
 
         var url ="/api/rating/avg/"+actProduct["products"][0]["id"] ;
-       // console.log(url );
         fetch(url)
             .then(function(response) {
                 return response.json();
@@ -195,15 +190,13 @@ function fetchAvg() {
                 actAvg =jsonData;
                 displayAvg();
 
-                //console.log("fetchAvg");
             });
-            return false;
+            return actAvg;
 
 }
 function fetchRates() {
 
         var url ="/api/rating/list/"+actProduct["products"][0]["id"];
-        //console.log(url );
         fetch(url)
             .then(function(response) {
                 return response.json();
@@ -214,7 +207,6 @@ function fetchRates() {
                 showRates();
 
 
-              //  console.log("fetchRates");
             });
             return false;
 
@@ -229,7 +221,6 @@ function addToBasket(jsonData) {
     'productCode': code,
     'productPieces': quantity
   };
-//   console.log(request);
   fetch('/basket', {
     method: 'POST',
     body: JSON.stringify(request),
@@ -238,10 +229,8 @@ function addToBasket(jsonData) {
     }
   })
     .then(function (response) {
-            //  console.log(response);
              return response.json();
             }).then(function (jsonData) {
-                // console.log(jsonData);
       if (jsonData.response === "SUCCESS") {
         document.getElementById('message-div').setAttribute('class', 'alert alert-success');
       } else {
@@ -253,44 +242,105 @@ function addToBasket(jsonData) {
 function goBack() {
   window.history.back();
 }
-   // function getUrlParam(name) {
-  //  var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
- //   return results;
-//}
+
 function showProductNotFound(jsonData){
    window.location.href = 'http://localhost:8080/error.html';
-   // reviews.innerHTML = "";
 }
+
+
 function displayAvg(){
-//console.log("display avg");
-//console.log(actAvg);
-//if(actAvg!==undefined){
-
-document.getElementById('avg_product').innerHTML = "Average "+actAvg;
-
+document.getElementById('avg_product').innerHTML = "Average rating: "+actAvg;
 }
-
 
 
 function showRates() {
-var table=document.getElementById('product-rate-table')  ;
-table.innerHTML="";
-console.log(actRates);
-for (var i=0;i<actRates.length;i++ ){
- var tr = document.createElement("tr");
- var userTd = document.createElement("td");
-    userTd.innerHTML = actRates[i]["user"]["username"];
-    var timeTd = document.createElement("td");
-        timeTd.innerHTML = actRates[i]["date"];
- var starTd = document.createElement("td");
- starTd.innerHTML = actRates[i]["stars"];
- var messageTd = document.createElement("td");
-  messageTd.innerHTML = actRates[i]["message"];
- tr.appendChild(userTd);
- tr.appendChild(timeTd);
-tr.appendChild(starTd);
-tr.appendChild(messageTd);
-table.appendChild(tr);
 
+var div = document.getElementById('rating-div');
+
+for (var i=0;i<actRates.length;i++ ){
+
+    var reviewDiv = document.createElement("div");
+    reviewDiv.setAttribute('class', 'review-div')
+
+    var numberOfRate = document.createElement("div");
+    numberOfRate.setAttribute('class', 'rate-number');
+    numberOfRate.innerHTML = "Rate: " + actRates[i]["stars"];
+    reviewDiv.appendChild(numberOfRate);
+
+    var reviewDate = document.createElement('div');
+    reviewDate.setAttribute('class', 'rate-date');
+    reviewDate.innerHTML = actRates[i]["date"];
+    reviewDiv.appendChild(reviewDate);
+
+    var reviewComment = document.createElement('div');
+    reviewComment.setAttribute('class', 'rate-comment');
+    reviewComment.innerHTML = actRates[i]["message"];
+    reviewDiv.appendChild(reviewComment);
+
+    var reviewName = document.createElement('div');
+    reviewName.setAttribute('class', 'rate-name');
+    reviewName.innerHTML = actRates[i]["user"]["username"];
+    reviewDiv.appendChild(reviewName);
+
+    div.appendChild(reviewDiv);
 }
+}
+
+function createRatingDiv(){
+    var tdRight = document.querySelector('.td-right');
+
+    var starDiv = document.createElement('div');
+    starDiv.setAttribute('class', 'rating-div-main');
+    starDiv.setAttribute('id', 'star');
+    tdRight.appendChild(starDiv);
+
+    var selectStar = document.createElement('select');
+    selectStar.setAttribute('id', 'select_star');
+    starDiv.appendChild(selectStar);
+
+    var option5 = document.createElement('option');
+    option5.setAttribute('value', "5");
+    option5.innerHTML = 5;
+    selectStar.appendChild(option5)
+
+    var option4 = document.createElement('option');
+    option4.setAttribute('value', "4");
+    option4.innerHTML = 4;
+    selectStar.appendChild(option4)
+
+    var option3 = document.createElement('option');
+    option3.setAttribute('value', "3");
+    option3.innerHTML = 3;
+    selectStar.appendChild(option3)
+
+    var option2 = document.createElement('option');
+    option2.setAttribute('value', "2");
+    option2.innerHTML = 2;
+    selectStar.appendChild(option2)
+
+    var option1 = document.createElement('option');
+    option1.setAttribute('value', "1");
+    option1.innerHTML = 1;
+    selectStar.appendChild(option1);
+
+    var ratingMessage = document.createElement('div');
+    ratingMessage.setAttribute('class', 'rating-message');
+    ratingMessage.setAttribute('id', 'message');
+    tdRight.appendChild(ratingMessage);
+
+    var textArea = document.createElement('textarea');
+    textArea.setAttribute('id', 'message_text');
+    textArea.setAttribute('rows', '2');
+    textArea.setAttribute('cols', '40');
+    ratingMessage.appendChild(textArea);
+
+    var ratingButtonDiv = document.createElement('div');
+    ratingButtonDiv.setAttribute('id', 'button');
+    tdRight.appendChild(ratingButtonDiv);
+
+    var ratingButton = document.createElement('button');
+    ratingButton.setAttribute('class', 'rating-button');
+    ratingButton.setAttribute('id', 'rate_button');
+    ratingButton.innerHTML = 'Rate';
+    ratingButtonDiv.appendChild(ratingButton);
 }

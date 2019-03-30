@@ -1,6 +1,8 @@
 package webshop.category;
 
 import org.springframework.stereotype.Service;
+import webshop.CustomResponseStatus;
+import webshop.Response;
 import webshop.product.ProductDao;
 
 import java.util.List;
@@ -27,5 +29,24 @@ public class CategoryService {
 
     public List<Category> listAllCategories(){
         return categoryDao.listAllCategories();
+    }
+
+    public CustomResponseStatus addNewCategory(Category category){
+        if ((categoryDao.getNumberOfCategories() + 1) < category.getSequence()) {
+            return new CustomResponseStatus(Response.FAILED,"Sequence can not be bigger then the number of categories.");
+        }
+        if (category.getSequence() == 0){
+            category.setSequence(categoryDao.getNumberOfCategories() + 1);
+        }
+        if (categoryDao.doesSequenceAlreadyExist(category)){
+            for (Category category1: categoryDao.listAllCategories()){
+                System.out.println(category1);
+                int sequence = categoryDao.getSequenceById(category1.getId());
+                System.out.println(sequence);
+                categoryDao.updateSequence(sequence + 1, category1.getId());
+            }
+        }
+        long id = categoryDao.addNewCategoryAndGetId(category);
+        return new CustomResponseStatus(Response.SUCCESS, String.format("Category added successfully with ID %d", id));
     }
 }

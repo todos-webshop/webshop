@@ -13,12 +13,26 @@ public class Product {
     private int price;
     private ProductStatus productStatus;
 
+    public Product() {
+    }
+
     public Product(long id, String code, String name, String manufacturer, int price,
                    ProductStatus productStatus) {
         this.id = id;
         this.code = code;
         this.name = deleteRedundantSpace(name.trim());
         address = generateAddress();
+        this.manufacturer = manufacturer;
+        this.price = price;
+        this.productStatus = productStatus;
+    }
+
+    public Product(long id, String code, String name, String address, String manufacturer, int price,
+                   ProductStatus productStatus) {
+        this.id = id;
+        this.code = code;
+        this.name = deleteRedundantSpace(name.trim());
+        this.address = address;
         this.manufacturer = manufacturer;
         this.price = price;
         this.productStatus = productStatus;

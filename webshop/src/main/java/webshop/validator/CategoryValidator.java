@@ -1,6 +1,7 @@
 package webshop.validator;
 
-public class CategoryValidator implements Validator {
+import webshop.category.Category;
 
+public class CategoryValidator implements Validator {
 
 }

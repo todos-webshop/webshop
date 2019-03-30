@@ -63,6 +63,10 @@ public class OrderController {
         if (orderService.isOrderDeleted(orderId)) {
             return new CustomResponseStatus(Response.SUCCESS, String.format("Order %d is already deleted.", orderId));
         }
+        if (orderService.isOrderDelivered(orderId)) {
+            return new CustomResponseStatus(Response.FAILED, String.format("Can not delete: order %d is already delivered.",
+                    orderId));
+        }
         if (orderService.logicalDeleteOrderByOrderId(orderId) == 1) {
             return new CustomResponseStatus(Response.SUCCESS, String.format("Order %d successfully deleted.", orderId));
         }
@@ -89,6 +93,10 @@ public class OrderController {
         String newOrderStatus = "DELIVERED";
         if (orderService.isOrderDelivered(orderId)) {
             return new CustomResponseStatus(Response.SUCCESS, String.format("Order %d is already delivered.", orderId));
+        }
+        if (orderService.isOrderDeleted(orderId)) {
+            return new CustomResponseStatus(Response.FAILED, String.format("Can not change status: order %d is already deleted.",
+                    orderId));
         }
         if (orderService.updateOrderStatus(orderId, newOrderStatus) == 1) {
             return new CustomResponseStatus(Response.SUCCESS, String.format("Order status successfully updated for order %d.",
