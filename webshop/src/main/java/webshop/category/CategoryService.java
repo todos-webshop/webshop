@@ -25,7 +25,7 @@ public class CategoryService {
         return categoryList;
     }
 
-    public List<String> listAllCategories(){
-        return categoryDao.listAllCategoryNames();
+    public List<Category> listAllCategories(){
+        return categoryDao.listAllCategories();
     }
 }

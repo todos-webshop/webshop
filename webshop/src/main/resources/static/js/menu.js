@@ -85,6 +85,7 @@ window.onclick = function (event) {
 
 function welcomeUser() {
   var welcomeLabel = document.createElement('label');
+  welcomeLabel.setAttribute('class', 'welcome-div')
   welcomeLabel.innerHTML = ' Welcome ' + user.username + '!';
   return welcomeLabel;
 }
@@ -182,9 +183,9 @@ function createSignUpButton() {
 }
 
 function createCartButton() {
-  var cartBtn = document.createElement('button');
-  cartBtn.innerText = 'Cart';
-  cartBtn.className = 'menu-button';
+  var cartBtn = document.createElement('img');
+  cartBtn.setAttribute('src', '/img/cart.jpg')
+  cartBtn.className = 'menu-button-cart';
   cartBtn.id = 'cart-btn';
   return cartBtn;
 }

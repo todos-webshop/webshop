@@ -18,7 +18,7 @@ public class CategoryDao {
     }
 
     public List<Category> listAllCategories(){
-        return jdbcTemplate.query("select id, name, sequence from categories", new RowMapper<Category>() {
+        return jdbcTemplate.query("select id, name, sequence from categories order by sequence", new RowMapper<Category>() {
             @Override
             public Category mapRow(ResultSet resultSet, int i) throws SQLException {
                 return new Category(
@@ -41,14 +41,5 @@ public class CategoryDao {
                         resultSet.getInt("sequence"));
             }
         }, category.getCategoryName());
-    }
-
-    public List<String> listAllCategoryNames() {
-        return jdbcTemplate.query("select name from categories group by name", new RowMapper<String>() {
-            @Override
-            public String mapRow(ResultSet resultSet, int i) throws SQLException {
-                return resultSet.getString("name");
-            }
-        });
     }
 }

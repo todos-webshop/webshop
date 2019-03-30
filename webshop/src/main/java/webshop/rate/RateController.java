@@ -6,9 +6,12 @@ import org.springframework.web.bind.annotation.*;
 import webshop.CustomResponseStatus;
 import webshop.Response;
 import webshop.product.Product;
+import webshop.product.ProductStatus;
 import webshop.user.User;
+import webshop.user.UserRole;
 import webshop.user.UserService;
 
+import java.time.LocalDate;
 import java.util.List;
 @RestController
 public class RateController {
@@ -17,26 +20,50 @@ public class RateController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/api/rating/{productId}")
+
+    @GetMapping("/api/rating/list/{productid}")
+    public List<Rate> getRatesForProduct(@PathVariable long productid) {
+        Product product =new Product(productid,"MUZ","muz","muz",0, ProductStatus.ACTIVE);
+        return rateService.getRatesForProduct(product);
+    }
+
+    @GetMapping("/api/rating/avg/{productid}")
+    public double getAvgRatesForProduct(@PathVariable long productid) {
+        Product product =new Product(productid,"MUZ","muz","muz",0, ProductStatus.ACTIVE);
+        return rateService.getAvgRatesForProduct(product);
+    }
+    @GetMapping("/api/rating/{productid}")
+    public Rate getUserRateForProduct(Authentication authentication,@PathVariable long productid) {
+        Rate rateFromDB = new Rate(0, "", 1, LocalDate.now(), new User(15,"John","Doe","john","123456",1, UserRole.ROLE_USER ), new Product(productid,"MUZ","muz","muz",0, ProductStatus.ACTIVE));
+
+        if (authentication != null) {
+            String loggedInUsername = authentication.getName();
+            User loggedInUser = userService.getUserByUsername(loggedInUsername);
+            Rate rate = new Rate(0, "", 1, null, loggedInUser, new Product(productid,"MUZ","muz","muz",0, ProductStatus.ACTIVE));
+
+           try {
+               rateFromDB = rateService.getRateForUserAndProduct(rate);
+
+           }catch ( IllegalArgumentException ie){
+
+           }
+           }
+        return rateFromDB;
+
+    }
+
+    @PostMapping("/api/rating/userrating/{id}")
     @ResponseBody
-    public List<Rate> getRatesForProduct(@PathVariable long productId) {
-        return rateService.getRatesForProduct(productId);
-    }
-
-    @GetMapping("/api/rating/avg{productId}")
-    public double getAvgRatesForProduct(@PathVariable long productId) {
-        return rateService.getAvgRatesForProduct(productId);
-    }
-
-    @PostMapping("/api/rating/userrating/{productId}")
-    public CustomResponseStatus addRate(Authentication authentication, @PathVariable long productId,@RequestBody Rate rate) {
-        if (authentication == null) {
-            return new CustomResponseStatus(Response.FAILED, "Please sign in to rate.");
+    public CustomResponseStatus addRate(Authentication authentication, @PathVariable long id,@RequestBody Rate rate) {
+        System.out.println(authentication == null);
+        if (authentication != null) {
+            String loggedInUsername = authentication.getName();
+           User loggedInUser = userService.getUserByUsername(loggedInUsername);
+           rate.setUser(loggedInUser);
+             rateService.addRate(rate,id);
+             return new CustomResponseStatus(Response.SUCCESS, "Successful rating!");
         }
-        rate.setUser(userService.getUserByUsername(authentication.getName()));
-        long returnLong = rateService.addRate(rate,productId);
-        System.out.println(returnLong);
-        return new CustomResponseStatus(Response.SUCCESS, "Successful rating!");
+        return new CustomResponseStatus(Response.FAILED, "Please sign in to rate.");
     }
 
 

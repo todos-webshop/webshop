@@ -24,6 +24,7 @@ public class Product {
         this.productStatus = productStatus;
     }
 
+
     private String generateAddress(){
         String address = name.toLowerCase().replaceAll(" ", "_");
         return normalize(address);

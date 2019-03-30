@@ -47,15 +47,15 @@ public class ProductController {
     }
 
   //  @GetMapping("/api/product/{address}")
-    public Product findProductByAddress(@PathVariable String address) {
+    public Category findProductByAddress(@PathVariable String address) {
         return productService.findProductByAddress(address);
     }
     @PostMapping("/api/products")
-    public CustomResponseStatus addNewProduct(@RequestBody Product product, Category category) {
+    public CustomResponseStatus addNewProduct(@RequestBody Category category) {
         try {
-            CustomResponseStatus responseStatus = productValidator.validateProduct(product);
+            CustomResponseStatus responseStatus = productValidator.validateProduct(category.getProducts().get(0));
             if (responseStatus.getResponse().equals(Response.SUCCESS)) {
-                long id = productService.addNewProductAndGetId(product, category);
+                long id = productService.addNewProductAndGetId(category);
                 return new CustomResponseStatus(Response.SUCCESS, String.format("Successfully created with %d id", id));
             } else {
                 return responseStatus;

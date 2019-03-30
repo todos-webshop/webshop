@@ -62,7 +62,7 @@ function showDivs(jsonData) {
 
   for (var i = 0; i < jsonData.length; i++) {
   for (var j = 0; j < jsonData[i].orderItems.length; j++){
-  /*    if (jsonData[i].id !== id){*/
+      if (jsonData[i].id !== id){
 
       var divMain = document.getElementById('main_div_orders');
 
@@ -120,36 +120,37 @@ function showDivs(jsonData) {
       divMain.appendChild(tableDetail);
 
       var tbodyDetail = document.createElement('tbody');
-      tbodyDetail.setAttribute('class', 'orders-list-summary');
+      tbodyDetail.setAttribute('class', 'orders-list-summary order-products');
       tableDetail.appendChild(tbodyDetail);
 
       var trDetail = document.createElement('tr');
       var id = 'order-' + jsonData[i].id;
       trDetail.setAttribute('id', id);
+      trDetail.setAttribute('class', 'tr-detail');
       tbodyDetail.appendChild(trDetail);
 
-      var tdDetail = document.createElement('td');
-      tdDetail.setAttribute('class', 'orders-list-summary');
+      var tdDetail = document.createElement('div');
+      tdDetail.setAttribute('class', 'orders-list-summary tr-div');
       trDetail.appendChild(tdDetail);
 
       var productNumber = document.createElement('div');
       productNumber.innerText = 'Product ' + (parseInt(j) + 1)
-      productNumber.setAttribute('class', 'myorders-div');
+      productNumber.setAttribute('class', 'myorders-div product-number');
       tdDetail.appendChild(productNumber);
+
+      var nameDiv = document.createElement('div');
+      nameDiv.innerText =  jsonData[i].orderItems[j].product.name;
+      nameDiv.setAttribute('class', 'myorders-div name-product');
+      tdDetail.appendChild(nameDiv);
 
       var codeDiv = document.createElement('div');
       codeDiv.setAttribute('class', 'myorders-div');
-      codeDiv.innerText = 'Product code: ' + jsonData[i].orderItems[j].product.code;
+      codeDiv.innerText =  jsonData[i].orderItems[j].product.code;
       tdDetail.appendChild(codeDiv);
-
-      var nameDiv = document.createElement('div');
-      nameDiv.innerText = 'Product name: ' + jsonData[i].orderItems[j].product.name;
-      nameDiv.setAttribute('class', 'myorders-div');
-      tdDetail.appendChild(nameDiv);
 
       var manufacturerDiv = document.createElement('div');
       manufacturerDiv.setAttribute('class', 'myorders-div');
-      manufacturerDiv.innerText = 'Product manufacturer: ' + jsonData[i].orderItems[j].product.manufacturer;
+      manufacturerDiv.innerText = jsonData[i].orderItems[j].product.manufacturer;
       tdDetail.appendChild(manufacturerDiv);
 
       var pieceDiv = document.createElement('div');
@@ -159,20 +160,54 @@ function showDivs(jsonData) {
 
       var priceDiv = document.createElement('div');
       priceDiv.setAttribute('class', 'myorders-div');
-      priceDiv.innerText = 'Price: ' + jsonData[i].orderItems[j].product.price + ' Ft' +"\n";
+      priceDiv.innerText = jsonData[i].orderItems[j].product.price + ' Ft';
       tdDetail.appendChild(priceDiv);
 
       id = jsonData[i].id;
 
- /* } else {
-        var foundDivRow = document.getElementById(jsonData[i].id);
+  } else {
+      var idToFind = 'order-' + jsonData[i].id;
+      var trToAppendIn = document.getElementById(idToFind);
 
-        foundDivRow.innerText = foundDivRow.innerText + "\nProduct "+ (parseInt(j)+1) +  "\nProduct code: " +
-        jsonData[i].orderItems[j].product.code + "\n" + 'Product name: ' + jsonData[i].orderItems[j].product.name + "\n"
-        + 'Product manufacturer: ' + jsonData[i].orderItems[j].product.manufacturer + "\n"
-        + 'Piece: ' + jsonData[i].orderItems[j].pieces + "\n" + 'Price: ' + jsonData[i].orderItems[j].product
-        .price + " Ft \n"
-            }*/
+      var selector = '#' + idToFind;
+      var tdInFoundTr = document.querySelector(selector);
+      console.log(tdInFoundTr.children.length);
+
+
+      var tdDetail = document.createElement('div');
+      tdDetail.setAttribute('class', 'orders-list-summary tr-div');
+      trToAppendIn.appendChild(tdDetail);
+
+      var productNumber = document.createElement('div');
+      productNumber.innerText = 'Product ' + (parseInt(j) + 1)
+      productNumber.setAttribute('class', 'myorders-div product-number');
+      tdDetail.appendChild(productNumber);
+
+      var nameDiv = document.createElement('div');
+      nameDiv.innerText = jsonData[i].orderItems[j].product.name;
+      nameDiv.setAttribute('class', 'myorders-div name-product');
+      tdDetail.appendChild(nameDiv);
+
+      var codeDiv = document.createElement('div');
+      codeDiv.setAttribute('class', 'myorders-div');
+      codeDiv.innerText = jsonData[i].orderItems[j].product.code;
+      tdDetail.appendChild(codeDiv);
+
+      var manufacturerDiv = document.createElement('div');
+      manufacturerDiv.setAttribute('class', 'myorders-div');
+      manufacturerDiv.innerText = jsonData[i].orderItems[j].product.manufacturer;
+      tdDetail.appendChild(manufacturerDiv);
+
+      var pieceDiv = document.createElement('div');
+      pieceDiv.setAttribute('class', 'myorders-div');
+      pieceDiv.innerText = 'Quantity: ' + jsonData[i].orderItems[j].pieces;
+      tdDetail.appendChild(pieceDiv);
+
+      var priceDiv = document.createElement('div');
+      priceDiv.setAttribute('class', 'myorders-div');
+      priceDiv.innerText = jsonData[i].orderItems[j].product.price + ' Ft';
+      tdDetail.appendChild(priceDiv);
+           }
         }
     }
 }
