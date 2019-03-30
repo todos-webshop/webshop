@@ -10,8 +10,7 @@ function fetchProducts() {
                 return response.json();
                 })
             .then(function(jsonData) {
-
-
+                console.log(jsonData)
                 showDivs(jsonData);
             });}
 
@@ -19,7 +18,8 @@ function fetchProducts() {
    function showDivs(jsonData) {
        divMain = document.getElementById("main_div");
        for (var i = 0; i < jsonData.length; i++) {
-       if (jsonData[i].productStatus === "ACTIVE"){
+       for (var j = 0; j < jsonData[i].products.length; j++){
+       if (jsonData[i].products[j].productStatus === "ACTIVE"){
        var divRow = document.createElement("div");
        divRow.setAttribute('class', 'product-div')
 
@@ -27,24 +27,24 @@ function fetchProducts() {
        imgDiv.setAttribute('src', '/img/coming_soon.jpg');
        imgDiv.setAttribute('alt', '');
        imgDiv.setAttribute('class', 'products_img');
-       imgDiv.setAttribute("onclick", `window.location.href="product.html?address=${jsonData[i].address}"`);
+       imgDiv.setAttribute("onclick", `window.location.href="product.html?address=${jsonData[i].products[j].address}"`);
 
 
        divRow.appendChild(imgDiv);
 
        var nameDiv = document.createElement("div");
 
-       nameDiv.innerHTML = jsonData[i].name;
+       nameDiv.innerHTML = jsonData[i].products[j].name;
        nameDiv.setAttribute('class', 'div_class_name');
 
-       nameDiv.setAttribute("onclick", `window.location.href="product.html?address=${jsonData[i].address}"`);
+       nameDiv.setAttribute("onclick", `window.location.href="product.html?address=${jsonData[i].products[j].address}"`);
        divRow.appendChild(nameDiv);
 
 
        var priceDiv = document.createElement("div");
-       priceDiv.innerHTML = jsonData[i].price+ " Ft";
+       priceDiv.innerHTML = jsonData[i].products[j].price+ " Ft";
 
-       priceDiv.setAttribute("onclick", `window.location.href="product.html?address=${jsonData[i].address}"`);
+       priceDiv.setAttribute("onclick", `window.location.href="product.html?address=${jsonData[i].products[j].address}"`);
        divRow.appendChild(priceDiv);
 
             // var imgDiv = document.createElement("div");
@@ -55,9 +55,9 @@ function fetchProducts() {
 
            divMain.appendChild(divRow);
 
+      }
    }
-   }
-
+}
         var clearerDiv = document.createElement('div');
         clearerDiv.setAttribute('class', 'clearer');
         divMain.appendChild(clearerDiv);

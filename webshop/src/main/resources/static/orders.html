@@ -13,8 +13,9 @@
 
 <body>
 
-<div id="message-div"></div>
+<h2 class="page-title">Order history</h2>
 
+<br><br><br><br><br><br><br><br>
 <div class="orders-main">
 
     <div id="orders-div">
@@ -33,21 +34,24 @@
             </thead>
             <tbody id="orders-table"></tbody>
         </table>
-
         <br>
 
-
-        <div id="filter">
-            <button id="filter-button" onclick="filterByOrderStatus()">Filter</button>
-        </div>
-        <br>
-        <select name="order-filter" id="order-filter" class="mdb-select md-form">
+        <select name="filter-button" class="filter-button" id="order-filter" class="mdb-select md-form">
             <option value="" disabled selected>Select order status to filter to</option>
             <option value="">List all</option>
             <option value="ACTIVE">Active</option>
             <option value="DELIVERED">Delivered</option>
             <option value="DELETED">Deleted</option>
         </select>
+
+        <br>
+        <br>
+
+        <div id="filter">
+            <button class="filter-button" id="filter-button" onclick="filterByOrderStatus()">Filter</button>
+        </div>
+        <br>
+
     </div>
 </div>
 

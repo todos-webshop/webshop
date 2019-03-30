@@ -8,26 +8,29 @@
     <title>Basket</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/basket.css">
 </head>
 
 <body>
-<div class="basket-main">
-    <div class="container">
-        <div>
-            <button id="clear-basket">Clear basket</button>
+    <div class="basket-main">
+        <div class="container">
+            <div class="sums-div"></div>
+            <div>
+                <button id="clear-basket">Clear basket</button>
+            </div>
+            
+            <br>
+            <div id="basket-div"></div>
+            <br>
+            
+            <br>
+            <div>
+                <button id="order-items" onclick="orderItems()">Order items</button>
+            </div>
+            
+
         </div>
-
-        <br>
-        <div id="basket-div"></div>
-        <br>
-
-        <br>
-        <div>
-            <button id="order-items" onclick="orderItems()">Order items</button>
-        </div>
-
     </div>
-</div>
     <script src="js/menu.js"></script>
     <script src="/js/basket.js"></script>
     <script src="/js/orders.js"></script>

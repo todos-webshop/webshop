@@ -81,4 +81,12 @@ public class BasketService {
         }
         return basketId;
     }
+
+    public int updateProductQuantityInoLoggedInBasket(String loggedInUsername, ProductData productData) {
+        long userId = userDao.getUserByUsername(loggedInUsername).getId();
+        long basketId = getOrCreateAndReturnBasketIdByUserId(userId);
+        int quantity = productData.getProductPieces();
+        long productId = productDao.getProductIdByProductCode(productData.getProductCode());
+        return basketDao.updateProductQuantityInBasket(basketId, productId, quantity);
+    }
 }
