@@ -96,7 +96,9 @@ public class OrderDao {
 
 
     public List<OrderData> listAllOrderData() {
-        return jdbcTemplate.query("SELECT orders.id order_id, username, order_time, status, SUM(order_price) sum_price, COUNT(orders.id) sum_pieces FROM orders JOIN users ON orders.user_id = users.id JOIN ordered_items ON order_id = orders.id GROUP BY orders.id, username, order_time, status ORDER BY orders.order_time DESC", ORDER_DATA_ROW_MAPPER);
+        return jdbcTemplate.query("SELECT orders.id order_id, username, order_time, status, SUM(order_price) sum_price, SUM" +
+                "(quantity) sum_pieces FROM orders JOIN users ON orders.user_id = users.id JOIN ordered_items ON order_id = " +
+                "orders.id GROUP BY orders.id, username, order_time, status ORDER BY orders.order_time DESC", ORDER_DATA_ROW_MAPPER);
     }
 
     public List<OrderItem> listOrderItemsByOrderId(long orderId) {

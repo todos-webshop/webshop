@@ -46,8 +46,13 @@ function fetchOrderItems() {
       manufacturerDiv.setAttribute('class', 'div_class_admin');
       divRow.appendChild(manufacturerDiv);
 
+      var quantityDiv = document.createElement('div');
+      quantityDiv.innerHTML = `order quantity: ${jsonData[i].pieces}`;
+      quantityDiv.setAttribute('class', 'div_class_admin');
+      divRow.appendChild(quantityDiv);
+
       var priceDiv = document.createElement('div');
-      priceDiv.innerHTML = `${jsonData[i].product.price} Ft`;
+      priceDiv.innerHTML = `total: ${jsonData[i].product.price} Ft`;
       priceDiv.setAttribute('class', 'div_class_admin');
       divRow.appendChild(priceDiv);
 
