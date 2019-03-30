@@ -22,16 +22,18 @@ public class StaticsDao {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    // needs to be rewritten
+    // first version
+   // "select year(order_time), month(order_time), status, count(*), sum(total_order) from orders"+
+        //    " group by  year(order_time), month(order_time)  , STATUS  order by year(order_time), month(order_time) , status"
+
+
     //good but not working because of the quantity
-    // select year(order_time), month(order_time), status, count(*), sum(ordered_items.order_price*ordered_items.quantity)
-    // from orders join ordered_items on ordered_items.order_id=orders.id
-    //       group by  year(order_time), month(order_time)  , STATUS  order by year(order_time), month(order_time) , status
 
     public List<StatData> doReportOne() {
-        return jdbcTemplate.query("select year(order_time), month(order_time), status, count(*), sum(total_order) from orders"+
-       " group by  year(order_time), month(order_time)  , STATUS  order by year(order_time), month(order_time) , status"
-                ,
+        return jdbcTemplate.query(" select year(order_time), month(order_time), status, count(*), sum(ordered_items.order_price*ordered_items.quantity)" +
+                        "    from orders join ordered_items on ordered_items.order_id=orders.id" +
+                        "     group by  year(order_time), month(order_time)  , STATUS  order by year(order_time), month(order_time) , status"
+                          ,
                 (rs,rowNum)-> new StatData(rs.getInt(1),rs.getInt(2), OrderStatus.valueOf(rs.getString(3)),rs.getInt(4),rs.getInt(5)));
 
     }
