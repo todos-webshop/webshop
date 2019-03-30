@@ -1,11 +1,14 @@
 package webshop.category;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import webshop.CustomResponseStatus;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 @Repository
@@ -18,7 +21,7 @@ public class CategoryDao {
     }
 
     public List<Category> listAllCategories(){
-        return jdbcTemplate.query("select id, name, sequence from categories", new RowMapper<Category>() {
+        return jdbcTemplate.query("select id, name, sequence from categories order by sequence", new RowMapper<Category>() {
             @Override
             public Category mapRow(ResultSet resultSet, int i) throws SQLException {
                 return new Category(
@@ -43,12 +46,60 @@ public class CategoryDao {
         }, category.getCategoryName());
     }
 
-    public List<String> listAllCategoryNames() {
-        return jdbcTemplate.query("select name from categories group by name", new RowMapper<String>() {
+    public long addNewCategoryAndGetId(Category category){
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        jdbcTemplate.update(new PreparedStatementCreator() {
+                                @Override
+                                public PreparedStatement createPreparedStatement(Connection connection)
+                                        throws SQLException {
+                                    PreparedStatement ps =
+                                            connection.prepareStatement("insert into categories (name, sequence) values (?, ?)",
+                                                    Statement.RETURN_GENERATED_KEYS);
+                                    ps.setString(1, category.getCategoryName());
+                                    ps.setInt(2, category.getSequence());
+                                    return ps;
+                                }
+                            }, keyHolder
+        );
+        return keyHolder.getKey().longValue();
+    }
+
+    public int getNumberOfCategories(){
+        return jdbcTemplate.queryForObject("select COUNT(id) from categories", new RowMapper<Integer>() {
             @Override
-            public String mapRow(ResultSet resultSet, int i) throws SQLException {
-                return resultSet.getString("name");
+            public Integer mapRow(ResultSet resultSet, int i) throws SQLException {
+                return resultSet.getInt("COUNT(id)");
             }
         });
+    }
+
+    public boolean doesSequenceAlreadyExist(Category category){
+        List<Integer> sequence = jdbcTemplate.query("select sequence from categories where sequence = ?",
+                new RowMapper<Integer>() {
+            @Override
+            public Integer mapRow(ResultSet resultSet, int i) throws SQLException {
+                return resultSet.getInt("sequence");
+            }
+        }, category.getSequence());
+        if (sequence.size() == 0){
+            return false;
+        }
+        return true;
+    }
+
+    public int getSequenceById(long categoryId){
+        return jdbcTemplate.queryForObject("select sequence from categories where id = ?", new RowMapper<Integer>() {
+            @Override
+            public Integer mapRow(ResultSet resultSet, int i) throws SQLException {
+                return resultSet.getInt("sequence");
+            }
+        }, categoryId);
+    }
+
+
+
+    public void updateSequence(int newSequence, long id){
+        jdbcTemplate.update("update categories set sequence = ? where id = ?", newSequence, id);
     }
 }

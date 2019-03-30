@@ -336,7 +336,7 @@ body {
   height: 100%;
   position: relative;
 }*/
-
+/*
 * {
   box-sizing: border-box;
 }
@@ -344,7 +344,7 @@ body {
 *:before,
 *:after {
   box-sizing: border-box;
-}
+}*/
 
 .main-container {
   display: block;
@@ -409,7 +409,7 @@ body {
 .order-list-summary,
 .orders-tbody {
   font-family: 'Helvetica-Light';
-  min-width: 400px;
+  max-width: 500px;
 }
 
 .orders-list-action {
@@ -431,12 +431,6 @@ body {
   position: relative;
   top: 20px;
   left: 280px;
-}
-
-.myorders-div {
-  padding: 20px;
-  text-align: right;
-  font-family: 'Helvetica-Light';
 }
 
 .orders-button {
@@ -609,5 +603,27 @@ html{
 }
 
 .td-left{
-    width: 35%;
+    width: 45%;
+}
+
+.tr-div{
+    float: left;
+    border-right: solid 1px grey;
+    padding: 20px;
+    min-width: 28%;
+}
+
+.myorders-div {
+  text-align: right;
+  font-family: 'Helvetica-Light';
+}
+
+.product-number{
+  font-family: 'Helvetica-Medium';
+  font-size: 15px;
+}
+
+.name-product{
+  font-family: 'Helvetica-Bold';
+  font-size: 15px;
 }

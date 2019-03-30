@@ -38,7 +38,8 @@ public class OrderService {
         long orderid = orderDao.insertIntoOrdersFromBasketsByUserId(userId);
 
         for (BasketItem basketItem : products) {
-            orderDao.insertIntoOrderedItemsFromBasketItemsByOrderId(orderid, basketItem.getProduct().getId(), basketItem.getProduct().getPrice());
+            orderDao.insertIntoOrderedItemsFromBasketItemsByOrderId(orderid, basketItem.getProduct().getId(),
+                    basketItem.getPieces(), basketItem.getProduct().getPrice() * basketItem.getPieces());
         }
 
         basketDao.clearBasketByBasketId(basketId);

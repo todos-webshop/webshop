@@ -1,7 +1,9 @@
 package webshop.category;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import webshop.CustomResponseStatus;
+import webshop.Response;
+import webshop.validator.CategoryValidator;
 
 import java.util.List;
 
@@ -9,6 +11,8 @@ import java.util.List;
 public class CategoryController {
 
     private CategoryService categoryService;
+
+    private CategoryValidator categoryValidator = new CategoryValidator();
 
     public CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
@@ -19,8 +23,16 @@ public class CategoryController {
         return categoryService.listAllProducts();
     }
 
-/*    @GetMapping("/api/categories")
-    public List<String> listAllCategories(){
+    @GetMapping("/api/categories")
+    public List<Category> listAllCategories(){
         return categoryService.listAllCategories();
-    }*/
+    }
+
+    @PostMapping("/api/categories")
+    public CustomResponseStatus updateCategory(@RequestBody Category category){
+        if (categoryValidator.isEmpty(category.getCategoryName())){
+            return new CustomResponseStatus(Response.FAILED, "Category name can not be empty.");
+        }
+        return categoryService.addNewCategory(category);
+    }
 }
