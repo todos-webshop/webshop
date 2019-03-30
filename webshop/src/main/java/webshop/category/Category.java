@@ -9,7 +9,7 @@ public class Category {
     private long id;
     private String categoryName;
     private int sequence;
-    private List<Product> products;
+    private List<Product> products = new ArrayList<>();
 
     public Category() {
     }
