@@ -208,7 +208,7 @@ public class ProductDao {
         }, category.getId());
     }
 
-    public boolean OrderedProductByUser(Product product, User user) {
+    public boolean orderedProductByUser(Product product, User user) {
         int counter = jdbcTemplate.queryForObject("select count(*) from products join \n" +
                 "ordered_items on ordered_items.product_id=products.id join orders on orders.id=ordered_items.order_id\n" +
                 "join users on users.id=orders.user_id \n" +
@@ -236,6 +236,12 @@ public class ProductDao {
                 );
             }
         },address);
+    }
+
+
+    public Product getProductByProductId(long productId) {
+        return jdbcTemplate.queryForObject("select id, code, name, manufacturer, price,status from products where id=?", (rs, i) -> new Product(rs.getLong(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getInt(5),ProductStatus.valueOf(rs.getString(6))),productId);
+
     }
 
 }
