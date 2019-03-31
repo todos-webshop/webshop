@@ -22,7 +22,7 @@
  margin-top: 0;
 }
 
-#clear-basket, #order-items, #delete-product-basket{
+#clear-basket, #order-items, #delete-product-basket, #shipping-address, #add-shipping-address{
     width: 200px;
     font-family: "Helvetica-Light";
     letter-spacing: 2px;
@@ -63,4 +63,10 @@ text-align: center;
 .basket-head-row{
     font-family: 'Helvetica-Medium';
     border: none;
+}
+
+#shipping-address{
+    width: 400px;
+    height: 80px;
+    text-align: left;
 }

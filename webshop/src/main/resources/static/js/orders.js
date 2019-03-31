@@ -5,8 +5,11 @@ function orderItems(){
       return;
     }
 
-  var request = {
+    var shippingAddress = document.getElementById('shipping-address').value ;
+    console.log(shippingAddress);
 
+  var request = {
+        'shippingAddress' : shippingAddress
   }
 
   fetch('/myorders', {
@@ -22,6 +25,8 @@ function orderItems(){
     .then(function (jsonData) {
         console.log(jsonData)
       if (jsonData.response == 'SUCCESS') {
+        document.getElementById('shipping-address').value  = '';
+        document.getElementById('shipping-address').setAttribute('class', 'disabled');
         fetchBasket();
         document.getElementById('message-div').innerHTML = jsonData.message;
         document.getElementById('message-div').setAttribute('class', 'alert alert-success');

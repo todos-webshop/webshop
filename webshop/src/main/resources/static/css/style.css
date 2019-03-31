@@ -693,3 +693,7 @@ html{
     background-color: rgb(63, 87, 68);
     color: white;
 }
+
+#select-categories{
+    top: 200px;
+}
