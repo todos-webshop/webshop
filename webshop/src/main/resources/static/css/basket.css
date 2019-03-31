@@ -3,9 +3,8 @@
   float: right;
   top: 130px;
   text-align: center;
-  border: solid 2px rgb(100, 100, 100);
+  border: solid 1px rgb(100, 100, 100);
   padding: 20px;
-  border-radius: 10px;
   background-color: rgb(223, 223, 223);
   position: relative;
 }
@@ -21,4 +20,47 @@
 
 .button {
  margin-top: 0;
+}
+
+#clear-basket, #order-items, #delete-product-basket{
+    width: 200px;
+    font-family: "Helvetica-Light";
+    letter-spacing: 2px;
+    text-align: center;
+    height: 40px;
+    margin-bottom: 50px;
+}
+
+#clear-basket {
+  top: 160px;
+  position: relative;
+}
+
+#basket-div {
+  font-family: "Helvetica-Light";
+  float: left;
+  margin-top: 160px;
+  margin-bottom: 30px;
+  text-align: center;
+  position: relative;
+}
+
+.tr-row{
+    min-height: 90px;
+}
+
+.tr-row td{
+border-top: 1px solid #dee2e6;
+padding: 15px;
+font-size: 17px;
+text-align: center;
+}
+
+#delete-product-basket{
+  margin-top: 45px;
+}
+
+.basket-head-row{
+    font-family: 'Helvetica-Medium';
+    border: none;
 }

@@ -48,11 +48,9 @@ function showBasket(jsonData) {
   table.setAttribute('class', 'table table-striped');
   divBasket.appendChild(table);
 
-  var thead = document.createElement('thead');
-  table.appendChild(thead);
-
   var trHeading = document.createElement('tr');
-  thead.appendChild(trHeading);
+  trHeading.setAttribute('class', 'basket-head-row')
+  table.appendChild(trHeading);
 
   var codeTh = document.createElement('th');
   codeTh.innerHTML = 'Product code';
@@ -77,6 +75,7 @@ function showBasket(jsonData) {
 
   for (var i = 0; i < jsonData.basket.basketItems.length; i++) {
     var trRow = document.createElement('tr');
+    trRow.setAttribute('class', 'tr-row')
 
     var codeTd = document.createElement('td');
     codeTd.innerHTML = jsonData.basket.basketItems[i].product.code;
@@ -121,6 +120,7 @@ function showBasket(jsonData) {
 
     var deleteButtonTd = document.createElement('td');
     var deleteButton = document.createElement('button');
+    deleteButton.setAttribute('id', 'delete-product-basket')
     deleteButton.innerHTML = 'Delete product';
     deleteButton.onclick = deleteFromBasket;
     deleteButton['raw-data'] = jsonData.basket.basketItems[i];

@@ -160,7 +160,7 @@ function showDivs(jsonData) {
 
       var priceDiv = document.createElement('div');
       priceDiv.setAttribute('class', 'myorders-div');
-      priceDiv.innerText = 'Total: ' + jsonData[i].orderItems[j].product.price + ' Ft';
+      priceDiv.innerText = jsonData[i].orderItems[j].product.price + ' Ft';
       tdDetail.appendChild(priceDiv);
 
       id = jsonData[i].id;
@@ -205,7 +205,7 @@ function showDivs(jsonData) {
 
       var priceDiv = document.createElement('div');
       priceDiv.setAttribute('class', 'myorders-div');
-      priceDiv.innerText = 'Total: ' + jsonData[i].orderItems[j].product.price + ' Ft';
+      priceDiv.innerText = jsonData[i].orderItems[j].product.price + ' Ft';
       tdDetail.appendChild(priceDiv);
            }
         }

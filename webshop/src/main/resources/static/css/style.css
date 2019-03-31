@@ -90,16 +90,6 @@
   display: inline;
 }
 
-#order-items {
-  position: relative;
-  width: 200px;
-  font-family: "Montserrat-Regular";
-  text-align: center;
-  height: 40px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-}
-
 #new-product-btn {
   font-family: "Helvetica-Medium";
   border-radius: 5px;
@@ -208,18 +198,6 @@
   margin-left: 80px;
 }
 
-#basket-div {
-  font-family: "Montserrat-Regular";
-  float: left;
-  margin-top: 160px;
-  margin-bottom: 30px;
-  text-align: center;
-  border: solid 2px rgb(100, 100, 100);
-  border-radius: 10px;
-  background-color: rgb(223, 223, 223);
-  position: relative;
-}
-
 .h1-orders {
   font-family: "Montserrat-Regular";
 }
@@ -305,16 +283,6 @@ footer img {
   padding-top: 5px;
 }
 
-#clear-basket {
-  top: 160px;
-  position: relative;
-  width: 200px;
-  font-family: "Montserrat-Regular";
-  text-align: center;
-  height: 40px;
-  border-radius: 10px;
-}
-
 #main-div {
   position: relative;
   top: 100px;
@@ -376,9 +344,10 @@ body {
 }
 
 .product-img {
-  margin: 120px;
+  margin: 140px;
+  margin-right: 100px;
   margin-left: 150px;
-  height: 550px;
+  height: 580px;
   left: 400px;
   float: left;
 }
@@ -424,6 +393,7 @@ body {
   position: relative;
   top: 20px;
   left: 280px;
+  font-size: 28px;
 }
 
 .header-div {
@@ -476,7 +446,7 @@ body {
   position: relative;
   border-radius: 5px;
   background-color: white;
-  left: 10%;
+  left: 13%;
 }
 
 .admin-product-filter{
@@ -519,7 +489,7 @@ html{
 
 .product-category{
     position: relative;
-    top: 110px;
+    top: 130px;
     left: 150px;
     font-family: 'Helvetica-Italic';
     font-size: 13px;
@@ -534,7 +504,7 @@ html{
 
 .purchase {
   position: relative;
-  top: 210px;
+  top: 50px;
   right: 160px;
   width: 160px;
   font-family: "Helvetica-Medium";
@@ -544,7 +514,6 @@ html{
 
 .purchase-quantity {
   position: relative;
-  top: 155px;
   width: 160px;
   font-family: "Helvetica-Medium";
   text-align: center;
@@ -552,7 +521,8 @@ html{
 }
 
 .button:hover,
-#clear-basket:hover {
+#clear-basket:hover,
+ #delete-product-basket:hover{
   border: 1px solid black;
 }
 
@@ -563,7 +533,7 @@ html{
 
 .td-right div{
     position: relative;
-    top: 240px;
+    top: 70px;
 }
 
 .product-name{
@@ -696,3 +666,34 @@ html{
     height: 40px;
 }
 
+.order-delete-button{
+    margin-top: 10px;
+    width: 30px;
+}
+
+.table-adminorders{
+    margin-left: 13%;
+}
+
+#orders-div{
+    width: 80%;
+}
+
+.shop-now{
+    position:absolute;
+    left: 71%;
+    top: 63%;
+    width: 150px;
+    font-family: "Roboto-Light";
+    text-align: center;
+    height: 50px;
+    font-size: 23px;
+    background-color: transparent;
+    border: solid 1px grey;
+    color: grey;
+}
+
+.shop-now:hover{
+    background-color: rgb(63, 87, 68);
+    color: white;
+}

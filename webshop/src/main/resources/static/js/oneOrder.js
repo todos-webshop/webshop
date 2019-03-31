@@ -18,61 +18,92 @@ function fetchOrderItems() {
 
   function showDivs(jsonData) {
     // console.log(jsonData);
+
     var divMain = document.getElementById('main_div');
     divMain.innerHTML = '';
+
+    var table = document.createElement('table');
+    table.setAttribute('class', 'table table-striped');
+    divMain.appendChild(table);
+
+      var trHeading = document.createElement('tr');
+      trHeading.setAttribute('class', 'basket-head-row')
+      table.appendChild(trHeading);
+
+      var codeTh = document.createElement('th');
+      codeTh.innerHTML = 'Product code';
+      trHeading.appendChild(codeTh);
+
+      var nameTh = document.createElement('th');
+      nameTh.innerHTML = 'Name';
+      trHeading.appendChild(nameTh);
+
+      var manufacturerTh = document.createElement('th');
+      manufacturerTh.innerHTML = 'Manufacturer';
+      trHeading.appendChild(manufacturerTh);
+
+      var quantityTh = document.createElement('th');
+      quantityTh.innerHTML = 'Quantity';
+      trHeading.appendChild(quantityTh);
+
+      var priceTh = document.createElement('th');
+      priceTh.innerHTML = 'Total price';
+      trHeading.appendChild(priceTh);
+
     for (var i = 0; i < jsonData.length; i++) {
-      var divRow = document.createElement('div');
-      divRow.setAttribute('contenteditable', 'false');
-      divRow.setAttribute('id', jsonData[i].product.id);
-      divRow.setAttribute('class', 'admin-product-div');
 
-      var codeDiv = document.createElement('div');
-      codeDiv.innerHTML = jsonData[i].product.code;
-      codeDiv.setAttribute('class', 'div_class_admin');
-      divRow.appendChild(codeDiv);
+var trRow = document.createElement('tr');
+    trRow.setAttribute('class', 'tr-row')
+        trRow.setAttribute('class', 'tr-row')
 
-      var nameDiv = document.createElement('div');
-      nameDiv.innerHTML = jsonData[i].product.name;
-      nameDiv.setAttribute('class', 'div_class_admin');
-      divRow.appendChild(nameDiv);
 
-      // var addressDiv = document.createElement('div');
-      // addressDiv.innerHTML = jsonData[i].product.address;
-      // addressDiv.setAttribute('class', 'div_class_admin');
-      // divRow.appendChild(addressDiv);
+    var codeTd = document.createElement('td');
+      codeTd.innerHTML = jsonData[i].product.code;
+      codeTd.setAttribute('class', 'div_class_admin');
+      trRow.appendChild(codeTd);
 
-      var manufacturerDiv = document.createElement('div');
-      manufacturerDiv.innerHTML = jsonData[i].product.manufacturer;
-      manufacturerDiv.setAttribute('class', 'div_class_admin');
-      divRow.appendChild(manufacturerDiv);
+    var nameTd = document.createElement('td');
+    nameTd.innerHTML = jsonData[i].product.name;
+          nameTd.setAttribute('class', 'div_class_admin');
+          trRow.appendChild(nameTd);
 
-      var quantityDiv = document.createElement('div');
-      quantityDiv.innerHTML = `order quantity: ${jsonData[i].pieces}`;
-      quantityDiv.setAttribute('class', 'div_class_admin');
-      divRow.appendChild(quantityDiv);
+    var manufacturerTd = document.createElement('td');
+      manufacturerTd.innerHTML = jsonData[i].product.manufacturer;
+      manufacturerTd.setAttribute('class', 'div_class_admin');
+      trRow.appendChild(manufacturerTd);
 
-      var priceDiv = document.createElement('div');
-      priceDiv.innerHTML = `total: ${jsonData[i].product.price} Ft`;
-      priceDiv.setAttribute('class', 'div_class_admin');
-      divRow.appendChild(priceDiv);
+
+    var quantityTd = document.createElement('td');
+      quantityTd.innerHTML = jsonData[i].pieces;
+      quantityTd.setAttribute('class', 'div_class_admin');
+      trRow.appendChild(quantityTd);
+
+    var priceTd = document.createElement('td');
+    priceTd.innerHTML = jsonData[i].product.price + 'Ft';
+      priceTd.setAttribute('class', 'div_class_admin');
+      trRow.appendChild(priceTd);
+
+
+
 
       // var statusDiv = document.createElement('div');
       // statusDiv.innerHTML = jsonData[i].product.productStatus;
       // statusDiv.setAttribute('class', 'div_class_admin status-div');
       // divRow.appendChild(statusDiv);
 
-      var buttonsDiv = document.createElement('div');
+/*      var buttonsDiv = document.createElement('div');
       buttonsDiv.setAttribute('class', 'div_class_admin admin-product-div');
-      buttonsDiv.setAttribute('id', 'buttons-div');
+      buttonsDiv.setAttribute('id', 'buttons-div');*/
 
       var deleteBtn = document.createElement('img');
       deleteBtn.setAttribute('src', '/img/delete-button.png');
-      deleteBtn.setAttribute('class', 'button');
-      // deleteBtn.setAttribute('id', jsonData[i].product.id);
+      deleteBtn.setAttribute('class', 'order-delete-button');
+      //deleteBtn.setAttribute('id', jsonData[i].product.id);
       deleteBtn.setAttribute('data-address', jsonData[i].product.address);
       console.log(jsonData[i].product.address);
+      console.log(jsonData);
+      console.log(jsonData[i].product.address);
       deleteBtn.addEventListener('click', deleteItem);
-      deleteBtn.setAttribute('class', 'button');
 
       // var editBtn = document.createElement('img');
       // editBtn.setAttribute('src', '/img/edit-button.png');
@@ -88,11 +119,11 @@ function fetchOrderItems() {
       // var attribute = 'button-disabled button save-button' + jsonData[i].product.id;
       // saveBtn.setAttribute('class', attribute);
 
-      divRow.appendChild(deleteBtn);
+      trRow.appendChild(deleteBtn);
       // divRow.appendChild(editBtn);
       // divRow.appendChild(saveBtn);
 
-      divMain.appendChild(divRow);
+      table.appendChild(trRow);
     }
   }
 
@@ -100,6 +131,8 @@ function fetchOrderItems() {
   function deleteItem() {
     var id = (new URL(document.location)).searchParams.get('id');
     var address = this.getAttribute('data-address');
+    console.log(id)
+    console.log(address)
 
     var url = `/orders/${id}/${address}`;
     console.log(url);

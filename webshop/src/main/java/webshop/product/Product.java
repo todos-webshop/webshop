@@ -13,8 +13,8 @@ public class Product {
     private int price;
     private ProductStatus productStatus;
 
-    public Product() {
-    }
+/*    public Product() {
+    }*/
 
     public Product(long id, String code, String name, String manufacturer, int price,
                    ProductStatus productStatus) {
@@ -27,16 +27,19 @@ public class Product {
         this.productStatus = productStatus;
     }
 
-    public Product(long id, String code, String name, String address, String manufacturer, int price,
+/*    public Product(long id, String code, String name, String address, String manufacturer, int price,
                    ProductStatus productStatus) {
         this.id = id;
         this.code = code;
         this.name = deleteRedundantSpace(name.trim());
+        if (address == null){
+            address = generateAddress();
+        }
         this.address = address;
         this.manufacturer = manufacturer;
         this.price = price;
         this.productStatus = productStatus;
-    }
+    }*/
 
 
     private String generateAddress(){

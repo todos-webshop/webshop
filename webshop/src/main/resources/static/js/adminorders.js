@@ -18,7 +18,7 @@ function fetchAllOrders() {
 function showTable(jsonData) {
   var tableBody = document.getElementById('orders-table');
   tableBody.innerHTML = '';
-  tableBody.setAttribute('class', 'table table-striped');
+  tableBody.setAttribute('class', 'table table-striped admin-orders');
 
   for (var i = 0; i < jsonData.length; i++) {
     var tr = document.createElement('tr');
