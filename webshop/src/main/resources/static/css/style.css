@@ -608,6 +608,16 @@ html{
   font-size: 30px;
   color: rgb(63, 87, 68);
   font-family: 'Helvetica-Bold';
+  z-index: 99;
+}
+
+.review-title{
+margin: 50px;
+  text-align: center;
+  font-size: 30px;
+  color: rgb(63, 87, 68);
+  font-family: 'Helvetica-Bold';
+  z-index: 99;
 }
 
 .rate-number{
