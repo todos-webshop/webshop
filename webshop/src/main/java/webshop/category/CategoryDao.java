@@ -106,9 +106,9 @@ public class CategoryDao {
         jdbcTemplate.update("update categories set sequence = ? where id = ?", newSequence, category.getId());
     }
 
-    public int updateCategoryById(Category category, long id){
+    public int updateCategoryById(Category category){
         return jdbcTemplate.update("update categories set name = ?, sequence = ? where id = ?", category.getCategoryName(),
-                category.getSequence(), id);
+                category.getSequence(), category.getId());
     }
 
     public void deleteCategoryById(long categoryId){

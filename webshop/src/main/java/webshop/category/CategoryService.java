@@ -50,23 +50,23 @@ public class CategoryService {
 
 
     //need some debugging
-    public CustomResponseStatus updateCategoryById(Category category, long id){
+    public CustomResponseStatus updateCategoryById(Category category){
         if ((categoryDao.getNumberOfCategories() + 1) < category.getSequence()) {
             return new CustomResponseStatus(Response.FAILED,"Sequence can not be bigger then the number of categories.");
         }
         if (category.getSequence() == 0){
             category.setSequence(categoryDao.getNumberOfCategories() + 1);
         }
-        categoryDao.updateCategoryById(category, id);
+        categoryDao.updateCategoryById(category); //belenyúltam -long id
         if (categoryDao.doesSequenceAlreadyExist(category)){
             for (int i = 0; i < categoryDao.listAllCategories().size(); i++){
-                if (i + 1 == category.getSequence() && categoryDao.listAllCategories().get(i).getId() == id) {
+                if (i + 1 == category.getSequence() && categoryDao.listAllCategories().get(i).getId() == category.getId()) {
                     continue;
                 }
                     categoryDao.updateSequenceTwo(i + 1, categoryDao.listAllCategories().get(i));
             }
         }
-        return new CustomResponseStatus(Response.SUCCESS, String.format("Category updated successfully with ID %d", id));
+        return new CustomResponseStatus(Response.SUCCESS, String.format("Category updated successfully with ID %d", category.getId()));
     }
 
     public CustomResponseStatus deleteCategoryAndUpdateProductCategoryId(long categoryId){
@@ -87,5 +87,10 @@ public class CategoryService {
         } else {
             return new CustomResponseStatus(Response.FAILED, "This category is already deleted.");
         }
+    }
+
+    public CustomResponseStatus updateAllCategories(List<Category> categories) {
+        categories.forEach(category -> categoryDao.updateCategoryById(category));
+        return new CustomResponseStatus(Response.SUCCESS, "done");
     }
 }
