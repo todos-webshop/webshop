@@ -40,13 +40,52 @@ public class CategoryService {
         }
         if (categoryDao.doesSequenceAlreadyExist(category)){
             for (Category category1: categoryDao.listAllCategories()){
-                System.out.println(category1);
                 int sequence = categoryDao.getSequenceById(category1.getId());
-                System.out.println(sequence);
                 categoryDao.updateSequence(sequence + 1, category1.getId());
             }
         }
         long id = categoryDao.addNewCategoryAndGetId(category);
         return new CustomResponseStatus(Response.SUCCESS, String.format("Category added successfully with ID %d", id));
+    }
+
+
+    //need some debugging
+    public CustomResponseStatus updateCategoryById(Category category, long id){
+        if ((categoryDao.getNumberOfCategories() + 1) < category.getSequence()) {
+            return new CustomResponseStatus(Response.FAILED,"Sequence can not be bigger then the number of categories.");
+        }
+        if (category.getSequence() == 0){
+            category.setSequence(categoryDao.getNumberOfCategories() + 1);
+        }
+        categoryDao.updateCategoryById(category, id);
+        if (categoryDao.doesSequenceAlreadyExist(category)){
+            for (int i = 0; i < categoryDao.listAllCategories().size(); i++){
+                if (i + 1 == category.getSequence() && categoryDao.listAllCategories().get(i).getId() == id) {
+                    continue;
+                }
+                    categoryDao.updateSequenceTwo(i + 1, categoryDao.listAllCategories().get(i));
+            }
+        }
+        return new CustomResponseStatus(Response.SUCCESS, String.format("Category updated successfully with ID %d", id));
+    }
+
+    public CustomResponseStatus deleteCategoryAndUpdateProductCategoryId(long categoryId){
+        productDao.updateProductCategoryIfCategoryIsDeleted(categoryId);
+
+        boolean found = false;
+        for (Category category : categoryDao.listAllCategories()){
+            if (category.getId() == categoryId){
+                found = true;
+            }
+        }
+        if (found == true){
+            categoryDao.deleteCategoryById(categoryId);
+            for (int i = 0; i < categoryDao.listAllCategories().size(); i++){
+                categoryDao.updateSequence(i + 1, categoryDao.listAllCategories().get(i).getId());
+            }
+            return new CustomResponseStatus(Response.SUCCESS, "Deleted successfully.");
+        } else {
+            return new CustomResponseStatus(Response.FAILED, "This category is already deleted.");
+        }
     }
 }

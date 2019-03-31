@@ -48,8 +48,11 @@ function showBasket(jsonData) {
   table.setAttribute('class', 'table table-striped');
   divBasket.appendChild(table);
 
+  var thead = document.createElement('thead');
+  table.appendChild(thead);
+
   var trHeading = document.createElement('tr');
-  table.appendChild(trHeading);
+  thead.appendChild(trHeading);
 
   var codeTh = document.createElement('th');
   codeTh.innerHTML = 'Product code';

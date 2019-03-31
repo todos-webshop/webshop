@@ -29,10 +29,23 @@ public class CategoryController {
     }
 
     @PostMapping("/api/categories")
-    public CustomResponseStatus updateCategory(@RequestBody Category category){
+    public CustomResponseStatus addNewCategory(@RequestBody Category category){
         if (categoryValidator.isEmpty(category.getCategoryName())){
             return new CustomResponseStatus(Response.FAILED, "Category name can not be empty.");
         }
         return categoryService.addNewCategory(category);
+    }
+
+    @PostMapping("/api/category/{categoryId}")
+    public CustomResponseStatus updateCategoryById(@PathVariable long categoryId, @RequestBody Category category){
+        if (categoryValidator.isEmpty(category.getCategoryName())){
+            return new CustomResponseStatus(Response.FAILED, "Category name can not be empty.");
+        }
+        return categoryService.updateCategoryById(category, categoryId);
+    }
+
+    @DeleteMapping("/api/category/{categoryId}")
+    public CustomResponseStatus deleteCategoryAndUpdateProductCategoryToNoCategory(@PathVariable long categoryId){
+        return categoryService.deleteCategoryAndUpdateProductCategoryId(categoryId);
     }
 }
