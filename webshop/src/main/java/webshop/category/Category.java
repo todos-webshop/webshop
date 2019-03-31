@@ -63,12 +63,4 @@ public class Category {
     public void setSequence(int sequence) {
         this.sequence = sequence;
     }
-
-    @Override
-    public String toString() {
-        return "Category{" +
-                "categoryName='" + categoryName + '\'' +
-                ", sequence=" + sequence +
-                '}';
-    }
 }
