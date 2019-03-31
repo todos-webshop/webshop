@@ -324,12 +324,12 @@ function createRatingDiv(){
     starForm.setAttribute("action","");
 
     for (var i = 5; i>0;i--){
-      starForm.innerHTML+= `<input class="star star-${i}" id="star-${i}" type="radio" name="star"/>
+      starForm.innerHTML+= `<input class="star-rating star star-${i}" id="star-${i}" type="radio" name="star"/>
       <label class="star star-${i}" for="star-${i}"></label>`;
     }
 
     divForStars.appendChild(starForm);
-    starDiv.appendChild(divForStars);
+    tdRight.appendChild(divForStars);
 
     // var selectStar = document.createElement('select');
     // selectStar.setAttribute('id', 'select_star');

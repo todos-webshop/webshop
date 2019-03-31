@@ -532,8 +532,8 @@ html{
 }
 
 .td-right div{
-    position: relative;
     top: 70px;
+    position: relative;
 }
 
 .product-name{
@@ -648,17 +648,13 @@ html{
 }
 
 .rating-div-main{
-    padding-top: 20px;
-    position: relative;
 }
 
 .rating-message{
-    padding-top: 10px;
-    position: relative;
 }
 
 .rating-button{
-    margin-top: 20px;
+    margin-top: 10px;
     position: relative;
     width: 80px;
     font-family: "Helvetica-Medium";
