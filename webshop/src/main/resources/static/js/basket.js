@@ -244,3 +244,11 @@ function saveUpdatedItemQuantity() {
     });
 }
 
+function showShippingAddressInputField(){
+var shippingAddressField = document.querySelector('#shipping-address');
+  if (shippingAddressField.getAttribute('class') == 'disabled'){
+  shippingAddressField.setAttribute('class', 'enabled');
+  } else {
+  shippingAddressField.setAttribute('class', 'disabled')
+  }
+}
