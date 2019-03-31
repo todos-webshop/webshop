@@ -147,6 +147,7 @@ function deleteItem() {
     return false;
 }
 
+// Category names in the 'select' don't update automatically yet - need fixing
 function editItem(){
     var attribute = '.save-button' + this.id;
     var saveBtn = document.querySelector(attribute);
