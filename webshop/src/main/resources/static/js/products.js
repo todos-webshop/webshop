@@ -3,6 +3,7 @@
 
 
 
+
 function fetchProducts() {
         var url ="/api/products";
         fetch(url)
@@ -12,12 +13,28 @@ function fetchProducts() {
             .then(function(jsonData) {
                 console.log(jsonData)
                 showDivs(jsonData);
+
             });}
 
-
+//function addFilterButtons(jsonData){
+//for (var i = 0; i < jsonData.length; i++) {
+//
+//}
+//}
    function showDivs(jsonData) {
        divMain = document.getElementById("main_div");
        for (var i = 0; i < jsonData.length; i++) {
+
+       var divCategoryName =document.createElement("div");
+       divCategoryName.innerHTML = jsonData[i]["categoryName"];
+       divCategoryName.setAttribute('class', 'category-name-div');
+       divCategoryName.setAttribute('id', jsonData[i]["categoryName"]+' Name');
+
+
+       var divCategory =document.createElement("div");
+        divCategory.setAttribute('class', 'category-div');
+        divCategory.setAttribute('id', jsonData[i]["categoryName"]);
+
        for (var j = 0; j < jsonData[i].products.length; j++){
        if (jsonData[i].products[j].productStatus === "ACTIVE"){
        var divRow = document.createElement("div");
@@ -53,9 +70,12 @@ function fetchProducts() {
             //                        imgDiv.setAttribute("onclick", `window.location.href="product.html?address=${jsonData[i].address}"`);
             //                         divRow.appendChild(imgDiv);
 
-           divMain.appendChild(divRow);
+           divCategory.appendChild(divRow);
+
 
       }
+       divMain.appendChild(divCategoryName);
+      divMain.appendChild(divCategory);
    }
 }
         var clearerDiv = document.createElement('div');
@@ -77,3 +97,11 @@ function scrollFunction() {
 function topFunction() {
   document.documentElement.scrollTop = 0;
 }
+
+//function showCategories(jsonData){
+//
+//for (var i=0; i<jsonData.length;i++){
+//
+//jsonData[i].["categoryName"];
+//}
+//}

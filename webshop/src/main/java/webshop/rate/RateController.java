@@ -66,5 +66,21 @@ public class RateController {
         return new CustomResponseStatus(Response.FAILED, "Please sign in to rate.");
     }
 
-
+    @DeleteMapping("/api/rating/delete")
+    public CustomResponseStatus deleteRate(Authentication authentication,@RequestBody Rate rate) {
+        if (authentication != null) {
+            String loggedInUsername = authentication.getName();
+            User loggedInUser = userService.getUserByUsername(loggedInUsername);
+            rate.setUser(loggedInUser);
+            int sqlResponse =
+                    rateService.deleteRate(rate);
+            if (sqlResponse == 0) {
+                return new CustomResponseStatus(Response.SUCCESS, "You have no opinion.");
+            } else {
+                return new CustomResponseStatus(Response.SUCCESS, "Your opinion has been deleted.");
+            }
+        } else {
+            return new CustomResponseStatus(Response.FAILED, "Please sign in to delete your opinion.");
+        }
+    }
 }

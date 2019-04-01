@@ -11,12 +11,12 @@ function setCat(jsonData){
     var sequenceUL = document.getElementById("sequence");
     ul.innerHTML = "";
     sequenceUL.innerHTML = "";
-    
+    console.log(jsonData);
     for (const key in jsonData) {
         if (jsonData.hasOwnProperty(key)) {
             const element = jsonData[key];
             ul.innerHTML += 
-            `<li class="column"><header><div class="drag-box" id="id-${element["sequence"]}">
+            `<li class="column"><header><div class="drag-box" id="${element["id"]}">
                 ${element["categoryName"]}
             </div></header></li>`;
             sequenceUL.innerHTML += 
@@ -41,13 +41,21 @@ function save(){
     var sequence = 0;
     document.querySelectorAll('#columns .edit-column').forEach(function(e){
         e.setAttribute("class","column");
-        request.push({"categoryName": e.firstChild.firstChild.innerHTML.trim(), "sequence": sequence});
+        request.push({"id": e.firstChild.firstChild.id,
+        "categoryName": e.firstChild.firstChild.innerHTML.trim(),
+        "sequence": sequence});
         sequence++;
     });
-
-    // ide jöhet az update fetch
-
-    getCategories();
+    fetch("api/categories/update",{
+      method: 'POST',
+      body: JSON.stringify(request),
+      headers: {
+      'Content-type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(responseJSON => console.log(responseJSON))
+    .then(r => getCategories())
 }
 
 
