@@ -468,8 +468,9 @@ body {
   top: 20px;
   font-size: 30px;
   position: relative;
+}
 
-}.menu-button-cart{
+.menu-button-cart{
    padding: 0;
    width: 40px;
    margin: 5px;
@@ -765,4 +766,9 @@ background: url("/img/plant2.jpg") center center scroll;
 
 .category-name-div{
 
+}
+
+.delete-rate{
+    position: relative;
+    top: 350px;
 }

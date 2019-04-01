@@ -2,6 +2,7 @@ package webshop.rate;
 
 import org.springframework.stereotype.Service;
 import webshop.product.Product;
+import webshop.user.User;
 
 import java.util.List;
 @Service
@@ -41,9 +42,11 @@ public class RateService {
         return string.replaceAll("\\<.*?>","");
 
     }
-    public int deleteRate(Rate rate){
-        return rateDao.deleteRate(rate);
+    public int deleteRate(Product product, User user){
+        return rateDao.deleteRate(product,user);
     }
 
+    public boolean orderedProductByUser(Product product, User user) {
+        return rateDao.orderedProductByUser(product,user);}
 
 }

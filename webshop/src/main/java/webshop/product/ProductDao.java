@@ -210,13 +210,7 @@ public class ProductDao {
         }, category.getId());
     }
 
-    public boolean orderedProductByUser(Product product, User user) {
-        int counter = jdbcTemplate.queryForObject("select count(*) from products join \n" +
-                "ordered_items on ordered_items.product_id=products.id join orders on orders.id=ordered_items.order_id\n" +
-                "join users on users.id=orders.user_id \n" +
-                "where users.id=? and products.id=? and orders.status='DELIVERED'\n", (rs, i) -> rs.getInt(1),user.getId(),product.getId());
-        return counter>0;
-    }
+
 
     //query returns only one product in the list so here it is okay to use this
     public Category findProductByAddressWithCategory(String address) {

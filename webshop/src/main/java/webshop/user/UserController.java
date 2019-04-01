@@ -3,6 +3,7 @@ package webshop.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import webshop.CustomResponseStatus;
@@ -21,15 +22,14 @@ public class UserController {
     @Autowired
     private UserValidator validator;
     @Autowired
-    private UserValidator userValidator;
-    @Autowired
     private UserDao userDao;
 
     @PostMapping("/users")
     public CustomResponseStatus createUser(@RequestBody User user) {
-        if (validator.isEmpty(user.getUsername()) || validator.isEmpty(user.getFirstName()) || validator.isEmpty(user.getLastName())) {
+        if (validator.userCanBeUpdated(user)) {
             return new CustomResponseStatus(Response.FAILED, "Error! All fields are required.");
         }
+
         long newUserId = 0;
         try {
             newUserId = userService.createUserAndReturnUserId(user);
@@ -39,17 +39,17 @@ public class UserController {
                             "not be created for %s.",
                     user.getUsername()));
         }
+
         if (newUserId > 0) {
             return new CustomResponseStatus(Response.SUCCESS, String.format("User %s " +
                             "successfully created.",
                     user.getUsername()));
         }
         return new CustomResponseStatus(Response.FAILED, "Error! User was not created.");
-
     }
 
 
-    @GetMapping(value = "/userdata")
+    @GetMapping("/userdata")
     @ResponseBody
     public UserData currentUserName(Authentication authentication) {
 
@@ -63,23 +63,85 @@ public class UserController {
         }
     }
 
+    @GetMapping("/currentuserdata")
+    public User currentUser(Authentication authentication) {
+        if (authentication != null) {
+            return userDao.getUserByUsername(authentication.getName());
+        }
+        return userDao.getUserByUsername(authentication.getName());
+    }
+
     @GetMapping("/api/users")
     public List<User> listAllUsers() {
         return userService.listAllUsers();
     }
 
+//    @PostMapping("/user/{id}")
+//public CustomResponseStatus modifyUserByUser(@PathVariable long id, @RequestBody User user){
+//        if (validator.userCanBeUpdated(user)){
+//            try {
+//               userService.modifyUserByUser(id, user);
+//               return new CustomResponseStatus(Response.SUCCESS, "User updated!");
+//          } catch (org.springframework.dao.DuplicateKeyException exc) {
+//          }}
+//      return new CustomResponseStatus(Response.FAILED, "User update invalid!");}
+
+
     @PostMapping("/api/users/{id}")
     public CustomResponseStatus modifyUser(@PathVariable long id, @RequestBody User user) {
-        if (userValidator.userCanBeUpdated(user)) {
+        if (validator.userCanBeUpdated(user)) {
             try {
                 userService.checkPasswordAndmodifyUser(id, user);
                 return new CustomResponseStatus(Response.SUCCESS, "User updated!");
             } catch (org.springframework.dao.DuplicateKeyException exc) {
-            }}
-        return new CustomResponseStatus(Response.FAILED, "User update invalid!");}
-
-            @DeleteMapping("/api/users/{id}")
-            public CustomResponseStatus logicalDeleteUserById ( @PathVariable long id){
-                return userService.logicalDeleteUserById(id);
             }
         }
+        return new CustomResponseStatus(Response.FAILED, "User update invalid!");
+    }
+
+    @DeleteMapping("/api/users/{id}")
+    public CustomResponseStatus logicalDeleteUserById(@PathVariable long id) {
+        return userService.logicalDeleteUserById(id);
+    }
+
+
+    @ResponseBody
+    public Long getCurrentUserId(@RequestBody User user, Authentication authentication) {
+        if (currentUserName(authentication).equals(user.getUsername())) {
+            return user.getId();
+        }
+        return user.getId();
+    }
+
+    @PostMapping("/api/user/{id}")
+    public CustomResponseStatus modifyUserByUser(@PathVariable long id, @RequestBody User user) {
+        System.out.println();
+        System.out.println("hfsjsj");
+        System.out.println(user.getPassword());
+        if (validator.userCanBeUpdated(user)) {
+            try {
+                userService.modifyUserByUser(id, user);
+                return new CustomResponseStatus(Response.SUCCESS, "User updated");
+            } catch (org.springframework.dao.DuplicateKeyException exc) {
+            }
+        }
+        return new CustomResponseStatus(Response.FAILED, "User update invalid!");
+    }
+
+//
+//    @GetMapping("/userprofile")
+//    public User findUserByUserName(Authentication authentication) {
+//        return userService.findUserByUserName(authentication.getName());
+//    }
+//    @PostMapping("/userprofile")
+//    public CustomResponseStatus updateUserDatasByUser(@RequestParam long id, @RequestBody User user ) {
+//         if (validator.userCanBeUpdated(user)){
+//            try {
+//               userService.modifyUserByUser(id, user);
+//              return new CustomResponseStatus(Response.SUCCESS, "User updated!");
+//            } catch (org.springframework.dao.DuplicateKeyException exc) {
+//        }}
+//      return new CustomResponseStatus(Response.FAILED, "User update invalid!");}
+//
+//
+}

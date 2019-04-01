@@ -1,0 +1,50 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Create User</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/profile.css">
+</head>
+
+<body>
+
+<div class="container">
+    <br><br><br><br><br>
+    <div class="profile-div" id="left-id">
+    <h1>User profile</h1>
+    <br>
+        <form id="registration-form">
+            <p>First name</p>
+            <input type="text" id="first-name-input" placeholder="Change First name">
+             <br>
+            <p>Last name</p>
+            <input type="text" id="last-name-input" placeholder="Change Last name">
+            <br>
+            <p>Username</p>
+          <input type="text" id="username-input" placeholder="Click here to change username">
+<br>
+            <br>
+            <p>Password</p>
+        <input type="password" id="pass-input1" value='********' placeholder="Click here to change password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required >
+        <p id="password-strength-text"></p>
+        <input type="password" id="pass-input2" value='********' placeholder="re-type password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required >
+            <p>After changing your username or password you will be logged out in 5 seconds,<br> so don't forget to log back in! :) </p>
+        <input type="button" value="Change Data" id="submit-button">
+    </form>
+</div>
+    <div id="message" class="profile-div">
+        <h3>Password must contain the following:</h3>
+        <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+        <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+        <p id="number" class="invalid">A <b>number</b></p>
+        <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+    </div>
+
+
+</div>
+<script src="js/profile.js"></script>
+<script src="js/menu.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
+</body>
+
+</html>
