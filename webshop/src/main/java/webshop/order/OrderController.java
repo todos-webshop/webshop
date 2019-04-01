@@ -23,12 +23,15 @@ public class OrderController {
 
     @PostMapping("/myorders")
     @ResponseBody
-    public CustomResponseStatus getOrderDataForActualUser(Authentication authentication, @RequestBody String shippingAddress) {
-        if (shippingAddress == null){
+    public CustomResponseStatus getOrderDataForActualUser(Authentication authentication,
+                                                          @RequestBody Order orderWithShippinAddressOnly) {
+        String shippingAddress;
+        if (orderWithShippinAddressOnly == null) {
             shippingAddress = "";
         }
 
         if (authentication != null) {
+            shippingAddress = orderWithShippinAddressOnly.getShippingAddress();
             String loggedInUsername = authentication.getName();
             return orderService.placeOrder(loggedInUsername, shippingAddress);
         } else {

@@ -158,6 +158,7 @@ function editItem(){
 
     var row = document.getElementById(this.id);
     var c = row.childNodes;
+    console.log(c[6])
     console.log(c);
     for (var i = 0; i < c.length; i++){
         /*if (i != 2){*/

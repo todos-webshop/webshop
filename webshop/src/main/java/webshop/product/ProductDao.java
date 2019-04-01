@@ -221,7 +221,7 @@ public class ProductDao {
                         resultSet.getLong("categories.id"),
                         resultSet.getString("categories.name"),
                         resultSet.getInt("sequence"),
-                        List.of(new Product(resultSet.getLong("id"),
+                        List.of(new Product(resultSet.getLong("products.id"),
                         resultSet.getString("code"),
                         resultSet.getString("products.name"),
                         resultSet.getString("manufacturer"),
