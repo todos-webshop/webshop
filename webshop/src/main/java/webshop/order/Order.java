@@ -72,6 +72,10 @@ public class Order {
         this.totalOrderPrice = totalOrderPrice;
     }
 
+    public String getShippingAddress() {
+        return shippingAddress;
+    }
+
     @Override
     public String toString() {
         return "Order{" +

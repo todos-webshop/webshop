@@ -5,7 +5,7 @@ function orderItems(){
       return;
     }
 
-    var shippingAddress = document.getElementById('shipping-address').value ;
+    var shippingAddress = document.getElementById('shipping-address').value;
     console.log(shippingAddress);
 
   var request = {
