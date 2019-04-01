@@ -707,3 +707,8 @@ margin: 50px;
 #select-categories{
     top: 200px;
 }
+
+.delete-rate{
+    position: relative;
+    top: 350px;
+}

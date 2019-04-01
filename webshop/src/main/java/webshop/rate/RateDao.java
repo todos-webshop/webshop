@@ -23,7 +23,7 @@ public class RateDao {
 
     private JdbcTemplate jdbcTemplate;
     @Autowired
-    private ProductDao productDao ;
+    private ProductDao productDao;
     @Autowired
     private UserDao userDao;
 
@@ -54,22 +54,23 @@ public class RateDao {
     }
 
     public List<Rate> getRatesForProduct(Product product) {
-        Product productInstance = new Product(product.getId(),"MUZ","muz","muz",0, ProductStatus.ACTIVE);
-        User user = new User(15,"John","Doe","john","123456",1, UserRole.ROLE_USER );
+        Product productInstance = new Product(product.getId(), "MUZ", "muz", "muz", 0, ProductStatus.ACTIVE);
+        User user = new User(15, "John", "Doe", "john", "123456", 1, UserRole.ROLE_USER);
         return jdbcTemplate.query("Select ratings.id, ratings.message, ratings.stars,ratings.rating_time , ratings.user_id  from ratings join products on ratings.product_id=products.id where products.id = ? order by ratings.rating_time",
-                (rs,rowNum)-> new Rate( rs.getLong(1),rs.getString(2),rs.getInt(3), rs.getDate(4).toLocalDate(),userDao.getUserByUserId(rs.getLong(5)),productDao.getProductByProductId(product.getId())),product.getId());
+                (rs, rowNum) -> new Rate(rs.getLong(1), rs.getString(2), rs.getInt(3), rs.getDate(4).toLocalDate(), userDao.getUserByUserId(rs.getLong(5)), productDao.getProductByProductId(product.getId())), product.getId());
 
     }
+
     public double getAvgRatesForProduct(Product product) {
         return jdbcTemplate.queryForObject("Select avg(ratings.stars) from ratings join products on ratings.product_id=products.id where products.id =? order by ratings.rating_time",
-                (rs, i) -> rs.getDouble(1),product.getId());
+                (rs, i) -> rs.getDouble(1), product.getId());
     }
 
-    public List<Rate> getRateForUserAndProduct(Rate rate){
+    public List<Rate> getRateForUserAndProduct(Rate rate) {
         return jdbcTemplate.query("Select ratings.id, ratings.message, ratings.stars,ratings.rating_time, ratings.product_id from ratings join products on ratings.product_id=products.id where  ratings.product_id =? and ratings.user_id =? order by ratings.rating_time",
-                (rs,rowNum)-> new Rate( rs.getLong(1),
-                        rs.getString(2),rs.getInt(3),
-                        rs.getDate(4).toLocalDate(),rate.getUser(),rate.getProduct())
+                (rs, rowNum) -> new Rate(rs.getLong(1),
+                        rs.getString(2), rs.getInt(3),
+                        rs.getDate(4).toLocalDate(), rate.getUser(), rate.getProduct())
                 ,
                 rate.getProduct().getId(),
                 rate.getUser().getId());
@@ -83,7 +84,16 @@ public class RateDao {
     }
 
 
-    public int deleteRate(Rate rate) {
-        return jdbcTemplate.update("delete from ratings  where id = ?", rate.getId());
+    public int deleteRate(Product product , User user) {
+        return jdbcTemplate.update("delete from ratings  where product_id = ? and user_id=?", product.getId(),user.getId());
+    }
+
+
+    public boolean orderedProductByUser(Product product, User user) {
+        int counter = jdbcTemplate.queryForObject("select count(*) from products join \n" +
+                "ordered_items on ordered_items.product_id=products.id join orders on orders.id=ordered_items.order_id\n" +
+                "join users on users.id=orders.user_id \n" +
+                "where users.id=? and products.id=? and orders.status='DELIVERED'\n", (rs, i) -> rs.getInt(1), user.getId(), product.getId());
+        return counter > 0;
     }
 }

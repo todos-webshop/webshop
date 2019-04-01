@@ -2,11 +2,13 @@ var actProduct;
 var actRate;
 var actAvg;
 var actRates;
+var permission;
 fetchProduct();
+setTimeout(controllProductUser, 1000);
 setTimeout(fetchRate, 1000);
 setTimeout(fetchRates, 1000);
 setTimeout(fetchAvg, 1000);
-
+setTimeout(console.log(permission),1000);
 
 
 
@@ -131,12 +133,19 @@ function showTable(jsonData) {
     priceDiv.innerText = jsonData.products[0].price + ' Ft';
     tdRight.appendChild(priceDiv);
 
+    var deleteButton = document.createElement('button');
+    deleteButton.setAttribute('class','delete-rate');
+        deleteButton.setAttribute('id','delete-rate');
+        deleteButton.innerHTML = 'Delete Rate';
+        tdRight.appendChild(deleteButton);
+
 
     createRatingDiv();
 
     document.querySelector('#purchase').addEventListener('click', function () {
             addToBasket(jsonData);
         });
+
     document.querySelector('#rate_button').addEventListener('click', function () {
                            sendRate(jsonData);
                            document.getElementById('message_text').value = "";
@@ -145,14 +154,14 @@ function showTable(jsonData) {
                            fetchAvg();
                            displayAvg();
             });
+     document.querySelector('#delete-rate').addEventListener('click', function () {
+                        deleteRate(jsonData);
+                        console.log("hello");
+                    });
 
 
 }
-console.log("product"+actProduct);
-console.log("rate"+actRates);
-function deleteRate(jsonData){
-console.log(actProduct);
-}
+
 function sendRate(jsonData) {
   var numOfStars = 0;
   var stars = document.getElementById('formId').getElementsByTagName('input');
@@ -392,4 +401,47 @@ function createRatingDiv(){
     ratingButton.setAttribute('id', 'rate_button');
     ratingButton.innerHTML = 'Rate';
     ratingButtonDiv.appendChild(ratingButton);
+}
+
+
+function deleteRate(jsonData){
+fetchRate();
+  fetch('/api/rating/delete/'+actProduct["products"][0]["id"], {
+      method: "DELETE"
+    })
+    .then(function (response) {
+      return response.json();
+    }).then(function (jsonData) {
+      if (jsonData.response === 'SUCCESS') {
+      if (!confirm("Are you sure to delete your opinion?")) {
+          return;
+        }
+        document.getElementById('message-div').setAttribute('class', 'alert alert-success');
+      } else {
+        document.getElementById('message-div').setAttribute('class', 'alert alert-danger');
+      }
+      document.getElementById('message-div').innerHTML = jsonData.message;
+      fetchRates();
+      showRates();
+    });
+}
+
+//ez a függvény vizsgálja meg, hogy van már kiszállított termék
+//ennek a visszatérési értékétől függően kellene megjeleníteni a szavazási űrlapot
+function controllProductUser(){
+ var url ="/api/rating/controll/"+actProduct["products"][0]["id"];
+        fetch(url)
+            .then(function(response) {
+            console.log(response);
+                return response.json();
+                })
+            .then(function(jsonData) {
+                permission =jsonData;
+                    console.log(jsonData);
+                     console.log(permission);
+
+                           });
+                           console.log(permission);
+                           return permission;
+
 }
