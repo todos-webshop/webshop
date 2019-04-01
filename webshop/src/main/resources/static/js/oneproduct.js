@@ -218,7 +218,6 @@ function fetchRates() {
                 console.log(actRates);
                 showRates();
 
-
             });
             return false;
 

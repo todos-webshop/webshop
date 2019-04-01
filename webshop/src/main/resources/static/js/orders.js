@@ -103,9 +103,14 @@ function showDivs(jsonData) {
       tdMain.appendChild(pSecond);
 
       var pThird = document.createElement('p');
-      pThird.setAttribute('class', 'orders-list-amount');
-      pThird.innerText =  jsonData[i].totalOrderPrice + " Ft";
+      pThird.setAttribute('class', 'orders-list-address');
+      pThird.innerText =  jsonData[i].shippingAddress;
       tdMain.appendChild(pThird);
+
+      var pFourth = document.createElement('p');
+      pFourth.setAttribute('class', 'orders-list-amount');
+      pFourth.innerText =  jsonData[i].totalOrderPrice + " Ft";
+      tdMain.appendChild(pFourth);
 
       var tdButton = document.createElement('td');
       tdButton.setAttribute('class', 'orders-list-actions');

@@ -8,7 +8,6 @@ import webshop.basket.BasketItem;
 import webshop.user.User;
 import webshop.user.UserDao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -56,7 +55,6 @@ public class OrderService {
         for (Order order : orders){
                 order.setOrderItems(orderDao.listOrderItemsByOrderId(order.getId()));
             }
-        System.out.println(orders.size());
         return orders;
     }
 

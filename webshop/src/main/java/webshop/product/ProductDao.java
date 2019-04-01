@@ -34,6 +34,7 @@ public class ProductDao {
                         resultSet.getLong("id"),
                         resultSet.getString("code"),
                         resultSet.getString("name"),
+                        resultSet.getString("address"),
                         resultSet.getString("manufacturer"),
                         resultSet.getInt("price"),
                         ProductStatus.valueOf(resultSet.getString("status")));
@@ -200,6 +201,7 @@ public class ProductDao {
                         resultSet.getLong("products.id"),
                         resultSet.getString("code"),
                         resultSet.getString("products.name"),
+                        resultSet.getString("address"),
                         resultSet.getString("manufacturer"),
                         resultSet.getInt("price"),
                         ProductStatus.valueOf(resultSet.getString("status"))
