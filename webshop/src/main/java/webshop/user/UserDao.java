@@ -148,4 +148,12 @@ public class UserDao {
             }
         });
     }
+    public User getUserByUserId(long userId) {
+        return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).queryForObject(
+                "select id, first_name, last_name, username, password, enabled, role from users " +
+                        "where" +
+                        " id = (:userId)", Map.of("userId", userId), USER_ROW_MAPPER);
+    }
+
 }
+

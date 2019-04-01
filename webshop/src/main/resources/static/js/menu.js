@@ -4,15 +4,9 @@ var user = getUser();
 function getUser() {
   var url = '/userdata';
   return fetch(url)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (jsonData) {
-      user = jsonData;
-    })
-    .then(function () {
-      setMenu();
-    });
+    .then(response => response.json())
+    .then(jsonData => user = jsonData)
+    .then(setMenu);
 }
 
 function setMenu() {
@@ -85,6 +79,7 @@ window.onclick = function (event) {
 
 function welcomeUser() {
   var welcomeLabel = document.createElement('label');
+  welcomeLabel.setAttribute('class', 'welcome-div')
   welcomeLabel.innerHTML = ' Welcome ' + user.username + '!';
   return welcomeLabel;
 }
@@ -142,7 +137,8 @@ function createDropdownDivForAdmin(div) {
             <a href="/dashboard.html">Dashboard</a>
             <a href="/users.html">Users</a>
             <a href="/adminproducts.html">Products</a>
-             <a href="/reports.html">Reports</a>
+            <a href="/reports.html">Reports</a>
+            <a href="/categories.html">Categories</a>
         </div>
     </div>
     `;
@@ -182,9 +178,9 @@ function createSignUpButton() {
 }
 
 function createCartButton() {
-  var cartBtn = document.createElement('button');
-  cartBtn.innerText = 'Cart';
-  cartBtn.className = 'menu-button';
+  var cartBtn = document.createElement('img');
+  cartBtn.setAttribute('src', '/img/cart.jpg')
+  cartBtn.className = 'menu-button-cart';
   cartBtn.id = 'cart-btn';
   return cartBtn;
 }

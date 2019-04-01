@@ -23,7 +23,7 @@ public class OrderService {
         this.basketDao = basketDao;
     }
 
-    public CustomResponseStatus placeOrder(String loggedInUsername) {
+    public CustomResponseStatus placeOrder(String loggedInUsername, String shippingAddress) {
 
         User user = userDao.getUserByUsername(loggedInUsername);
 
@@ -35,21 +35,29 @@ public class OrderService {
         if (products.size() == 0) {
             return new CustomResponseStatus(Response.FAILED, "Your cart is empty.");
         }
-        long orderid = orderDao.insertIntoOrdersFromBasketsByUserId(userId);
+        long orderid = orderDao.insertIntoOrdersFromBasketsByUserId(userId, shippingAddress);
 
         for (BasketItem basketItem : products) {
-            orderDao.insertIntoOrderedItemsFromBasketItemsByOrderId(orderid, basketItem.getProduct().getId(), basketItem.getProduct().getPrice());
+            orderDao.insertIntoOrderedItemsFromBasketItemsByOrderId(orderid, basketItem.getProduct().getId(),
+                    basketItem.getPieces(), basketItem.getProduct().getPrice() * basketItem.getPieces());
         }
 
         basketDao.clearBasketByBasketId(basketId);
         return new CustomResponseStatus(Response.SUCCESS, "Your order was placed, thank you for your purchase.");
     }
 
-    public List<Order> listOrdersByUserId(String loggedInUsername) {
+    public List<Order> listOrdersByOrderId(String loggedInUsername) {
         User user = userDao.getUserByUsername(loggedInUsername);
 
         long userId = user.getId();
-        return orderDao.listOrdersByUserId(userId);
+
+        List<Order> orders = orderDao.listAllOrders();
+
+        for (Order order : orders){
+                order.setOrderItems(orderDao.listOrderItemsByOrderId(order.getId()));
+            }
+        System.out.println(orders.size());
+        return orders;
     }
 
 

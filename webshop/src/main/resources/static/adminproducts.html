@@ -14,14 +14,24 @@
     <button id="new-product-btn">
         <img src="/img/add logo.png" alt="">Add new item
     </button>
+    <select id="select-categories">
+        <option>No category</option>
+        <option>Bamboo products</option>
+    </select>
     <br><br><br>
 
     <form class="disabled" id="form-input">
         <div class="form-input">Code</div> <input type="text" name="code" id="code"><br>
         <div class="form-input">Name</div> <input type="text" name="name" id="name"><br>
         <div class="form-input">Manufacturer</div> <input type="text" name="manufacturer" id="manufacturer"><br>
-        <div class="form-input">Price</div> <input type="text" name="price" id="price"><br><br>
-
+        <div class="form-input">Price</div> <input type="text" name="price" id="price"><br>
+        <div class="form-input">
+            Category</div>
+                <select id="select-category">
+                    <option class="option-category">No category</option>
+                    <option class="option-category">Bamboo products</option>
+                </select>
+        <br><br>
         <input type="submit" value="Add" id="add-btn"><br>
     </form>
     <div id ="main_div_adminproducts" class="main_div_adminproducts">

@@ -23,12 +23,17 @@ public class OrderController {
 
     @PostMapping("/myorders")
     @ResponseBody
-    public CustomResponseStatus getOrderDataForActualUser(Authentication authentication) {
+    public CustomResponseStatus getOrderDataForActualUser(Authentication authentication,
+                                                          @RequestBody Order orderWithShippinAddressOnly) {
+        String shippingAddress;
+        if (orderWithShippinAddressOnly == null) {
+            shippingAddress = "";
+        }
 
         if (authentication != null) {
+            shippingAddress = orderWithShippinAddressOnly.getShippingAddress();
             String loggedInUsername = authentication.getName();
-
-            return orderService.placeOrder(loggedInUsername);
+            return orderService.placeOrder(loggedInUsername, shippingAddress);
         } else {
             return new CustomResponseStatus(Response.FAILED, "You must log in to order items.");
         }
@@ -39,7 +44,7 @@ public class OrderController {
         if (authentication != null) {
             String loggedInUsername = authentication.getName();
 
-            return orderService.listOrdersByUserId(loggedInUsername);
+            return orderService.listOrdersByOrderId(loggedInUsername);
         } else {
             return null;
         }
@@ -62,6 +67,10 @@ public class OrderController {
     public CustomResponseStatus logicalDeleteOrderByOrderId(@PathVariable long orderId) {
         if (orderService.isOrderDeleted(orderId)) {
             return new CustomResponseStatus(Response.SUCCESS, String.format("Order %d is already deleted.", orderId));
+        }
+        if (orderService.isOrderDelivered(orderId)) {
+            return new CustomResponseStatus(Response.FAILED, String.format("Can not delete: order %d is already delivered.",
+                    orderId));
         }
         if (orderService.logicalDeleteOrderByOrderId(orderId) == 1) {
             return new CustomResponseStatus(Response.SUCCESS, String.format("Order %d successfully deleted.", orderId));
@@ -89,6 +98,10 @@ public class OrderController {
         String newOrderStatus = "DELIVERED";
         if (orderService.isOrderDelivered(orderId)) {
             return new CustomResponseStatus(Response.SUCCESS, String.format("Order %d is already delivered.", orderId));
+        }
+        if (orderService.isOrderDeleted(orderId)) {
+            return new CustomResponseStatus(Response.FAILED, String.format("Can not change status: order %d is already deleted.",
+                    orderId));
         }
         if (orderService.updateOrderStatus(orderId, newOrderStatus) == 1) {
             return new CustomResponseStatus(Response.SUCCESS, String.format("Order status successfully updated for order %d.",

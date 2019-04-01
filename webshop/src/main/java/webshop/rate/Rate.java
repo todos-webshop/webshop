@@ -8,24 +8,25 @@ import java.time.LocalDate;
 public class Rate {
     private long id;
     private String message;
-    private int starts;
+    private int stars;
     private LocalDate date;
     private User user;
     private Product product;
 
-    public Rate(long id, String message, int starts, LocalDate date, User user, Product product) {
+    public Rate(long id, String message, int stars, LocalDate date, User user, Product product) {
         this.id = id;
         this.message = message;
-        this.starts = starts;
-        changeNullDate();
+        this.stars = stars;
+        this.date = changeNullDate(date);
         this.user = user;
         this.product = product;
     }
 
-    private void changeNullDate(){
+    private LocalDate changeNullDate(LocalDate date){
         if (date == null){
-            date = LocalDate.now();
+            return LocalDate.now();
         }
+        return date;
     }
 
     public long getId() {
@@ -36,8 +37,8 @@ public class Rate {
         return message;
     }
 
-    public int getStarts() {
-        return starts;
+    public int getStars() {
+        return stars;
     }
 
     public LocalDate getDate() {
@@ -50,5 +51,13 @@ public class Rate {
 
     public Product getProduct() {
         return product;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

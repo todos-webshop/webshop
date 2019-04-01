@@ -1,0 +1,72 @@
+.sums-div {
+  font-family: "Montserrat-Regular";
+  float: right;
+  top: 130px;
+  text-align: center;
+  border: solid 1px rgb(100, 100, 100);
+  padding: 20px;
+  background-color: rgb(223, 223, 223);
+  position: relative;
+}
+
+#order-items:hover {
+  border: 1px solid black;
+}
+
+.quantity-input {
+  width: 80px;
+  text-align: center;
+}
+
+.button {
+ margin-top: 0;
+}
+
+#clear-basket, #order-items, #delete-product-basket, #shipping-address, #add-shipping-address{
+    width: 200px;
+    font-family: "Helvetica-Light";
+    letter-spacing: 2px;
+    text-align: center;
+    height: 40px;
+    margin-bottom: 50px;
+}
+
+#clear-basket {
+  top: 160px;
+  position: relative;
+}
+
+#basket-div {
+  font-family: "Helvetica-Light";
+  float: left;
+  margin-top: 160px;
+  margin-bottom: 30px;
+  text-align: center;
+  position: relative;
+}
+
+.tr-row{
+    min-height: 90px;
+}
+
+.tr-row td{
+border-top: 1px solid #dee2e6;
+padding: 15px;
+font-size: 17px;
+text-align: center;
+}
+
+#delete-product-basket{
+  margin-top: 45px;
+}
+
+.basket-head-row{
+    font-family: 'Helvetica-Medium';
+    border: none;
+}
+
+#shipping-address{
+    width: 400px;
+    height: 80px;
+    text-align: left;
+}

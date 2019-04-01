@@ -1,0 +1,63 @@
+[draggable] {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -khtml-user-drag: element;
+  -webkit-user-drag: element;
+}
+
+#columns,
+#sequence {
+  list-style-type: none;
+}
+
+.column {
+  width: 350px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  text-align: center;
+}
+
+.edit-column{
+  height: 40px;
+  width: 350px;
+  color: black;
+  background-color: #ccc;
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+  border-radius: 10px;
+  border: 4px solid #fa0202;
+  cursor: move;
+}
+
+.sequence-column header{
+  height: 40px;
+  width: 50px;
+  color: black;
+  background-color: #ccc;
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+  border-radius: 10px;
+  border: 2px solid #666666;
+}
+
+.column header,
+.edit-column header {
+  height: 40px;
+  width: 350px;
+  color: black;
+  background-color: #ccc;
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+  border-radius: 10px;
+  border: 2px solid #666666;
+}
+
+.edit-column.dragElem {
+  opacity: 0.4;
+}
+.edit-column.over {
+  border: 2px dashed #000;
+  border-top: 2px solid blue;
+}
