@@ -56,4 +56,8 @@ public class Rate {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }

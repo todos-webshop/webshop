@@ -76,9 +76,14 @@ public class RateDao {
 
     }
 
-    public int updateRate(Rate rate, long rateId) {
+    public int updateRate(Rate rate, long id) {
         Date date = Date.valueOf(rate.getDate());
         return jdbcTemplate.update("update ratings set stars = ?, message = ?, rating_time = ? where id = ?",
-                rate.getStars(), rate.getMessage(), date, rateId);
+                rate.getStars(), rate.getMessage(), date, id);
+    }
+
+
+    public int deleteRate(Rate rate) {
+        return jdbcTemplate.update("delete from ratings  where id = ?", rate.getId());
     }
 }

@@ -21,7 +21,9 @@ public class RateService {
     }
 
     public long addRate(Rate rate, long id){
+        rate.setMessage(deleteHTMLelements(rate.getMessage()));
         if (rateDao.getRateForUserAndProduct(rate).size()!=0){
+
            return rateDao.updateRate(rate, id );
               }
         return rateDao.addNewRateAndGetId(rate);
@@ -34,4 +36,14 @@ public class RateService {
        }
        throw new IllegalArgumentException("The Rate does not exist!");
     }
+
+    private String deleteHTMLelements(String string){
+        return string.replaceAll("\\<.*?>","");
+
+    }
+    public int deleteRate(Rate rate){
+        return rateDao.deleteRate(rate);
+    }
+
+
 }

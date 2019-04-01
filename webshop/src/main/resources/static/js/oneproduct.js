@@ -43,7 +43,7 @@ function fetchRate() {
             });
             return false;
             }
-
+console.log("rate"+actRate);
  function showTable(jsonData) {
     console.log(jsonData);
 
@@ -147,19 +147,23 @@ function fetchRate() {
 
 
 }
-
+console.log("product"+actProduct);
+console.log("rate"+actRates);
+function deleteRate(jsonData){
+console.log(actProduct);
+}
 function sendRate(jsonData) {
   var stars = document.getElementById('select_star').value;
   var message = document.getElementById('message_text').value;
     var request = {
-    'id':actProduct["id"],
+    'id':actRate["id"],
     'stars': stars,
     'message': message,
     'date':null,
     'user':null,
     'product':actProduct["products"][0]
   };
-  fetch('/api/rating/userrating/'+actProduct["products"][0]["id"], {
+  fetch('/api/rating/userrating/'+actRate["id"], {
     method: 'POST',
     body: JSON.stringify(request),
     headers: {
@@ -254,9 +258,9 @@ document.getElementById('avg_product').innerHTML = "Average rating: "+actAvg;
 
 
 function showRates() {
-
+console.log("ez itt a rates"+actRates);
 var div = document.getElementById('rating-div');
-
+div.innerHTML ='';
 for (var i=0;i<actRates.length;i++ ){
 
     var reviewDiv = document.createElement("div");
