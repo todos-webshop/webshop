@@ -25,7 +25,7 @@ public class OrderDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public long insertIntoOrdersFromBasketsByUserId(long userId) {
+    public long insertIntoOrdersFromBasketsByUserId(long userId,String shippingAddress) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(new PreparedStatementCreator() {
@@ -33,11 +33,13 @@ public class OrderDao {
                                 public PreparedStatement createPreparedStatement(Connection connection)
                                         throws SQLException {
                                     PreparedStatement ps =
-                                            connection.prepareStatement("insert into orders set user_id = ?, order_time = ?, status = ?",
+                                            connection.prepareStatement("insert into orders set user_id = ?, order_time = ?, " +
+                                                            "status = ?, shipping_address = ?",
                                                     Statement.RETURN_GENERATED_KEYS);
                                     ps.setLong(1, userId);
                                     ps.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
                                     ps.setString(3, OrderStatus.ACTIVE.name());
+                                    ps.setString(4, shippingAddress);
                                     return ps;
                                 }
                             }, keyHolder

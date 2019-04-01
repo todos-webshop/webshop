@@ -23,12 +23,14 @@ public class OrderController {
 
     @PostMapping("/myorders")
     @ResponseBody
-    public CustomResponseStatus getOrderDataForActualUser(Authentication authentication) {
+    public CustomResponseStatus getOrderDataForActualUser(Authentication authentication, @RequestBody String shippingAddress) {
+        if (shippingAddress == null){
+            shippingAddress = "";
+        }
 
         if (authentication != null) {
             String loggedInUsername = authentication.getName();
-
-            return orderService.placeOrder(loggedInUsername);
+            return orderService.placeOrder(loggedInUsername, shippingAddress);
         } else {
             return new CustomResponseStatus(Response.FAILED, "You must log in to order items.");
         }

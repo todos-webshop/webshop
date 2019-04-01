@@ -49,6 +49,7 @@ function showBasket(jsonData) {
   divBasket.appendChild(table);
 
   var trHeading = document.createElement('tr');
+  trHeading.setAttribute('class', 'basket-head-row')
   table.appendChild(trHeading);
 
   var codeTh = document.createElement('th');
@@ -74,6 +75,7 @@ function showBasket(jsonData) {
 
   for (var i = 0; i < jsonData.basket.basketItems.length; i++) {
     var trRow = document.createElement('tr');
+    trRow.setAttribute('class', 'tr-row')
 
     var codeTd = document.createElement('td');
     codeTd.innerHTML = jsonData.basket.basketItems[i].product.code;
@@ -118,6 +120,7 @@ function showBasket(jsonData) {
 
     var deleteButtonTd = document.createElement('td');
     var deleteButton = document.createElement('button');
+    deleteButton.setAttribute('id', 'delete-product-basket')
     deleteButton.innerHTML = 'Delete product';
     deleteButton.onclick = deleteFromBasket;
     deleteButton['raw-data'] = jsonData.basket.basketItems[i];
@@ -241,3 +244,11 @@ function saveUpdatedItemQuantity() {
     });
 }
 
+function showShippingAddressInputField(){
+var shippingAddressField = document.querySelector('#shipping-address');
+  if (shippingAddressField.getAttribute('class') == 'disabled'){
+  shippingAddressField.setAttribute('class', 'enabled');
+  } else {
+  shippingAddressField.setAttribute('class', 'disabled')
+  }
+}

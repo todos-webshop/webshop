@@ -11,9 +11,8 @@ setTimeout(fetchAvg, 1000);
 
 
 function fetchProduct() {
-var address = (new URL(document.location)).searchParams.get("address");
+  var address = (new URL(document.location)).searchParams.get("address");
         var url ="api/product/" + address;
-        console.log(url );
         fetch(url)
             .then(function(response) {
                 return response.json();
@@ -24,13 +23,11 @@ var address = (new URL(document.location)).searchParams.get("address");
             showProductNotFound(jsonData);
             } else {
                 showTable(jsonData);
-                console.log(jsonData);
                 actProduct = jsonData;
-                console.log(actProduct);
-                console.log(actProduct["products"][0]["id"]);
             }});
             return false;
-            }
+}
+
 function fetchRate() {
         var url ="/api/rating/"+actProduct["products"][0]["id"] ;
         fetch(url)
@@ -47,6 +44,9 @@ console.log("rate"+actRate);
  function showTable(jsonData) {
     console.log(jsonData);
 
+}
+
+function showTable(jsonData) {
     var table = document.getElementById("product-table");
 
     var tbody = document.createElement('tbody');
@@ -153,11 +153,18 @@ function deleteRate(jsonData){
 console.log(actProduct);
 }
 function sendRate(jsonData) {
-  var stars = document.getElementById('select_star').value;
+  var numOfStars = 0;
+  var stars = document.getElementById('formId').getElementsByTagName('input');
+  for (let i = 0; i < stars.length; i++) {
+    if(stars[i]["checked"]){
+      numOfStars=5-(i);
+      break;
+    }
+  }
   var message = document.getElementById('message_text').value;
     var request = {
     'id':actRate["id"],
-    'stars': stars,
+    'stars': numOfStars,
     'message': message,
     'date':null,
     'user':null,
@@ -219,7 +226,6 @@ function fetchRates() {
 
 function addToBasket(jsonData) {
   var quantity = document.getElementById('quantity').value;
-  console.log(quantity);
   var code = jsonData.products[0].code;
   var request = {
     'productCode': code,
@@ -241,7 +247,10 @@ function addToBasket(jsonData) {
         document.getElementById('message-div').setAttribute('class', 'alert alert-danger');
       }
       document.getElementById('message-div').innerHTML = jsonData.message;
-    });
+    }
+    .then(function(){
+      fetchRates();
+    }));
 }
 function goBack() {
   window.history.back();
@@ -258,7 +267,7 @@ document.getElementById('avg_product').innerHTML = "Average rating: "+actAvg;
 
 
 function showRates() {
-console.log("ez itt a rates"+actRates);
+
 var div = document.getElementById('rating-div');
 div.innerHTML ='';
 for (var i=0;i<actRates.length;i++ ){
@@ -267,9 +276,29 @@ for (var i=0;i<actRates.length;i++ ){
     reviewDiv.setAttribute('class', 'review-div')
 
     var numberOfRate = document.createElement("div");
-    numberOfRate.setAttribute('class', 'rate-number');
-    numberOfRate.innerHTML = "Rate: " + actRates[i]["stars"];
+    numberOfRate.className = "stars";
+
+    var starForm = document.createElement("form");
+    starForm.setAttribute("action","");
+
+    for (var j = 5; j > 0; j--){
+      if(j != actRates[i]["stars"]){
+        starForm.innerHTML+= `
+        <input class="starView starView-${j}" id="star-${j}" type="radio" name="star" disabled="disabled"/>
+        <label class="starView starView-${j}" for="star-${j}"></label>`;
+      } else {
+        starForm.innerHTML+= `
+        <input class="starView starView-${j}" id="star-${j}" type="radio" name="star" disabled="disabled" checked="true"/>
+        <label class="starView starView-${j}" for="star-${j}"></label>`;
+      }
+    }
+
+    numberOfRate.appendChild(starForm);
     reviewDiv.appendChild(numberOfRate);
+    // var numberOfRate = document.createElement("div");
+    // numberOfRate.setAttribute('class', 'rate-number');
+    // numberOfRate.innerHTML = "Rate: " + actRates[i]["stars"];
+    // reviewDiv.appendChild(numberOfRate);
 
     var reviewDate = document.createElement('div');
     reviewDate.setAttribute('class', 'rate-date');
@@ -287,7 +316,7 @@ for (var i=0;i<actRates.length;i++ ){
     reviewDiv.appendChild(reviewName);
 
     div.appendChild(reviewDiv);
-}
+  }
 }
 
 function createRatingDiv(){
@@ -298,34 +327,49 @@ function createRatingDiv(){
     starDiv.setAttribute('id', 'star');
     tdRight.appendChild(starDiv);
 
-    var selectStar = document.createElement('select');
-    selectStar.setAttribute('id', 'select_star');
-    starDiv.appendChild(selectStar);
+    var divForStars = document.createElement("div");
+    divForStars.className = "stars";
 
-    var option5 = document.createElement('option');
-    option5.setAttribute('value', "5");
-    option5.innerHTML = 5;
-    selectStar.appendChild(option5)
+    var starForm = document.createElement("form");
+    starForm.id = "formId";
+    starForm.setAttribute("action","");
 
-    var option4 = document.createElement('option');
-    option4.setAttribute('value', "4");
-    option4.innerHTML = 4;
-    selectStar.appendChild(option4)
+    for (var i = 5; i>0;i--){
+      starForm.innerHTML+= `<input class="star-rating star star-${i}" id="star-${i}" type="radio" name="star"/>
+      <label class="star star-${i}" for="star-${i}"></label>`;
+    }
 
-    var option3 = document.createElement('option');
-    option3.setAttribute('value', "3");
-    option3.innerHTML = 3;
-    selectStar.appendChild(option3)
+    divForStars.appendChild(starForm);
+    tdRight.appendChild(divForStars);
 
-    var option2 = document.createElement('option');
-    option2.setAttribute('value', "2");
-    option2.innerHTML = 2;
-    selectStar.appendChild(option2)
+    // var selectStar = document.createElement('select');
+    // selectStar.setAttribute('id', 'select_star');
+    // starDiv.appendChild(selectStar);
 
-    var option1 = document.createElement('option');
-    option1.setAttribute('value', "1");
-    option1.innerHTML = 1;
-    selectStar.appendChild(option1);
+    // var option5 = document.createElement('option');
+    // option5.setAttribute('value', "5");
+    // option5.innerHTML = 5;
+    // selectStar.appendChild(option5)
+
+    // var option4 = document.createElement('option');
+    // option4.setAttribute('value', "4");
+    // option4.innerHTML = 4;
+    // selectStar.appendChild(option4)
+
+    // var option3 = document.createElement('option');
+    // option3.setAttribute('value', "3");
+    // option3.innerHTML = 3;
+    // selectStar.appendChild(option3)
+
+    // var option2 = document.createElement('option');
+    // option2.setAttribute('value', "2");
+    // option2.innerHTML = 2;
+    // selectStar.appendChild(option2)
+
+    // var option1 = document.createElement('option');
+    // option1.setAttribute('value', "1");
+    // option1.innerHTML = 1;
+    // selectStar.appendChild(option1);
 
     var ratingMessage = document.createElement('div');
     ratingMessage.setAttribute('class', 'rating-message');
