@@ -1,8 +1,11 @@
 package webshop.user;
 
+import com.mysql.cj.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RestController;
+import webshop.CustomResponseStatus;
+import webshop.Response;
 import webshop.validator.Validator;
 
 import javax.validation.ConstraintValidatorContext;
@@ -17,14 +20,11 @@ public class UserValidator implements Validator {
         this.userService = userService;
     }
 
-    public boolean userCanBeSaved(User user) {
-        return nameIsNotEmptyOrNull(user.getFirstName() + user.getLastName()) && passwordIsNotEmptyOrNull(user.getPassword()) &&
-                userIsNotRegisteredWithThisNameYet(user.getUsername())&& isUsernameValid(user);
-    }
+
 
     public boolean userCanBeUpdated(User user) {
-        return nameIsNotEmptyOrNull(user.getFirstName() + user.getLastName()) && passwordIsNotEmptyOrNull(user.getPassword())
-                && isUsernameValid(user);
+        return nameIsNotEmptyOrNull(user.getFirstName()) || passwordIsNotEmptyOrNull(user.getPassword())
+                || isUsernameValid(user) || nameIsNotEmptyOrNull(user.getLastName()) ||passwordIsValid(user.getPassword()) ;
     }
 
     private boolean nameIsNotEmptyOrNull(String name) {
@@ -49,4 +49,8 @@ private boolean isUsernameValid(User user){
             return false;
         }return true;
 }
+    private boolean passwordIsValid(String pass) {
+        return pass == null || pass.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,50}$");
+    }
+
 }

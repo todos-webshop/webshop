@@ -2,6 +2,7 @@ package webshop.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import webshop.CustomResponseStatus;
 import webshop.Response;
@@ -13,9 +14,11 @@ import java.util.List;
 @Service
 public class UserService {
 
-
+    @Autowired
     private UserDao userDao;
+    @Autowired
     private BasketDao basketDao;
+
 
     public UserService(UserDao userDao, BasketDao basketDao) {
         this.userDao = userDao;
@@ -23,7 +26,7 @@ public class UserService {
     }
 
     public long createUserAndReturnUserId(User user) throws DuplicateKeyException {
-        long newlyCreatedUserId = userDao.createUserAndReturnUserId(user);
+        long newlyCreatedUserId = userDao.createUserAndReturnUserId(new User(user.getId() ,user.getFirstName(),user.getLastName(),user.getUsername(),user.getPassword(),user.getEnabled(),user.getUserRole()));
         if (newlyCreatedUserId == 0) {
             return 0;
         }
@@ -52,6 +55,15 @@ public class UserService {
      //   }
         userDao.modifyUser(id, user);
     }
+    public void modifyUserByUser(long id, User user){
+        if (user.getPassword()==null||user.getPassword().trim().equals("")){
+            userDao.modifyUserByUserNoPassword(id,user);
+        } else {
+        user.setPassword(user.getPassword());
+        userDao.modifyUserByUser(id,user);
+   }}
+
+
     public CustomResponseStatus logicalDeleteUserById(long id) {
         if (userDao.isAlreadyDeleted(id)) {
             return new CustomResponseStatus(Response.FAILED, "This user no longer exists.");
@@ -59,5 +71,14 @@ public class UserService {
         userDao.logicalDeleteUserById(id);
         return new CustomResponseStatus(Response.SUCCESS, "User Deleted!");
     }
+    public User findUserByUserName(String userName){
+        return userDao.getUserByUsername(userName);
+    }
+
+    public List<Long> listUserIds() {
+        return userDao.listUserIds();
+    }
+
 }
+
 

@@ -8,13 +8,14 @@
     <title>Create User</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/register.css">
 </head>
 
 <body>
 
 <div class="container">
     <br><br><br><br><br><br>
-    <h1>Create User</h1>
+    <h1>Register User</h1>
     <br>
 
     <form id="registration-form">
@@ -27,13 +28,20 @@
         <input type="text" id="username-input" placeholder="username" required>
         <br>
         <br>
-        <input type="password" id="pass-input1" placeholder="password" required> <meter max="4" id="password-strength-meter"></meter>
+        <input type="password" id="pass-input1" placeholder="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required> <meter max="4" id="password-strength-meter" ></meter>
         <p id="password-strength-text"></p>
-        <input type="password" id="pass-input2" placeholder="re-type password" required>
+        <input type="password" id="pass-input2" placeholder="re-type password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required >
         <br>
         <br>
         <input type="submit" value="Create User">
     </form>
+    <div id="message">
+        <h3>Password must contain the following:</h3>
+        <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+        <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+        <p id="number" class="invalid">A <b>number</b></p>
+        <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+    </div>
 
 
 </div>

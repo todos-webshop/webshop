@@ -1,6 +1,7 @@
 package webshop.user;
 
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
@@ -86,13 +87,15 @@ public class UserDao {
 
     }
 
+
+
     public void deleteAll() {
         jdbcTemplate.update("delete from users");
     }
 
-  //  public void modifyUserNoPassword(long id, User user) {
+    //  public void modifyUserNoPassword(long id, User user) {
     //    jdbcTemplate.update("update users set  first_name= ?, last_name= ?,username= ?,role= ?  where id = ?",
-     //           user.getFirstName(), user.getLastName(), user.getUsername(),  user.getUserRole().toString(), id);
+    //           user.getFirstName(), user.getLastName(), user.getUsername(),  user.getUserRole().toString(), id);
     //}
 
 
@@ -100,23 +103,49 @@ public class UserDao {
         jdbcTemplate.update("update users set  first_name= ?, last_name= ?,username= ?,password= ?,role= ? where id = ?",
                 user.getFirstName(), user.getLastName(), user.getUsername(), user.getPassword(), user.getUserRole().toString(), id);
     }
+
+
     public void logicalDeleteUserById(long id) {
-        jdbcTemplate.update("update users set first_name = ?,last_name= ?,username = ?,enabled= ? where id = ?", "John","Doe","DELETED_USER" + id,0, id);
+        jdbcTemplate.update("update users set first_name = ?,last_name= ?,username = ?,enabled= ? where id = ?", "John", "Doe", "DELETED_USER" + id, 0, id);
     }
-    public boolean isAlreadyDeleted(long id){
+
+    public boolean isAlreadyDeleted(long id) {
         List<String> status = jdbcTemplate.query("select username from users where id = ?", new RowMapper<String>() {
             @Override
             public String mapRow(ResultSet resultSet, int i) throws SQLException {
                 return resultSet.getString("username");
             }
         }, id);
-        if (status.get(0).equals("DELETED_USER"+id)){
+        if (status.get(0).equals("DELETED_USER" + id)) {
             return true;
         }
         return false;
     }
+
     public int countAllUsers() {
         return jdbcTemplate.queryForObject("select count(id) from users", ((rs, i) -> rs.getInt("count(id)")));
     }
-}
 
+    public User findUserById(long id) throws EmptyResultDataAccessException {
+        return jdbcTemplate.queryForObject("select id,first_name, last_name, username, password,enabled,role from users where id = ?",
+                USER_ROW_MAPPER, id);
+    }
+
+    public void modifyUserByUser(long id, User user) {
+        jdbcTemplate.update("update users set first_name=?,last_name=?,username= ?,password= ? where id = ?",
+               user.getFirstName(),user.getLastName(),user.getUsername(), user.getPassword(), id);
+    }
+    public void modifyUserByUserNoPassword(long id,User user){
+        jdbcTemplate.update("update users set first_name = ?,last_name=?,username= ? where id = ?",
+              user.getFirstName(),user.getLastName(),user.getUsername(),  id);
+    }
+
+    public List<Long> listUserIds() {
+        return jdbcTemplate.query("select id from users order by id", new RowMapper<Long>() {
+            @Override
+            public Long mapRow(ResultSet resultSet, int i) throws SQLException {
+                return resultSet.getLong("id");
+            }
+        });
+    }
+}

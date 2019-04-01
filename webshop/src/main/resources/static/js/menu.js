@@ -126,7 +126,7 @@ function createDropdownDivForUser(div) {
         <button onmouseover="classChanger()" class="dropbtn">User</button>
         <div id="myDropdown" class="dropdown-content">
             <a href="/myorders.html">Orders</a>
-            <a href="/">Profile</a>
+            <a href="/profile.html">Profile</a>
             <a href="/">Contact</a>
         </div>
     </div>
