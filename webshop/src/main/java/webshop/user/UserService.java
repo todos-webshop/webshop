@@ -49,17 +49,30 @@ public class UserService {
         return userDao.listAllUsers();
     }
 
+
+
+
+
     public void checkPasswordAndmodifyUser(long id, User user) {
-       // if (user.getPassword().trim().equals("")){
-       //     userDao.modifyUserNoPassword(id,user);
-     //   }
+        if (user.getPassword()==null||user.getPassword().trim().equals("")){
+         userDao.modifyUserNoPassword(id,user);
+       } else {
+        user.setPassword(user.getPassword());
         userDao.modifyUser(id, user);
-    }
+    }}
+
+
+
+
+
+
+
+
     public void modifyUserByUser(long id, User user){
         if (user.getPassword()==null||user.getPassword().trim().equals("")){
             userDao.modifyUserByUserNoPassword(id,user);
         } else {
-        user.setPassword(user.getPassword());
+            user.setPassword(user.getPassword());
         userDao.modifyUserByUser(id,user);
    }}
 
