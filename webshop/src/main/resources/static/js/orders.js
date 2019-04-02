@@ -9,26 +9,30 @@ function orderItems() {
   var shippingAddressChooserDiv = document.querySelector('#choose-address-div');
 
   var shippingAddress;
+  var url;
   if (shippingAddressField.getAttribute('class') === 'enabled') {
     shippingAddress = shippingAddressField.value;
-  }
-  if (shippingAddressChooserDiv.getAttribute('class') === 'enabled') {
+    url = '/myorders';
+  } else if (shippingAddressChooserDiv.getAttribute('class') === 'enabled') {
     var chosenAddress = document.forms.shippingAddressChoserForm.elements.oneFormerAddress.value;
     shippingAddress = chosenAddress;
+    url = '/myorders/storedaddresses';
   }
   // console.log(shippingAddress);
+  // console.log(url);
 
   var request = {
     'shippingAddress': shippingAddress
   };
 
-  fetch('/myorders', {
-      method: 'POST',
-      body: JSON.stringify(request),
-      headers: {
-        'Content-type': 'application/json'
-      }
-    })
+
+  fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(request),
+    headers: {
+      'Content-type': 'application/json'
+    }
+  })
     .then(function (response) {
       return response.json();
     })
@@ -37,7 +41,7 @@ function orderItems() {
       if (jsonData.response == 'SUCCESS') {
         document.getElementById('shipping-address').value = '';
         document.getElementById('shipping-address').setAttribute('class', 'disabled');
-        fetchBasket();
+        // fetchBasket();
         document.getElementById('message-div').innerHTML = jsonData.message;
         document.getElementById('message-div').setAttribute('class', 'alert alert-success');
       } else {
@@ -112,19 +116,19 @@ function showDivs(jsonData) {
         pSecond.innerText = jsonData[i].orderTime.split("T")[0] + " " + jsonData[i].orderTime.split("T")[1];
         tdMain.appendChild(pSecond);
 
-      var pThird = document.createElement('p');
-      pThird.setAttribute('class', 'orders-list-address');
-      pThird.innerText =  jsonData[i].shippingAddress;
-      tdMain.appendChild(pThird);
+        var pThird = document.createElement('p');
+        pThird.setAttribute('class', 'orders-list-address');
+        pThird.innerText = jsonData[i].shippingAddress;
+        tdMain.appendChild(pThird);
 
-      var pFourth = document.createElement('p');
-      pFourth.setAttribute('class', 'orders-list-amount');
-      pFourth.innerText =  jsonData[i].totalOrderPrice + " Ft";
-      tdMain.appendChild(pFourth);
+        var pFourth = document.createElement('p');
+        pFourth.setAttribute('class', 'orders-list-amount');
+        pFourth.innerText = jsonData[i].totalOrderPrice + " Ft";
+        tdMain.appendChild(pFourth);
 
-      var tdButton = document.createElement('td');
-      tdButton.setAttribute('class', 'orders-list-actions');
-      trMain.appendChild(tdButton);
+        var tdButton = document.createElement('td');
+        tdButton.setAttribute('class', 'orders-list-actions');
+        trMain.appendChild(tdButton);
 
         var button = document.createElement('button');
         button.setAttribute('id', jsonData[i].id)
@@ -239,6 +243,6 @@ function showDetails() {
   if (tableDetails.getAttribute('class') == 'disabled') {
     tableDetails.setAttribute('class', 'enabled');
   } else {
-    tableDetails.setAttribute('class', 'disabled')
+    tableDetails.setAttribute('class', 'disabled');
   }
 }
