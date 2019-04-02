@@ -90,4 +90,11 @@ public class ProductController {
         category.setProducts(Arrays.asList(new Product(1,"code","name","manu",123,ProductStatus.ACTIVE)));
         return category;
     }
+
+
+
+    @GetMapping("/api/product/recommend")
+    public List<Product> lastThreeProducts(){
+       return  productService.lastThreeProducts();
+    }
 }

@@ -76,12 +76,12 @@ public class RateController {
             int sqlResponse =
                     rateService.deleteRate(product, loggedInUser);
             if (sqlResponse == 0) {
-                return new CustomResponseStatus(Response.SUCCESS, "You have no opinion.");
+                return new CustomResponseStatus(Response.SUCCESS, "You have no review.");
             } else {
-                return new CustomResponseStatus(Response.SUCCESS, "Your opinion has been deleted.");
+                return new CustomResponseStatus(Response.SUCCESS, "Your review has been deleted.");
             }
         } else {
-            return new CustomResponseStatus(Response.FAILED, "Please sign in to delete your opinion.");
+            return new CustomResponseStatus(Response.FAILED, "Please sign in to delete your ewview.");
         }
     }
 

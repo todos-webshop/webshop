@@ -1,7 +1,11 @@
 var categories;
 
+if (document.getElementById('radio-active').checked){
 fetchProducts();
 fetchCategories();
+} else {
+
+}
 
 var addButton = document.getElementById('add-btn');
 addButton.onclick = addNewProduct;
@@ -26,13 +30,12 @@ function fetchCategories() {
     })
     .then(function (jsonData) {
       categories = jsonData;
-      editItem();
       console.log(jsonData)
     });
 }
 
 
-function showDivs(jsonData) {
+function showDivsActive(jsonData) {
   divMain = document.getElementById('main_div_adminproducts');
   divMain.innerHTML = '';
   for (var i = 0; i < jsonData.length; i++) {
@@ -46,6 +49,8 @@ function showDivs(jsonData) {
     divMain.appendChild(categoryName)
 
   for (var j = 0; j < jsonData[i].products.length; j++){
+    if (jsonData[i].products[j].productStatus == 'ACTIVE'){
+
     var divRow = document.createElement('div');
     divRow.setAttribute('contenteditable', 'false');
     divRow.setAttribute('id', jsonData[i].products[j].id);
@@ -114,7 +119,8 @@ function showDivs(jsonData) {
     divRow.appendChild(saveBtn);
 
     divMain.appendChild(divRow);
-  }
+            }
+        }
   var clearerDiv = document.createElement('div');
   clearerDiv.setAttribute('class', 'clearer');
   divMain.appendChild(clearerDiv);
@@ -349,8 +355,4 @@ function scrollFunction() {
 
 function topFunction() {
   document.documentElement.scrollTop = 0;
-}
-
-function selectCategory(){
-    var select = document.querySelector
 }
