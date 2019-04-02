@@ -76,4 +76,10 @@ public class ProductService {
        productDao.logicalDeleteProductById(id);
        return new CustomResponseStatus(Response.SUCCESS, "Deleted!");
     }
+
+
+
+    public List<Product> lastThreeProducts(){
+        return productDao.lastThreeProducts();
+    }
 }
