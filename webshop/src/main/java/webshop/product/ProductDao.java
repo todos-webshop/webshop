@@ -245,4 +245,25 @@ public class ProductDao {
     }
 
 
+
+
+public List<Product> lastThreeProducts() {
+        return jdbcTemplate.query("select distinct products.id, products.code, products.name, products.address, products.manufacturer, products.price, products.status from products join"+
+               " ordered_items on ordered_items.product_id=products.id join orders on "+
+                        "orders.id=ordered_items.order_id order by orders.order_time desc limit 3",
+    new RowMapper<Product>() {
+        @Override
+        public Product mapRow(ResultSet resultSet, int i) throws SQLException {
+            return new Product(
+                    resultSet.getLong("id"),
+                    resultSet.getString("code"),
+                    resultSet.getString("name"),
+                    resultSet.getString("address"),
+                    resultSet.getString("manufacturer"),
+                    resultSet.getInt("price"),
+                    ProductStatus.valueOf(resultSet.getString("status")));
+        }
+    });
+}
+
 }
