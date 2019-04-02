@@ -56,7 +56,7 @@ public class OrderDao {
     public List<Order> listAllOrders() {
         return jdbcTemplate.query("SELECT id, user_id, order_time, status, shipping_address, (SELECT SUM(order_price) from " +
                         "ordered_items WHERE orders.id = ordered_items.order_id) total_price, " +
-                        "shipping_address from orders;",
+                        "shipping_address from orders ORDER BY order_time DESC;",
                 ORDER_ROW_MAPPER);
     }
 
