@@ -91,20 +91,19 @@ public class CategoryService {
         }
     }
 
+
+
     public CustomResponseStatus updateAllCategories(List<Category> categories) {
         categories.forEach(category -> categoryDao.updateCategoryById(category));
         return new CustomResponseStatus(Response.SUCCESS, "done");
     }
-/*
-    public Category listProductsByCategoryName(Category category) {
-        List<Category> categoryList = categoryDao.listAllCategories();
 
-        for (Category category1 : categoryList) {
-            if (category1.getCategoryName().equals(category.getCategoryName())) {
-                category1.setProducts(productDao.listAllProductsByCategory(category));
-                return category1;
-            }
-        }
-        return null;
-    }*/
+
+
+    public List<Product> listProductsByCategoryName(String categoryName) {
+
+        List<Product> products = categoryDao.listAllProductsByCategoryName(categoryName);
+
+        return products;
+    }
 }

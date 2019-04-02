@@ -243,4 +243,6 @@ public class ProductDao {
     public int updateProductCategoryIfCategoryIsDeleted(long deletedCategoryId){
         return jdbcTemplate.update("update products set category_id = 1 where category_id = ?", deletedCategoryId);
     }
+
+
 }

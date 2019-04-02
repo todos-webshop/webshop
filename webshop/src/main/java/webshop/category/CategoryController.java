@@ -56,8 +56,8 @@ public class CategoryController {
         return categoryService.updateAllCategories(categories);
     }
 
-/*    @GetMapping("/api/category/{categoryName}")
-    public Category listProductsByCategoryName(@PathVariable Category category){
-        return categoryService.listProductsByCategoryName(category);
-    }*/
+    @GetMapping("/api/category/{categoryName}")
+    public List<Product> listProductsByCategoryName(@PathVariable String categoryName){
+        return categoryService.listProductsByCategoryName(categoryName);
+    }
 }
