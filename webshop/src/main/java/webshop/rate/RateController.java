@@ -56,7 +56,6 @@ public class RateController {
     @PostMapping("/api/rating/userrating/{id}")
     @ResponseBody
     public CustomResponseStatus addRate(Authentication authentication, @PathVariable long id, @RequestBody Rate rate) {
-        System.out.println(authentication == null);
         if (authentication != null) {
             String loggedInUsername = authentication.getName();
             User loggedInUser = userService.getUserByUsername(loggedInUsername);
@@ -77,12 +76,12 @@ public class RateController {
             int sqlResponse =
                     rateService.deleteRate(product, loggedInUser);
             if (sqlResponse == 0) {
-                return new CustomResponseStatus(Response.SUCCESS, "You have no opinion.");
+                return new CustomResponseStatus(Response.SUCCESS, "You have no review.");
             } else {
-                return new CustomResponseStatus(Response.SUCCESS, "Your opinion has been deleted.");
+                return new CustomResponseStatus(Response.SUCCESS, "Your review has been deleted.");
             }
         } else {
-            return new CustomResponseStatus(Response.FAILED, "Please sign in to delete your opinion.");
+            return new CustomResponseStatus(Response.FAILED, "Please sign in to delete your ewview.");
         }
     }
 
