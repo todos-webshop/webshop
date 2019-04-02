@@ -3,7 +3,6 @@ package webshop.category;
 import org.springframework.web.bind.annotation.*;
 import webshop.CustomResponseStatus;
 import webshop.Response;
-import webshop.product.Product;
 import webshop.validator.CategoryValidator;
 
 import java.util.List;
@@ -57,7 +56,7 @@ public class CategoryController {
     }
 
     @GetMapping("/api/category/{categoryName}")
-    public List<Product> listProductsByCategoryName(@PathVariable String categoryName){
-        return categoryService.listProductsByCategoryName(categoryName);
+    public Category listProductsByCategoryName(@PathVariable String categoryName){
+        return categoryService.getCategoryWithProductsByName(categoryName);
     }
 }

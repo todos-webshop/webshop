@@ -106,4 +106,18 @@ public class CategoryService {
 
         return products;
     }
+
+    public Category getCategoryWithProductsByName(String categoryName){
+        List<Category> categoryList = categoryDao.listAllCategories();
+
+        Category foundCategory = new Category();
+
+        for (Category category : categoryList){
+            if (category.getCategoryName().equals(categoryName)){
+                category.setProducts(categoryDao.listAllProductsByCategoryName(categoryName));
+                foundCategory = category;
+            }
+        }
+        return foundCategory;
+    }
 }
