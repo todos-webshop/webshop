@@ -3,12 +3,13 @@ var actRate;
 var actAvg;
 var actRates;
 var permission;
+var permissionValue;
 fetchProduct();
 setTimeout(controllProductUser, 1000);
 setTimeout(fetchRate, 1000);
 setTimeout(fetchRates, 1000);
 setTimeout(fetchAvg, 1000);
-setTimeout(console.log(permission),1000);
+setTimeout(console.log(permissionValue),1000);
 
 
 
@@ -438,8 +439,8 @@ function controllProductUser(){
             .then(function(jsonData) {
                 permission =jsonData;
                     console.log(jsonData);
-                     console.log(permission);
-
+                     console.log("engedély"+permission);
+                               if(permission) {permissionValue="TRUE";} else {permissionValue="FALSE";}
                            });
                            console.log(permission);
                            return permission;

@@ -57,6 +57,7 @@ public class CategoryController {
 
     @GetMapping("/api/category/{categoryName}")
     public Category listProductsByCategoryName(@PathVariable String categoryName){
-        return categoryService.getCategoryWithProductsByName(categoryName);
+
+        return categoryService.getCategoryWithProductsByName(categoryName.replaceAll("_"," "));
     }
 }
