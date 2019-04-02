@@ -4,8 +4,10 @@ var actAvg;
 var actRates;
 
 fetchProduct();
-setTimeout(fetchRate, 1000);
-setTimeout(fetchRates, 1000);
+fetchRates();
+
+//setTimeout(fetchRate, 1000);
+//setTimeout(fetchRates, 1000);
 setTimeout(fetchAvg, 1000);
 var permission = setTimeout(controllProductUser, 1000);
 //setTimeout(console.log(permission),1000);
@@ -152,7 +154,8 @@ function showTable(jsonData) {
     document.querySelector('#rate_button').addEventListener('click', function () {
       sendRate(jsonData);
       document.getElementById('message_text').value = "";
-      setTimeout(fetchRates, 100);
+      //setTimeout(fetchRates, 100);
+      fetchRates()
       showRates();
       fetchAvg();
       displayAvg();
@@ -220,7 +223,6 @@ function fetchAvg() {
 }
 
 function fetchRates() {
-
   var url = "/api/rating/list/" + actProduct["products"][0]["id"];
   fetch(url)
     .then(function (response) {
@@ -229,7 +231,6 @@ function fetchRates() {
     .then(function (jsonData) {
       actRates = jsonData;
       showRates();
-
     });
   return false;
 
