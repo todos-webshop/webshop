@@ -134,13 +134,6 @@ function showTable(jsonData) {
     priceDiv.innerText = jsonData.products[0].price + ' Ft';
     tdRight.appendChild(priceDiv);
 
-    var deleteButton = document.createElement('button');
-    deleteButton.setAttribute('class','delete-rate');
-        deleteButton.setAttribute('id','delete-rate');
-        deleteButton.innerHTML = 'Delete Rate';
-        tdRight.appendChild(deleteButton);
-
-
     createRatingDiv();
 
     document.querySelector('#purchase').addEventListener('click', function () {
@@ -401,6 +394,12 @@ function createRatingDiv(){
     ratingButton.setAttribute('id', 'rate_button');
     ratingButton.innerHTML = 'Rate';
     ratingButtonDiv.appendChild(ratingButton);
+
+    var deleteButton = document.createElement('button');
+    deleteButton.setAttribute('class','delete-rate');
+    deleteButton.setAttribute('id','delete-rate');
+    deleteButton.innerHTML = 'Delete Rate';
+    ratingButtonDiv.appendChild(deleteButton);
 }
 
 

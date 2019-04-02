@@ -66,7 +66,6 @@ function fetchOrders() {
       return response.json();
     })
     .then(function (jsonData) {
-      // console.log(jsonData)
       showDivs(jsonData);
     });
 }
