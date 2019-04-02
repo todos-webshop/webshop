@@ -33,9 +33,10 @@ function setMenu() {
   case 'ROLE_USER':
   {
     createDropdownDivForUser(div);
+    div.appendChild(createCategoryButton());
     div.appendChild(createLogoutButton());
-    div.appendChild(createCartButton());
     div.appendChild(welcomeUser());
+    div.appendChild(createCartButton());
     addEventListenerToLoggedIn();
     break;
   }
@@ -118,9 +119,9 @@ function insertMenuCss() {
 function createDropdownDivForUser(div) {
   div.innerHTML += `
     <div class="dropdown">
-        <button onmouseover="classChanger()" class="dropbtn">User</button>
+        <button onmouseover="classChanger()" class="dropbtn">My Account</button>
         <div id="myDropdown" class="dropdown-content">
-            <a href="/myorders.html">Orders</a>
+            <a href="/myorders.html">My Orders</a>
             <a href="/profile.html">Profile</a>
             <a href="/">Contact</a>
         </div>
@@ -190,6 +191,14 @@ function createMessageDiv() {
   messageDiv.setAttribute('id', 'message-div');
   messageDiv.setAttribute('class', 'message-div');
   return messageDiv;
+}
+
+function createCategoryButton(){
+    var categoryButton = document.createElement('button');
+    categoryButton.setAttribute('id', 'category-button');
+    categoryButton.setAttribute('class', 'category-button');
+    categoryButton.innerText = 'Categories';
+    return categoryButton;
 }
 
 function addEventListenerToNotLoggedIn() {

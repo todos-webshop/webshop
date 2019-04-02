@@ -138,13 +138,6 @@ function showTable(jsonData) {
   priceDiv.innerText = jsonData.products[0].price + ' Ft';
   tdRight.appendChild(priceDiv);
 
-  var deleteButton = document.createElement('button');
-  deleteButton.setAttribute('class', 'delete-rate');
-  deleteButton.setAttribute('id', 'delete-rate');
-  deleteButton.innerHTML = 'Delete Rate';
-  tdRight.appendChild(deleteButton);
-
-  if (permission) {
     createRatingDiv();
 
     document.querySelector('#purchase').addEventListener('click', function () {
@@ -165,7 +158,6 @@ function showTable(jsonData) {
     });
   }
 
-}
 
 function sendRate(jsonData) {
   var numOfStars = 0;
@@ -400,11 +392,17 @@ function createRatingDiv() {
   ratingButtonDiv.setAttribute('id', 'button');
   tdRight.appendChild(ratingButtonDiv);
 
-  var ratingButton = document.createElement('button');
-  ratingButton.setAttribute('class', 'rating-button');
-  ratingButton.setAttribute('id', 'rate_button');
-  ratingButton.innerHTML = 'Rate';
-  ratingButtonDiv.appendChild(ratingButton);
+    var ratingButton = document.createElement('button');
+    ratingButton.setAttribute('class', 'rating-button');
+    ratingButton.setAttribute('id', 'rate_button');
+    ratingButton.innerHTML = 'Rate';
+    ratingButtonDiv.appendChild(ratingButton);
+
+    var deleteButton = document.createElement('button');
+    deleteButton.setAttribute('class','delete-rate');
+    deleteButton.setAttribute('id','delete-rate');
+    deleteButton.innerHTML = 'Delete Rate';
+    ratingButtonDiv.appendChild(deleteButton);
 }
 
 

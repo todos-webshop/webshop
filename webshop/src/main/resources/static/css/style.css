@@ -509,7 +509,7 @@ html {
 
 .purchase {
   position: relative;
-  top: 50px;
+  top: 40px;
   right: 160px;
   width: 160px;
   font-family: "Helvetica-Medium";
@@ -519,6 +519,7 @@ html {
 
 .purchase-quantity {
   position: relative;
+  top: -20px;
   width: 160px;
   font-family: "Helvetica-Medium";
   text-align: center;
@@ -532,14 +533,14 @@ html {
 }
 
 .purchase:hover,
-.rating-button:hover {
+.rating-button:hover, .delete-rate:hover {
   background-color: rgb(93, 133, 101);
   color: white;
 }
 
 .td-right div {
   position: relative;
-  top: 70px;
+  top: 60px;
 }
 
 .product-name {
@@ -664,7 +665,7 @@ html {
   position: relative;
 }
 
-.rating-button {
+.rating-button, .delete-rate {
   margin-top: 20px;
   position: relative;
   width: 80px;
@@ -730,8 +731,7 @@ html {
   opacity: 0.3;
 
   width: 100%;
-  height: 800px;
-  position: absolute;
+  position: fixed;
   z-index: -1;
   top: 0;
   bottom: 0;
@@ -747,8 +747,7 @@ html {
   opacity: 0.3;
 
   width: 100%;
-  height: 800px;
-  position: absolute;
+  position: fixed;
   z-index: -1;
   top: 0;
   bottom: 0;
@@ -798,8 +797,8 @@ html {
 }
 
 .delete-rate {
-  position: relative;
-  top: 350px;
+left: 20px;
+width: 100px;
 }
 
 .our-collection {
@@ -808,14 +807,23 @@ html {
   position: absolute;
   top: 800px;
   text-align: center;
-  background-color: rgb(243, 227, 203);
+  background-color: white;
   font-family: "Cinzel", serif;
   font-size: 30px;
-  color: white;
+  color: rgb(63, 87, 68);
   padding-top: 100px;
 }
 
 .collection-span {
   padding-left: 60px;
   padding-right: 60px;
+}
+
+.page-title-reports{
+  font-family: "Helvetica-Bold";
+  position: absolute;
+  top: -100px;
+  left: 190px;
+  max-width: 400px;
+  font-size: 30px;
 }

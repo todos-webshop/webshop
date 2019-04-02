@@ -1,6 +1,11 @@
 var allProducts;
-   fetchProducts();
+var fetchedCategory;
+var fetchedCategoryNames;
 
+ var  fetchedCategoryNames;
+    fetchCategoryNames();
+
+  setTimeout(fetchProducts,1000);
 
 
 
@@ -14,9 +19,19 @@ function fetchProducts() {
                 console.log(jsonData);
                 allProducts =jsonData;
                 showDivs(jsonData);
-                addFilterButtons(jsonData);
+                addFilterButtons(fetchedCategoryNames);
+                console.log(fetchedCategoryNames);
             });}
 
+function showCategoryDivs(category){
+divMain = document.getElementById("main_div");
+divMain.innerHTML="";
+categoryArray =[];
+console.log(category);
+categoryArray.push(category);
+console.log(categoryArray);
+showDivs(categoryArray);
+}
    function showDivs(jsonData) {
        divMain = document.getElementById("main_div");
        for (var i = 0; i < jsonData.length; i++) {
@@ -126,15 +141,21 @@ mainDiv.prepend(selectAllButton);
 
 //itt adom hozzá a függvényeket a gombokhoz
 document.querySelector('#select-button').addEventListener('click', function () {
-                        showCategory(document.getElementById("select-category").value);
+                       fetchCategory(document.getElementById("select-category").value);
+                       // fetchCategory("Straws");
+                         console.log(document.getElementById("select-category").value);
+                        console.log("gdgdfgdg"+fetchedCategory);
+                          //  showCategoryDivs(fetchedCategory);
+                        //showCategory(document.getElementById("select-category").value);
 
                     });
 document.querySelector('#select-all-button').addEventListener('click', function () {
-                        showAllCategory();
+                        //showAllCategory();
 
+                            showDivs(allProducts);
                     });
 }
-
+//showAllCategory és showCategory függvényeket használtuk, mikor csak láthatóságot állítottunk
 function showAllCategory(){
 for (var i=0; i < allProducts.length;i++){
 var actCategory =document.getElementById(allProducts[i]["categoryName"]);
@@ -160,3 +181,35 @@ actCategoryName.setAttribute('class','disabled');
 }
 }
 }
+
+function fetchCategory(categoryName) {
+console.log('juhuuu');
+var categoryUrl = categoryName.replace(/ /g, '_');
+console.log(categoryUrl);
+        var url ="/api/category/"+categoryUrl;
+        fetch(url)
+            .then(function(response) {
+                return response.json();
+                })
+            .then(function(jsonData) {
+             console.log("most már elég!!!!!!!");
+            console.log(jsonData);
+            fetchedCategory = jsonData;
+             showCategoryDivs(jsonData);
+            });}
+
+function fetchCategoryNames(){
+ var url ="/api/categories";
+        fetch(url)
+            .then(function(response) {
+                return response.json();
+                })
+            .then(function(jsonData) {
+            console.log(jsonData);
+                fetchedCategoryNames =jsonData;
+
+            });}
+
+
+
+

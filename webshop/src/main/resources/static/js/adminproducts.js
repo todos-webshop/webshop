@@ -1,11 +1,6 @@
-var categories;
+var modify = false;
 
-if (document.getElementById('radio-active').checked){
 fetchProducts();
-fetchCategories();
-} else {
-
-}
 
 var addButton = document.getElementById('add-btn');
 addButton.onclick = addNewProduct;
@@ -22,20 +17,25 @@ function fetchProducts() {
     });
 }
 
-function fetchCategories() {
+function fetchCategories(e){
+  console.log(event.target.id)
   var url = '/api/categories';
   fetch(url)
     .then(function (response) {
       return response.json();
     })
     .then(function (jsonData) {
-      categories = jsonData;
-      console.log(jsonData)
+      if (modify){
+      editItem(jsonData, e.target.id);
+      } else {
+      showInputFields(jsonData);
+      }
+      console.log(jsonData);
     });
 }
 
 
-function showDivsActive(jsonData) {
+function showDivs(jsonData) {
   divMain = document.getElementById('main_div_adminproducts');
   divMain.innerHTML = '';
   for (var i = 0; i < jsonData.length; i++) {
@@ -49,8 +49,6 @@ function showDivsActive(jsonData) {
     divMain.appendChild(categoryName)
 
   for (var j = 0; j < jsonData[i].products.length; j++){
-    if (jsonData[i].products[j].productStatus == 'ACTIVE'){
-
     var divRow = document.createElement('div');
     divRow.setAttribute('contenteditable', 'false');
     divRow.setAttribute('id', jsonData[i].products[j].id);
@@ -104,7 +102,7 @@ function showDivsActive(jsonData) {
     var editBtn = document.createElement('img');
     editBtn.setAttribute('src', '/img/edit-button.png');
     editBtn.setAttribute('id', jsonData[i].products[j].id)
-    editBtn.addEventListener('click', editItem);
+    editBtn.addEventListener('click', (e) => {modify = true; fetchCategories(e)});
     editBtn.setAttribute('class', 'button');
 
     var saveBtn = document.createElement('img');
@@ -119,8 +117,7 @@ function showDivsActive(jsonData) {
     divRow.appendChild(saveBtn);
 
     divMain.appendChild(divRow);
-            }
-        }
+  }
   var clearerDiv = document.createElement('div');
   clearerDiv.setAttribute('class', 'clearer');
   divMain.appendChild(clearerDiv);
@@ -153,21 +150,23 @@ function deleteItem() {
     return false;
 }
 
-// Category names in the 'select' don't update automatically yet - need fixing
-function editItem(){
-    var attribute = '.save-button' + this.id;
+function editItem(jsonData, id){
+    var attribute = '.save-button' + id;
     var saveBtn = document.querySelector(attribute);
-    var newClassName = 'save-button' + this.id;
+    var newClassName = 'save-button' + id;
     var newAttribute = 'button-enabled button ' + newClassName;
 
+    console.log(jsonData)
     saveBtn.setAttribute('class', newAttribute);
 
-    var row = document.getElementById(this.id);
+    var row = document.getElementById(id);
     var c = row.childNodes;
-    console.log(c[6])
-    console.log(c);
+
+    var select = document.createElement('select');
+    select.setAttribute('class', 'select-element-category');
+    c[6].appendChild(select);
+
     for (var i = 0; i < c.length; i++){
-        /*if (i != 2){*/
         if (i == 5){
             c[i].innerHTML = `<select class="select-element">
                 <option value="ACTIVE">ACTIVE</option>
@@ -175,14 +174,15 @@ function editItem(){
             </select>`
         }
         if (i == 6){
-        c[i].innerHTML = `<select class="select-element-category">
-                                <option value='No category'>No category</option>
-                                <option value='Bamboo products'>Bamboo products</option>
-        /                       <option value='Straws'>Straws</option>
-                                <option value='Coconut bowls'>Coconut bowls</option>
-                                <option value='Coconut bowls'>Eco bags</option>
-                                </select>`
-                }
+        var adminCat = document.querySelector('.admin-category');
+        c[i].innerHTML = "";
+        for (j = 0; j < jsonData.length; j++){
+            var option = document.createElement('option');
+            option.innerHTML = jsonData[j].categoryName;
+            select.appendChild(option)
+        }
+        c[6].appendChild(select);
+        }
         else {
         c[i].setAttribute('contenteditable', 'true');
                 }
@@ -327,10 +327,21 @@ function addNewProduct() {
 
 var newProductButton = document.getElementById('new-product-btn');
 newProductButton.onclick = function () {
-  showInputFields();
+  modify = false;
+  fetchCategories();
 };
 
-function showInputFields() {
+function showInputFields(jsonData) {
+
+  var select = document.getElementById('select-category');
+
+  for (i = 0; i < jsonData.length; i++){
+        var option = document.createElement('option');
+        option.innerHTML = jsonData[i].categoryName;
+        select.appendChild(option);
+  }
+
+
   var mainDiv = document.querySelector('#main_div_adminproducts');
   var formInput = document.querySelector('#form-input');
   if (formInput.getAttribute('class') == 'disabled'){
