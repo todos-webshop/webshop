@@ -8,6 +8,7 @@ import webshop.basket.Basket;
 import webshop.basket.BasketData;
 import webshop.user.UserData;
 import webshop.user.UserRole;
+import webshop.validator.OrderValidator;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.List;
 public class OrderController {
 
     private OrderService orderService;
+    private OrderValidator orderValidator = new OrderValidator();
 
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
@@ -25,20 +27,50 @@ public class OrderController {
     @PostMapping("/myorders")
     @ResponseBody
     public CustomResponseStatus getOrderDataForActualUser(Authentication authentication,
-                                                          @RequestBody Order orderWithShippinAddressOnly) {
-        String shippingAddress;
-        if (orderWithShippinAddressOnly == null) {
-            shippingAddress = "";
-        }
-
+                                                          @RequestBody Order orderWithShippingAddressOnly) {
         if (authentication != null) {
-            shippingAddress = orderWithShippinAddressOnly.getShippingAddress();
+            String shippingAddress;
+            if (orderWithShippingAddressOnly == null) {
+                shippingAddress = "";
+            } else {
+                shippingAddress = orderWithShippingAddressOnly.getShippingAddress();
+            }
+            if (orderValidator.isEmpty(shippingAddress)) {
+                return new CustomResponseStatus(Response.FAILED, "Shipping address can not be empty.");
+            }
+            String loggedInUsername = authentication.getName();
+            if (orderService.isShippingAddressAlreadyStored(loggedInUsername, shippingAddress)) {
+                return new CustomResponseStatus(Response.FAILED, "Shipping address already stored. Please chose from the list " +
+                        "below.");
+            }
+            return orderService.placeOrder(loggedInUsername, shippingAddress);
+        } else {
+            return new CustomResponseStatus(Response.FAILED, "Please log in to order.");
+        }
+    }
+
+
+    @PostMapping("/myorders/storedaddresses")
+    @ResponseBody
+    public CustomResponseStatus sendOrderWithStoredAddress(Authentication authentication,
+                                                           @RequestBody Order orderWithShippingAddressOnly) {
+        if (authentication != null) {
+            String shippingAddress;
+            if (orderWithShippingAddressOnly == null) {
+                shippingAddress = "";
+            } else {
+                shippingAddress = orderWithShippingAddressOnly.getShippingAddress();
+            }
+            if (orderValidator.isEmpty(shippingAddress)) {
+                return new CustomResponseStatus(Response.FAILED, "Shipping address can not be empty.");
+            }
             String loggedInUsername = authentication.getName();
             return orderService.placeOrder(loggedInUsername, shippingAddress);
         } else {
-            return new CustomResponseStatus(Response.FAILED, "You must log in to order items.");
+            return new CustomResponseStatus(Response.FAILED, "Please log in to order.");
         }
     }
+
 
     @GetMapping("/myorders")
     public List<Order> listOrdersByUserId(Authentication authentication) {

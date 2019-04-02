@@ -10,6 +10,8 @@ import webshop.user.UserDao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class OrderService {
@@ -53,9 +55,9 @@ public class OrderService {
 
         List<Order> orders = orderDao.listAllOrders();
 
-        for (Order order : orders){
-                order.setOrderItems(orderDao.listOrderItemsByOrderId(order.getId()));
-            }
+        for (Order order : orders) {
+            order.setOrderItems(orderDao.listOrderItemsByOrderId(order.getId()));
+        }
         return orders;
     }
 
@@ -104,7 +106,11 @@ public class OrderService {
         return orderDao.getOrderListByUserIdWithFormerShippingAddressesOnly(userId);
     }
 
-//    private boolean isEmpty(String string) {
-//        return string == null || string.trim().isEmpty();
-//    }
+    public boolean isShippingAddressAlreadyStored(String loggedInUsername, String shippingAddress) {
+        Stream<Order> s = getOrderListWithFormerShippingAddressesOnly(loggedInUsername).stream();
+        List<String> formerShippingAddresses =
+                s.map(Order::getShippingAddress).map(String::toLowerCase).map(e -> e.replaceAll("[\\s,.=!%?@&$€#(){}<>\\[\\]]", "")).collect(Collectors.toList());
+        return formerShippingAddresses.contains(shippingAddress.toLowerCase().replaceAll("[\\s,.=!%?@&$€#(){}<>\\[\\]]", ""));
+    }
+
 }
