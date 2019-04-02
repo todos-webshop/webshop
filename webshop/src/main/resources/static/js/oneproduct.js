@@ -14,6 +14,7 @@ setTimeout(console.log(permission),1000);
 
 function fetchProduct() {
   var address = (new URL(document.location)).searchParams.get("address");
+  document.getElementsByTagName('head')[0].innerHTML += `<title>${address}</title>`
         var url ="api/product/" + address;
         fetch(url)
             .then(function(response) {
