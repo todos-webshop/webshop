@@ -287,6 +287,7 @@ function showFormerShippingAddressList(jsonData) {
       addressChooserInput.setAttribute('id', id);
       addressChooserInput.setAttribute('name', 'oneFormerAddress');
       addressChooserInput.setAttribute('type', 'radio');
+      addressChooserInput.setAttribute('class', 'address-input-radio');
       var oneAddress = jsonData[i].shippingAddress;
       addressChooserInput.value = oneAddress;
       var labelElement = document.createElement('label');

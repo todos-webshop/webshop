@@ -86,6 +86,27 @@
   font-family: "Helvetica-Light";
   letter-spacing: 2px;
   height: 40px;
-padding: 5px;
+  padding: 5px;
 }
+
+.choose-header {
+  display: block;
+  font-family: "Helvetica-Medium";
+  letter-spacing: 2px;
+  height: 40px;
+  padding: 5px;
+  margin-bottom: .5rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.address-input-radio{
+margin: 1rem;
+}
+
+#shippingAddressChoserForm {
+  margin-bottom: 50px;
+  margin-left: 100px;
+}
+
 
