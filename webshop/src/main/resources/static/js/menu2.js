@@ -102,7 +102,7 @@ function insertMenuCss() {
   var cssLink = document.createElement('link');
   cssLink.setAttribute('rel', 'stylesheet');
   cssLink.setAttribute('type', 'text/css');
-  cssLink.setAttribute('href', 'css/menu.css');
+  cssLink.setAttribute('href', 'css/menu2.css');
 
   head.appendChild(cssLink);
 }
@@ -121,7 +121,7 @@ function createDropdownDivForUser(div) {
         <button onmouseover="classChanger()" class="dropbtn">User</button>
         <div id="myDropdown" class="dropdown-content">
             <a href="/myorders.html">Orders</a>
-            <a href="/profile.html">Profile</a>
+            <a href="/">Profile</a>
             <a href="/">Contact</a>
         </div>
     </div>

@@ -30,4 +30,10 @@ public class ProductValidator implements Validator{
         return address != null && !address.trim().equals("") && addresses.contains(address);
     }
 
+    public void isAddressNull(Product product){
+        if (product.getAddress() == null || "".equals(product.getAddress().trim())){
+            product.setAddress(product.generateAddress());
+        };
+    }
+
 }

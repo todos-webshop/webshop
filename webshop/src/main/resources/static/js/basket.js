@@ -120,7 +120,7 @@ function showBasket(jsonData) {
 
     var deleteButtonTd = document.createElement('td');
     var deleteButton = document.createElement('button');
-    deleteButton.setAttribute('id', 'delete-product-basket')
+    deleteButton.setAttribute('id', 'delete-product-basket');
     deleteButton.innerHTML = 'Delete product';
     deleteButton.onclick = deleteFromBasket;
     deleteButton['raw-data'] = jsonData.basket.basketItems[i];
@@ -130,6 +130,8 @@ function showBasket(jsonData) {
 
     table.appendChild(trRow);
   }
+
+  fetchFormerShippingAddressList();
 }
 
 
@@ -138,8 +140,8 @@ function clearBasket() {
     return;
   }
   fetch('/basket', {
-    method: 'DELETE'
-  })
+      method: 'DELETE'
+    })
     .then(function (response) {
       return response.json();
     }).then(function (jsonData) {
@@ -225,12 +227,12 @@ function saveUpdatedItemQuantity() {
     'productPieces': quantity
   };
   fetch('/basket/update', {
-    method: 'POST',
-    body: JSON.stringify(request),
-    headers: {
-      'Content-type': 'application/json'
-    }
-  })
+      method: 'POST',
+      body: JSON.stringify(request),
+      headers: {
+        'Content-type': 'application/json'
+      }
+    })
     .then(function (response) {
       return response.json();
     }).then(function (jsonData) {
@@ -244,11 +246,63 @@ function saveUpdatedItemQuantity() {
     });
 }
 
-function showShippingAddressInputField(){
-var shippingAddressField = document.querySelector('#shipping-address');
-  if (shippingAddressField.getAttribute('class') == 'disabled'){
-  shippingAddressField.setAttribute('class', 'enabled');
+function showShippingAddressInputField() {
+  var shippinAddressButton = document.querySelector('#add-shipping-address');
+  var shippingAddressField = document.querySelector('#shipping-address');
+  var shippingAddressChooserDiv = document.querySelector('#choose-address-div');
+  if (shippingAddressField.getAttribute('class') === 'disabled') {
+    shippingAddressField.setAttribute('class', 'enabled');
+    shippingAddressChooserDiv.setAttribute('class', 'disabled');
+    shippinAddressButton.innerHTML = 'Choose address';
   } else {
-  shippingAddressField.setAttribute('class', 'disabled')
+    shippingAddressField.setAttribute('class', 'disabled');
+    shippingAddressChooserDiv.setAttribute('class', 'enabled');
+    shippinAddressButton.innerHTML = 'Add address';
+  }
+}
+
+function fetchFormerShippingAddressList() {
+  var url = '/orders/shippingaddresses';
+  fetch(url)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (jsonData) {
+      showFormerShippingAddressList(jsonData);
+    });
+}
+
+function showFormerShippingAddressList(jsonData) {
+  // console.log(jsonData);
+  var shippingAddressChooserDiv = document.querySelector('#choose-address-div');
+  shippingAddressChooserDiv.innerHTML = '';
+  var shippingAddressField = document.querySelector('#shipping-address');
+
+  if (jsonData.length > 0) {
+    shippingAddressField.setAttribute('class', 'disabled');
+    shippingAddressChooserDiv.setAttribute('class', 'enabled');
+    var chooseHeaderDiv = document.createElement('div');
+    chooseHeaderDiv.setAttribute('class', 'choose-header');
+    chooseHeaderDiv.innerText = 'Choose shipping address';
+    shippingAddressChooserDiv.appendChild(chooseHeaderDiv);
+    var shippingAddressChoserForm = document.querySelector('#shippingAddressChoserForm');
+
+    for (var i = 0; i < jsonData.length; i++) {
+      // console.log(jsonData[i]);
+      var addressChooserInput = document.createElement('input');
+      var id = 'oneFormerAddress' + (i + 1);
+      addressChooserInput.setAttribute('id', id);
+      addressChooserInput.setAttribute('name', 'oneFormerAddress');
+      addressChooserInput.setAttribute('type', 'radio');
+      addressChooserInput.setAttribute('display', 'block');
+      var oneAddress = jsonData[i].shippingAddress;
+      addressChooserInput.value = oneAddress;
+      var labelElement = document.createElement('label');
+      labelElement.setAttribute('for', id);
+      labelElement.innerHTML = oneAddress;
+      shippingAddressChooserDiv.appendChild(addressChooserInput);
+      shippingAddressChooserDiv.appendChild(labelElement);
+    }
+    document.getElementById('oneFormerAddress1').checked = true;
   }
 }

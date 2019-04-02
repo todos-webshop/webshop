@@ -6,18 +6,22 @@ meter {
 
 }
 
+@font-face {
+  font-family: "webshopFontMedium";
+  src: url("/fonts/Chevin Medium.otf");
+}
 meter::-webkit-meter-bar {
   background: none;
   background-color: rgba(0, 0, 0, 0.1);
 }
 input {
   width: 40%;
-  padding: 6px;
+  padding: 1px;
   border: 1px solid #ccc;
   border-radius: 3px;
   box-sizing: border-box;
-  margin-top: 3px;
-  margin-bottom: 6px;
+  margin-top: 1px;
+  margin-bottom: 2px;
 }
 input[type=submit] {
   background-color: #4CAF50;
@@ -25,17 +29,17 @@ input[type=submit] {
 }
 .container {
   background-color: #f1f1f1;
-  padding: 10px;
 }
 
 #message {
-
+float:right;
   display:none;
   background: #f1f1f1;
   color: #000;
-  position: absolute;
+
   padding: 2px;
   margin-top: 5px;
+  margin-right:5px;
 }
 
 #message p {
@@ -63,4 +67,9 @@ input[type=submit] {
   position: relative;
   left: -35px;
   content: #10006;
+}
+body{ font-family: "webshopFontMedium";}
+
+#left-id{
+float:left;
 }

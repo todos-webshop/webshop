@@ -10,14 +10,16 @@ public class OrderData {
     private String username;
     private LocalDateTime orderTime;
     private OrderStatus orderStatus;
+    private String shippingAddress;
     private long sumOrderPrice;
     private int sumOrderPieces;
 
-    public OrderData(long orderId, String username, LocalDateTime orderTime, OrderStatus orderStatus, long sumOrderPrice, int sumOrderPieces) {
+    public OrderData(long orderId, String username, LocalDateTime orderTime, OrderStatus orderStatus, String shippingAddress, long sumOrderPrice, int sumOrderPieces) {
         this.orderId = orderId;
         this.username = username;
         this.orderTime = orderTime;
         this.orderStatus = orderStatus;
+        this.shippingAddress = shippingAddress;
         this.sumOrderPrice = sumOrderPrice;
         this.sumOrderPieces = sumOrderPieces;
     }
@@ -44,5 +46,9 @@ public class OrderData {
 
     public int getSumOrderPieces() {
         return sumOrderPieces;
+    }
+
+    public String getShippingAddress() {
+        return shippingAddress;
     }
 }

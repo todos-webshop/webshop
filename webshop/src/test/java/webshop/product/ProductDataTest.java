@@ -19,6 +19,6 @@ public class ProductDataTest {
         ProductData productData = new ProductData("FGH",15);
 
         assertThat(productData.getProductCode(), equalTo("FGH"));
-        assertThat(productData.getProductPieces(), equalTo(1));
+        assertThat(productData.getProductPieces(), equalTo(15));
     }
 }

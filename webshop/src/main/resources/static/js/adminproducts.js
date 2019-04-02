@@ -350,3 +350,7 @@ function scrollFunction() {
 function topFunction() {
   document.documentElement.scrollTop = 0;
 }
+
+function selectCategory(){
+    var select = document.querySelector
+}
