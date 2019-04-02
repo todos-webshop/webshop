@@ -3,16 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Categories</title>
-    <link rel="stylesheet" href="css/categories.css">
+    <!-- <link rel="stylesheet" href="css/categories.css"> -->
+    <script src="js/sortable/jquery-1.11.3.js"></script>
+    <script src="js/sortable/jquery-ui.js"></script>
+    <link rel="stylesheet" href="css/jSortable.css">
+    <style>
+        body {
+            font-family: "Trebuchet MS", "Helvetica", "Arial", "Verdana", "sans-serif";
+            font-size: 62.5%;
+        }
+        .handle { 
+            font-size: 40px;
+            cursor:-webkit-grab;
+        }
+        label{
+            font-size: 30px;
+        }
+    </style>
 </head>
 <body>
 
-<ul id="columns"></ul>
-<ul id="sequence"></ul>
+    <ul id="sortable" class="sortable"></ul>
+
 <button onclick="save()">Save</button>
-<button onclick="changeSequence()">Edit sequence</button>
 
 <!-- <script src="js/menu.js"></script> -->
 <script src="js/categories.js"></script>
+<script src="js/sortable/jSortable.js"></script>
 </body>
 </html>

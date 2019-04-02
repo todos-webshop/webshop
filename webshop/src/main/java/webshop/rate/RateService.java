@@ -24,7 +24,6 @@ public class RateService {
     public long addRate(Rate rate, long id){
         rate.setMessage(deleteHTMLelements(rate.getMessage()));
         if (rateDao.getRateForUserAndProduct(rate).size()!=0){
-
            return rateDao.updateRate(rate, id );
               }
         return rateDao.addNewRateAndGetId(rate);

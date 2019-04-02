@@ -56,7 +56,6 @@ public class OrderService {
         for (Order order : orders){
                 order.setOrderItems(orderDao.listOrderItemsByOrderId(order.getId()));
             }
-        System.out.println(orders.size());
         return orders;
     }
 
@@ -97,4 +96,15 @@ public class OrderService {
     public int updateOrderStatus(long orderId, String newOrderStatus) {
         return orderDao.updateOrderStatus(orderId, newOrderStatus);
     }
+
+    public List<Order> getOrderListWithFormerShippingAddressesOnly(String loggedInUsername) {
+        User user = userDao.getUserByUsername(loggedInUsername);
+
+        long userId = user.getId();
+        return orderDao.getOrderListByUserIdWithFormerShippingAddressesOnly(userId);
+    }
+
+//    private boolean isEmpty(String string) {
+//        return string == null || string.trim().isEmpty();
+//    }
 }

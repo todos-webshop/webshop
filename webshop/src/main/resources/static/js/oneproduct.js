@@ -14,6 +14,7 @@ setTimeout(console.log(permission),1000);
 
 function fetchProduct() {
   var address = (new URL(document.location)).searchParams.get("address");
+  document.getElementsByTagName('head')[0].innerHTML += `<title>${address}</title>`
         var url ="api/product/" + address;
         fetch(url)
             .then(function(response) {
@@ -227,7 +228,6 @@ function fetchRates() {
                 console.log(actRates);
                 showRates();
 
-
             });
             return false;
 
@@ -413,7 +413,7 @@ fetchRate();
       return response.json();
     }).then(function (jsonData) {
       if (jsonData.response === 'SUCCESS') {
-      if (!confirm("Are you sure to delete your opinion?")) {
+      if (!confirm("Are you sure to delete your review?")) {
           return;
         }
         document.getElementById('message-div').setAttribute('class', 'alert alert-success');

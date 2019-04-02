@@ -7,6 +7,7 @@ import webshop.Response;
 import webshop.category.Category;
 import webshop.category.CategoryDao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -74,5 +75,11 @@ public class ProductService {
        }
        productDao.logicalDeleteProductById(id);
        return new CustomResponseStatus(Response.SUCCESS, "Deleted!");
+    }
+
+
+
+    public List<Product> lastThreeProducts(){
+        return productDao.lastThreeProducts();
     }
 }

@@ -3,8 +3,10 @@ package webshop.category;
 import org.springframework.stereotype.Service;
 import webshop.CustomResponseStatus;
 import webshop.Response;
+import webshop.product.Product;
 import webshop.product.ProductDao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -89,8 +91,33 @@ public class CategoryService {
         }
     }
 
+
+
     public CustomResponseStatus updateAllCategories(List<Category> categories) {
         categories.forEach(category -> categoryDao.updateCategoryById(category));
         return new CustomResponseStatus(Response.SUCCESS, "done");
+    }
+
+
+
+    public List<Product> listProductsByCategoryName(String categoryName) {
+
+        List<Product> products = categoryDao.listAllProductsByCategoryName(categoryName);
+
+        return products;
+    }
+
+    public Category getCategoryWithProductsByName(String categoryName){
+        List<Category> categoryList = categoryDao.listAllCategories();
+
+        Category foundCategory = new Category();
+
+        for (Category category : categoryList){
+            if (category.getCategoryName().equals(categoryName)){
+                category.setProducts(categoryDao.listAllProductsByCategoryName(categoryName));
+                foundCategory = category;
+            }
+        }
+        return foundCategory;
     }
 }

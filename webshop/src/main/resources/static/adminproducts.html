@@ -14,10 +14,15 @@
     <button id="new-product-btn">
         <img src="/img/add logo.png" alt="">Add new item
     </button>
-    <select id="select-categories">
-        <option>No category</option>
-        <option>Bamboo products</option>
-    </select>
+
+    <div>
+        <form>
+    <input type="radio" id="radio-active" name="status" value="show active" class="radio-status-active"></input>
+            <label class="radio-label-active" for="radio-active">Show active</label>
+        <input type="radio" id="radio-all" name="status" value="show all" class="radio-status-all"></input>
+        <label class="radio-label-all" for="radio-all">Show all</label>
+        </form>
+    </div>
     <br><br><br>
 
     <form class="disabled" id="form-input">
@@ -34,6 +39,9 @@
         <br><br>
         <input type="submit" value="Add" id="add-btn"><br>
     </form>
+
+
+
     <div id ="main_div_adminproducts" class="main_div_adminproducts">
 </div>
 </div>
