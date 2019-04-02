@@ -178,11 +178,11 @@ function deleteFromBasket() {
     });
 }
 
-function orderItems() {
-  if (!confirm('Are you sure you want to continue?')) {
-    return;
-  }
-}
+// function orderItems() {
+//   if (!confirm('Are you sure you want to continue?')) {
+//     return;
+//   }
+// }
 
 
 function editBasketItemQuantity() {
