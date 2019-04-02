@@ -14,7 +14,7 @@ function fetchProducts() {
                 console.log(jsonData);
                 allProducts =jsonData;
                 showDivs(jsonData);
-
+                addFilterButtons(jsonData);
             });}
 
    function showDivs(jsonData) {
@@ -25,6 +25,7 @@ function fetchProducts() {
        divCategoryName.innerHTML = jsonData[i]["categoryName"];
        divCategoryName.setAttribute('class', 'category-name-div');
        divCategoryName.setAttribute('id', jsonData[i]["categoryName"]+' Name');
+       divMain.appendChild(divCategoryName);
 
 
        var divCategory =document.createElement("div");
@@ -70,7 +71,6 @@ function fetchProducts() {
 
 
       }
-       divMain.appendChild(divCategoryName);
       divMain.appendChild(divCategory);
    }
 }
@@ -96,6 +96,7 @@ function topFunction() {
 //@Fanni
 //ez a függvény készíti el a category select-et a gombokkal együtt
 //szerintem a fetchProducts-ba kellene meghívni a függvényt jsonData változóval
+
 function addFilterButtons(jsonData){
 
 var select = document.createElement("select");
@@ -103,15 +104,23 @@ select.setAttribute('id','select-category');
 for (var i = 0; i < jsonData.length; i++) {
 var option = document.createElement('option');
 option.value=jsonData[i]["categoryName"];
-option.innerHtml = jsonData[i]["categoryName"];
+option.innerHTML = jsonData[i]["categoryName"];
 select.appendChild(option);
 }
 
 var selectButton = document.createElement('button');
+selectButton.innerHTML = 'SHOW CATEGORY';
 selectButton.setAttribute('id','select-button');
 
 var selectAllButton = document.createElement('button');
+selectAllButton.innerHTML = 'SHOW ALL';
 selectAllButton.setAttribute('id','select-all-button');
+
+
+var mainDiv = document.getElementById('main_div');
+mainDiv.prepend(select);
+mainDiv.prepend(selectButton);
+mainDiv.prepend(selectAllButton);
 
 //Neked ide kell beírni, mire "akasztjuk fel" a select-category id-jú selectet és a gombokat
 
@@ -121,33 +130,32 @@ document.querySelector('#select-button').addEventListener('click', function () {
 
                     });
 document.querySelector('#select-all-button').addEventListener('click', function () {
-                        showAllCategoryCategory();
+                        showAllCategory();
 
                     });
 }
 
 function showAllCategory(){
 for (var i=0; i < allProducts.length;i++){
-var actCategory =document.getElementById(jsonData[i]["categoryName"]);
-var actCategoryName =document.getElementById(jsonData[i]["categoryName"]+" Name" );
-actCategory.setAttribute('visibility','visible');
-actCategoryName.setAttribute('visibility','visible');
+var actCategory =document.getElementById(allProducts[i]["categoryName"]);
+var actCategoryName =document.getElementById(allProducts[i]["categoryName"]+" Name" );
+actCategory.setAttribute('class','enabled');
+actCategoryName.setAttribute('class','enabled');
 }
-
 }
 
 
 function showCategory(Category){
 
-for (var i=0; i<jsonData.length;i++){
-var actCategory =document.getElementById(jsonData[i]["categoryName"]);
-var actCategoryName =document.getElementById(jsonData[i]["categoryName"]+" Name" );
-if (jsonData[i]["categoryName"]===Category){
-actCategory.setAttribute('visibility','visible');
-actCategoryName.setAttribute('visibility','visible');
+for (var i=0; i<allProducts.length;i++){
+var actCategory =document.getElementById(allProducts[i]["categoryName"]);
+var actCategoryName =document.getElementById(allProducts[i]["categoryName"]+" Name" );
+if (allProducts[i]["categoryName"]===Category){
+actCategory.setAttribute('class','enabled');
+actCategoryName.setAttribute('class','enabled');
 } else {
-actCategory.setAttribute('visibility','hidden');
-actCategoryName.setAttribute('visibility','hidden');
+actCategory.setAttribute('class','disabled');
+actCategoryName.setAttribute('class','disabled');
 
 }
 }

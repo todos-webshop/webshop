@@ -412,7 +412,7 @@ fetchRate();
       return response.json();
     }).then(function (jsonData) {
       if (jsonData.response === 'SUCCESS') {
-      if (!confirm("Are you sure to delete your opinion?")) {
+      if (!confirm("Are you sure to delete your review?")) {
           return;
         }
         document.getElementById('message-div').setAttribute('class', 'alert alert-success');
