@@ -56,7 +56,6 @@ public class RateController {
     @PostMapping("/api/rating/userrating/{id}")
     @ResponseBody
     public CustomResponseStatus addRate(Authentication authentication, @PathVariable long id, @RequestBody Rate rate) {
-        System.out.println(authentication == null);
         if (authentication != null) {
             String loggedInUsername = authentication.getName();
             User loggedInUser = userService.getUserByUsername(loggedInUsername);
