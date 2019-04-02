@@ -178,12 +178,6 @@ function deleteFromBasket() {
     });
 }
 
-// function orderItems() {
-//   if (!confirm('Are you sure you want to continue?')) {
-//     return;
-//   }
-// }
-
 
 function editBasketItemQuantity() {
   if (document.querySelectorAll('.save-enabled').length < 1) {
@@ -203,7 +197,6 @@ function editBasketItemQuantity() {
   `;
   }
 }
-
 
 
 function saveUpdatedItemQuantity() {
@@ -285,7 +278,7 @@ function showFormerShippingAddressList(jsonData) {
     chooseHeaderDiv.setAttribute('class', 'choose-header');
     chooseHeaderDiv.innerText = 'Choose shipping address';
     shippingAddressChooserDiv.appendChild(chooseHeaderDiv);
-    var shippingAddressChoserForm = document.querySelector('#shippingAddressChoserForm');
+    // var shippingAddressChoserForm = document.querySelector('#shippingAddressChoserForm');
 
     for (var i = 0; i < jsonData.length; i++) {
       // console.log(jsonData[i]);
@@ -294,15 +287,80 @@ function showFormerShippingAddressList(jsonData) {
       addressChooserInput.setAttribute('id', id);
       addressChooserInput.setAttribute('name', 'oneFormerAddress');
       addressChooserInput.setAttribute('type', 'radio');
-      addressChooserInput.setAttribute('display', 'block');
       var oneAddress = jsonData[i].shippingAddress;
       addressChooserInput.value = oneAddress;
       var labelElement = document.createElement('label');
       labelElement.setAttribute('for', id);
       labelElement.innerHTML = oneAddress;
-      shippingAddressChooserDiv.appendChild(addressChooserInput);
-      shippingAddressChooserDiv.appendChild(labelElement);
+      var oneInputDiv = document.createElement('div');
+      oneInputDiv.setAttribute('class', 'address-chooser');
+      oneInputDiv.appendChild(addressChooserInput);
+      oneInputDiv.appendChild(labelElement);
+      shippingAddressChooserDiv.appendChild(oneInputDiv);
     }
     document.getElementById('oneFormerAddress1').checked = true;
   }
+}
+
+
+function orderItems() {
+  if (!confirm('Are you sure you want to place your order?')) {
+    return;
+  }
+
+  var shippingAddressField = document.querySelector('#shipping-address');
+  var shippingAddressChooserDiv = document.querySelector('#choose-address-div');
+
+  var shippingAddress;
+  var url;
+  if (shippingAddressField.getAttribute('class') === 'enabled') {
+    shippingAddress = shippingAddressField.value;
+    url = '/myorders';
+  } else if (shippingAddressChooserDiv.getAttribute('class') === 'enabled') {
+    var chosenAddress = document.forms.shippingAddressChoserForm.elements.oneFormerAddress.value;
+    shippingAddress = chosenAddress;
+    url = '/myorders/storedaddresses';
+  }
+
+  var request = {
+    'shippingAddress': shippingAddress
+  };
+
+  fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(request),
+    headers: {
+      'Content-type': 'application/json'
+    }
+  })
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (jsonData) {
+      if (jsonData.response === 'SUCCESS') {
+        document.getElementById('shipping-address').value = '';
+        document.getElementById('shipping-address').setAttribute('class', 'disabled');
+        fetchBasket();
+        document.getElementById('message-div').innerHTML = jsonData.message;
+        document.getElementById('message-div').setAttribute('class', 'alert alert-success');
+      } else {
+        document.getElementById('message-div').innerHTML = jsonData.message;
+        document.getElementById('message-div').setAttribute('class', 'alert alert-danger');
+        if (jsonData.message === 'Shipping address already stored. Please chose from the list below.') {
+          showShippingAddressInputField();
+        }
+      }
+    });
+}
+
+
+function fetchBasket() {
+  var url = '/basket';
+  fetch(url)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (jsonData) {
+      showBasket(jsonData);
+    });
 }

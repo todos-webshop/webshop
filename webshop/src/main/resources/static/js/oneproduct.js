@@ -4,7 +4,7 @@ var actAvg;
 var actRates;
 
 fetchProduct();
-fetchRates();
+// fetchRates();
 
 //setTimeout(fetchRate, 1000);
 //setTimeout(fetchRates, 1000);
@@ -222,19 +222,19 @@ function fetchAvg() {
 
 }
 
-function fetchRates() {
-  var url = "/api/rating/list/" + actProduct["products"][0]["id"];
-  fetch(url)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (jsonData) {
-      actRates = jsonData;
-      showRates();
-    });
-  return false;
+// function fetchRates() {
+//   var url = "/api/rating/list/" + actProduct["products"][0]["id"];
+//   fetch(url)
+//     .then(function (response) {
+//       return response.json();
+//     })
+//     .then(function (jsonData) {
+//       actRates = jsonData;
+//       showRates();
+//     });
+//   return false;
 
-}
+// }
 
 
 function addToBasket(jsonData) {
