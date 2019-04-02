@@ -19,19 +19,23 @@
             <div>
                 <button id="clear-basket">Clear basket</button>
             </div>
-            
+
             <br>
             <div id="basket-div"></div>
             <br>
-            
+
             <br>
             <div>
-                <button id="order-items" onclick="orderItems()">Order items</button>
-                <button id="add-shipping-address" onclick="showShippingAddressInputField()">Add shipping address</button>
+                <button id="add-shipping-address" onclick="showShippingAddressInputField()">Add address</button>
             </div>
-            <textarea id="shipping-address" class="disabled"></textarea>
-            
+            <form id="shippingAddressChoserForm" onsubmit="orderItems()">
+                <div>
+                    <button id="order-items" type="submit">Order items</button>
+                </div>
 
+                <textarea id="shipping-address" class="disabled"></textarea>
+                <div id="choose-address-div" class="enabled"></div>
+            </form>
         </div>
     </div>
     <script src="js/menu.js"></script>

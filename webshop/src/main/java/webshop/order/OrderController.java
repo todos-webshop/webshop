@@ -10,6 +10,7 @@ import webshop.user.UserData;
 import webshop.user.UserRole;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -108,6 +109,19 @@ public class OrderController {
                     orderId));
         }
         return new CustomResponseStatus(Response.FAILED, "An error occured during order status update.");
+    }
+
+    @GetMapping(value = "/orders/shippingaddresses")
+    @ResponseBody
+    public List<Order> getFormerShippingAddressesForActualUser(Authentication authentication) {
+
+        if (authentication != null) {
+            String loggedInUsername = authentication.getName();
+
+            return orderService.getOrderListWithFormerShippingAddressesOnly(loggedInUsername);
+        } else {
+            return new ArrayList<>();
+        }
     }
 
 }

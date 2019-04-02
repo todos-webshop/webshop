@@ -13,6 +13,7 @@ import webshop.user.User;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +26,7 @@ public class OrderDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public long insertIntoOrdersFromBasketsByUserId(long userId,String shippingAddress) {
+    public long insertIntoOrdersFromBasketsByUserId(long userId, String shippingAddress) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(new PreparedStatementCreator() {
@@ -65,10 +66,17 @@ public class OrderDao {
         long userId = resultSet.getLong("user_id");
         LocalDateTime orderTime = resultSet.getTimestamp("order_time").toLocalDateTime();
         OrderStatus orderStatus = OrderStatus.valueOf(resultSet.getString("status"));
-        long totalOrderPrice =  resultSet.getLong("total_price");
+        long totalOrderPrice = resultSet.getLong("total_price");
         String shippingAddress = resultSet.getString("shipping_address");
 
         return new Order(orderId, userId, orderTime, orderStatus, totalOrderPrice, shippingAddress);
+    };
+
+    private static final RowMapper<Order> ORDER_ROW_MAPPER_WITH_SHIPPING_ADDRESS_ONLY = (resultSet, i) -> {
+
+        String shippingAddress = resultSet.getString("shipping_address");
+
+        return new Order(0, 0, null, null, 0, shippingAddress);
     };
 
     private static final RowMapper<OrderItem> ORDER_ITEM_ROW_MAPPER = (resultSet, i) -> {
@@ -146,5 +154,13 @@ public class OrderDao {
     public int updateOrderStatus(long orderId, String newOrderStatus) {
         return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).update("UPDATE orders SET status = (:new_status) " +
                 "where id = (:order_id);", Map.of("order_id", orderId, "new_status", newOrderStatus));
+    }
+
+    public List<Order> getOrderListByUserIdWithFormerShippingAddressesOnly(long userId) {
+        return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).query(
+                "SELECT DISTINCT TRIM(shipping_address) shipping_address FROM orders where user_id = (:user_id) AND shipping_address IS NOT " +
+                        "NULL AND shipping_address <>'' ORDER BY shipping_address", Map.of("user_id",
+                        userId),
+                ORDER_ROW_MAPPER_WITH_SHIPPING_ADDRESS_ONLY);
     }
 }
