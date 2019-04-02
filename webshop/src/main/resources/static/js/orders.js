@@ -112,14 +112,19 @@ function showDivs(jsonData) {
         pSecond.innerText = jsonData[i].orderTime.split("T")[0] + " " + jsonData[i].orderTime.split("T")[1];
         tdMain.appendChild(pSecond);
 
-        var pThird = document.createElement('p');
-        pThird.setAttribute('class', 'orders-list-amount');
-        pThird.innerText = jsonData[i].totalOrderPrice + " Ft";
-        tdMain.appendChild(pThird);
+      var pThird = document.createElement('p');
+      pThird.setAttribute('class', 'orders-list-address');
+      pThird.innerText =  jsonData[i].shippingAddress;
+      tdMain.appendChild(pThird);
 
-        var tdButton = document.createElement('td');
-        tdButton.setAttribute('class', 'orders-list-actions');
-        trMain.appendChild(tdButton);
+      var pFourth = document.createElement('p');
+      pFourth.setAttribute('class', 'orders-list-amount');
+      pFourth.innerText =  jsonData[i].totalOrderPrice + " Ft";
+      tdMain.appendChild(pFourth);
+
+      var tdButton = document.createElement('td');
+      tdButton.setAttribute('class', 'orders-list-actions');
+      trMain.appendChild(tdButton);
 
         var button = document.createElement('button');
         button.setAttribute('id', jsonData[i].id)

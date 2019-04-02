@@ -53,10 +53,9 @@ public class OrderService {
 
         List<Order> orders = orderDao.listAllOrders();
 
-        for (Order order : orders) {
-            order.setOrderItems(orderDao.listOrderItemsByOrderId(order.getId()));
-        }
-        System.out.println(orders.size());
+        for (Order order : orders){
+                order.setOrderItems(orderDao.listOrderItemsByOrderId(order.getId()));
+            }
         return orders;
     }
 

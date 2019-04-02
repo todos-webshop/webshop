@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import webshop.CustomResponseStatus;
 import webshop.Response;
+import webshop.category.CategoryService;
 import webshop.validator.ProductValidator;
 
 import java.util.ArrayList;
@@ -52,6 +53,7 @@ public class ProductController {
     }
     @PostMapping("/api/products")
     public CustomResponseStatus addNewProduct(@RequestBody Category category) {
+        productValidator.isAddressNull(category.getProducts().get(0));
         try {
             CustomResponseStatus responseStatus = productValidator.validateProduct(category.getProducts().get(0));
             if (responseStatus.getResponse().equals(Response.SUCCESS)) {

@@ -1,10 +1,38 @@
 .container-login {
-  font-family: 'Roboto';
-  top: 40%;
-  left: 40%;
+  font-family: 'Helvetica-Medium';
+  top: 33%;
+  left: 30%;
   position: absolute;
 }
 
-.login-button{
-  
-}
+.login-button {
+   border: solid 1px black;
+   height: 40px;
+   width: 120px;
+   margin-left: 100px;
+ }
+
+ .login-button:hover {
+   background-color: rgb(63, 87, 68);
+   color: white;
+   border: none;
+ }
+
+ #error-div{
+    width: 100%;
+    padding-top: 15px;
+    max-height: 50px;
+ }
+
+ h3, form {
+    text-align: center;
+ }
+
+ h3>a{
+    color: darkgreen;
+ }
+
+  h3>a:hover{
+     text-decoration: underline;
+     color: darkgreen;
+  }

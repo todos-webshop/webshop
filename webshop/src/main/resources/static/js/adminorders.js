@@ -12,6 +12,7 @@ function fetchAllOrders() {
     })
     .then(function (jsonData) {
       showTable(jsonData);
+      console.log(jsonData)
     });
 }
 
@@ -46,6 +47,10 @@ function showTable(jsonData) {
     var sumOrderPiecesTd = document.createElement('td');
     sumOrderPiecesTd.innerHTML = jsonData[i].sumOrderPieces;
     tr.appendChild(sumOrderPiecesTd);
+
+    var shippingAddress = document.createElement('td');
+    shippingAddress.innerHTML = jsonData[i].shippingAddress;
+    tr.appendChild(shippingAddress);
 
     var deleteButtonTd = document.createElement('td');
     var deleteButton = document.createElement('button');
