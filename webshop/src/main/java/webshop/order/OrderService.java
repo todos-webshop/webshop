@@ -53,7 +53,7 @@ public class OrderService {
 
         long userId = user.getId();
 
-        List<Order> orders = orderDao.listAllOrders();
+        List<Order> orders = orderDao.listOrdersByUserId(userId);
 
         for (Order order : orders) {
             order.setOrderItems(orderDao.listOrderItemsByOrderId(order.getId()));
