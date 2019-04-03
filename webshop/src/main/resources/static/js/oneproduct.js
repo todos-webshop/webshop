@@ -4,7 +4,7 @@ var actAvg;
 var actRates;
 
 fetchProduct();
-fetchRates();
+// fetchRates();
 
 //setTimeout(fetchRate, 1000);
 //setTimeout(fetchRates, 1000);
@@ -158,6 +158,7 @@ function showTable(jsonData) {
     });
   }
 
+
 function sendRate(jsonData) {
   var numOfStars = 0;
   var stars = document.getElementById('formId').getElementsByTagName('input');
@@ -213,19 +214,19 @@ function fetchAvg() {
 
 }
 
-function fetchRates() {
-  var url = "/api/rating/list/" + actProduct["products"][0]["id"];
-  fetch(url)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (jsonData) {
-      actRates = jsonData;
-      showRates();
-    });
-  return false;
+// function fetchRates() {
+//   var url = "/api/rating/list/" + actProduct["products"][0]["id"];
+//   fetch(url)
+//     .then(function (response) {
+//       return response.json();
+//     })
+//     .then(function (jsonData) {
+//       actRates = jsonData;
+//       showRates();
+//     });
+//   return false;
 
-}
+// }
 
 
 function addToBasket(jsonData) {
