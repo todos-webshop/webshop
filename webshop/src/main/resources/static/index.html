@@ -26,7 +26,7 @@
 <div class="our-collection clearer"> ––––––––––––––––––––––––––– <span class="collection-span">Our collection</span>
     –––––––––––––––––––––––––––</div>
 <button onclick="location.href='#main_div'" class="shop-now">SHOP NOW</button>
-<img src="/img/acai.jpg" class="index-img">
+<img src="/img/acai4.jpg" class="index-img">
 
 <div id ="main_div">
     <div class="all-products-div clearer"></div>
@@ -38,8 +38,27 @@
 <!--<script src="js/app.js"></script>-->
 <script src="js/menu.js"></script>
 <script src="js/products.js"></script>
-<script src="/js/footer.js"></script>
+<!--<script src="/js/footer.js"></script>-->
 
+<script src="/js/footer.js"></script>
+<script>
+    var id;
+    window.addEventListener("load",function(){
+        var url = window.location.href;
+        var arr = url.split("#");
+        if(arr.length > 1){
+            id = arr[1].replace("%20"," ");
+            id = id +" Name";
+            setTimeout(scroll,1000);
+        }
+    });
+    function scroll(){
+        console.log(id);
+        document.getElementById(id).scrollIntoView({behavior: "smooth", block: "center", inline: "center"});
+        //window.scrollTo(id);
+        //window.scrollTo(0,document.getElementById(id).offsetTop)
+    }
+</script>
 </body>
 
 </html>

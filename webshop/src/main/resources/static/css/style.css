@@ -203,7 +203,7 @@
 }
 
 .form-input {
-  font-family: "Montserrat-Regular";
+  font-family: 'Helvetica-Light';
   width: 150px;
   float: left;
   margin-left: 30px;
@@ -288,9 +288,14 @@ footer img {
   top: 1330px;
 }
 
-#main_div_users{
-    position: absolute;
-    top: 20px;
+#main_div_one_order{
+  position: relative;
+  top: 10px;
+}
+
+#main_div_users {
+  position: absolute;
+  top: 20px;
 }
 
 .button {
@@ -376,6 +381,7 @@ body {
   margin-left: 290px;
   margin-bottom: 100px;
   max-width: 900px;
+  min-height: 350px;
 }
 
 .orders-tbody {
@@ -597,8 +603,10 @@ html {
 }
 
 .myorders-div {
-  text-align: right;
+  text-align: center;
   font-family: "Helvetica-Light";
+  line-height: 20px;
+  font-size: 14px;
 }
 
 .product-number {
@@ -609,6 +617,7 @@ html {
 .name-product {
   font-family: "Helvetica-Bold";
   font-size: 15px;
+  text-align: center;
 }
 
 #avg_product {
@@ -680,7 +689,8 @@ html {
   height: 40px;
 }
 
-.order-delete-button, .category-delete {
+.order-delete-button,
+.category-delete {
   margin-top: 10px;
   width: 30px;
 }
@@ -818,7 +828,7 @@ html {
   width: 100%;
   height: 250px;
   position: absolute;
-  top: 1600px;
+  top: 1570px;
   text-align: center;
   background-color: white;
   font-family: "Cinzel", serif;
@@ -856,36 +866,80 @@ html {
 
 .select-all-button,
 .select-button,
-.select-category{
+.select-category {
   margin-top: 20px;
   background-color: white;
   position: relative;
-  width: 150px;
+  width: 200px;
   font-family: "Helvetica-Medium";
   text-align: center !important;
   height: 40px;
-  margin-left: 245px;
+  margin-left: 345px;
   border: solid 1px black;
   border-radius: none;
+  margin-bottom: 40px;
 }
 
 
-.select-all-button:hover, .select-button:hover, .select-category:hover  {
+.select-all-button:hover,
+.select-button:hover,
+.select-category:hover {
   background-color: rgb(185, 185, 185);
   color: white;
   border: none;
 }
 
-.index-img{
-    position: absolute;
-    top: 1700px;
-    z-index: -1;
-    width: 100%;
+.index-img {
+  position: absolute;
+  top: 1700px;
+  z-index: -1;
+  width: 100%;
 }
 
-.myorder-back{
-    left: 285px;
-    top: 140px;
-    width: 30px;
-    position: absolute;
+.myorder-back {
+  left: 285px;
+  top: 140px;
+  width: 30px;
+  position: absolute;
+}
+
+#recommends {
+  position: absolute;
+  top: -1025px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.recommend-product-div {
+  float: left;
+  width: 26%;
+  margin-left: 80px;
+  height: 410px;
+  background-color: rgb(227, 227, 227);
+}
+
+.products_img_reco:hover {
+  opacity: 1;
+}
+
+.name-div-reco {
+  text-align: center;
+  font-size: 17px;
+  margin-top: 15px;
+  font-family: 'Montserrat-Regular';
+}
+
+.products_img_reco {
+  height: 354px;
+  width: 359px;
+  margin-left: 8px;
+  margin-top: 9px;
+  opacity: 0.5;
+  z-index: 99;
+}
+
+.recommend-product-div:hover {
+  background-color: rgb(172, 196, 177);
+  color: white;
+  opacity: 1;
 }

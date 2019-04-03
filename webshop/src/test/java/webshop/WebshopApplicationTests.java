@@ -137,83 +137,6 @@
 //    }
 //
 //    @Test
-//    public void testCreateUser() {
-//        User user1 = new User(123, "Test", "Woman", "testwoman", "passTest", 1, UserRole.ROLE_ADMIN);
-//        User user2 = new User(123, "Test", "Man", "testman", "passTest", 1, UserRole.ROLE_ADMIN);
-//        userController.createUser(user1);
-//        userController.createUser(user2);
-//        List<User> users = userController.listAllUsers();
-//
-//        assertEquals(2, users.size());
-//        assertEquals(UserRole.ROLE_ADMIN, users.get(1).getUserRole());
-//    }
-//
-//    @Test
-//    public void testCreateUserCheckAttributes() {
-//        User user1 = new User(45, "Angéla", "Tömlőssy", "edvin23", "diSzno!%sajt", 2, UserRole.ROLE_USER);
-//        User user2 = new User(1000, "John", "Connor", "skynet", "illbeback", 6, null);
-//        User user3 = new User(0, "Elemér", "Mák", "margitbacsi", "máknéni", 1, UserRole.ROLE_ADMIN);
-//
-//        CustomResponseStatus responseStatus1 = userController.createUser(user1);
-//        CustomResponseStatus responseStatus2 = userController.createUser(user2);
-//        long user3Id = userService.createUserAndReturnUserId(user3);
-//        List<User> users = userController.listAllUsers();
-//
-//        assertEquals("Success", responseStatus1.getResponse().getDescription());
-//        assertEquals("User skynet successfully created.", responseStatus2.getMessage());
-//        assertEquals(3, users.size());
-//        assertEquals("John", users.get(2).getFirstName());
-//        assertEquals(6, users.get(2).getEnabled());
-//        assertEquals(UserRole.ROLE_USER, users.get(2).getUserRole());
-//
-//        assertEquals("Mák", users.get(1).getLastName());
-//        assertEquals("margitbacsi", users.get(1).getUsername());
-//        assertEquals(UserRole.ROLE_ADMIN, users.get(1).getUserRole());
-//        assertEquals(user3Id, users.get(1).getId());
-//    }
-//
-//    @Test
-//    public void testCreateUserWithExistingUsername() {
-//        User user1 = new User(45, "Angéla", "Tömlőssy", "edvin23", "diSzno!%sajt", 2, UserRole.ROLE_USER);
-//        User user2 = new User(1000, "John", "Connor", "edvin23", "illbeback", 6, UserRole.ROLE_ADMIN);
-//
-//        CustomResponseStatus responseStatus1 = userController.createUser(user1);
-//        CustomResponseStatus responseStatus2 = userController.createUser(user2);
-//        List<User> users = userController.listAllUsers();
-//
-//        assertEquals("Success", responseStatus1.getResponse().getDescription());
-//        assertEquals("User edvin23 successfully created.", responseStatus1.getMessage());
-//
-//        assertEquals("Failed", responseStatus2.getResponse().getDescription());
-//        assertEquals("User already exists. New user can not be created for edvin23.", responseStatus2.getMessage());
-//
-//        assertEquals(1, users.size());
-//    }
-//
-//    @Test
-//    public void testCreateUserWithEmptyFields() {
-//        User user1 = new User(1000, "       ", "Connor", "skynet", "illbeback", 6, UserRole.ROLE_ADMIN);
-//        User user2 = new User(1000, "John", null, "skynet", "illbeback", 6, UserRole.ROLE_ADMIN);
-//        User user3 = new User(1000, "John", "Connor", " \n \t", "illbeback", 6, UserRole.ROLE_ADMIN);
-//
-//        CustomResponseStatus responseStatus1 = userController.createUser(user1);
-//        CustomResponseStatus responseStatus2 = userController.createUser(user2);
-//        CustomResponseStatus responseStatus3 = userController.createUser(user3);
-//        List<User> users = userController.listAllUsers();
-//
-//        assertEquals("Failed", responseStatus1.getResponse().getDescription());
-//        assertEquals("Error! All fields are required.", responseStatus1.getMessage());
-//
-//        assertEquals("Failed", responseStatus2.getResponse().getDescription());
-//        assertEquals("Error! All fields are required.", responseStatus2.getMessage());
-//
-//        assertEquals("Failed", responseStatus3.getResponse().getDescription());
-//        assertEquals("Error! All fields are required.", responseStatus3.getMessage());
-//
-//        assertEquals(0, users.size());
-//    }
-//
-//    @Test
 //    public void basketTest() {
 //        User user1 = new User(45, "Angéla", "Tömlőssy", "edvin23", "diSzno!%sajt", 2, UserRole.ROLE_USER);
 //        userController.createUser(user1);
@@ -243,7 +166,8 @@
 //        assertEquals(0, userBasketData.getSumPrice());
 //        assertEquals(0, userBasketData.getBasket().getBasketItems().size());
 //    }
-////    @Test
+//
+//    //    @Test
 ////    //@WithMockUser(username="admin",roles="ADMIN")
 ////    public void testAddProductToLoggedInBasket() {
 ////
@@ -256,9 +180,9 @@
 ////        BasketData basketData = basketController.getBasketDataForActualUser();
 ////        assertEquals(1,basketData.getBasket().getBasketItems().size());
 ////    }
-//  @Test
-//public void testStatistics(){
-//      //select count(*) order_time   FROM `orders` group by YEAR(order_time) ,  month(order_time)
+//    @Test
+//    public void testStatistics() {
+//        //select count(*) order_time   FROM `orders` group by YEAR(order_time) ,  month(order_time)
 //
 //    }
 //}
