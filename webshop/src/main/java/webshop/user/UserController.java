@@ -26,7 +26,7 @@ public class UserController {
 
     @PostMapping("/users")
     public CustomResponseStatus createUser(@RequestBody User user) {
-        if (validator.userCanBeUpdated(user)) {
+        if (!validator.userCanBeUpdated(user)) {
             return new CustomResponseStatus(Response.FAILED, "Error! All fields are required.");
         }
 

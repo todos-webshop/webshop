@@ -32,24 +32,6 @@ public class UserDaoIntegrationTest {
     @Autowired
     private ProductDao productDao;
 
-//    @Before
-//    public void init(){
-//        MysqlDataSource dataSource = new MysqlDataSource();
-//
-//        dataSource.setURL("jdbc:mysql://localhost:3306/todos_webshoptest?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
-//        dataSource.setUser("root");
-//        dataSource.setPassword("");
-//
-//        basketDao = new BasketDao(dataSource);
-//        userDao = new UserDao(dataSource);
-//        productDao = new ProductDao(dataSource);
-//        basketDao.deleteAllBusketItems();
-//        basketDao.deleteAll();
-//        productDao.deleteAll();
-//        userDao.deleteAll();
-//
-//    }
-
     @Test
     public void testCreateAndList()throws DuplicateKeyException {
         //Given

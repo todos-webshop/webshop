@@ -15,42 +15,45 @@ import javax.validation.Valid;
 public class UserValidator implements Validator {
 
     private UserService userService;
-//    @Autowired
+
+    //    @Autowired
     public UserValidator(UserService userService) {
         this.userService = userService;
     }
 
 
-
     public boolean userCanBeUpdated(User user) {
-        return nameIsNotEmptyOrNull(user.getFirstName()) || passwordIsNotEmptyOrNull(user.getPassword())
-                || isUsernameValid(user) || nameIsNotEmptyOrNull(user.getLastName()) ||passwordIsValid(user.getPassword()) ;
+        return !isEmpty(user.getFirstName()) && !isEmpty(user.getPassword()) && !isEmpty(user.getLastName()) && isUsernameValid(user) && passwordIsValid(user.getPassword());
     }
 
-    private boolean nameIsNotEmptyOrNull(String name) {
-        return name != null && !name.trim().equals("");
+//    private boolean nameIsNotEmptyOrNull(String name) {
+//        return name != null && !name.trim().equals("");
+//    }
+//
+//    private boolean passwordIsNotEmptyOrNull(String pass) {
+//        return pass != null && !pass.trim().equals("");
+//    }
+
+//    private boolean userIsNotRegisteredWithThisNameYet(String newUsername) {
+//        System.out.println(userService == null);
+//        for (User user : userService.listAllUsers()) {
+//            if (newUsername.equals(user.getUsername())) {
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
+
+    private boolean isUsernameValid(User user) {
+        return !isEmpty(user.getUsername()) && !user.getUsername().toUpperCase().contains("DELETED_USER");
     }
 
-    private boolean passwordIsNotEmptyOrNull(String pass) {
-        return pass != null && !pass.trim().equals("");
-    }
+    //     regex needs fix
+    //    private boolean passwordIsValid(String pass) {
+//        return pass == null && pass.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,50}$");
+//    }
 
-    private boolean userIsNotRegisteredWithThisNameYet(String newUsername) {
-        System.out.println(userService == null);
-        for (User user : userService.listAllUsers()) {
-            if (newUsername.equals(user.getUsername())) {
-                return false;
-            }
-        }
-        return true;
-    }
-private boolean isUsernameValid(User user){
-        if (user.getUsername().toUpperCase().contains("DELETED_USER")){
-            return false;
-        }return true;
-}
     private boolean passwordIsValid(String pass) {
-        return pass == null || pass.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,50}$");
+        return !isEmpty(pass);
     }
-
 }
