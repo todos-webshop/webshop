@@ -70,7 +70,7 @@ public class BasketController {
         }
     }
 @DeleteMapping("/basketitem/{productId}")
-    public CustomResponseStatus deleteOneProductFromBusket(Authentication authentication,@PathVariable long productId
+    public CustomResponseStatus deleteOneProductFromBasket(Authentication authentication,@PathVariable long productId
                                                            ){
     if (authentication != null) {
         String loggedInUsername = authentication.getName();
