@@ -118,9 +118,9 @@ public class OrderIntegrationTest {
     public void testListOrders() {
         List<Order> orders = orderController.listOrdersByUserId(authenticationUser);
         assertEquals(3, orders.size());
-        assertEquals(orders.get(0).getId(), 1);
+        assertEquals(orders.get(0).getId(), 2);
         assertEquals(orders.get(2).getUserId(), 2);
-        assertEquals(orders.get(1).getOrderItems().size(), 2);
+        assertEquals(orders.get(1).getOrderItems().size(), 3);
     }
 
     @Test
@@ -129,11 +129,13 @@ public class OrderIntegrationTest {
         orderController.getOrderDataForActualUser(authenticationUser, orderWithShippingAddressOnly);
         List<Order> orders = orderController.listOrdersByUserId(authenticationUser);
         assertEquals(4, orders.size());
-        assertEquals(orders.get(3).getUserId(), 2);
-        assertEquals(orders.get(3).getOrderItems().size(), 3);
-        assertEquals(orders.get(3).getTotalOrderPrice(), 68250);
-        assertEquals(orders.get(3).getShippingAddress(), "2119 Pécel Diófa utca 23.");
-        assertEquals(orders.get(3).getOrderItems().get(2).getPieces(), 10);
+        assertEquals(orders.get(0).getUserId(), 2);
+        assertEquals(orders.get(0).getOrderItems().size(), 3);
+        assertEquals(orders.get(0).getTotalOrderPrice(), 68250);
+        assertEquals(orders.get(0).getShippingAddress(), "2119 Pécel Diófa utca 23.");
+        assertEquals(orders.get(0).getOrderItems().get(2).getPieces(), 10);
+        assertEquals(orders.get(1).getOrderStatus().name(), "DELETED");
+        assertEquals(orders.get(1).getOrderTime().getDayOfMonth(), 29);
     }
 
 
@@ -180,11 +182,26 @@ public class OrderIntegrationTest {
     public void testDeleteItemFromOrderByProductAddress(){
     orderController.deleteItemFromOrderByProductAddress(2, "bamboo_toothbrush");
     List<Order> orders = orderController.listOrdersByUserId(authenticationUser);
-        assertEquals(orders.get(1).getId(), 2);
-        assertEquals(orders.get(1).getOrderItems().size(), 1);
-        assertEquals(orders.get(1).getOrderItems().get(0).getPieces(), 30);
-        assertEquals(orders.get(1).getOrderItems().get(0).getProduct().getCode(), "CB4");
+        assertEquals(orders.get(0).getId(), 2);
+        assertEquals(orders.get(0).getOrderItems().size(), 1);
+        assertEquals(orders.get(0).getOrderItems().get(0).getPieces(), 30);
+        assertEquals(orders.get(0).getOrderItems().get(0).getProduct().getCode(), "CB4");
     }
 
+    @Test
+    public void testListOrderItemsByOrderId(){
+        List<OrderItem> orderItems = orderController.listOrderItemsByOrderId(1);
+        assertEquals(orderItems.size(), 3);
+        assertEquals(orderItems.get(1).getProduct().getAddress(), "natural_coconut_bowl_set");
+        assertEquals(orderItems.get(0).getPieces(), 1);
+        assertEquals(orderItems.get(2).getPieces(), 3);
+    }
+
+    @Test
+    public void testGetFormerShippingAddressesForActualUser(){
+        List<Order> ordersWithAddressOnly = orderController.getFormerShippingAddressesForActualUser(authenticationUser);
+        assertEquals(ordersWithAddressOnly.size(), 3);
+        assertEquals(ordersWithAddressOnly.get(0).getShippingAddress(), "1111 BP. Csiga sor 3");
+    }
 
 }
