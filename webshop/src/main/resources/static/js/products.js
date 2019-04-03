@@ -112,27 +112,11 @@ function showDivs(jsonData) {
     clearerDiv.setAttribute('class', 'clearer');
     divCategory.appendChild(clearerDiv);
   }
-       var priceDiv = document.createElement("div");
-       priceDiv.innerHTML = jsonData[i].products[j].price+ " Ft";
-       priceDiv.setAttribute("onclick", `window.location.href="product.html?address=${jsonData[i].products[j].address}"`);
-       divRow.appendChild(priceDiv);
-            }
-       }
-       var clearerDiv = document.createElement('div');
-       clearerDiv.setAttribute('class', 'clearer');
-       allProductsDiv.appendChild(clearerDiv);
-    }
+
        var clearerDiv = document.createElement('div');
        clearerDiv.setAttribute('class', 'clearer');
        mainDiv.appendChild(clearerDiv);
 
-       var clearerDiv = document.createElement('div');
-       clearerDiv.setAttribute('class', 'clearer');
-       divCategory.appendChild(clearerDiv);
-
-       var clearerDiv = document.createElement('div');
-       clearerDiv.setAttribute('class', 'clearer');
-       document.querySelector('body').insertBefore(clearerDiv, document.querySelector('footer'));
 }
 
 
