@@ -30,12 +30,12 @@ function showStatistics(jsonData) {
       datasets: [{
         data: [numberOfAllProducts, numberOfActiveProducts, numberOfAllProducts - numberOfActiveProducts],
         backgroundColor: [
-          'rgba(194, 225, 132,1)',
-          '	rgba(	212, 183, 145,1)', '		rgba(169, 179, 188,1)'
+       'rgba(194,225, 132,1)',
+          'rgba(212,183, 145,1)','rgba(169,179, 188,1)'
         ],
         borderColor: [
           '',
-          '', ''
+          '',''
         ],
         borderWidth: 0.6
 
@@ -60,12 +60,12 @@ function showStatistics(jsonData) {
       datasets: [{
         data: [numberOfAllOrders, numberOfActiveOrders, numberOfAllOrders - numberOfActiveOrders],
         backgroundColor: [
-          '	rgba(194, 225, 132,1)',
-          'rgba(	212, 183, 145,1)', 'rgba(169, 179, 188,1)'
+          'rgba(194, 225, 132,1)',
+          'rgba(212, 183, 145,1)','rgba(169,179,188,1)'
         ],
         borderColor: [
           '',
-          '', ''
+          '',''
 
         ],
         borderWidth: 0.6
