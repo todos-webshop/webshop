@@ -1,6 +1,24 @@
+#users-background{
+  background: url("/img/plant4.jpeg") center center scroll;
+  background-repeat: repeat;
+  background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  -webkit-background-size: cover;
+  opacity: 0.3;
+  width: 100%;
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+}
+
+
+
 .stat-table {
-  top: 300px;
+  top: 200px;
   position: relative;
+
 
 }
 
@@ -21,19 +39,27 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-
+body{
+width:100%;
+height:100%;}
 table {
+table-layout:fixed;
+margin: auto;
+position:relative;
   border-collapse: separate;
   background: #fff;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
   margin-right: 5px;
-  margin-left: 5px;
+  margin-left: 5px%;
   -moz-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
   -webkit-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
   font-family: "Roboto-Bold";
+  width:100%;
+  height:70%;
+  margin-bottom:5%;
 }
 
 thead {
@@ -44,12 +70,12 @@ thead {
 
 thead th {
   font-family: "Roboto-Bold";
-  font-size: 16px;
+  font-size: 22px;
   font-weight: 400;
   color: #fff;
   text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
   text-align: center;
-  padding: 5px;
+  padding: 10px;
   background-size: 100%;
   background-color: rgb(63, 87, 68);
   border-top: 1px solid #858d99;
@@ -70,8 +96,9 @@ thead th:last-child {
 tbody tr td {
   font-weight: 400;
   color: #5f6062;
-  font-size: 13px;
-  padding: 5px;
+  font-size: 17px;
+  padding: 10px;
+width:12%;
   border-bottom: 1px solid #e0e0e0;
   font-family: "Roboto-Bold";
 }
@@ -86,9 +113,8 @@ tbody tr:nth-child(2n) {
 tbody tr:last-child td {
   border-bottom: none;
   font-family: "Roboto-Bold";
+
 }
-
-
 tbody tr:last-child td:first-child {
   -moz-border-radius-bottomleft: 5px;
   -webkit-border-bottom-left-radius: 5px;
@@ -122,4 +148,5 @@ td {
   text-align: center;
   vertical-align: middle;
   font-family: "Roboto-Bold";
+
 }

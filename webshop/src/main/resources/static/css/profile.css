@@ -15,31 +15,42 @@ meter::-webkit-meter-bar {
   background-color: rgba(0, 0, 0, 0.1);
 }
 input {
-  width: 40%;
-  padding: 1px;
+  width: 600px;
+  padding: 6px;
   border: 1px solid #ccc;
   border-radius: 3px;
   box-sizing: border-box;
-  margin-top: 1px;
-  margin-bottom: 2px;
+  margin-top: 3px;
+  margin-bottom: 6px;
 }
-input[type=submit] {
-  background-color: #4CAF50;
-  color: white;
+h1{
+font-family: "Roboto-Light";}
+
+input[type=submit] {font-family: "Roboto-Light";
+                        text-align: center;
+                        font-size: 23px;
+                        background-color: transparent;
+                        border: solid 1px grey;
+                        color: grey;
+                        text-transform: none;
 }
+input[type=submit]:hover {
+    background-color: rgb(63, 87, 68);
+    color: white;
+    }
+
 .container {
-  background-color: #f1f1f1;
+  padding: 10px;
+font-family: "Roboto-Light";
 }
 
 #message {
 float:right;
   display:none;
-  background: #f1f1f1;
-  color: #000;
+font-family: "Roboto-Light";
 
   padding: 2px;
   margin-top: 5px;
-  margin-right:5px;
 }
 
 #message p {
@@ -55,7 +66,7 @@ float:right;
 .valid:before {
   position: relative;
   left: -35px;
-  content: &#10004;
+  content: "\2713";
 }
 
 
@@ -66,10 +77,45 @@ float:right;
 .invalid:before {
   position: relative;
   left: -35px;
-  content: #10006;
+  content: "x";
 }
-body{ font-family: "webshopFontMedium";}
-
 #left-id{
 float:left;
+margin-left:-10%;}
+.profile-background{
+background: url("/img/plant4.jpeg") center center scroll;
+  background-repeat: repeat;
+  background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  -webkit-background-size: cover;
+  opacity: 0.3;
+
+  width: 100%;
+
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
 }
+footer img {
+  height: 25px;
+  opacity: 0.9;
+  position: inline;
+  margin-right: 10px;
+  width: 25px;
+}
+
+.footer {
+  background-color: rgb(97, 97, 97);
+  font-family: "Montserrat-Regular";
+  font-size: 12px;
+  color: white;
+  padding: 10px 0 20px 30px;
+  width: 100%;
+  bottom:0;
+   position: absolute;
+    bottom: 0;
+}
+html{ height:100%; }
+body{ min-height:100%; padding:0; margin:0; position:relative; }

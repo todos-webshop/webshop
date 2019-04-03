@@ -87,8 +87,6 @@ public class UserDao {
 
     }
 
-
-
     public void deleteAll() {
         jdbcTemplate.update("delete from users");
     }
@@ -100,8 +98,12 @@ public class UserDao {
 
 
     public void modifyUser(long id, User user) {
-        jdbcTemplate.update("update users set  first_name= ?, last_name= ?,username= ?,password= ?,role= ? where id = ?",
+        jdbcTemplate.update("update users set  first_name= ?, last_name= ?,username= ?,password= ?, role= ? where id = ?",
                 user.getFirstName(), user.getLastName(), user.getUsername(), user.getPassword(), user.getUserRole().toString(), id);
+    }
+    public void modifyUserNoPassword(long id, User user) {
+        jdbcTemplate.update("update users set  first_name= ?, last_name= ?,username= ?,role= ? where id = ?",
+                user.getFirstName(), user.getLastName(), user.getUsername(),  user.getUserRole().toString(), id);
     }
 
 

@@ -53,6 +53,11 @@ public class OrderDao {
                 productId, quantity, totalPrice);
     }
 
+    public List<Order> listOrdersByUserId(long userId) {
+        return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).query("SELECT id, user_id, order_time, status, shipping_address, (SELECT SUM(order_price) from ordered_items WHERE orders.id = ordered_items.order_id) total_price, shipping_address from orders where user_id = (:user_id) ORDER BY order_time DESC;", Map.of("user_id",
+                userId), ORDER_ROW_MAPPER);
+    }
+
     public List<Order> listAllOrders() {
         return jdbcTemplate.query("SELECT id, user_id, order_time, status, shipping_address, (SELECT SUM(order_price) from " +
                         "ordered_items WHERE orders.id = ordered_items.order_id) total_price, " +
