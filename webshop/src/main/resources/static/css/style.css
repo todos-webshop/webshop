@@ -133,7 +133,7 @@
   border-color: rgb(38, 71, 43);
 }
 
-.product-div {
+.index-product-div {
   font-family: "Montserrat-Regular";
   float: left;
   max-width: 25%;
@@ -154,9 +154,9 @@
   width: 23%;
   margin: 50px;
   text-align: center;
-  background-color: rgb(230, 230, 230);
+  background-color: white;
   min-height: 450px;
-  color: grey;
+  color: rgb(107, 107, 107);
   margin-left: 80px;
 }
 
@@ -230,7 +230,7 @@ footer img {
   height: 400px;
 }
 
-.product-div:hover {
+.index-product-div:hover {
   background-color: rgb(98, 126, 104);
   color: white;
 }
@@ -283,9 +283,14 @@ footer img {
   padding-top: 5px;
 }
 
-#main-div {
+#main_div {
   position: relative;
-  top: 100px;
+  top: 1330px;
+}
+
+#main_div_users{
+    position: absolute;
+    top: 20px;
 }
 
 .button {
@@ -333,8 +338,7 @@ body {
   border: none;
 }
 
-#myBtn:hover {
-}
+#myBtn:hover {}
 
 .basket-main {
   min-height: 690px;
@@ -533,7 +537,8 @@ html {
 }
 
 .purchase:hover,
-.rating-button:hover, .delete-rate:hover {
+.rating-button:hover,
+.delete-rate:hover {
   background-color: rgb(93, 133, 101);
   color: white;
 }
@@ -665,7 +670,8 @@ html {
   position: relative;
 }
 
-.rating-button, .delete-rate {
+.rating-button,
+.delete-rate {
   margin-top: 20px;
   position: relative;
   width: 80px;
@@ -674,7 +680,7 @@ html {
   height: 40px;
 }
 
-.order-delete-button {
+.order-delete-button, .category-delete {
   margin-top: 10px;
   width: 30px;
 }
@@ -689,20 +695,20 @@ html {
 
 .shop-now {
   position: absolute;
-  left: 71%;
-  top: 63%;
+  left: 73%;
+  top: 55.5%;
   width: 150px;
   font-family: "Roboto-Light";
   text-align: center;
   height: 50px;
   font-size: 23px;
-  background-color: transparent;
+  background-color: white;
   border: solid 1px grey;
-  color: grey;
+  color: rgb(99, 99, 99);
 }
 
 .shop-now:hover {
-  background-color: rgb(63, 87, 68);
+  background-color: rgb(86, 112, 91);
   color: white;
 }
 
@@ -794,14 +800,34 @@ html {
   font-family: "Cinzel", serif;
   font-size: 20px;
   left: 10%;
+  text-align: center;
+  font-size: 30px;
+  min-height: 90px;
+  padding-top: 27px;
+  background-color: white;
+  color: rgb(63, 87, 68);
+
 }
 
 .delete-rate {
-left: 20px;
-width: 100px;
+  left: 20px;
+  width: 100px;
 }
 
 .our-collection {
+  width: 100%;
+  height: 250px;
+  position: absolute;
+  top: 1600px;
+  text-align: center;
+  background-color: white;
+  font-family: "Cinzel", serif;
+  font-size: 30px;
+  color: rgb(63, 87, 68);
+  padding-top: 100px;
+}
+
+.top-products {
   width: 100%;
   height: 250px;
   position: absolute;
@@ -819,11 +845,47 @@ width: 100px;
   padding-right: 60px;
 }
 
-.page-title-reports{
+.page-title-reports {
   font-family: "Helvetica-Bold";
   position: absolute;
   top: -100px;
   left: 190px;
   max-width: 400px;
   font-size: 30px;
+}
+
+.select-all-button,
+.select-button,
+.select-category{
+  margin-top: 20px;
+  background-color: white;
+  position: relative;
+  width: 150px;
+  font-family: "Helvetica-Medium";
+  text-align: center !important;
+  height: 40px;
+  margin-left: 245px;
+  border: solid 1px black;
+  border-radius: none;
+}
+
+
+.select-all-button:hover, .select-button:hover, .select-category:hover  {
+  background-color: rgb(185, 185, 185);
+  color: white;
+  border: none;
+}
+
+.index-img{
+    position: absolute;
+    top: 1700px;
+    z-index: -1;
+    width: 100%;
+}
+
+.myorder-back{
+    left: 285px;
+    top: 140px;
+    width: 30px;
+    position: absolute;
 }

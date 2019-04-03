@@ -85,7 +85,7 @@
 
 .category-main-div {
   position: absolute;
-  top: 18%;
+  top: 23%;
   left: 35%;
 }
 
@@ -112,6 +112,7 @@ li {
   height: 40px;
   background-color: white;
   font-size: 17px;
+  margin-bottom: 150px;
 }
 
 .page-title{
@@ -147,4 +148,108 @@ ul{
   z-index: -1;
   top: 0;
   bottom: 0;
+}
+
+.alert{position:relative;padding:.75rem 1.25rem;margin-bottom:1rem;border:1px solid transparent;border-radius:.25rem, line-height:
+ 1.5;
+}
+
+.category-delete {
+  width: 30px;
+}
+
+.alert-success{
+color:#155724;
+background-color:#d4edda;
+border-color:#c3e6cb;
+}
+
+.alert-success hr{
+border-top-color:#b1dfbb;
+}
+
+.alert-success .alert-link{
+color:#0b2e13;
+}
+
+.alert-danger{
+color:#721c24;
+background-color:#f8d7da;
+border-color:#f5c6cb;
+}
+
+.alert-danger hr{
+    border-top-color:#f1b0b7
+}
+
+.alert-danger .alert-link{
+color:#491217;
+}
+
+.disabled{
+  display: none;
+}
+
+.enabled{
+  display: inline;
+}
+
+#add-btn {
+  border-radius: 10px;
+  width: 100px;
+  height: 40px;
+  text-align: center;
+  left: 20px;
+  font-size: 15px;
+}
+
+#new-product-btn img {
+  box-sizing: border-box;
+  width: 40px;
+  padding: 8px;
+}
+
+#add-btn:hover {
+  background-color: rgb(38, 71, 43);
+  color: white;
+}
+
+#new-product-btn:hover {
+  border-color: rgb(38, 71, 43);
+}
+
+#new-product-btn {
+  font-family: "Helvetica-Medium";
+  border-radius: 5px;
+  text-align: center;
+/*  top: 185px;
+  left: 20px;*/
+  width: 200px;
+  font-size: 16px;
+}
+
+/*#form-input {
+  font-family: "Helvetica-Medium";
+  border-radius: 10px;
+  text-align: center;
+  top: 245px;
+  left: 20px;
+}*/
+
+.button-span{
+  margin-bottom: px;
+}
+
+
+.form-input {
+  font-family: "Montserrat-Regular";
+  width: 200px;
+  font-size: 17px;
+  float: left;
+  margin-left: 30px;
+}
+
+input{
+    line-height: 20px;
+    width: 150px;
 }
