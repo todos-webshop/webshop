@@ -318,7 +318,11 @@ function orderItems() {
     shippingAddress = shippingAddressField.value;
     url = '/myorders';
   } else if (shippingAddressChooserDiv.getAttribute('class') === 'enabled') {
-    var chosenAddress = document.forms.shippingAddressChoserForm.elements.oneFormerAddress.value;
+    if (typeof document.forms.shippingAddressChoserForm.elements.oneFormerAddress === 'undefined') {
+      chosenAddress = '';
+    } else {
+      var chosenAddress = document.forms.shippingAddressChoserForm.elements.oneFormerAddress.value;
+    }
     shippingAddress = chosenAddress;
     url = '/myorders/storedaddresses';
   }
