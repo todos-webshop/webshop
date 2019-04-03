@@ -3,16 +3,49 @@
   position: relative;
 
 }
+@font-face {
+  font-family: "webshopFontLight";
+  src: url("/fonts/Chevin Light.otf");
+}
 
 @font-face {
-  font-family: "Roboto-Bold";
-  src: url("/fonts/Roboto-Bold.ttf");
+  font-family: "webshopFontMedium";
+  src: url("/fonts/Chevin Medium.otf");
+}
+
+@font-face {
+  font-family: "webshopFontBold";
+  src: url("/fonts/Chevin Bold.ttf");
+}
+
+@font-face {
+  font-family: "Helvetica-Medium";
+  src: url("/fonts/Helvetica-Medium.otf");
+}
+
+@font-face {
+  font-family: "Helvetica-Bold";
+  src: url("/fonts/Helvetica-Bold.ttf");
+}
+
+@font-face {
+  font-family: "Helvetica-Light";
+  src: url("/fonts/Helvetica-Light.ttf");
+}
+
+@font-face {
+  font-family: "Helvetica-Italic";
+  src: url("/fonts/Helvetica-Italic.ttf");
 }
 
 @font-face {
   font-family: "Roboto-Bold";
   src: url("/fonts/Roboto-Bold.ttf");
 }
+body{
+   font-family: "Roboto-Light";;
+}
+
 
 @import url(https://fonts.googleapis.com/css?family=Patua+One|Open+Sans);
 
@@ -120,5 +153,67 @@ tbody:hover>tr:hover td {
 td {
   text-align: center;
   vertical-align: middle;
-  font-family: "Roboto-Bold";
+
+}
+.chart-container {
+top:150px;
+     position: relative;
+     font-size:30px;
+}
+
+.my-chart-part1 {
+    box-sizing: border-box;
+    float: left;
+    font-size: 30px;
+    font-weight: bold;
+    height: 400px;
+margin-left:20%;
+width:22%;
+
+}
+.my-chart-part2 {
+    box-sizing: border-box;
+    float: right;
+    font-size: 30px;
+    font-weight: bold;
+    height: 400px;
+margin-right:20%;
+width:22%;
+
+}
+.users{
+margin-bottom:-14%;
+ text-align: center;
+
+}
+.orders{
+margin-bottom:-14%;
+ text-align: center;
+
+}
+footer img {
+  height: 25px;
+  opacity: 0.9;
+  position: inline;
+  margin-right: 10px;
+  width: 25px;
+}
+
+.footer {
+  background-color: rgb(97, 97, 97);
+  font-family: "Montserrat-Regular";
+  font-size: 12px;
+  color: white;
+  padding: 10px 0 20px 30px;
+  width: 100%;
+  bottom:0;
+   position: absolute;
+    bottom: 0;
+}
+html{ height:100%; }
+body{ min-height:100%; padding:0; margin:0; position:relative; }
+
+p{
+font-size:24px;
+text-align:center;
 }

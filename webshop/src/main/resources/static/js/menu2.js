@@ -34,8 +34,8 @@ function setMenu() {
   {
     createDropdownDivForUser(div);
     div.appendChild(createLogoutButton());
-    div.appendChild(createCartButton());
     div.appendChild(welcomeUser());
+    div.appendChild(createCartButton());
     addEventListenerToLoggedIn();
     break;
   }
@@ -118,16 +118,15 @@ function insertMenuCss() {
 function createDropdownDivForUser(div) {
   div.innerHTML += `
     <div class="dropdown">
-        <button onmouseover="classChanger()" class="dropbtn">User</button>
+        <button onmouseover="classChanger()" class="dropbtn">My Account</button>
         <div id="myDropdown" class="dropdown-content">
-            <a href="/myorders.html">Orders</a>
-            <a href="/">Profile</a>
+            <a href="/myorders.html">My Orders</a>
+            <a href="/profile.html">Profile</a>
             <a href="/">Contact</a>
         </div>
     </div>
     `;
 }
-
 function createDropdownDivForAdmin(div) {
   div.innerHTML += `
     <div class="dropdown">

@@ -52,5 +52,9 @@ private boolean isUsernameValid(User user){
     private boolean passwordIsValid(String pass) {
         return pass == null || pass.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,50}$");
     }
+    public boolean userCanBeSaved(User user) {
+        return nameIsNotEmptyOrNull(user.getFirstName() + user.getLastName()) && passwordIsNotEmptyOrNull(user.getPassword()) &&
+                userIsNotRegisteredWithThisNameYet(user.getUsername())&& isUsernameValid(user);
+    }
 
 }

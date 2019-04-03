@@ -26,7 +26,7 @@ public class UserController {
 
     @PostMapping("/users")
     public CustomResponseStatus createUser(@RequestBody User user) {
-        if (validator.userCanBeUpdated(user)) {
+        if (validator.isEmpty(user.getUsername()) || validator.isEmpty(user.getFirstName()) || validator.isEmpty(user.getLastName())) {
             return new CustomResponseStatus(Response.FAILED, "Error! All fields are required.");
         }
 
@@ -88,12 +88,14 @@ public class UserController {
 
 
     @PostMapping("/api/users/{id}")
-    public CustomResponseStatus modifyUser(@PathVariable long id, @RequestBody User user) {
+    @ResponseBody
+    public CustomResponseStatus checkPasswordAndmodifyUser(@PathVariable long id, @RequestBody User user) {
         if (validator.userCanBeUpdated(user)) {
             try {
                 userService.checkPasswordAndmodifyUser(id, user);
                 return new CustomResponseStatus(Response.SUCCESS, "User updated!");
             } catch (org.springframework.dao.DuplicateKeyException exc) {
+                return new CustomResponseStatus(Response.FAILED, "This username already exists.");
             }
         }
         return new CustomResponseStatus(Response.FAILED, "User update invalid!");
@@ -115,9 +117,6 @@ public class UserController {
 
     @PostMapping("/api/user/{id}")
     public CustomResponseStatus modifyUserByUser(@PathVariable long id, @RequestBody User user) {
-        System.out.println();
-        System.out.println("hfsjsj");
-        System.out.println(user.getPassword());
         if (validator.userCanBeUpdated(user)) {
             try {
                 userService.modifyUserByUser(id, user);

@@ -51,7 +51,6 @@ public class CategoryService {
     }
 
 
-    //need some debugging
     public CustomResponseStatus updateCategoryById(Category category){
         if ((categoryDao.getNumberOfCategories() + 1) < category.getSequence()) {
             return new CustomResponseStatus(Response.FAILED,"Sequence can not be bigger then the number of categories.");

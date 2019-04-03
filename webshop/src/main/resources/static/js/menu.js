@@ -33,9 +33,10 @@ function setMenu() {
   case 'ROLE_USER':
   {
     createDropdownDivForUser(div);
+    createDropdownDivForCategory(div);
     div.appendChild(createLogoutButton());
-    div.appendChild(createCartButton());
     div.appendChild(welcomeUser());
+    div.appendChild(createCartButton());
     addEventListenerToLoggedIn();
     break;
   }
@@ -62,6 +63,10 @@ function setMenu() {
 
 function classChanger() {
   document.getElementById('myDropdown').classList.toggle('show');
+}
+
+function classChanger2() {
+  document.getElementById('myDropdown2').classList.toggle('show');
 }
 
 window.onclick = function (event) {
@@ -118,11 +123,25 @@ function insertMenuCss() {
 function createDropdownDivForUser(div) {
   div.innerHTML += `
     <div class="dropdown">
-        <button onmouseover="classChanger()" class="dropbtn">User</button>
+        <button onmouseover="classChanger()" class="dropbtn">My Account</button>
         <div id="myDropdown" class="dropdown-content">
-            <a href="/myorders.html">Orders</a>
+            <a href="/myorders.html">My Orders</a>
             <a href="/profile.html">Profile</a>
             <a href="/">Contact</a>
+        </div>
+    </div>
+    `;
+}
+
+function createDropdownDivForCategory(div) {
+  div.innerHTML += `
+    <div class="dropdown2">
+        <button onmouseover="classChanger2()" onmouseclick="classChanger2()" class="dropbtn2">Categories</button>
+        <div id="myDropdown2" class="dropdown-content2">
+            <a href="#Bamboo products">Bamboo products</a>
+            <a href="#No category Name">No category</a>
+            <a href="#Straws Name">Straws</a>
+            <a href="#Eco bags Name">Eco bags</a>
         </div>
     </div>
     `;
@@ -191,6 +210,13 @@ function createMessageDiv() {
   messageDiv.setAttribute('class', 'message-div');
   return messageDiv;
 }
+
+/*function createCategoryButton(){
+    var categoryButton = document.createElement('button');
+    categoryButton.setAttribute('id', 'category-button');
+    categoryButton.setAttribute('class', 'category-button');
+    return categoryButton;
+}*/
 
 function addEventListenerToNotLoggedIn() {
   document.getElementById('login-btn').addEventListener('click', function () {
