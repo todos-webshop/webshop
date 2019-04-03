@@ -112,28 +112,28 @@ function showDetails(){
     // div1.appendChild(productNumDiv);
 
     var productNameDiv = document.createElement('div');
-    productNameDiv.innerText = 'Name: ' + json[index].orderItems[j].product.name;
-    productNameDiv.className="mydiv";
+    productNameDiv.innerText = json[index].orderItems[j].product.name;
+    productNameDiv.className="name-product";
     div1.appendChild(productNameDiv);
 
     var productCodeDiv = document.createElement('div');
-    productCodeDiv.innerText = "Code: " + json[index].orderItems[j].product.code;
-    productCodeDiv.className="mydiv";
+    productCodeDiv.innerText = json[index].orderItems[j].product.code;
+    productCodeDiv.className="myorders-div";
     div1.appendChild(productCodeDiv);
 
     var productManufacturerDiv = document.createElement('div');
     productManufacturerDiv.innerText = json[index].orderItems[j].product.manufacturer;    
-    productManufacturerDiv.className="mydiv";
+    productManufacturerDiv.className="myorders-div";
     div1.appendChild(productManufacturerDiv);
 
     var quantityDiv = document.createElement('div');
     quantityDiv.innerText = 'Quantity: ' + json[index].orderItems[j].pieces;
-    quantityDiv.className="mydiv";
+    quantityDiv.className="myorders-div";
     div1.appendChild(quantityDiv);
 
     var sumDiv = document.createElement('div');
-    sumDiv.innerText = 'Total price: ' + json[index].orderItems[j].product.price + ' Ft';
-    sumDiv.className="mydiv";
+    sumDiv.innerText = json[index].orderItems[j].product.price + ' Ft';
+    sumDiv.className="myorders-div";
     div1.appendChild(sumDiv);
   }
 
