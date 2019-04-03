@@ -54,8 +54,8 @@ public class RateDao {
     }
 
     public List<Rate> getRatesForProduct(Product product) {
-        Product productInstance = new Product(product.getId(), "MUZ", "muz", "muz", 0, ProductStatus.ACTIVE);
-        User user = new User(15, "John", "Doe", "john", "123456", 1, UserRole.ROLE_USER);
+      //  Product productInstance = new Product(product.getId(), "MUZ", "muz", "muz", 0, ProductStatus.ACTIVE);
+       // User user = new User(15, "John", "Doe", "john", "123456", 1, UserRole.ROLE_USER);
         return jdbcTemplate.query("Select ratings.id, ratings.message, ratings.stars,ratings.rating_time , ratings.user_id  from ratings join products on ratings.product_id=products.id where products.id = ? order by ratings.rating_time",
                 (rs, rowNum) -> new Rate(rs.getLong(1), rs.getString(2), rs.getInt(3), rs.getDate(4).toLocalDate(), userDao.getUserByUserId(rs.getLong(5)), productDao.getProductByProductId(product.getId())), product.getId());
 

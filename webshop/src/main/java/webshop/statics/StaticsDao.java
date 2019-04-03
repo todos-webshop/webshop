@@ -30,7 +30,7 @@ public class StaticsDao {
 
 
     public List<StatData> doReportOne() {
-        return jdbcTemplate.query(" select year(order_time), month(order_time), status, count(order_id), sum(ordered_items.order_price*ordered_items.quantity)" +
+        return jdbcTemplate.query(" select year(order_time), month(order_time), status, count(distinct order_id), sum(ordered_items.order_price*ordered_items.quantity)" +
                         "    from orders join ordered_items on ordered_items.order_id=orders.id" +
                         "     group by  year(order_time), month(order_time)  , STATUS  order by year(order_time), month(order_time) , status"
                           ,
@@ -43,7 +43,7 @@ public class StaticsDao {
 
 
     public List<StatSummary> doReportOneSummary() {
-        return jdbcTemplate.query("select  status, count(*), sum(ordered_items.order_price*ordered_items.quantity)"+
+        return jdbcTemplate.query("select  status, count(distinct order_id), sum(ordered_items.order_price*ordered_items.quantity)"+
                         "from orders join ordered_items on ordered_items.order_id=orders.id group by   STATUS order by  status"
 
                 ,
@@ -67,9 +67,9 @@ public class StaticsDao {
     public List<StatByProduct> doReportTwo() {
         return jdbcTemplate.query( "select year(orders.order_time), \n" +
          "month(orders.order_time), \n" +
-         "products.name, products.price, \n" +
-         "sum(ordered_items.quantity), \n" +
-         "ordered_items.order_price*ordered_items.quantity \n" +
+         "products.name, ordered_items.order_price, \n" +
+         "ordered_items.quantity, \n" +
+         "ordered_items.order_price * ordered_items.quantity \n" +
          "from products join ordered_items on products.id=ordered_items.product_id   join orders on ordered_items.order_id= orders.id \n" +
          " where orders.status ='DELIVERED'\n"+
          "group by year(orders.order_time), month(orders.order_time), \n" +

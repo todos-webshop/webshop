@@ -201,6 +201,7 @@ color:#491217;
   text-align: center;
   left: 20px;
   font-size: 15px;
+  font-family: 'Helvetica-Medium';
 }
 
 #new-product-btn img {
@@ -219,25 +220,20 @@ color:#491217;
 }
 
 #new-product-btn {
+  height: 40px;
   font-family: "Helvetica-Medium";
   border-radius: 5px;
   text-align: center;
-/*  top: 185px;
-  left: 20px;*/
   width: 200px;
   font-size: 16px;
 }
 
-/*#form-input {
+#form-input {
   font-family: "Helvetica-Medium";
-  border-radius: 10px;
-  text-align: center;
-  top: 245px;
-  left: 20px;
-}*/
+}
 
 .button-span{
-  margin-bottom: px;
+  border: 25px;
 }
 
 
