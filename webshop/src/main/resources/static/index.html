@@ -39,7 +39,24 @@
 <script src="js/menu.js"></script>
 <script src="js/products.js"></script>
 <script src="/js/footer.js"></script>
-
+<script>
+    var id;
+    window.addEventListener("load",function(){
+        var url = window.location.href;
+        var arr = url.split("#");
+        if(arr.length > 1){
+            id = arr[1].replace("%20"," ");
+            id = id +" Name";
+            setTimeout(scroll,1500);
+        }
+    });
+    function scroll(){
+        console.log(id);
+        document.getElementById(id).scrollIntoView({behavior: "smooth", block: "center", inline: "center"});
+        //window.scrollTo(id);
+        //window.scrollTo(0,document.getElementById(id).offsetTop)
+    }
+</script>
 </body>
 
 </html>
