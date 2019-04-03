@@ -7,6 +7,7 @@ var fetchedCategoryNames;
 
   setTimeout(fetchProducts,1000);
 
+fetchRecommendations();
 
 
 function fetchProducts() {
@@ -64,6 +65,7 @@ showDivs(categoryArray);
 
 
    function showDivs(jsonData) {
+   console.log(jsonData)
        var mainDiv = document.getElementById('main_div');
 
 
@@ -111,12 +113,19 @@ showDivs(categoryArray);
        }
        var clearerDiv = document.createElement('div');
        clearerDiv.setAttribute('class', 'clearer');
-       divCategory.appendChild(clearerDiv);
+       allProductsDiv.appendChild(clearerDiv);
     }
+       var clearerDiv = document.createElement('div');
+       clearerDiv.setAttribute('class', 'clearer');
+       mainDiv.appendChild(clearerDiv);
 
-         var clearerDiv2 = document.createElement('div');
-          clearerDiv2.setAttribute('class', 'clearer');
-          mainDiv.appendChild(clearerDiv2);
+       var clearerDiv = document.createElement('div');
+       clearerDiv.setAttribute('class', 'clearer');
+       divCategory.appendChild(clearerDiv);
+
+       var clearerDiv = document.createElement('div');
+       clearerDiv.setAttribute('class', 'clearer');
+       document.querySelector('body').insertBefore(clearerDiv, document.querySelector('footer'));
 }
 
 function addFilterButtons(jsonData){
@@ -132,10 +141,12 @@ option.innerHTML = jsonData[i].categoryName;
 select.appendChild(option);
 }
 
-var selectButton = document.createElement('button');
+/*var selectButton = document.createElement('button');
 selectButton.innerHTML = 'Filter';
-selectButton.setAttribute('class','select-button');
-selectButton.addEventListener('click', function(){fetchCategory(document.querySelector(".select-category").value)});
+selectButton.setAttribute('class','select-button');*/
+
+select.onchange = function(){fetchCategory(document.querySelector(".select-category").value)};
+//selectButton.addEventListener('click', function(){fetchCategory(document.querySelector(".select-category").value)});
 
 var selectAllButton = document.createElement('button');
 selectAllButton.innerHTML = 'Show All';
@@ -145,7 +156,7 @@ selectAllButton.addEventListener('click', function(){showDivs(allProducts)});
 
 var mainDiv = document.getElementById('main_div');
 mainDiv.prepend(selectAllButton);
-mainDiv.prepend(selectButton);
+//mainDiv.prepend(selectButton);
 mainDiv.prepend(select);
 }
 
@@ -194,3 +205,48 @@ actCategoryName.setAttribute('class','disabled');
         }
     }
 }*/
+
+// ajánlás
+function showRecommendations(jsonData){
+console.log(jsonData)
+var divMain = document.getElementById("main_div");
+
+var divRec = document.createElement('div');
+divRec.setAttribute('id',"recommends");
+divMain.appendChild(divRec);
+
+for(var i = 0; i < jsonData.length; i++){
+
+var divProd = document.createElement('div');
+divProd.setAttribute('class', 'recommend-product-div');
+
+var nameDiv = document.createElement('div');
+nameDiv.setAttribute('class', 'name-div-reco');
+nameDiv.innerHTML = jsonData[i].name;
+divProd.appendChild(nameDiv);
+
+var imgDiv = document.createElement('img');
+imgDiv.setAttribute('src', '/img/coming_soon_reco.jpg');
+imgDiv.setAttribute('alt', '');
+imgDiv.setAttribute('class', 'products_img_reco');
+
+var variant = jsonData[i].address;
+divProd.setAttribute("onclick", `window.location.href="product.html?address=${jsonData[i].address}"`);
+divProd.appendChild(imgDiv);
+
+divRec.appendChild(divProd);
+    }
+}
+
+
+
+function fetchRecommendations(){
+ var url ="/api/product/recommend";
+        fetch(url)
+            .then(function(response) {
+                return response.json();
+                })
+            .then(function(jsonData) {
+            console.log(jsonData);
+                showRecommendations(jsonData);
+            });}

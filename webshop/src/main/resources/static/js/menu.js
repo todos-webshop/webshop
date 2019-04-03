@@ -137,7 +137,7 @@ function createDropdownDivForCategory(div) {
   div.innerHTML += `
     <div class="dropdown2">
         <button onmouseover="classChanger2()" onmouseclick="classChanger2()" class="dropbtn2">Categories</button>
-        <div id="myDropdown2" class="dropdown-content2">
+        <div id="myDropdown2" class="dropdown-content">
             <a href="#Bamboo products">Bamboo products</a>
             <a href="#No category Name">No category</a>
             <a href="#Straws Name">Straws</a>
