@@ -82,4 +82,8 @@ public class ProductService {
     public List<Product> lastThreeProducts(){
         return productDao.lastThreeProducts();
     }
+
+    public Product getProductByProductId(long productId){
+        return productDao.getProductByProductId(productId);
+    }
 }

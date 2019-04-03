@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import webshop.CustomResponseStatus;
 import webshop.Response;
 import webshop.product.Product;
+import webshop.product.ProductService;
 import webshop.product.ProductStatus;
 import webshop.user.User;
 import webshop.user.UserRole;
@@ -19,28 +20,34 @@ public class RateController {
     private RateService rateService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private ProductService productService;
 
 
     @GetMapping("/api/rating/list/{productid}")
     public List<Rate> getRatesForProduct(@PathVariable long productid) {
-        Product product = new Product(productid, "MUZ", "muz", "muz", 0, ProductStatus.ACTIVE);
+       // Product product = new Product(productid, "MUZ", "muz", "muz", 0, ProductStatus.ACTIVE);
+        Product product = productService.getProductByProductId(productid);
         return rateService.getRatesForProduct(product);
     }
 
     @GetMapping("/api/rating/avg/{productid}")
     public double getAvgRatesForProduct(@PathVariable long productid) {
-        Product product = new Product(productid, "MUZ", "muz", "muz", 0, ProductStatus.ACTIVE);
+        //Product product = new Product(productid, "MUZ", "muz", "muz", 0, ProductStatus.ACTIVE);
+        Product product = productService.getProductByProductId(productid);
         return rateService.getAvgRatesForProduct(product);
     }
 
     @GetMapping("/api/rating/{productid}")
     public Rate getUserRateForProduct(Authentication authentication, @PathVariable long productid) {
-        Rate rateFromDB = new Rate(0, "", 1, LocalDate.now(), new User(15, "John", "Doe", "john", "123456", 1, UserRole.ROLE_USER), new Product(productid, "MUZ", "muz", "muz", 0, ProductStatus.ACTIVE));
+        Product product = productService.getProductByProductId(productid);
+        Rate rateFromDB = new Rate(0, "", 1, LocalDate.now(), new User(15, "John", "Doe", "john", "123456", 1, UserRole.ROLE_USER), product);
 
         if (authentication != null) {
+
             String loggedInUsername = authentication.getName();
             User loggedInUser = userService.getUserByUsername(loggedInUsername);
-            Rate rate = new Rate(0, "", 1, null, loggedInUser, new Product(productid, "MUZ", "muz", "muz", 0, ProductStatus.ACTIVE));
+            Rate rate = new Rate(0, "", 1, null, loggedInUser, product);
 
             try {
                 rateFromDB = rateService.getRateForUserAndProduct(rate);
@@ -71,7 +78,8 @@ public class RateController {
         if (authentication != null) {
             String loggedInUsername = authentication.getName();
             User loggedInUser = userService.getUserByUsername(loggedInUsername);
-            Product product = new Product(productId, "MUZ", "muz", "muz", 0, ProductStatus.ACTIVE);
+            Product product = productService.getProductByProductId(productId);
+            //Product product = new Product(productId, "MUZ", "muz", "muz", 0, ProductStatus.ACTIVE);
 
             int sqlResponse =
                     rateService.deleteRate(product, loggedInUser);
@@ -86,17 +94,24 @@ public class RateController {
     }
 
     @GetMapping("/api/rating/controll/{productid}")
-    public boolean canUserRateProduct(Authentication authentication, @PathVariable long productid) {
+    public CustomResponseStatus canUserRateProduct(Authentication authentication, @PathVariable long productid) {
 
         if (authentication != null) {
             String loggedInUsername = authentication.getName();
             User loggedInUser = userService.getUserByUsername(loggedInUsername);
             Product product = new Product(productid, "MUZ", "muz", "muz", 0, ProductStatus.ACTIVE);
 
-            return rateService.orderedProductByUser(product, loggedInUser);
+            boolean controll= rateService.orderedProductByUser(product, loggedInUser);
+            if (controll){
+                return  new CustomResponseStatus(Response.FAILED, "Your rate is successful.");
 
             }
-        return false;
+            else {
+                return new CustomResponseStatus(Response.FAILED, "You have to shop from this product before you rate.");
+            }
+
+            }
+        return new CustomResponseStatus(Response.FAILED, "Please sign in to rate.");
         }
 
 }

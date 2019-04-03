@@ -1,13 +1,14 @@
 var allProducts;
 var fetchedCategory;
 var fetchedCategoryNames;
+var recommendProducts;
 
  var  fetchedCategoryNames;
     fetchCategoryNames();
 
   setTimeout(fetchProducts,1000);
 
-
+fetchRecommendations();
 
 function fetchProducts() {
         var url ="/api/products";
@@ -144,7 +145,7 @@ document.querySelector('#select-button').addEventListener('click', function () {
                        fetchCategory(document.getElementById("select-category").value);
                        // fetchCategory("Straws");
                          console.log(document.getElementById("select-category").value);
-                        console.log("gdgdfgdg"+fetchedCategory);
+                        console.log(fetchedCategory);
                           //  showCategoryDivs(fetchedCategory);
                         //showCategory(document.getElementById("select-category").value);
 
@@ -209,6 +210,42 @@ function fetchCategoryNames(){
                 fetchedCategoryNames =jsonData;
 
             });}
+// ajánlás
+function showRecommendations(jsonData){
+var divMain = document.getElementById("main_div");
+var divRec = document.createElement('div');
+divRec.innerHTML = "Recommendations";
+divRec.setAttribute('id',"recommends");
+
+divMain.appendChild(divRec);
+for(var i=0;i<jsonData.length;i++){
+var divProd = document.createElement('div');
+divProd.setAttribute('class', 'product-div');
+var imgDiv = document.createElement('img');
+       imgDiv.setAttribute('src', '/img/coming_soon.jpg');
+       imgDiv.setAttribute('alt', '');
+       imgDiv.setAttribute('class', 'products_img');
+       imgDiv.setAttribute("onclick", `window.location.href="product.html?address=${jsonData[i].address}"`);
+       divProd.appendChild(imgDiv);
+divProd.innerHTML=jsonData[i]["name"];
+divRec.appendChild(divProd);
+}
+}
+
+
+
+function fetchRecommendations(){
+ var url ="/api/product/recommend";
+        fetch(url)
+            .then(function(response) {
+                return response.json();
+                })
+            .then(function(jsonData) {
+            console.log(jsonData);
+                recommendProducts =jsonData;
+                showRecommendations(jsonData);
+            });}
+
 
 
 

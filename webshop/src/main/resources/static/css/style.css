@@ -819,3 +819,7 @@ html {
   padding-left: 60px;
   padding-right: 60px;
 }
+
+#recommends {
+position:absolute;
+top:900px;}
