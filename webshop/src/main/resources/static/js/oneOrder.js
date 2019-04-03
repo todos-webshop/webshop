@@ -19,7 +19,7 @@ function fetchOrderItems() {
   function showDivs(jsonData) {
     // console.log(jsonData);
 
-    var divMain = document.getElementById('main_div');
+    var divMain = document.getElementById('main_div_one_order');
     divMain.innerHTML = '';
 
     var table = document.createElement('table');
