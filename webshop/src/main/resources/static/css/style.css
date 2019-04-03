@@ -239,12 +239,14 @@ footer img {
   position: absolute;
   top: 270px;
   z-index: 1;
+  left: 120px;
 }
 
 .main_div_adminproducts_modified {
   position: absolute;
   top: 440px;
   z-index: 1;
+  left: 120px;
 }
 
 .title {
@@ -378,7 +380,7 @@ body {
 #main_div_orders {
   position: relative;
   top: 50px;
-  margin-left: 265px;
+  margin-left: 500px;
   margin-bottom: 100px;
   max-width: 900px;
   min-height: 350px;
@@ -402,7 +404,7 @@ body {
   font-family: "Helvetica-Bold";
   position: relative;
   top: 20px;
-  left: 270px;
+  left: 490px;
   font-size: 28px;
   max-width: 500px;
 }
@@ -411,7 +413,7 @@ body {
   font-family: "Helvetica-Medium";
   position: relative;
   top: 20px;
-  left: 270px;
+  left: 490px;
   max-width: 500px;
 }
 
@@ -498,7 +500,7 @@ html {
   position: relative;
   top: 140px;
   bottom: 70px;
-  left: 150px;
+  left: 200px;
   max-width: 400px;
 }
 
@@ -705,8 +707,8 @@ html {
 
 .shop-now {
   position: absolute;
-  left: 73%;
-  top: 55.5%;
+  left: 65%;
+  top: 67%;
   width: 150px;
   font-family: "Roboto-Light";
   text-align: center;
@@ -859,7 +861,7 @@ html {
   font-family: "Helvetica-Bold";
   position: absolute;
   top: -100px;
-  left: 190px;
+  left: 252px;
   max-width: 400px;
   font-size: 30px;
 }
@@ -874,7 +876,7 @@ html {
   font-family: "Helvetica-Medium";
   text-align: center !important;
   height: 40px;
-  margin-left: 345px;
+  margin-left: 510px;
   border: solid 1px black;
   border-radius: none;
   margin-bottom: 40px;
@@ -897,7 +899,7 @@ html {
 }
 
 .myorder-back {
-  left: 270px;
+  left: 490px;
   top: 140px;
   width: 30px;
   position: absolute;
@@ -912,8 +914,8 @@ html {
 
 .recommend-product-div {
   float: left;
-  width: 26%;
-  margin-left: 80px;
+  width: 20%;
+  margin-left: 195px;
   height: 410px;
   background-color: rgb(227, 227, 227);
 }
@@ -932,7 +934,7 @@ html {
 .products_img_reco {
   height: 354px;
   width: 359px;
-  margin-left: 8px;
+  margin-left: 13px;
   margin-top: 9px;
   opacity: 0.5;
   z-index: 99;
