@@ -26,7 +26,7 @@ public class UserService {
     }
 
     public long createUserAndReturnUserId(User user) throws DuplicateKeyException {
-        long newlyCreatedUserId = userDao.createUserAndReturnUserId(new User(user.getId() ,user.getFirstName(),user.getLastName(),user.getUsername(),user.getPassword(),user.getEnabled(),user.getUserRole()));
+        long newlyCreatedUserId = userDao.createUserAndReturnUserId(user);
         if (newlyCreatedUserId == 0) {
             return 0;
         }

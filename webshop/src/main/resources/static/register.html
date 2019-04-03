@@ -7,34 +7,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Create User</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
+
     <link rel="stylesheet" href="css/register.css">
 </head>
 
 <body>
-
+<div class = register-background></div>
 <div class="container">
     <br><br><br><br><br><br>
+    <div id="left-id">
     <h1>Register User</h1>
     <br>
 
     <form id="registration-form">
-        <input type="text" id="first-name-input" placeholder="first name" required>
+        <input type="text" id="first-name-input" placeholder="First name" required>
         <br>
         <br>
-        <input type="text" id="last-name-input" placeholder="last name" required>
+        <input type="text" id="last-name-input" placeholder="Last name" required>
         <br>
         <br>
-        <input type="text" id="username-input" placeholder="username" required>
+        <input type="text" id="username-input" placeholder="Username" required>
         <br>
         <br>
-        <input type="password" id="pass-input1" placeholder="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required> <meter max="4" id="password-strength-meter" ></meter>
-        <p id="password-strength-text"></p>
-        <input type="password" id="pass-input2" placeholder="re-type password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required >
+        <input type="password" id="pass-input1" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+        <br><br>
+        <input type="password" id="pass-input2" placeholder="Re-type password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required >
         <br>
         <br>
         <input type="submit" value="Create User">
-    </form>
+    </form></div>
     <div id="message">
         <h3>Password must contain the following:</h3>
         <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
@@ -45,9 +46,9 @@
 
 
 </div>
+<script src="js/footer.js"></script>
 <script src="js/register.js"></script>
 <script src="js/menu.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
 </body>
 
 </html>

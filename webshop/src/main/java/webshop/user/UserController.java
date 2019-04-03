@@ -26,7 +26,7 @@ public class UserController {
 
     @PostMapping("/users")
     public CustomResponseStatus createUser(@RequestBody User user) {
-        if (validator.userCanBeUpdated(user)) {
+        if (validator.isEmpty(user.getUsername()) || validator.isEmpty(user.getFirstName()) || validator.isEmpty(user.getLastName())) {
             return new CustomResponseStatus(Response.FAILED, "Error! All fields are required.");
         }
 
@@ -88,6 +88,7 @@ public class UserController {
 
 
     @PostMapping("/api/users/{id}")
+    @ResponseBody
     public CustomResponseStatus checkPasswordAndmodifyUser(@PathVariable long id, @RequestBody User user) {
         if (validator.userCanBeUpdated(user)) {
             try {

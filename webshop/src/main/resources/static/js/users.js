@@ -160,8 +160,9 @@ function editTds(num){
                          //    'enabled': 1,
                             'userRole': userRole
 
-                        }}
-                        else if (check(password)) {
+                        };
+                        }
+                       if (check(password)) {
                         request = {
                          "id": id,
                     "firstName": firstName,
@@ -170,7 +171,7 @@ function editTds(num){
                    "password": password,
           //       'enabled': 1,
                     'userRole': userRole
-                        }};
+                        };}
 
             fetch("/api/users/" + id, {
 
