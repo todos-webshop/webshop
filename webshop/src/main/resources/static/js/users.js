@@ -8,7 +8,6 @@ function fetchUsers() {
       return response.json();
     })
     .then(function(jsonData) {
-      console.log(jsonData);
       showTable(jsonData);
     });
 }
@@ -46,10 +45,10 @@ function showTable(jsonData) {
     tr.appendChild(usernameTd);
 
     var passwordTd = document.createElement("td");
-    passwordTd.innerHTML = jsonData[i].password;
+   passwordTd.innerHTML = "********";
     var passwordTdId = "passwordTd" + i;
     passwordTd.setAttribute("id", passwordTdId);
-    passwordTd.setAttribute("style", "width: 12%");
+  //  passwordTd.setAttribute("style", );
 
     tr.appendChild(passwordTd);
 
@@ -128,12 +127,12 @@ function editTds(num){
         var firstNameData = firstName.innerHTML;
         var lastNameData = lastName.innerHTML;
         var usernameData = username.innerHTML;
-        var passwordData = password.innerHTML;
+      //  var passwordData = password.innerHTML;
 
         firstName.innerHTML = `<input id="firstNameInput${num}" type='text' minLength='1' maxLength='255' class='input-box'  value = '${firstNameData}' required>`
         lastName.innerHTML = `<input id="lastNameInput${num}" type='text' minLength='1' maxLength='255' class='input-box'  value = '${lastNameData}' required>`
         username.innerHTML = `<input id="usernameInput${num}" type='text' minLength='1' maxLength='255' class='input-box'  value = '${usernameData}' required>`
-        password.innerHTML = `<input id="passwordInput${num}" type='text' minLength='1' maxLength='255' class='input-box'  value='${passwordData}' required>`
+        password.innerHTML = `<input id="passwordInput${num}" type="password"   value='********' placeholder="Password" required>`
 
         var edit = document.getElementById(`editbutton${num}`);
         edit.style.display = 'none';
@@ -150,20 +149,32 @@ function editTds(num){
             var password = document.getElementById(`passwordInput${num}`).value;
             var userRole = document.getElementById(`savebutton${num}`).parentElement.parentElement['raw-data'].userRole;
 
-
-            var request =
+ var request;
+ if(password == null || password == '********' || password == '') {
+             request =
                     {
                             "id": id,
                             "firstName": firstName,
                             "lastName": lastName,
                             "username": username,
-                            "password": password,
-                             'enabled': 1,
+                         //    'enabled': 1,
                             'userRole': userRole
-                        }
 
+                        };
+                        }
+                       if (check(password)) {
+                        request = {
+                         "id": id,
+                    "firstName": firstName,
+                  "lastName": lastName,
+                   "username": username,
+                   "password": password,
+          //       'enabled': 1,
+                    'userRole': userRole
+                        };}
 
             fetch("/api/users/" + id, {
+
                     method: "POST",
                     body: JSON.stringify(request),
                     headers: {
@@ -180,18 +191,17 @@ function editTds(num){
                    document.getElementById(`firstNameTd${num}`).innerHTML = firstName;
                    document.getElementById(`lastNameTd${num}`).innerHTML = lastName;
                    document.getElementById(`usernameInput${num}`).innerHTML = username;
-                   document.getElementById(`passwordTd${num}`).innerHTML = password;
+                  document.getElementById(`passwordTd${num}`).innerHTML = password;
+
 
                     fetchUsers();
-                   document.getElementById("message-div").setAttribute("class", "alert alert-success");
-                   document.getElementById("message-div").innerHTML = 'User updated!';
-                } else {
-                    document.getElementById("message-div").setAttribute("class", "alert alert-danger");
-                    document.getElementById("message-div").innerHTML = jsonData.message;
-                }
-            });
-            return false;
-        }
+                                    document.getElementById("message-div").setAttribute("class", "alert alert-success");
+                                   document.getElementById("message-div").innerHTML = jsonData.message;
+                             }
+
+                        });
+                        return false;
+                    }
 window.onscroll = function() {scrollFunction()};
 
 function scrollFunction() {
@@ -206,3 +216,19 @@ function scrollFunction() {
 function topFunction() {
   document.documentElement.scrollTop = 0;
 }
+function check(pass) {
+   var msgdiv = document.getElementById("message-div");
+    msgdiv.setAttribute("class", "alert alert-danger");
+    if (pass.length < 8) {
+        document.getElementById("message-div").innerHTML = "Password must be at least 8 characters long!!";
+        return false;
+    } else if (pass.search(/\d/) == -1) {
+        document.getElementById("message-div").innerHTML = "Password must have a number in it!";
+        return false;
+    } else if (pass.search(/[a-zA-Z]/) == -1) {
+        document.getElementById("message-div").innerHTML = "Password requires a letter!";
+        return false;
+    } else if (pass.search(/[A-Z]/) == -1) {
+        document.getElementById("message-div").innerHTML = "Password must have an upper case letter!";
+        return false;
+    }return true;}

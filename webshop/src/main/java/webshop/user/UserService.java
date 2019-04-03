@@ -26,7 +26,7 @@ public class UserService {
     }
 
     public long createUserAndReturnUserId(User user) throws DuplicateKeyException {
-        long newlyCreatedUserId = userDao.createUserAndReturnUserId(new User(user.getId() ,user.getFirstName(),user.getLastName(),user.getUsername(),user.getPassword(),user.getEnabled(),user.getUserRole()));
+        long newlyCreatedUserId = userDao.createUserAndReturnUserId(user);
         if (newlyCreatedUserId == 0) {
             return 0;
         }
@@ -49,17 +49,30 @@ public class UserService {
         return userDao.listAllUsers();
     }
 
+
+
+
+
     public void checkPasswordAndmodifyUser(long id, User user) {
-       // if (user.getPassword().trim().equals("")){
-       //     userDao.modifyUserNoPassword(id,user);
-     //   }
+        if (user.getPassword()==null||user.getPassword().trim().equals("")){
+         userDao.modifyUserNoPassword(id,user);
+       } else {
+        user.setPassword(user.getPassword());
         userDao.modifyUser(id, user);
-    }
+    }}
+
+
+
+
+
+
+
+
     public void modifyUserByUser(long id, User user){
         if (user.getPassword()==null||user.getPassword().trim().equals("")){
             userDao.modifyUserByUserNoPassword(id,user);
         } else {
-        user.setPassword(user.getPassword());
+            user.setPassword(user.getPassword());
         userDao.modifyUserByUser(id,user);
    }}
 
