@@ -1,89 +1,85 @@
+
 load();
 
-function load (){
-    var url = "/dashboard";
-    fetch(url)
-        .then(function(response){
-            return response.json();
-        })
-        .then(function(jsonData){
-            showStatistics(jsonData);
-
-        });
+function load() {
+  var url = '/dashboard';
+  fetch(url)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (jsonData) {
+      showStatistics(jsonData);
+      console.log(jsonData);
+    });
 }
 
-function showStatistics(jsonData){
-
-    document.getElementById('users').innerHTML = jsonData["numOfUsers"];
-    document.getElementById('orders').innerHTML = jsonData["numOfOrders"];
-    var numberOfActiveProducts = jsonData["numOfActiveProducts"];
-    var numberOfAllProducts = jsonData["numOfProducts"];
-    var numberOfActiveOrders = jsonData["numOfActiveOrders"];
-    var numberOfAllOrders = jsonData["numOfOrders"];
-    var options = {responsive: true,
-                       maintainAspectRatio:false,fontStyle: 'Arial',
-                       };
-if(numberOfAllProducts !==0){
+function showStatistics(jsonData) {
+  document.getElementById('user').innerHTML = 'We have ' + jsonData.numOfUsers + ' registered users!';
+  // document.getElementById('orders').innerHTML = jsonData["numOfOrders"];
+  var numberOfActiveProducts = jsonData.numOfActiveProducts;
+  var numberOfAllProducts = jsonData.numOfProducts;
+  var numberOfActiveOrders = jsonData.numOfActiveOrders;
+  var numberOfAllOrders = jsonData.numOfOrders;
+  var options = {responsive: true,
+    maintainAspectRatio: false, fontStyle: 'Arial'
+  };
+  if (numberOfAllProducts !== 0) {
     var ct1 = document.getElementById('chart1');
     var data = {
-        labels: [`Active Products`, `Deleted Products`],
-        datasets: [{
-            data: [numberOfActiveProducts, numberOfAllProducts-numberOfActiveProducts],
-            backgroundColor: [
-                            '#006400',
-                                                        '	#D3D3D3'
-                            ],
-            borderColor: [
-                           '#006400',
-                                                       'rgba(112, 99, 132, 1)'
-                         ],
-                         borderWidth:1
+      labels: ['All Products', 'Active Products', 'Deleted Products'],
+      datasets: [{
+        data: [numberOfAllProducts, numberOfActiveProducts, numberOfAllProducts - numberOfActiveProducts],
+        backgroundColor: [
+          'rgba(194, 225, 132,1)',
+          '	rgba(	212, 183, 145,1)', '		rgba(169, 179, 188,1)'
+        ],
+        borderColor: [
+          '',
+          '', ''
+        ],
+        borderWidth: 0.6
 
-        }]
-     };
+      }]
+    };
 
 
     var myDoughnutChart = new Chart(ct1, {
-        type: 'doughnut',
-        data: data,
-        options: options
+      type: 'pie',
+      data: data,
+      options: options
     });
-    } else {
+  } else {
+    document.getElementById('message-product').innerHTML = 'There are no products.';
+  }
 
-        document.getElementById('message-product').innerHTML = "There are no products.";
-    }
-
-    if(numberOfAllOrders !==0){
+  if (numberOfAllOrders !== 0) {
     var ct2 = document.getElementById('chart2');
 
     var data2 = {
-            labels:[`Pending Orders`, `Delivered Orders`],
-            datasets: [{
-                data: [numberOfActiveOrders, numberOfAllOrders-numberOfActiveOrders],
-                backgroundColor: [
-                                 '	#D3D3D3',
-                                                             '#006400'
-                                 ],
-                borderColor: [
-                               '#006400',
-                                                           '#006400'
+      labels: ['All Orders', 'Pending Orders', 'Delivered Orders'],
+      datasets: [{
+        data: [numberOfAllOrders, numberOfActiveOrders, numberOfAllOrders - numberOfActiveOrders],
+        backgroundColor: [
+          '	rgba(194, 225, 132,1)',
+          'rgba(	212, 183, 145,1)', 'rgba(169, 179, 188,1)'
+        ],
+        borderColor: [
+          '',
+          '', ''
 
-                             ],
-                             borderWidth:1,
-            }],
-         };
+        ],
+        borderWidth: 0.6
+      }]
+    };
 
 
-       var myDoughnutChart = new Chart(ct2, {
-           type: 'doughnut',
-           data: data2,
-           options: options
-       });
-        } else {
-            document.getElementById('message-order').innerHTML="There are no orders.";
-        }
+    var myDoughnutChart = new Chart(ct2, {
+      type: 'pie',
+      data: data2,
+      options: options
+    });
+  } else {
+    document.getElementById('message-order').innerHTML = 'There are no orders.';
+  }
 }
-
-
-
 
