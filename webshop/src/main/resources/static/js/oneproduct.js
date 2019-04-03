@@ -185,6 +185,9 @@ function sendRate(jsonData) {
         document.getElementById('message-div').setAttribute('class', 'alert alert-danger');
       }
       document.getElementById('message-div').innerHTML = jsonData.message;
+    })
+    .then(function(){
+      fetchRates();
     });
 
 }
@@ -231,10 +234,10 @@ function addToBasket(jsonData) {
           document.getElementById('message-div').setAttribute('class', 'alert alert-danger');
         }
         document.getElementById('message-div').innerHTML = jsonData.message;
-      }
+      })
       .then(function () {
         fetchRates();
-      }));
+      });
 }
 
 function goBack() {
