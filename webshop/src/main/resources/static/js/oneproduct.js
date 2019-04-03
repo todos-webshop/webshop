@@ -25,7 +25,7 @@ function fetchProduct() {
         showTable(jsonData);
         actProduct = jsonData;
       }
-    });
+    })
   return false;
 }
 
