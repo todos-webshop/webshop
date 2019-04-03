@@ -378,7 +378,7 @@ body {
 #main_div_orders {
   position: relative;
   top: 50px;
-  margin-left: 290px;
+  margin-left: 265px;
   margin-bottom: 100px;
   max-width: 900px;
   min-height: 350px;
@@ -402,7 +402,7 @@ body {
   font-family: "Helvetica-Bold";
   position: relative;
   top: 20px;
-  left: 290px;
+  left: 270px;
   font-size: 28px;
   max-width: 500px;
 }
@@ -411,7 +411,7 @@ body {
   font-family: "Helvetica-Medium";
   position: relative;
   top: 20px;
-  left: 290px;
+  left: 270px;
   max-width: 500px;
 }
 
@@ -897,7 +897,7 @@ html {
 }
 
 .myorder-back {
-  left: 285px;
+  left: 270px;
   top: 140px;
   width: 30px;
   position: absolute;

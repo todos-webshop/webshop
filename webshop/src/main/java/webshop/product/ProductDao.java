@@ -194,7 +194,7 @@ public class ProductDao {
     public List<Product> listAllProductsByCategory(Category category){
         return jdbcTemplate.query("select products.id, code, products.name, address, manufacturer, price, " +
                 "status, categories.name from products join categories on products.category_id = categories" +
-                ".id where categories.id = ?", new RowMapper<Product>() {
+                ".id where categories.id = ? order by products.name", new RowMapper<Product>() {
             @Override
             public Product mapRow(ResultSet resultSet, int i) throws SQLException {
                 return new Product(
