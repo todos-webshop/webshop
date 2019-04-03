@@ -603,8 +603,10 @@ html {
 }
 
 .myorders-div {
-  text-align: right;
+  text-align: center;
   font-family: "Helvetica-Light";
+  line-height: 20px;
+  font-size: 14px;
 }
 
 .product-number {
@@ -615,6 +617,7 @@ html {
 .name-product {
   font-family: "Helvetica-Bold";
   font-size: 15px;
+  text-align: center;
 }
 
 #avg_product {

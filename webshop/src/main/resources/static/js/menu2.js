@@ -122,7 +122,6 @@ function createDropdownDivForUser(div) {
         <div id="myDropdown" class="dropdown-content">
             <a href="/myorders.html">My Orders</a>
             <a href="/profile.html">Profile</a>
-            <a href="/">Contact</a>
         </div>
     </div>
     `;
