@@ -15,7 +15,7 @@ import javax.validation.Valid;
 public class UserValidator implements Validator {
 
     private UserService userService;
-    @Autowired
+//    @Autowired
     public UserValidator(UserService userService) {
         this.userService = userService;
     }

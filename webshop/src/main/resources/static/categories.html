@@ -7,6 +7,7 @@
     <script src="js/sortable/jquery-1.11.3.js"></script>
     <script src="js/sortable/jquery-ui.js"></script>
     <link rel="stylesheet" href="css/jSortable.css">
+    <link rel="stylesheet" href="css/categories.css">
     <style>
         body {
             font-family: "Trebuchet MS", "Helvetica", "Arial", "Verdana", "sans-serif";
@@ -23,11 +24,30 @@
 </head>
 <body>
 
+<div class="category-background"></div>
+
+<div class="category-main-div">
+    <h2 class="page-title">Category administration</h2>
+    <h3>Use drag & drop to refactor sequence of categories</h3>
+
+    <button id="new-product-btn">
+        <img src="/img/add logo.png" alt=""><span class="button-span">Add new category</span></button>
+
+    <br><br><br>
+
+    <form class="disabled" id="form-input">
+        <div class="form-input">Name</div> <input type="text" name="name" id="name"><br>
+        <div class="form-input">Sequence</div> <input type="text" name="sequence" id="sequence"><br>
+        <br><br>
+        <input type="submit" value="Add" id="add-btn"><br>
+    </form>
+
+
     <ul id="sortable" class="sortable"></ul>
 
-<button onclick="save()">Save</button>
-
-<!-- <script src="js/menu.js"></script> -->
+<button class="category-button" onclick="save()">Save</button>
+</div>
+ <script src="js/menu2.js"></script>
 <script src="js/categories.js"></script>
 <script src="js/sortable/jSortable.js"></script>
 </body>

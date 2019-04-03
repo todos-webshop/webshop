@@ -1,21 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>My orders</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">    <title>My orders</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+
+    <style>
+           /* external css: flickity.css */
+
+* { box-sizing: border-box; }
+
+body { font-family: sans-serif; }
+
+.carousel {
+  background: #EEE;
+}
+
+.carousel-cell {
+  width: 28%;
+  height: 350px;
+  margin-right: 10px;
+  background: #8C8;
+  border-radius: 5px;
+  counter-increment: carousel-cell;
+}
+
+.carousel-cell.is-selected {
+  background: #ED2;
+}
+
+/* cell number */
+.carousel-cell:before {
+  display: block;
+  text-align: center;
+  content: counter(carousel-cell);
+  line-height: 200px;
+  font-size: 80px;
+  color: white;
+}
+
+.mydiv{
+    margin: 5px 0px 5px 0px; 
+    text-align: center;
+}
+</style>
 </head>
 <body>
 
 
 <br><br><br><br><br><br><br><br>
-<h2 class="header">Orders and Returns</h2>
+<h2 class="header">Placed orders</h2>
 <div class="header-div">Check the status and information regarding your online orders. </div>
+<a href="/index.html"><img src="/img/back.png" class="myorder-back"></a>
+
 <div id="main_div_orders"></div>
 
-<script src="js/orders.js"></script>
-<script src="js/menu2.js"></script>
-<script src="/js/footer.js"></script>
+    <script src="js/menu2.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/myorders.js"></script>
 
 </body>
 </html>

@@ -29,9 +29,9 @@ INSERT into basket_items (basket_id, product_id, quantity) VALUES (1,2,10);
 INSERT into basket_items (basket_id, product_id, quantity) VALUES (1,3,3);
 
 
-INSERT INTO orders (id, user_id, order_time, status, shipping_address) VALUES (1,2,"2019-03-28 10:31:08", "ACTIVE", "1111 BP. Fő út 1");
-INSERT INTO orders (id, user_id, order_time, status, shipping_address) VALUES (2,2,"2019-03-29 10:31:08", "DELETED", "1111 BP. Fő út 2");
-INSERT INTO orders (id, user_id, order_time, status, shipping_address) VALUES (3,2,"2019-03-27 10:31:08", "DELIVERED", "1111 BP. Fő út 3");
+INSERT INTO orders (id, user_id, order_time, status, shipping_address) VALUES (1,2,"2019-03-28 10:31:08", "ACTIVE", "1111 BP. Fa utca 13");
+INSERT INTO orders (id, user_id, order_time, status, shipping_address) VALUES (2,2,"2019-03-29 10:31:08", "DELETED", "1111 BP. Krumpli út 122");
+INSERT INTO orders (id, user_id, order_time, status, shipping_address) VALUES (3,2,"2019-03-27 10:31:08", "DELIVERED", "1111 BP. Csiga sor 3");
 
 INSERT INTO ordered_items (order_id, product_id, order_price, quantity) VALUES (1,1,2900,1);
 INSERT INTO ordered_items (order_id, product_id, order_price, quantity) VALUES (1,2,3900,3);

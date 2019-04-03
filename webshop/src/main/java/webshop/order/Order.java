@@ -44,17 +44,17 @@ public class Order {
         this.id = id;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
+//    public void setUserId(long userId) {
+//        this.userId = userId;
+//    }
 
-    public void setOrderTime(LocalDateTime orderTime) {
-        this.orderTime = orderTime;
-    }
+//    public void setOrderTime(LocalDateTime orderTime) {
+//        this.orderTime = orderTime;
+//    }
 
-    public void setOrderStatus(OrderStatus orderStatus) {
-        this.orderStatus = orderStatus;
-    }
+//    public void setOrderStatus(OrderStatus orderStatus) {
+//        this.orderStatus = orderStatus;
+//    }
 
     public List<OrderItem> getOrderItems() {
         return orderItems;
@@ -68,9 +68,9 @@ public class Order {
         return totalOrderPrice;
     }
 
-    public void setTotalOrderPrice(long totalOrderPrice) {
-        this.totalOrderPrice = totalOrderPrice;
-    }
+//    public void setTotalOrderPrice(long totalOrderPrice) {
+//        this.totalOrderPrice = totalOrderPrice;
+//    }
 
     public String getShippingAddress() {
         return shippingAddress;
