@@ -158,8 +158,6 @@ function showTable(jsonData) {
     });
   }
 
-}
-
 function sendRate(jsonData) {
   var numOfStars = 0;
   var stars = document.getElementById('formId').getElementsByTagName('input');

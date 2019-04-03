@@ -29,7 +29,7 @@
 }
 
 body {
-  background-color: #F5F5F5;
+  background-color: rgb(240, 240, 240);
 }
 
 .menu_div {
@@ -52,12 +52,13 @@ body {
   right: 47.5%;
 }
 
-.dropbtn {
+.dropbtn,
+.dropbtn2 {
   font-family: 'Roboto';
   letter-spacing: 3px;
   padding: 15px 32px;
   text-align: center;
-  font-size: 18px;
+  font-size: 15px;
   cursor: pointer;
   border-radius: 3px;
   background-color: white;
@@ -67,19 +68,25 @@ body {
 }
 
 .dropbtn:hover,
-.dropbtn:focus {
+.dropbtn:focus,
+.dropbtn2:hover,
+.dropbtn2:focus {
   font-family: 'Roboto';
   background-color: rgb(98, 126, 104);
   color: white;
 }
 
-.dropdown {
+.dropdown,
+.dropdown2 {
   font-family: 'Roboto';
   position: relative;
   display: inline-block;
+  letter-spacing: 3px;
+  font-size: 15px;
 }
 
-.dropdown-content {
+.dropdown-content,
+.dropdown-content2 {
   font-family: 'Roboto';
   display: none;
   position: absolute;
@@ -90,7 +97,8 @@ body {
   z-index: 1;
 }
 
-.dropdown-content a {
+.dropdown-content a,
+.dropdown-content2 a {
   font-family: 'Roboto';
   color: black;
   padding: 12px 16px;
@@ -98,7 +106,8 @@ body {
   display: block;
 }
 
-.dropdown a:hover {
+.dropdown a:hover,
+.dropdown2 a:hover {
   background-color: #ddd;
 }
 
@@ -106,12 +115,13 @@ body {
   display: block;
 }
 
-.menu-button, .category-button {
+.menu-button,
+.category-button {
   font-family: 'Roboto';
   letter-spacing: 3px;
   padding: 15px 32px;
   text-align: center;
-  font-size: 18px;
+  font-size: 15px;
   cursor: pointer;
   border-radius: 3px;
   background-color: white;
@@ -120,7 +130,8 @@ body {
   height: 59px;
 }
 
-.menu-button:hover, .category-button:hover {
+.menu-button:hover,
+.category-button:hover {
   background-color: whitesmoke;
 }
 
@@ -154,7 +165,7 @@ body {
   margin: 0;
 }
 
-.welcome-div{
+.welcome-div {
   margin-left: 10px;
   padding-top: 18px;
   position: fixed;
@@ -164,7 +175,7 @@ body {
   letter-spacing: 1px;
 }
 
-.menu-button-cart{
+.menu-button-cart {
   position: fixed;
   right: 30px;
   padding-top: 5px;
