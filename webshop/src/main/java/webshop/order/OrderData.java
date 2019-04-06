@@ -1,8 +1,6 @@
 package webshop.order;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 public class OrderData {
 

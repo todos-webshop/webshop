@@ -4,10 +4,8 @@ import webshop.category.Category;
 import org.springframework.stereotype.Service;
 import webshop.CustomResponseStatus;
 import webshop.Response;
-import webshop.category.Category;
 import webshop.category.CategoryDao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -56,9 +54,6 @@ public class ProductService {
        if (!productDao.isIdTheSameForUpdatingTheSameName(category.getProducts().get(0).getName(), id)){
            return new CustomResponseStatus(Response.FAILED, String.format("Name must be unique and %s already exists in database", category.getProducts().get(0).getName()));
        }
-       /*if (productDao.isAddressEdited(category.getProducts().get(0).getAddress(), id)){
-           return new CustomResponseStatus(Response.FAILED, "Address can not be edited.");
-       }*/
        int responseInt = productDao.updateProduct(id, category, foundCategory.getId());
        if (responseInt == 1) {
            return new CustomResponseStatus(Response.SUCCESS, "Updated successfully.");

@@ -128,7 +128,7 @@ function createDropdownDivForCategory(div) {
         <div id="myDropdown2" class="dropdown-content">
             <a href="/index.html#Bamboo products">Bamboo products</a>
             <a href="/index.html#Straws">Straws</a>
-            <a href="/index.html#Coconut bowls">No category</a>
+            <a href="/index.html#Coconut bowls">Coconut bowls</a>
             <a href="/index.html#Eco bags">Eco bags</a>
             <a href="/index.html#No category">No category</a>
         </div>

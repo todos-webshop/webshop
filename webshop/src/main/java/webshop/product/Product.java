@@ -40,8 +40,8 @@ public class Product {
 
 
     public String generateAddress(){
-        String address = name.toLowerCase().replaceAll(" ", "_");
-        return normalize(address);
+        String newAddress = name.toLowerCase().replaceAll(" ", "_");
+        return normalize(newAddress);
     }
 
     private String normalize(String s) {
@@ -81,10 +81,7 @@ public class Product {
     private String deleteRedundantSpace(String string){
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < string.length()-1;i++){
-            if (string.charAt(i) == ' ' &&  string.charAt(i+1)==' '){
-
-            }
-            else {
+            if (!(string.charAt(i) == ' ' &&  string.charAt(i+1)==' ')){
                 stringBuilder.append(string.charAt(i));
             }
         }

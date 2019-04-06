@@ -5,10 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import webshop.CustomResponseStatus;
 import webshop.Response;
-import webshop.category.CategoryService;
 import webshop.validator.ProductValidator;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,16 +19,11 @@ public class ProductController {
 
     private ProductValidator productValidator = new ProductValidator(productService);
 
-/*
-    @GetMapping("/api/products")
-    public List<Product> listAllProducts() {
-        return productService.listAllProducts();
-    }
-*/
+    public static final String INVALID_ADDRESS = "Invalid address";
 
     @GetMapping("/api/product/")
             public Object throwErrorOnWrongAddress() {
-            return new CustomResponseStatus(Response.FAILED, "Invalid address");
+            return new CustomResponseStatus(Response.FAILED, INVALID_ADDRESS);
             }
 
     @GetMapping("/api/product/{address}")
@@ -40,10 +33,10 @@ public class ProductController {
           try {
               return productService.findProductByAddress(address);
           } catch (Exception e){
-              return new CustomResponseStatus(Response.FAILED, "Invalid address");
+              return new CustomResponseStatus(Response.FAILED, INVALID_ADDRESS);
           }
         } else {
-            return new CustomResponseStatus(Response.FAILED, "Invalid address");
+            return new CustomResponseStatus(Response.FAILED,  INVALID_ADDRESS);
         }
     }
 
