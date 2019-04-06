@@ -56,9 +56,6 @@ function setMenu() {
   setFavicon();
   insertMenuCss();
   addEventListenerToLogo();
-
-/*  insertFooter();*/
-
 }
 
 function classChanger() {
@@ -111,14 +108,6 @@ function insertMenuCss() {
 
   head.appendChild(cssLink);
 }
-
-/*function insertFooter(){
-  var body = document.querySelector('body');
-  var script = document.createElement('script');
-  script.setAttribute('src', 'js/footer.js')
-
-  body.appendChild(script);
-}*/
 
 function createDropdownDivForUser(div) {
   div.innerHTML += `
@@ -208,15 +197,11 @@ function createMessageDiv() {
   var messageDiv = document.createElement('div');
   messageDiv.setAttribute('id', 'message-div');
   messageDiv.setAttribute('class', 'message-div');
+  messageDiv.addEventListener("DOMSubtreeModified", function(){
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
+  })
   return messageDiv;
 }
-
-/*function createCategoryButton(){
-    var categoryButton = document.createElement('button');
-    categoryButton.setAttribute('id', 'category-button');
-    categoryButton.setAttribute('class', 'category-button');
-    return categoryButton;
-}*/
 
 function addEventListenerToNotLoggedIn() {
   document.getElementById('login-btn').addEventListener('click', function () {

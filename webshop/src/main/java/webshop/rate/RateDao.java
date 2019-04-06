@@ -77,10 +77,10 @@ public class RateDao {
 
     }
 
-    public int updateRate(Rate rate, long id) {
+    public int updateRate(Rate rate) {
         Date date = Date.valueOf(rate.getDate());
-        return jdbcTemplate.update("update ratings set stars = ?, message = ?, rating_time = ? where id = ?",
-                rate.getStars(), rate.getMessage(), date, id);
+        return jdbcTemplate.update("update ratings set stars = ?, message = ?, rating_time = ? where  ratings.product_id =? and ratings.user_id =?",
+                rate.getStars(), rate.getMessage(), date, rate.getProduct().getId(), rate.getUser().getId());
     }
 
 

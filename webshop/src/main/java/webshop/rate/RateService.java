@@ -1,6 +1,8 @@
 package webshop.rate;
 
 import org.springframework.stereotype.Service;
+import webshop.CustomResponseStatus;
+import webshop.Response;
 import webshop.product.Product;
 import webshop.user.User;
 
@@ -21,20 +23,31 @@ public class RateService {
         return rateDao.getAvgRatesForProduct(product);
     }
 
-    public long addRate(Rate rate, long id){
+    public CustomResponseStatus addRate(Rate rate, long id){
         rate.setMessage(deleteHTMLelements(rate.getMessage()));
-        if (rateDao.getRateForUserAndProduct(rate).size()!=0){
-           return rateDao.updateRate(rate, id );
-              }
-        return rateDao.addNewRateAndGetId(rate);
+        if (rateDao.orderedProductByUser(rate.getProduct(),rate.getUser())) {
+            if (rateDao.getRateForUserAndProduct(rate).size() != 0) {
+                int updateRows = rateDao.updateRate(rate);
+                if (updateRows > 0) {
+                    return new CustomResponseStatus(Response.SUCCESS, "Rate succesfully updated!");
+                }
+            }
+            long addRows = rateDao.addNewRateAndGetId(rate);
+            if (addRows >= 0) {
+                return new CustomResponseStatus(Response.SUCCESS, "Rate successfully added!");
+            }
+            return new CustomResponseStatus(Response.FAILED, "Failed to rate!");
+        } else {
+            return new CustomResponseStatus(Response.FAILED, "Rate is only possible after the order was delivered.");
+        }
     }
 
     public Rate getRateForUserAndProduct(Rate rate){
         List<Rate>ratingList = rateDao.getRateForUserAndProduct(rate);
-       if (ratingList.size() !=0) {
-          return ratingList.get(0);
-       }
-       throw new IllegalArgumentException("The Rate does not exist!");
+        if (ratingList.size() !=0) {
+            return ratingList.get(0);
+        }
+        throw new IllegalArgumentException("The Rate does not exist!");
     }
 
     private String deleteHTMLelements(String string){
