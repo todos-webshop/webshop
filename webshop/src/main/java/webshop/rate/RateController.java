@@ -9,12 +9,10 @@ import webshop.product.Product;
 import webshop.product.ProductService;
 import webshop.product.ProductStatus;
 import webshop.user.User;
-import webshop.user.UserRole;
 import webshop.user.UserService;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class RateController {
@@ -28,14 +26,12 @@ public class RateController {
 
     @GetMapping("/api/rating/list/{productid}")
     public List<Rate> getRatesForProduct(@PathVariable long productid) {
-       // Product product = new Product(productid, "MUZ", "muz", "muz", 0, ProductStatus.ACTIVE);
         Product product = productService.getProductByProductId(productid);
         return rateService.getRatesForProduct(product);
     }
 
     @GetMapping("/api/rating/avg/{productid}")
     public double getAvgRatesForProduct(@PathVariable long productid) {
-        //Product product = new Product(productid, "MUZ", "muz", "muz", 0, ProductStatus.ACTIVE);
         Product product = productService.getProductByProductId(productid);
         return rateService.getAvgRatesForProduct(product);
     }
@@ -43,7 +39,7 @@ public class RateController {
     @GetMapping("/api/rating/{productid}")
     public RateWithStatus getUserRateForProduct(Authentication authentication, @PathVariable long productid) {
         Product product = productService.getProductByProductId(productid);
-        Rate rateFromDB = new Rate(0, "", 1, LocalDate.now(), new User(15, "John", "Doe", "john", "123456", 1, UserRole.ROLE_USER), product);
+        Rate rateFromDB;
 
         if (authentication != null) {
             String loggedInUsername = authentication.getName();
@@ -72,7 +68,7 @@ public class RateController {
                 User loggedInUser = userService.getUserByUsername(loggedInUsername);
                 rate.setUser(loggedInUser);
                 rate.setDate(LocalDate.now());
-                return rateService.addRate(rate, id);
+                return rateService.addRate(rate);
             } else {
                 return new CustomResponseStatus(Response.FAILED,"Please add min 1 star!");
             }

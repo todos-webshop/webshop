@@ -1,6 +1,5 @@
 package webshop.statics;
 
-import java.time.LocalDate;
 
 public class StatusOrderReport {
 

@@ -13,12 +13,10 @@ function fetchProducts() {
     })
     .then(function (jsonData) {
       showDivs(jsonData);
-      console.log(jsonData)
     });
 }
 
 function fetchCategories(e){
-  console.log(event.target.id)
   var url = '/api/categories';
   fetch(url)
     .then(function (response) {
@@ -30,7 +28,6 @@ function fetchCategories(e){
       } else {
       showInputFields(jsonData);
       }
-      console.log(jsonData);
     });
 }
 
@@ -156,7 +153,6 @@ function editItem(jsonData, id){
     var newClassName = 'save-button' + id;
     var newAttribute = 'button-enabled button ' + newClassName;
 
-    console.log(jsonData)
     saveBtn.setAttribute('class', newAttribute);
 
     var row = document.getElementById(id);
@@ -255,7 +251,6 @@ function saveUpdatedItem(){
             document.getElementById('message-div').setAttribute('class', 'alert alert-danger')
 
             var row = document.getElementById(id);
-            console.log(id)
                 var c = row.childNodes;
                 for (var i = 0; i < c.length; i++){
                     if (i == 5){
@@ -265,7 +260,6 @@ function saveUpdatedItem(){
                     c[i].setAttribute('contenteditable', 'false');
                     }
                     }
-            //row.setAttribute('contenteditable', 'false');
             var classAttribute = '.save-button' + id;
             var newClassName = 'save-button' + id;
             var newAttribute = 'button-disabled button ' + newClassName;

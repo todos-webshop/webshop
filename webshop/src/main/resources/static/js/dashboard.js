@@ -9,13 +9,11 @@ function load() {
     })
     .then(function (jsonData) {
       showStatistics(jsonData);
-      console.log(jsonData);
     });
 }
 
 function showStatistics(jsonData) {
   document.getElementById('user').innerHTML = 'We have ' + jsonData.numOfUsers + ' registered users!';
-  // document.getElementById('orders').innerHTML = jsonData["numOfOrders"];
   var numberOfActiveProducts = jsonData.numOfActiveProducts;
   var numberOfAllProducts = jsonData.numOfProducts;
   var numberOfActiveOrders = jsonData.numOfActiveOrders;

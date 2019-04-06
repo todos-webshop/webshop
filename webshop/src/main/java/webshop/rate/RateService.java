@@ -23,10 +23,10 @@ public class RateService {
         return rateDao.getAvgRatesForProduct(product);
     }
 
-    public CustomResponseStatus addRate(Rate rate, long id){
+    public CustomResponseStatus addRate(Rate rate){
         rate.setMessage(deleteHTMLelements(rate.getMessage()));
         if (rateDao.orderedProductByUser(rate.getProduct(),rate.getUser())) {
-            if (rateDao.getRateForUserAndProduct(rate).size() != 0) {
+            if (!rateDao.getRateForUserAndProduct(rate).isEmpty()) {
                 int updateRows = rateDao.updateRate(rate);
                 if (updateRows > 0) {
                     return new CustomResponseStatus(Response.SUCCESS, "Rate succesfully updated!");
@@ -44,7 +44,7 @@ public class RateService {
 
     public Rate getRateForUserAndProduct(Rate rate){
         List<Rate>ratingList = rateDao.getRateForUserAndProduct(rate);
-        if (ratingList.size() !=0) {
+        if (!ratingList.isEmpty()) {
             return ratingList.get(0);
         }
         throw new IllegalArgumentException("The Rate does not exist!");

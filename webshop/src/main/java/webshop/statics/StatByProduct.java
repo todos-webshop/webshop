@@ -1,6 +1,5 @@
 package webshop.statics;
 
-import webshop.order.OrderStatus;
 
 public class StatByProduct {
     private int year;

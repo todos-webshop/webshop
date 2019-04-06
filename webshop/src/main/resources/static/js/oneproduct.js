@@ -208,9 +208,6 @@ function fetchAvg() {
 
 }
 
-
-
-
 function addToBasket(jsonData) {
   var quantity = document.getElementById('quantity').value;
   var code = jsonData.products[0].code;
