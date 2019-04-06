@@ -57,7 +57,7 @@ public class ProductIntegrationTest {
         catSample.setProducts(productList);
         productController.addNewProduct(catSample);
         Category catResult =productController.findProductByAddress("sample");
-        assertEquals( catResult.getProducts().get(0).getName(),"Sample");
+        assertEquals("Sample", catResult.getProducts().get(0).getName());
         assertEquals("PROBA", catResult.getProducts().get(0).getCode());
 
     }

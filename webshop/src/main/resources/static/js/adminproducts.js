@@ -36,7 +36,7 @@ function fetchCategories(e){
 
 
 function showDivs(jsonData) {
-  divMain = document.getElementById('main_div_adminproducts');
+  var divMain = document.getElementById('main_div_adminproducts');
   divMain.innerHTML = '';
   for (var i = 0; i < jsonData.length; i++) {
     var categoryName = document.createElement('div');
@@ -174,9 +174,8 @@ function editItem(jsonData, id){
             </select>`
         }
         if (i == 6){
-        var adminCat = document.querySelector('.admin-category');
         c[i].innerHTML = "";
-        for (j = 0; j < jsonData.length; j++){
+        for (var j = 0; j < jsonData.length; j++){
             var option = document.createElement('option');
             option.innerHTML = jsonData[j].categoryName;
             select.appendChild(option)
@@ -197,10 +196,8 @@ function saveUpdatedItem(){
       var code = childenOfRow[0].innerHTML;
       var name = childenOfRow[1].innerHTML;
       var address = childenOfRow[2].innerHTML;
-      var manufacturer = childenOfRow[3].innerHTML;;
+      var manufacturer = childenOfRow[3].innerHTML;
       var price = childenOfRow[4].innerHTML.split(" ");
-      var category = childenOfRow[6].innerHTML;
-    console.log(address);
 
       var selectElement = document.querySelector('.select-element');
       var value = selectElement.options[selectElement.selectedIndex].value;
@@ -335,7 +332,7 @@ function showInputFields(jsonData) {
 
   var select = document.getElementById('select-category');
 
-  for (i = 0; i < jsonData.length; i++){
+  for (var i = 0; i < jsonData.length; i++){
         var option = document.createElement('option');
         option.innerHTML = jsonData[i].categoryName;
         select.appendChild(option);
