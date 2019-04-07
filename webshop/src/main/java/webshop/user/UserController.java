@@ -122,6 +122,7 @@ public class UserController {
                 userService.modifyUserByUser(id, user);
                 return new CustomResponseStatus(Response.SUCCESS, "User updated");
             } catch (org.springframework.dao.DuplicateKeyException exc) {
+                return new CustomResponseStatus(Response.FAILED, "Username already exists");
             }
         }
         return new CustomResponseStatus(Response.FAILED, "User update invalid!");

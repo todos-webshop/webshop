@@ -88,6 +88,7 @@ function updateUser() {
       // document.getElementById('message-div').innerHTML =  elem.innerHTML = timeLeft + ' seconds remaining';
     } else {
       document.getElementById('message-div').setAttribute('class', 'alert alert-danger');
+      elem.innerHTML = jsonData.message;
     }
    // document.getElementById('message-div').innerHTML = 'User password invalid.';
   });
