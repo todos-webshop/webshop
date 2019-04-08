@@ -908,7 +908,7 @@ html {
 
 #recommends {
   position: absolute;
-  top: -1225px;
+  top: -1237px;
   width: 100%;
   margin: 0 auto;
 }
@@ -917,7 +917,7 @@ html {
   float: left;
   width: 22%;
   margin-left: 160px;
-  height: 410px;
+  height: 440px;
   background-color: rgb(227, 227, 227);
 }
 
@@ -928,16 +928,16 @@ html {
 .name-div-reco {
   text-align: center;
   font-size: 18px;
-  margin-top: 20px;
+  margin-top: 11px;
   font-family: 'Montserrat-Regular';
 }
 
 .products_img_reco {
-  height: 330px;
-  width: 330px;
-  margin-left: 8px;
-  margin-top: 26px;
-  opacity: 0.6;
+  height: 381px;
+  width: 400px;
+  margin-left: 11px;
+  margin-top: 10px;
+  opacity: 0.7;
   z-index: 99;
 }
 

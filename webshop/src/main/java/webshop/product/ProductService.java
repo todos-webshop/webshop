@@ -76,8 +76,7 @@ public class ProductService {
 
 
     public List<Product> lastThreeProducts(){
-        Order order = productDao.getIdOfLatestOrder();
-        return productDao.lastThreeProducts(order.getId());
+        return productDao.lastThreeProducts();
     }
 
     public Product getProductByProductId(long productId){
