@@ -1,8 +1,6 @@
 package webshop.basket;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import webshop.product.Product;
 import webshop.product.ProductDao;
 import webshop.product.ProductData;
 import webshop.user.User;
@@ -62,7 +60,6 @@ public class BasketService {
     }
 
     public int deleteOneProductFromBusket(String loggedInUsername, Long productId){
-       // long productId = productDao.getProductIdByProductCode(productData.getProductCode());
         long userId = userDao.getUserByUsername(loggedInUsername).getId();
         long basketId = getOrCreateAndReturnBasketIdByUserId(userId);
         return basketDao.deleteOneProductFromBusket(basketId,productId);

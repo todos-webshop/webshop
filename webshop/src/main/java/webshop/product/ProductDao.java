@@ -9,8 +9,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-import webshop.CustomResponseStatus;
-import webshop.user.User;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -21,6 +19,11 @@ import java.util.Map;
 public class ProductDao {
 
     private JdbcTemplate jdbcTemplate;
+
+    public static final String STATUS = "status";
+    public static final String PRICE = "price";
+    public static final String ADDRESS = "address";
+    public static final String MANUFACTURER = "manufacturer";
 
     public ProductDao(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
@@ -34,27 +37,14 @@ public class ProductDao {
                         resultSet.getLong("id"),
                         resultSet.getString("code"),
                         resultSet.getString("name"),
-                        resultSet.getString("address"),
-                        resultSet.getString("manufacturer"),
-                        resultSet.getInt("price"),
-                        ProductStatus.valueOf(resultSet.getString("status")));
+                        resultSet.getString(ADDRESS),
+                        resultSet.getString(MANUFACTURER),
+                        resultSet.getInt(PRICE),
+                        ProductStatus.valueOf(resultSet.getString(STATUS)));
                 }
         });
     }
 
-/*    public Product findProductByAddress(String address) {
-        return jdbcTemplate.queryForObject("select id,code,name,manufacturer,price, status from products where address = ?", new RowMapper<Product>() {
-            @Override
-            public Product mapRow(ResultSet resultSet, int i) throws SQLException {
-                return new Product(resultSet.getLong("id"),
-                        resultSet.getString("code"),
-                        resultSet.getString("name"),
-                        resultSet.getString("manufacturer"),
-                        resultSet.getInt("price"),
-                        ProductStatus.valueOf(resultSet.getString("status")));
-            }
-        },address);
-    }*/
     public Object findProductByAddressTwo(String address) {
         return jdbcTemplate.queryForObject("select id,code,name,manufacturer,price, status from products where address = ?", new RowMapper<Product>() {
             @Override
@@ -62,9 +52,9 @@ public class ProductDao {
                 return new Product(resultSet.getLong("id"),
                         resultSet.getString("code"),
                         resultSet.getString("name"),
-                        resultSet.getString("manufacturer"),
-                        resultSet.getInt("price"),
-                        ProductStatus.valueOf(resultSet.getString("status")));
+                        resultSet.getString(MANUFACTURER),
+                        resultSet.getInt(PRICE),
+                        ProductStatus.valueOf(resultSet.getString(STATUS)));
             }
         },address);
     }
@@ -99,7 +89,7 @@ public class ProductDao {
                 return resultSet.getString("code");
             }
         }, code);
-        return products.size() == 0;
+        return products.isEmpty();
     }
 
     public boolean isNameUnique(String name) {
@@ -109,7 +99,7 @@ public class ProductDao {
                 return resultSet.getString("name");
             }
         }, name);
-        return products.size() == 0;
+        return products.isEmpty();
     }
 
     public int updateProduct(long id, Category category, long categoryId) {
@@ -125,7 +115,7 @@ public class ProductDao {
         List<String> addressFromDB = jdbcTemplate.query("select address from products where id =?", new RowMapper<String>() {
             @Override
             public String mapRow(ResultSet resultSet, int i) throws SQLException {
-                return resultSet.getString("address");
+                return resultSet.getString(ADDRESS);
             }
         },id);
         return !address.equals(addressFromDB.get(0));
@@ -159,7 +149,7 @@ public class ProductDao {
         List<String> status = jdbcTemplate.query("select status from products where id = ?", new RowMapper<String>() {
             @Override
             public String mapRow(ResultSet resultSet, int i) throws SQLException {
-                return resultSet.getString("status");
+                return resultSet.getString(STATUS);
             }
         }, id);
         return status.get(0).equals("DELETED");
@@ -201,10 +191,10 @@ public class ProductDao {
                         resultSet.getLong("products.id"),
                         resultSet.getString("code"),
                         resultSet.getString("products.name"),
-                        resultSet.getString("address"),
-                        resultSet.getString("manufacturer"),
-                        resultSet.getInt("price"),
-                        ProductStatus.valueOf(resultSet.getString("status"))
+                        resultSet.getString(ADDRESS),
+                        resultSet.getString(MANUFACTURER),
+                        resultSet.getInt(PRICE),
+                        ProductStatus.valueOf(resultSet.getString(STATUS))
                 );
             }
         }, category.getId());
@@ -226,9 +216,9 @@ public class ProductDao {
                         List.of(new Product(resultSet.getLong("products.id"),
                         resultSet.getString("code"),
                         resultSet.getString("products.name"),
-                        resultSet.getString("manufacturer"),
-                        resultSet.getInt("price"),
-                        ProductStatus.valueOf(resultSet.getString("status"))))
+                        resultSet.getString(MANUFACTURER),
+                        resultSet.getInt(PRICE),
+                        ProductStatus.valueOf(resultSet.getString(STATUS))))
                 );
             }
         },address);
@@ -258,10 +248,10 @@ public List<Product> lastThreeProducts() {
                     resultSet.getLong("id"),
                     resultSet.getString("code"),
                     resultSet.getString("name"),
-                    resultSet.getString("address"),
-                    resultSet.getString("manufacturer"),
-                    resultSet.getInt("price"),
-                    ProductStatus.valueOf(resultSet.getString("status")));
+                    resultSet.getString(ADDRESS),
+                    resultSet.getString(MANUFACTURER),
+                    resultSet.getInt(PRICE),
+                    ProductStatus.valueOf(resultSet.getString(STATUS)));
         }
     });
 }

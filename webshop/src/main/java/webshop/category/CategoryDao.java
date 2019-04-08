@@ -6,9 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-import webshop.CustomResponseStatus;
 import webshop.product.Product;
-import webshop.product.ProductDao;
 import webshop.product.ProductStatus;
 
 import java.sql.*;
@@ -18,6 +16,8 @@ import java.util.List;
 public class CategoryDao {
 
     private JdbcTemplate jdbcTemplate;
+
+    private static final String SEQUENCE = "sequence";
 
     public CategoryDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -30,7 +30,7 @@ public class CategoryDao {
                 return new Category(
                         resultSet.getLong("id"),
                         resultSet.getString("name"),
-                        resultSet.getInt("sequence")
+                        resultSet.getInt(SEQUENCE)
                 );
             }
         });
@@ -40,11 +40,10 @@ public class CategoryDao {
         return jdbcTemplate.queryForObject("select id, name, sequence from categories where name = ?", new RowMapper<Category>() {
             @Override
             public Category mapRow(ResultSet resultSet, int i) throws SQLException {
-                System.out.println(category.getCategoryName());
                 return new Category(
                         resultSet.getLong("id"),
                         resultSet.getString("name"),
-                        resultSet.getInt("sequence"));
+                        resultSet.getInt(SEQUENCE));
             }
         }, category.getCategoryName());
     }
@@ -82,20 +81,17 @@ public class CategoryDao {
                 new RowMapper<Integer>() {
             @Override
             public Integer mapRow(ResultSet resultSet, int i) throws SQLException {
-                return resultSet.getInt("sequence");
+                return resultSet.getInt(SEQUENCE);
             }
         }, category.getSequence());
-        if (sequence.size() == 0){
-            return false;
-        }
-        return true;
+        return !sequence.isEmpty();
     }
 
     public int getSequenceById(long categoryId){
         return jdbcTemplate.queryForObject("select sequence from categories where id = ?", new RowMapper<Integer>() {
             @Override
             public Integer mapRow(ResultSet resultSet, int i) throws SQLException {
-                return resultSet.getInt("sequence");
+                return resultSet.getInt(SEQUENCE);
             }
         }, categoryId);
     }

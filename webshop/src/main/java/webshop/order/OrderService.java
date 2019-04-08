@@ -8,7 +8,6 @@ import webshop.basket.BasketItem;
 import webshop.user.User;
 import webshop.user.UserDao;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -34,7 +33,7 @@ public class OrderService {
 
         List<BasketItem> products = basketDao.getBasketItemsInBasketByBasketId(basketId);
 
-        if (products.size() == 0) {
+        if (products.isEmpty()) {
             return new CustomResponseStatus(Response.FAILED, "Your cart is empty.");
         }
         long orderid = orderDao.insertIntoOrdersFromBasketsByUserId(userId, shippingAddress);

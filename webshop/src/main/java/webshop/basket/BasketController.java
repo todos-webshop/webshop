@@ -6,10 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import webshop.CustomResponseStatus;
 import webshop.Response;
 import webshop.product.ProductData;
-import webshop.user.User;
 import webshop.user.UserData;
 import webshop.user.UserRole;
-import webshop.user.UserService;
 
 @RestController
 public class BasketController {
