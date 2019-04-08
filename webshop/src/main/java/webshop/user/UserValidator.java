@@ -48,9 +48,9 @@ public class UserValidator implements Validator {
         return !isEmpty(user.getUsername()) && !user.getUsername().toUpperCase().contains("DELETED_USER");
     }
 
-    //     regex needs fix
-    //    private boolean passwordIsValid(String pass) {
-//        return pass == null && pass.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,50}$");
+
+//    private boolean passwordIsValid(String pass) {
+//        return pass != null && pass.matches("^(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$");
 //    }
 
     private boolean passwordIsValid(String pass) {
