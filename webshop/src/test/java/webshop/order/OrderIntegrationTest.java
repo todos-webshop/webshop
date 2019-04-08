@@ -203,5 +203,4 @@ public class OrderIntegrationTest {
         assertEquals(3, ordersWithAddressOnly.size());
         assertEquals("1111 BP. Csiga sor 3", ordersWithAddressOnly.get(0).getShippingAddress());
     }
-
 }
