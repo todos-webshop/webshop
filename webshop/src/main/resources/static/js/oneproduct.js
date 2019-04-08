@@ -24,6 +24,7 @@ function fetchProduct() {
       } else {
         showTable(jsonData);
         actProduct = jsonData;
+        console.log(jsonData    )
       }
     })
   return false;
@@ -76,7 +77,7 @@ function showTable(jsonData) {
 
   var productImg = document.createElement('img');
   productImg.setAttribute('class', 'product-img')
-  productImg.setAttribute('src', '/img/coming_soon.jpg')
+  productImg.setAttribute('src', '/img/products/' + jsonData.products[0].address + '.jpg')
   productImg.setAttribute('alt', '');
   tdLeft.appendChild(productImg);
 

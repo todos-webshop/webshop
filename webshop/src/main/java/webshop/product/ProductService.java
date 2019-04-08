@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import webshop.CustomResponseStatus;
 import webshop.Response;
 import webshop.category.CategoryDao;
+import webshop.order.Order;
 
 import java.util.List;
 
@@ -75,7 +76,8 @@ public class ProductService {
 
 
     public List<Product> lastThreeProducts(){
-        return productDao.lastThreeProducts();
+        Order order = productDao.getIdOfLatestOrder();
+        return productDao.lastThreeProducts(order.getId());
     }
 
     public Product getProductByProductId(long productId){

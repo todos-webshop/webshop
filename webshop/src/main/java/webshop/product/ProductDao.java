@@ -9,6 +9,8 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import webshop.order.Order;
+import webshop.order.OrderStatus;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -235,12 +237,26 @@ public class ProductDao {
     }
 
 
+    public Order getIdOfLatestOrder(){
+        return jdbcTemplate.queryForObject("select id, user_id, max(order_time), status, shipping_address from orders",
+                new RowMapper<Order>() {
+            @Override
+            public Order mapRow(ResultSet resultSet, int i) throws SQLException {
+                return new Order(
+                        resultSet.getLong("id"),
+                        resultSet.getLong("user_id"),
+                        null,
+                        OrderStatus.valueOf(resultSet.getString("status")),
+                        0L,
+                        resultSet.getString("shipping_address"));
+            }
+        });
+    }
 
-
-public List<Product> lastThreeProducts() {
+public List<Product> lastThreeProducts(long orderId) {
         return jdbcTemplate.query("select distinct products.id, products.code, products.name, products.address, products.manufacturer, products.price, products.status from products join"+
                " ordered_items on ordered_items.product_id=products.id join orders on "+
-                        "orders.id=ordered_items.order_id where products.status='ACTIVE' order by orders.order_time desc limit 3",
+                        "orders.id=ordered_items.order_id where orders.id = ? limit 3",
     new RowMapper<Product>() {
         @Override
         public Product mapRow(ResultSet resultSet, int i) throws SQLException {
@@ -253,7 +269,7 @@ public List<Product> lastThreeProducts() {
                     resultSet.getInt(PRICE),
                     ProductStatus.valueOf(resultSet.getString(STATUS)));
         }
-    });
+    }, orderId);
 }
 
 }
