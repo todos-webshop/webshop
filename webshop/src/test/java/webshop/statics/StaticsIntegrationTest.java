@@ -45,9 +45,9 @@ public class StaticsIntegrationTest {
     @Test
     public void testGetStat(){
        Stat stat = staticsController.getStat();
-        assertEquals(stat.getNumOfUsers(), 2);
-        assertEquals(stat.getNumOfActiveOrders(), 1);
-        assertEquals(stat.getNumOfProducts(), 5);
+        assertEquals(2,stat.getNumOfUsers());
+        assertEquals(1,stat.getNumOfActiveOrders());
+        assertEquals(5,stat.getNumOfProducts());
 
     }
 
@@ -64,17 +64,17 @@ public class StaticsIntegrationTest {
        catSample.setProducts(productList);
         productController.addNewProduct(catSample);
         Stat stat = staticsController.getStat();
-        assertEquals(stat.getNumOfProducts(), 6);
+        assertEquals(6, stat.getNumOfProducts());
 
     }
 
     @Test
     public void testGetOrdersReport(){
         StatReportOne  statReportOne = staticsController.getOrdersReport();
-        assertEquals(statReportOne.getStatusOrderReportList().size(), 1);
+        assertEquals(1,statReportOne.getStatusOrderReportList().size());
         assertThat(statReportOne.getStatusOrderReportList().get(0).getSumOfActiveOrdersForThisMonth(), is(1));
-        assertEquals(statReportOne.getStatusOrderReportList().get(0).getYear(), 2019);
-        assertEquals(statReportOne.getStatRowSummary().getActPiece(),1);
+        assertEquals(2019,statReportOne.getStatusOrderReportList().get(0).getYear());
+        assertEquals(1,statReportOne.getStatRowSummary().getActPiece());
     }
 
 
@@ -82,9 +82,9 @@ public class StaticsIntegrationTest {
     public void testGetProductsReport(){
 
     List<StatByProduct>  statByProducts = staticsController.getProductsReport();
-        assertEquals(statByProducts.size(),2);
-        assertEquals(statByProducts.get(0).getAmount(),58800);
-        assertEquals(statByProducts.get(0).getProductName(),"Natural Coconut Bowl Set");
+        assertEquals(2,statByProducts.size());
+        assertEquals(58800, statByProducts.get(0).getAmount());
+        assertEquals("Natural Coconut Bowl Set", statByProducts.get(0).getProductName());
 
 }
 }

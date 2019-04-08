@@ -17,7 +17,7 @@ public class CategoryDao {
 
     private JdbcTemplate jdbcTemplate;
 
-    public static final String SEQUENCE = "sequence";
+    private static final String SEQUENCE = "sequence";
 
     public CategoryDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;

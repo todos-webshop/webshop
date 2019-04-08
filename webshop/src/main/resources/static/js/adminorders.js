@@ -2,8 +2,6 @@ window.onload = function () {
   fetchAllOrders();
 };
 
-
-
 function fetchAllOrders() {
   var url = '/orders';
   fetch(url)
@@ -12,7 +10,6 @@ function fetchAllOrders() {
     })
     .then(function (jsonData) {
       showTable(jsonData);
-      console.log(jsonData)
     });
 }
 
@@ -79,7 +76,6 @@ function showOrder(jsonData) {
   var request = {
     'productCode': code
   };
-  //   console.log(request);
   fetch('/basket', {
       method: 'POST',
       body: JSON.stringify(request),
@@ -88,10 +84,8 @@ function showOrder(jsonData) {
       }
     })
     .then(function (response) {
-      //  console.log(response);
       return response.json();
     }).then(function (jsonData) {
-      // console.log(jsonData);
       if (jsonData.response === 'SUCCESS') {
         document.getElementById('message-div').setAttribute('class', 'alert alert-success');
       } else {
@@ -106,7 +100,6 @@ function deleteOrder(event) {
   var id = this.getAttribute('data-id');
 
   var url = `/orders/${id}`;
-  console.log(url);
 
   if (!confirm('Are you sure to delete?')) {
     return;
@@ -137,7 +130,6 @@ function updateOrderStatus(event) {
   var id = this.getAttribute('data-id');
 
   var url = `/orders/${id}/status`;
-  // console.log(url);
 
   if (!confirm('Are you sure to change order status?')) {
     return;

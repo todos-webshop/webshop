@@ -13,6 +13,9 @@ public class Rate {
     private User user;
     private Product product;
 
+    public Rate() {
+    }
+
     public Rate(long id, String message, int stars, LocalDate date, User user, Product product) {
         this.id = id;
         this.message = message;
@@ -59,5 +62,9 @@ public class Rate {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }

@@ -6,7 +6,6 @@ window.onload = function () {
 function fetchOrderItems() {
   var id = (new URL(document.location)).searchParams.get('id');
   var url = '/orders/' + id;
-  console.log(url);
   fetch(url)
     .then(function (response) {
       return response.json();
@@ -17,7 +16,6 @@ function fetchOrderItems() {
 
 
   function showDivs(jsonData) {
-    // console.log(jsonData);
 
     var divMain = document.getElementById('main_div_one_order');
     divMain.innerHTML = '';
@@ -83,45 +81,14 @@ var trRow = document.createElement('tr');
       priceTd.setAttribute('class', 'div_class_admin');
       trRow.appendChild(priceTd);
 
-
-
-
-      // var statusDiv = document.createElement('div');
-      // statusDiv.innerHTML = jsonData[i].product.productStatus;
-      // statusDiv.setAttribute('class', 'div_class_admin status-div');
-      // divRow.appendChild(statusDiv);
-
-/*      var buttonsDiv = document.createElement('div');
-      buttonsDiv.setAttribute('class', 'div_class_admin admin-product-div');
-      buttonsDiv.setAttribute('id', 'buttons-div');*/
-
       var deleteBtn = document.createElement('img');
       deleteBtn.setAttribute('src', '/img/delete-button.png');
       deleteBtn.setAttribute('class', 'order-delete-button');
       //deleteBtn.setAttribute('id', jsonData[i].product.id);
       deleteBtn.setAttribute('data-address', jsonData[i].product.address);
-      console.log(jsonData[i].product.address);
-      console.log(jsonData);
-      console.log(jsonData[i].product.address);
       deleteBtn.addEventListener('click', deleteItem);
 
-      // var editBtn = document.createElement('img');
-      // editBtn.setAttribute('src', '/img/edit-button.png');
-      // editBtn.setAttribute('class', 'button')
-      // editBtn.setAttribute('id', jsonData[i].product.id)
-      // editBtn.addEventListener('click', editItem);
-      // editBtn.setAttribute('class', 'button');
-
-      // var saveBtn = document.createElement('img');
-      // saveBtn.addEventListener('click', saveUpdatedItem);
-      // saveBtn.setAttribute('id', jsonData[i].product.id);
-      // saveBtn.setAttribute('src', '/img/save-button.png');
-      // var attribute = 'button-disabled button save-button' + jsonData[i].product.id;
-      // saveBtn.setAttribute('class', attribute);
-
       trRow.appendChild(deleteBtn);
-      // divRow.appendChild(editBtn);
-      // divRow.appendChild(saveBtn);
 
       table.appendChild(trRow);
     }
@@ -131,11 +98,8 @@ var trRow = document.createElement('tr');
   function deleteItem() {
     var id = (new URL(document.location)).searchParams.get('id');
     var address = this.getAttribute('data-address');
-    console.log(id)
-    console.log(address)
 
     var url = `/orders/${id}/${address}`;
-    console.log(url);
 
     if (!confirm('Are you sure to delete?')) {
       return;
@@ -159,8 +123,4 @@ var trRow = document.createElement('tr');
       });
     return false;
   }
-
-
-
-
 }

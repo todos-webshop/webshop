@@ -118,9 +118,9 @@ public class OrderIntegrationTest {
     public void testListOrders() {
         List<Order> orders = orderController.listOrdersByUserId(authenticationUser);
         assertEquals(3, orders.size());
-        assertEquals(orders.get(0).getId(), 2);
-        assertEquals(orders.get(2).getUserId(), 2);
-        assertEquals(orders.get(1).getOrderItems().size(), 3);
+        assertEquals(2,orders.get(0).getId());
+        assertEquals(2,orders.get(2).getUserId());
+        assertEquals(3, orders.get(1).getOrderItems().size());
     }
 
     @Test
@@ -129,79 +129,78 @@ public class OrderIntegrationTest {
         orderController.getOrderDataForActualUser(authenticationUser, orderWithShippingAddressOnly);
         List<Order> orders = orderController.listOrdersByUserId(authenticationUser);
         assertEquals(4, orders.size());
-        assertEquals(orders.get(0).getUserId(), 2);
-        assertEquals(orders.get(0).getOrderItems().size(), 3);
-        assertEquals(orders.get(0).getTotalOrderPrice(), 68250);
-        assertEquals(orders.get(0).getShippingAddress(), "2119 Pécel Diófa utca 23.");
-        assertEquals(orders.get(0).getOrderItems().get(2).getPieces(), 10);
-        assertEquals(orders.get(1).getOrderStatus().name(), "DELETED");
-        assertEquals(orders.get(1).getOrderTime().getDayOfMonth(), 29);
+        assertEquals(2,orders.get(0).getUserId());
+        assertEquals(3,orders.get(0).getOrderItems().size());
+        assertEquals(68250,orders.get(0).getTotalOrderPrice());
+        assertEquals("2119 Pécel Diófa utca 23.",orders.get(0).getShippingAddress());
+        assertEquals(10,orders.get(0).getOrderItems().get(2).getPieces());
+        assertEquals("DELETED", orders.get(1).getOrderStatus().name());
+        assertEquals(29, orders.get(1).getOrderTime().getDayOfMonth());
     }
 
 
     @Test
     public void testListAllOrderData(){
         List<OrderData> allOrders = orderController.listAllOrderData();
-        assertEquals(allOrders.get(0).getOrderStatus().name(), "DELETED");
-        assertEquals(allOrders.get(0).getOrderTime().toString(), "2019-03-29T11:31:08");
-        assertEquals(allOrders.get(0).getSumOrderPieces(), 38);
-        assertEquals(allOrders.get(0).getSumOrderPrice(), 9800);
-        assertEquals(allOrders.get(0).getOrderId(), 2);
-        assertEquals(allOrders.get(0).getUsername(), "user");
+        assertEquals("DELETED", allOrders.get(0).getOrderStatus().name());
+        assertEquals("2019-03-29T11:31:08", allOrders.get(0).getOrderTime().toString());
+        assertEquals(38, allOrders.get(0).getSumOrderPieces());
+        assertEquals(9800, allOrders.get(0).getSumOrderPrice());
+        assertEquals(2, allOrders.get(0).getOrderId());
+        assertEquals("user", allOrders.get(0).getUsername());
     }
 
     @Test
     public void testListFilteredOrders(){
         List<OrderData> filteredOrders = orderController.listFilteredOrderData("ACTIVE");
-        assertEquals(filteredOrders.get(0).getOrderStatus().name(), "ACTIVE");
-        assertEquals(filteredOrders.get(0).getSumOrderPieces(), 14);
-        assertEquals(filteredOrders.get(0).getSumOrderPrice(), 11700);
-        assertEquals(filteredOrders.get(0).getOrderId(), 1);
-        assertEquals(filteredOrders.get(0).getUsername(), "user");
+        assertEquals("ACTIVE", filteredOrders.get(0).getOrderStatus().name());
+        assertEquals(14, filteredOrders.get(0).getSumOrderPieces());
+        assertEquals(11700,filteredOrders.get(0).getSumOrderPrice());
+        assertEquals(1,filteredOrders.get(0).getOrderId());
+        assertEquals("user", filteredOrders.get(0).getUsername());
     }
 
     @Test
     public void testUpdateOrderStatus(){
         CustomResponseStatus rsForActive = orderController.updateOrderStatus(1);
-        assertEquals(rsForActive.getResponse().getDescription(), "Success");
+        assertEquals("Success", rsForActive.getResponse().getDescription());
 
         CustomResponseStatus rsForDeleted = orderController.updateOrderStatus(2);
-        assertEquals(rsForDeleted.getResponse().getDescription(), "Failed");
+        assertEquals("Failed", rsForDeleted.getResponse().getDescription());
     }
 
     @Test
     public void testLogicalDeleteOrder(){
         CustomResponseStatus rsForActive = orderController.logicalDeleteOrderByOrderId(1);
-        assertEquals(rsForActive.getResponse().getDescription(), "Success");
+        assertEquals("Success", rsForActive.getResponse().getDescription());
 
         CustomResponseStatus rsForDelivered = orderController.logicalDeleteOrderByOrderId(3);
-        assertEquals(rsForDelivered.getResponse().getDescription(), "Failed");
+        assertEquals("Failed", rsForDelivered.getResponse().getDescription());
     }
 
     @Test
     public void testDeleteItemFromOrderByProductAddress(){
     orderController.deleteItemFromOrderByProductAddress(2, "bamboo_toothbrush");
     List<Order> orders = orderController.listOrdersByUserId(authenticationUser);
-        assertEquals(orders.get(0).getId(), 2);
-        assertEquals(orders.get(0).getOrderItems().size(), 1);
-        assertEquals(orders.get(0).getOrderItems().get(0).getPieces(), 30);
-        assertEquals(orders.get(0).getOrderItems().get(0).getProduct().getCode(), "CB4");
+        assertEquals(2, orders.get(0).getId());
+        assertEquals(1, orders.get(0).getOrderItems().size());
+        assertEquals(30, orders.get(0).getOrderItems().get(0).getPieces());
+        assertEquals("CB4", orders.get(0).getOrderItems().get(0).getProduct().getCode());
     }
 
     @Test
     public void testListOrderItemsByOrderId(){
         List<OrderItem> orderItems = orderController.listOrderItemsByOrderId(1);
-        assertEquals(orderItems.size(), 3);
-        assertEquals(orderItems.get(1).getProduct().getAddress(), "natural_coconut_bowl_set");
-        assertEquals(orderItems.get(0).getPieces(), 1);
-        assertEquals(orderItems.get(2).getPieces(), 3);
+        assertEquals(3, orderItems.size());
+        assertEquals("natural_coconut_bowl_set", orderItems.get(1).getProduct().getAddress());
+        assertEquals(1, orderItems.get(0).getPieces());
+        assertEquals(3, orderItems.get(2).getPieces());
     }
 
     @Test
     public void testGetFormerShippingAddressesForActualUser(){
         List<Order> ordersWithAddressOnly = orderController.getFormerShippingAddressesForActualUser(authenticationUser);
-        assertEquals(ordersWithAddressOnly.size(), 3);
-        assertEquals(ordersWithAddressOnly.get(0).getShippingAddress(), "1111 BP. Csiga sor 3");
+        assertEquals(3, ordersWithAddressOnly.size());
+        assertEquals("1111 BP. Csiga sor 3", ordersWithAddressOnly.get(0).getShippingAddress());
     }
-
 }

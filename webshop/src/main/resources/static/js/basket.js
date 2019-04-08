@@ -15,7 +15,6 @@ function fetchBasket() {
       return response.json();
     })
     .then(function (jsonData) {
-      // console.log(jsonData);
       showBasket(jsonData);
     });
 }
@@ -266,7 +265,6 @@ function fetchFormerShippingAddressList() {
 }
 
 function showFormerShippingAddressList(jsonData) {
-  // console.log(jsonData);
   var shippingAddressChooserDiv = document.querySelector('#choose-address-div');
   shippingAddressChooserDiv.innerHTML = '';
   var shippingAddressField = document.querySelector('#shipping-address');
@@ -278,10 +276,8 @@ function showFormerShippingAddressList(jsonData) {
     chooseHeaderDiv.setAttribute('class', 'choose-header');
     chooseHeaderDiv.innerText = 'Choose shipping address';
     shippingAddressChooserDiv.appendChild(chooseHeaderDiv);
-    // var shippingAddressChoserForm = document.querySelector('#shippingAddressChoserForm');
 
     for (var i = 0; i < jsonData.length; i++) {
-      // console.log(jsonData[i]);
       var addressChooserInput = document.createElement('input');
       var id = 'oneFormerAddress' + (i + 1);
       addressChooserInput.setAttribute('id', id);
@@ -359,13 +355,3 @@ function orderItems() {
 }
 
 
-function fetchBasket() {
-  var url = '/basket';
-  fetch(url)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (jsonData) {
-      showBasket(jsonData);
-    });
-}

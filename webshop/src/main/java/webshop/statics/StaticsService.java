@@ -2,7 +2,6 @@ package webshop.statics;
 
 import org.springframework.stereotype.Service;
 import webshop.order.OrderDao;
-import webshop.order.OrderStatus;
 import webshop.product.ProductDao;
 import webshop.user.UserDao;
 
@@ -49,8 +48,6 @@ public class StaticsService {
             } else {
                 int index = findStatusOrderReportInList (actReport, statusOrderReports);
                 statusOrderReports.set(index,addStatus(statData,statusOrderReports.get(index)));
-                //addStatus(statData, actReport);
-
             }
         }
 
@@ -67,13 +64,13 @@ public class StaticsService {
         }
         return -1;
     }
+
     private StatusOrderReport findYearMonth(StatData statdata, List<StatusOrderReport> statusOrderReports) {
         for (StatusOrderReport statusOrderReport : statusOrderReports) {
             if (statusOrderReport.getYear() == statdata.getYear() && statusOrderReport.getMonth() == statdata.getMonth()) {
                 return statusOrderReport;
             }
         }
-
         return null;
     }
 
@@ -83,25 +80,20 @@ public class StaticsService {
             case ACTIVE: {
                 statusOrderReport.setSumOfAmountForActiveOrdersForThisMonth(statData.getAmount());
                 statusOrderReport.setSumOfActiveOrdersForThisMonth(statData.getPiece());
+                break;
             }
-            break;
 
             case DELIVERED: {
                 statusOrderReport.setSumOfAmountForDeliveredOrdersForThisMonth(statData.getAmount());
                 statusOrderReport.setSumOfDeliveredOrdersForThisMonth(statData.getPiece());
+                break;
             }
-            break;
 
             case DELETED: {
                 statusOrderReport.setSumOfAmountForDeletedOrdersForThisMonth(statData.getAmount());
                 statusOrderReport.setSumOfDeletedOrdersForThisMonth(statData.getPiece());
+                break;
             }
-            break;
-
-            default: {
-
-            }
-            ;
         }
         return statusOrderReport;
     }

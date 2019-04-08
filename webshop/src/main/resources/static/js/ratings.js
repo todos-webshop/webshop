@@ -1,4 +1,4 @@
- fetchRating();
+fetchRating();
 var starsArray = [];
  function fetchRating() {
 

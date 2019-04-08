@@ -1,8 +1,6 @@
 var allProducts;
-var fetchedCategory;
 var fetchedCategoryNames;
 
-//var fetchedCategoryNames;
 fetchCategoryNames();
 
 setTimeout(fetchProducts, 1000);
@@ -35,7 +33,6 @@ function fetchCategory(categoryName) {
     .then(function (jsonData) {
       var allProductsDiv = document.querySelector('.all-products-div');
       allProductsDiv.innerHTML = '';
-      fetchedCategory = jsonData;
       showCategoryDivs(jsonData);
     });
 }
@@ -133,12 +130,7 @@ function addFilterButtons(jsonData) {
     select.appendChild(option);
   }
 
-/*var selectButton = document.createElement('button');
-selectButton.innerHTML = 'Filter';
-selectButton.setAttribute('class','select-button');*/
-
 select.onchange = function(){fetchCategory(document.querySelector(".select-category").value)};
-//selectButton.addEventListener('click', function(){fetchCategory(document.querySelector(".select-category").value)});
 
   var selectAllButton = document.createElement('button');
   selectAllButton.innerHTML = 'Show All';
@@ -149,7 +141,6 @@ select.onchange = function(){fetchCategory(document.querySelector(".select-categ
 
 var mainDiv = document.getElementById('main_div');
 mainDiv.prepend(selectAllButton);
-//mainDiv.prepend(selectButton);
 mainDiv.prepend(select);
 }
 
@@ -170,37 +161,8 @@ function topFunction() {
   document.documentElement.scrollTop = 0;
 }
 
-/*
-function showAllCategory(){
-for (var i=0; i < allProducts.length;i++){
 
-var actCategory =document.getElementById(allProducts[i].categoryName);
-var actCategoryName =document.getElementById(allProducts[i].categoryName + " Name" );
-actCategory.setAttribute('class','enabled');
-actCategoryName.setAttribute('class','enabled');
-    }
-}
-
-
-function showCategory(Category){
-for (var i=0; i<allProducts.length;i++){
-
-var actCategory =document.getElementById(allProducts[i].categoryName);
-var actCategoryName =document.getElementById(allProducts[i].categoryName + " Name" );
-
-if (allProducts[i].categoryName === Category){
-actCategory.setAttribute('class','enabled');
-actCategoryName.setAttribute('class','enabled');
-} else {
-actCategory.setAttribute('class','disabled');
-actCategoryName.setAttribute('class','disabled');
-        }
-    }
-}*/
-
-// ajánlás
 function showRecommendations(jsonData){
-console.log(jsonData)
 var divMain = document.getElementById("main_div");
 
 var divRec = document.createElement('div');
@@ -239,6 +201,6 @@ function fetchRecommendations(){
                 return response.json();
                 })
             .then(function(jsonData) {
-            console.log(jsonData);
                 showRecommendations(jsonData);
-            });}
+            });
+}

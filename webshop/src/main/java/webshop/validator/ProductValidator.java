@@ -26,14 +26,14 @@ public class ProductValidator implements Validator{
         return new CustomResponseStatus(Response.SUCCESS, "Product is okay.");
     }
     public boolean isValidAddress(String address){
-        List<String> addresses = productService.listAllProducts().stream().map(product -> product.getAddress()).collect(Collectors.toList());
+        List<String> addresses = productService.listAllProducts().stream().map(Product::getAddress).collect(Collectors.toList());
         return address != null && !address.trim().equals("") && addresses.contains(address);
     }
 
     public void isAddressNull(Product product){
         if (product.getAddress() == null || "".equals(product.getAddress().trim())){
             product.setAddress(product.generateAddress());
-        };
+        }
     }
 
 }

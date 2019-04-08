@@ -9,7 +9,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-import webshop.CustomResponseStatus;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -21,6 +20,7 @@ public class UserDao {
 
 
     private JdbcTemplate jdbcTemplate;
+    private static final String USERNAME = "username";
 
     public UserDao(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
@@ -58,14 +58,14 @@ public class UserDao {
 
     public List<String> getAllUsernames() {
         return jdbcTemplate.query("select username from users order by username",
-                (resultSet, i) -> resultSet.getString("username"));
+                (resultSet, i) -> resultSet.getString(USERNAME));
     }
 
     public User getUserByUsername(String username) {
         return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).queryForObject(
                 "select id, first_name, last_name, username, password, enabled, role from users " +
                         "where" +
-                        " username = (:username)", Map.of("username", username), USER_ROW_MAPPER);
+                        " username = (:username)", Map.of(USERNAME, username), USER_ROW_MAPPER);
     }
 
 
@@ -73,7 +73,7 @@ public class UserDao {
         long id = resultSet.getLong("id");
         String firstName = resultSet.getString("first_name");
         String lastName = resultSet.getString("last_name");
-        String username = resultSet.getString("username");
+        String username = resultSet.getString(USERNAME);
         String password = resultSet.getString("password");
         int enabled = resultSet.getInt("enabled");
         UserRole role = UserRole.valueOf(resultSet.getString("role"));
@@ -83,18 +83,13 @@ public class UserDao {
 
     public List<User> listAllUsers() {
         return jdbcTemplate.query("select id, first_name, last_name,username,password,role,enabled from users order by username",
-                (rs, rowNum) -> new User(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("username"), rs.getString("password"), rs.getInt("enabled"), UserRole.valueOf(rs.getString("role"))));
+                (rs, rowNum) -> new User(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString(USERNAME), rs.getString("password"), rs.getInt("enabled"), UserRole.valueOf(rs.getString("role"))));
 
     }
 
     public void deleteAll() {
         jdbcTemplate.update("delete from users");
     }
-
-    //  public void modifyUserNoPassword(long id, User user) {
-    //    jdbcTemplate.update("update users set  first_name= ?, last_name= ?,username= ?,role= ?  where id = ?",
-    //           user.getFirstName(), user.getLastName(), user.getUsername(),  user.getUserRole().toString(), id);
-    //}
 
 
     public void modifyUser(long id, User user) {
@@ -115,13 +110,10 @@ public class UserDao {
         List<String> status = jdbcTemplate.query("select username from users where id = ?", new RowMapper<String>() {
             @Override
             public String mapRow(ResultSet resultSet, int i) throws SQLException {
-                return resultSet.getString("username");
+                return resultSet.getString(USERNAME);
             }
         }, id);
-        if (status.get(0).equals("DELETED_USER" + id)) {
-            return true;
-        }
-        return false;
+        return status.get(0).equals("DELETED_USER" + id);
     }
 
     public int countAllUsers() {

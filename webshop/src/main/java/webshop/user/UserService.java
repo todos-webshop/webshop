@@ -2,13 +2,11 @@ package webshop.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import webshop.CustomResponseStatus;
 import webshop.Response;
 import webshop.basket.BasketDao;
 
-import java.util.Collection;
 import java.util.List;
 
 @Service
