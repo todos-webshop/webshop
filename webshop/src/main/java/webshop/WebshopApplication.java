@@ -24,20 +24,22 @@ public class WebshopApplication extends WebSecurityConfigurerAdapter {
         SpringApplication.run(WebshopApplication.class, args);
     }
 
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/**").permitAll()
-//                .antMatchers(  "/", "/register.html",
-//                        "product.html**", "/js/**", "/css/**", "/img/**", "/fonts/**", "/userdata", "/basket", "/users").permitAll()
-//                .antMatchers("/basket.html", "/orders", "/myorders").authenticated()
-//                .antMatchers("/myorders.html").hasRole("USER")
-//                .antMatchers("/orders.html", "/dashboard.html", "/users.html", "/adminproducts.html", "/dashboard", "/reports" +
-//                        "/**", "/api/users", "/api/users/**", "api/products", "api/product/**",
-//                        "/orders/**", "orders/**/**", "/orders/filtered/**", "/basket/**").hasRole(
-//                        "ADMIN")
+                .antMatchers("/", "/register.html",
+                        "product.html**", "/js/**", "/css/**", "/img/**", "/fonts/**", "/userdata", "/basket", "/users", "/api" +
+                                "/categories", "/api/category/**", "/api/product/recommend").permitAll()
+                .antMatchers("/basket.html", "/orders", "/myorders", "/myorders/storedaddresses", "/orders/shippingaddresses",
+                        "/basket", "/basket/update", "/basketitem/**").authenticated()
+                .antMatchers("/myorders.html", "/profile.html", "/api/user/**").hasRole("USER")
+                .antMatchers("order.html", "/orders.html", "/dashboard.html", "/users.html", "/adminproducts.html", "/dashboard",
+                        "/reports/**", "/api/users", "/api/users/**", "api/products", "api/product/**",
+                        "/orders/**", "orders/**/**", "/orders/filtered/**", "/basket/**", "/categories.html", "api/categories/update").hasRole(
+                "ADMIN")
                 .and()
                 .formLogin().loginPage("/login.html")
                 .loginProcessingUrl("/login")
@@ -46,20 +48,18 @@ public class WebshopApplication extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/");
     }
 
+
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
 
+
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth, DataSource dataSource, PasswordEncoder passwordEncoder) throws Exception {
         auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder)
-                .usersByUsernameQuery("select username, password, enabled " +
-                        "from users " +
-                        "where " +
-                        "username=?")
-                .authoritiesByUsernameQuery("select username, role from users where " +
-                        "username = ?");
+                .usersByUsernameQuery("SELECT username, password, enabled FROM users WHERE username=?")
+                .authoritiesByUsernameQuery("SELECT username, role FROM users WHERE username = ?");
 
     }
 
