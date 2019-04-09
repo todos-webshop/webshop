@@ -103,7 +103,7 @@ public class UserDao {
 
 
     public void logicalDeleteUserById(long id) {
-        jdbcTemplate.update("update users set first_name = ?,last_name= ?,username = ?,enabled= ? where id = ?", "John", "Doe", "DELETED_USER" + id, 0, id);
+        jdbcTemplate.update("update users set first_name = ?,last_name= ?,username = ?,enabled= ? where id = ?", "John", "Doe", "deleted_user" + id, 0, id);
     }
 
     public boolean isAlreadyDeleted(long id) {
@@ -113,7 +113,7 @@ public class UserDao {
                 return resultSet.getString(USERNAME);
             }
         }, id);
-        return status.get(0).equals("DELETED_USER" + id);
+        return status.get(0).equals("deleted_user" + id);
     }
 
     public int countAllUsers() {

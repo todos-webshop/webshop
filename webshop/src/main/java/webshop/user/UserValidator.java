@@ -13,7 +13,7 @@ public class UserValidator implements Validator {
 
 
     private boolean isUsernameValid(User user) {
-        return !isEmpty(user.getUsername()) && !user.getUsername().toUpperCase().contains("DELETED_USER");
+        return !isEmpty(user.getUsername()) && !user.getUsername().toLowerCase().contains("deleted_user");
     }
 
 

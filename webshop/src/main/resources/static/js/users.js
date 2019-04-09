@@ -128,14 +128,14 @@ function editTds(num) {
   firstName.innerHTML = `<input id="firstNameInput${num}" type='text' minLength='1' maxLength='255' class='input-box'  value = '${firstNameData}' required>`
   lastName.innerHTML = `<input id="lastNameInput${num}" type='text' minLength='1' maxLength='255' class='input-box'  value = '${lastNameData}' required>`
   username.innerHTML = `<input id="usernameInput${num}" type='text' minLength='1' maxLength='255' class='input-box'  value = '${usernameData}' required>`
-  password.innerHTML = `<input id="passwordInput${num}" type="password"   value='********' placeholder="Password" required>`
+  password.innerHTML = `<input id="passwordInput${num}" type="password"   value='' placeholder="Password" class='input-box'c>`
 
   var edit = document.getElementById(`editbutton${num}`);
   edit.style.display = 'none';
   var save = document.getElementById(`savebutton${num}`);
   save.style.display = 'inline';
 }
-
+ var request;
 function saveTds(num) {
 
   var id = document.getElementById(`savebutton${num}`).parentElement.parentElement['raw-data'].id;
@@ -145,18 +145,17 @@ function saveTds(num) {
   var password = document.getElementById(`passwordInput${num}`).value;
   var userRole = document.getElementById(`savebutton${num}`).parentElement.parentElement['raw-data'].userRole;
 
-  var request;
+
   if (password == null || password == '********' || password == '') {
     request = {
       "id": id,
       "firstName": firstName,
       "lastName": lastName,
       "username": username,
-      'userRole': userRole
-
+      'userRole': userRole,
     };
   }
-  if (check(password)) {
+  else if (check(password)) {
     request = {
       "id": id,
       "firstName": firstName,
@@ -164,7 +163,8 @@ function saveTds(num) {
       "username": username,
       "password": password,
       'userRole': userRole
-    };
+    }; } else {
+              return;
   }
 
   fetch("/api/users/" + id, {
