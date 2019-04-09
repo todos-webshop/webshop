@@ -107,7 +107,7 @@ function deleteUser(num) {
     })
     .then(function (response) {
       document.getElementById("message-div").setAttribute("class", "alert alert-success");
-      document.querySelector("#message-div").innerHTML = name + " User Deleted!"
+      document.querySelector("#message-div").innerHTML = "User Deleted!"
       fetchUsers();
     });
 }
