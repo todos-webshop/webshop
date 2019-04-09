@@ -10,12 +10,12 @@ ALTER TABLE products
 ADD COLUMN category_id BIGINT DEFAULT 1;
 
 
-INSERT INTO categories (name,sequence) VALUES ('No category', 1);
+INSERT INTO categories (name,sequence) VALUES ('No category', 5);
 
 INSERT INTO categories (name,sequence) VALUES ('Bamboo products', 2);
 INSERT INTO categories (name,sequence) VALUES ('Straws', 3);
-INSERT INTO categories (name,sequence) VALUES ('Coconut bowls', 4);
-INSERT INTO categories (name,sequence) VALUES ('Eco bags', 5);
+INSERT INTO categories (name,sequence) VALUES ('Coconut bowls', 1);
+INSERT INTO categories (name,sequence) VALUES ('Eco bags', 4);
 
 ALTER TABLE products
 ADD CONSTRAINT fk_products_categories
