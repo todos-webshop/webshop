@@ -9,11 +9,11 @@ import webshop.product.Product;
 import webshop.product.ProductService;
 import webshop.product.ProductStatus;
 import webshop.user.User;
-import webshop.user.UserRole;
 import webshop.user.UserService;
 
 import java.time.LocalDate;
 import java.util.List;
+
 @RestController
 public class RateController {
     @Autowired
@@ -26,49 +26,52 @@ public class RateController {
 
     @GetMapping("/api/rating/list/{productid}")
     public List<Rate> getRatesForProduct(@PathVariable long productid) {
-       // Product product = new Product(productid, "MUZ", "muz", "muz", 0, ProductStatus.ACTIVE);
         Product product = productService.getProductByProductId(productid);
         return rateService.getRatesForProduct(product);
     }
 
     @GetMapping("/api/rating/avg/{productid}")
     public double getAvgRatesForProduct(@PathVariable long productid) {
-        //Product product = new Product(productid, "MUZ", "muz", "muz", 0, ProductStatus.ACTIVE);
         Product product = productService.getProductByProductId(productid);
         return rateService.getAvgRatesForProduct(product);
     }
 
     @GetMapping("/api/rating/{productid}")
-    public Rate getUserRateForProduct(Authentication authentication, @PathVariable long productid) {
+    public RateWithStatus getUserRateForProduct(Authentication authentication, @PathVariable long productid) {
         Product product = productService.getProductByProductId(productid);
-        Rate rateFromDB = new Rate(0, "", 1, LocalDate.now(), new User(15, "John", "Doe", "john", "123456", 1, UserRole.ROLE_USER), product);
+        Rate rateFromDB;
 
         if (authentication != null) {
-
             String loggedInUsername = authentication.getName();
             User loggedInUser = userService.getUserByUsername(loggedInUsername);
             Rate rate = new Rate(0, "", 1, null, loggedInUser, product);
 
             try {
                 rateFromDB = rateService.getRateForUserAndProduct(rate);
+                return new RateWithStatus(new CustomResponseStatus(Response.SUCCESS,"Rate successfully selected"), rateFromDB);
 
             } catch (IllegalArgumentException ie) {
-
+                CustomResponseStatus responseStatus = new CustomResponseStatus(Response.FAILED,ie.getMessage());
+                Rate returnRate = new Rate();
+                return new RateWithStatus(responseStatus, returnRate);
             }
         }
-        return rateFromDB;
+        return new RateWithStatus(new CustomResponseStatus(Response.FAILED,"Not logged in!"),new Rate());
 
     }
 
     @PostMapping("/api/rating/userrating/{id}")
-    @ResponseBody
     public CustomResponseStatus addRate(Authentication authentication, @PathVariable long id, @RequestBody Rate rate) {
         if (authentication != null) {
-            String loggedInUsername = authentication.getName();
-            User loggedInUser = userService.getUserByUsername(loggedInUsername);
-            rate.setUser(loggedInUser);
-            rateService.addRate(rate, id);
-            return new CustomResponseStatus(Response.SUCCESS, "Successful rating!");
+            if (rate.getStars() > 0) {
+                String loggedInUsername = authentication.getName();
+                User loggedInUser = userService.getUserByUsername(loggedInUsername);
+                rate.setUser(loggedInUser);
+                rate.setDate(LocalDate.now());
+                return rateService.addRate(rate);
+            } else {
+                return new CustomResponseStatus(Response.FAILED,"Please add min 1 star!");
+            }
         }
         return new CustomResponseStatus(Response.FAILED, "Please sign in to rate.");
     }
@@ -79,7 +82,6 @@ public class RateController {
             String loggedInUsername = authentication.getName();
             User loggedInUser = userService.getUserByUsername(loggedInUsername);
             Product product = productService.getProductByProductId(productId);
-            //Product product = new Product(productId, "MUZ", "muz", "muz", 0, ProductStatus.ACTIVE);
 
             int sqlResponse =
                     rateService.deleteRate(product, loggedInUser);
@@ -89,7 +91,7 @@ public class RateController {
                 return new CustomResponseStatus(Response.SUCCESS, "Your review has been deleted.");
             }
         } else {
-            return new CustomResponseStatus(Response.FAILED, "Please sign in to delete your ewview.");
+            return new CustomResponseStatus(Response.FAILED, "Please sign in to delete your review.");
         }
     }
 
@@ -105,14 +107,12 @@ public class RateController {
             if (controll){
                 return  new CustomResponseStatus(Response.FAILED, "Your rate is successful.");
 
-            }
-            else {
+            } else {
                 return new CustomResponseStatus(Response.FAILED, "You have to shop from this product before you rate.");
             }
-
-            }
-        return new CustomResponseStatus(Response.FAILED, "Please sign in to rate.");
         }
+        return new CustomResponseStatus(Response.FAILED, "Please sign in to rate.");
+    }
 
 }
 

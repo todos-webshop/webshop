@@ -56,9 +56,6 @@ function setMenu() {
   setFavicon();
   insertMenuCss();
   addEventListenerToLogo();
-
-/*  insertFooter();*/
-
 }
 
 function classChanger() {
@@ -112,14 +109,6 @@ function insertMenuCss() {
   head.appendChild(cssLink);
 }
 
-/*function insertFooter(){
-  var body = document.querySelector('body');
-  var script = document.createElement('script');
-  script.setAttribute('src', 'js/footer.js')
-
-  body.appendChild(script);
-}*/
-
 function createDropdownDivForUser(div) {
   div.innerHTML += `
     <div class="dropdown">
@@ -139,7 +128,7 @@ function createDropdownDivForCategory(div) {
         <div id="myDropdown2" class="dropdown-content">
             <a href="/index.html#Bamboo products">Bamboo products</a>
             <a href="/index.html#Straws">Straws</a>
-            <a href="/index.html#Coconut bowls">No category</a>
+            <a href="/index.html#Coconut bowls">Coconut bowls</a>
             <a href="/index.html#Eco bags">Eco bags</a>
             <a href="/index.html#No category">No category</a>
         </div>
@@ -208,15 +197,11 @@ function createMessageDiv() {
   var messageDiv = document.createElement('div');
   messageDiv.setAttribute('id', 'message-div');
   messageDiv.setAttribute('class', 'message-div');
+  messageDiv.addEventListener("DOMSubtreeModified", function(){
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
+  })
   return messageDiv;
 }
-
-/*function createCategoryButton(){
-    var categoryButton = document.createElement('button');
-    categoryButton.setAttribute('id', 'category-button');
-    categoryButton.setAttribute('class', 'category-button');
-    return categoryButton;
-}*/
 
 function addEventListenerToNotLoggedIn() {
   document.getElementById('login-btn').addEventListener('click', function () {

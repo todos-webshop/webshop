@@ -44,17 +44,17 @@ public class CategoryIntegrationTest {
    @Test
     public void testListProducts(){
        Category cat = categoryController.listProductsByCategoryName("First category");
-       assertEquals(cat.getProducts().size(),2);
-       assertEquals(cat.getProducts().get(0).getName(),"Natural Coconut Bowl Set");
+       assertEquals(2, cat.getProducts().size());
+       assertEquals("Natural Coconut Bowl Set", cat.getProducts().get(0).getName());
    }
 
    @Test
 
     public void testListCategories(){
        List<Category> cat =  categoryController.listAllCategories();
-       assertEquals(cat.size(),2);
-       assertEquals(cat.get(0).getProducts().size(),0);
-       assertEquals(cat.get(1).getProducts().size(),0);
+       assertEquals(2, cat.size());
+       assertEquals(0, cat.get(0).getProducts().size());
+       assertEquals(0, cat.get(1).getProducts().size());
 
    }
 

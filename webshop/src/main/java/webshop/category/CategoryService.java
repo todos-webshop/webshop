@@ -6,7 +6,6 @@ import webshop.Response;
 import webshop.product.Product;
 import webshop.product.ProductDao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -41,9 +40,12 @@ public class CategoryService {
             category.setSequence(categoryDao.getNumberOfCategories() + 1);
         }
         if (categoryDao.doesSequenceAlreadyExist(category)){
-            for (Category category1: categoryDao.listAllCategories()){
-                int sequence = categoryDao.getSequenceById(category1.getId());
-                categoryDao.updateSequence(sequence + 1, category1.getId());
+            for (int i = 0; i < categoryDao.listAllCategories().size(); i++){
+                int sequence = categoryDao.getSequenceById(categoryDao.listAllCategories().get(i).getId());
+                if (categoryDao.listAllCategories().get(i).getSequence() < category.getSequence()){
+                    continue;
+                }
+                categoryDao.updateSequence(sequence + 1, categoryDao.listAllCategories().get(i).getId());
             }
         }
         long id = categoryDao.addNewCategoryAndGetId(category);
@@ -79,7 +81,7 @@ public class CategoryService {
                 found = true;
             }
         }
-        if (found == true){
+        if (found){
             categoryDao.deleteCategoryById(categoryId);
             for (int i = 0; i < categoryDao.listAllCategories().size(); i++){
                 categoryDao.updateSequence(i + 1, categoryDao.listAllCategories().get(i).getId());
@@ -101,9 +103,7 @@ public class CategoryService {
 
     public List<Product> listProductsByCategoryName(String categoryName) {
 
-        List<Product> products = categoryDao.listAllProductsByCategoryName(categoryName);
-
-        return products;
+        return categoryDao.listAllProductsByCategoryName(categoryName);
     }
 
     public Category getCategoryWithProductsByName(String categoryName){

@@ -98,18 +98,12 @@ function showDetails(){
   var div2 = document.createElement('div');
   div.appendChild(div2);
 
-//                              ------------------------------- FAAAAANNNNNNNIIIIIIII !!!!!!! -------------------------------
-//                                      itt hozom létre a kis diveket amikben az adatok vannak! köszike :)
 
   for (let j = 0; j < json[index].orderItems.length; j++) {
     var div1 = document.createElement('div');
     div1.className = "carousel-cell";
     div2.appendChild(div1);
 
-    // var productNumDiv = document.createElement('div');
-    // productNumDiv.innerText = 'Product ' + (parseInt(j) + 1);
-    // productNumDiv.className="mydiv";
-    // div1.appendChild(productNumDiv);
 
     var productNameDiv = document.createElement('div');
     productNameDiv.innerText = json[index].orderItems[j].product.name;

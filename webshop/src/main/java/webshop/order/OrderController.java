@@ -4,14 +4,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import webshop.CustomResponseStatus;
 import webshop.Response;
-import webshop.basket.Basket;
-import webshop.basket.BasketData;
-import webshop.user.UserData;
-import webshop.user.UserRole;
 import webshop.validator.OrderValidator;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -79,7 +75,7 @@ public class OrderController {
 
             return orderService.listOrdersByOrderId(loggedInUsername);
         } else {
-            return null;
+            return Collections.emptyList();
         }
     }
 
@@ -115,8 +111,7 @@ public class OrderController {
     public CustomResponseStatus deleteItemFromOrderByProductAddress(@PathVariable long orderId,
                                                                     @PathVariable String productAddress) {
         if (orderService.deleteItemFromOrderByProductAddress(orderId, productAddress) > 0) {
-            return new CustomResponseStatus(Response.SUCCESS, String.format("Order item successfully removed from order.",
-                    orderId));
+            return new CustomResponseStatus(Response.SUCCESS, "Order item successfully removed from order.");
         }
         return new CustomResponseStatus(Response.FAILED, "An error occured during item delete from order.");
     }

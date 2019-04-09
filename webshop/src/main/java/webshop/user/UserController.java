@@ -75,18 +75,6 @@ public class UserController {
     public List<User> listAllUsers() {
         return userService.listAllUsers();
     }
-
-//    @PostMapping("/user/{id}")
-//public CustomResponseStatus modifyUserByUser(@PathVariable long id, @RequestBody User user){
-//        if (validator.userCanBeUpdated(user)){
-//            try {
-//               userService.modifyUserByUser(id, user);
-//               return new CustomResponseStatus(Response.SUCCESS, "User updated!");
-//          } catch (org.springframework.dao.DuplicateKeyException exc) {
-//          }}
-//      return new CustomResponseStatus(Response.FAILED, "User update invalid!");}
-
-
     @PostMapping("/api/users/{id}")
     @ResponseBody
     public CustomResponseStatus checkPasswordAndmodifyUser(@PathVariable long id, @RequestBody User user) {
@@ -103,6 +91,7 @@ public class UserController {
 
     @DeleteMapping("/api/users/{id}")
     public CustomResponseStatus logicalDeleteUserById(@PathVariable long id) {
+
         return userService.logicalDeleteUserById(id);
     }
 
@@ -116,6 +105,7 @@ public class UserController {
     }
 
     @PostMapping("/api/user/{id}")
+    @ResponseBody
     public CustomResponseStatus modifyUserByUser(@PathVariable long id, @RequestBody User user) {
         if (validator.userCanBeUpdated(user)) {
             try {
@@ -127,21 +117,4 @@ public class UserController {
         }
         return new CustomResponseStatus(Response.FAILED, "User update invalid!");
     }
-
-//
-//    @GetMapping("/userprofile")
-//    public User findUserByUserName(Authentication authentication) {
-//        return userService.findUserByUserName(authentication.getName());
-//    }
-//    @PostMapping("/userprofile")
-//    public CustomResponseStatus updateUserDatasByUser(@RequestParam long id, @RequestBody User user ) {
-//         if (validator.userCanBeUpdated(user)){
-//            try {
-//               userService.modifyUserByUser(id, user);
-//              return new CustomResponseStatus(Response.SUCCESS, "User updated!");
-//            } catch (org.springframework.dao.DuplicateKeyException exc) {
-//        }}
-//      return new CustomResponseStatus(Response.FAILED, "User update invalid!");}
-//
-//
 }

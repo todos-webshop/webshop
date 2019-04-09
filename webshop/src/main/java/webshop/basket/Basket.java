@@ -1,7 +1,5 @@
 package webshop.basket;
 
-import org.hibernate.validator.constraints.URL;
-import webshop.product.Product;
 import webshop.user.UserData;
 
 import java.util.*;

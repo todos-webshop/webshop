@@ -75,13 +75,6 @@ public class User {
         this.id = id;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
     public void setUsername(String username) {
         this.username = username;
@@ -93,9 +86,5 @@ public class User {
 
     public void setEnabled(int enabled) {
         this.enabled = enabled;
-    }
-
-    public void setUserRole(UserRole userRole) {
-        this.userRole = userRole;
     }
 }

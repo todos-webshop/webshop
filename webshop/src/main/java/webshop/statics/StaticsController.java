@@ -36,9 +36,4 @@ public class StaticsController {
        return staticsService.doReportOne();
 
     }
-//    @GetMapping("/reports/reportonesummary")
-//    public List<StatSummary> doReportOneSummary(){
-//       return staticsService.doReportOneSummary();
-//
-//    }
 }
