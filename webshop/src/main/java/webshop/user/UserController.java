@@ -29,7 +29,6 @@ public class UserController {
         if (!validator.userCanBeUpdated(user)) {
             return new CustomResponseStatus(Response.FAILED, "Error! All fields are required.");
         }
-
         long newUserId = 0;
         try {
             newUserId = userService.createUserAndReturnUserId(user);
@@ -39,7 +38,6 @@ public class UserController {
                             "not be created for %s.",
                     user.getUsername()));
         }
-
         if (newUserId > 0) {
             return new CustomResponseStatus(Response.SUCCESS, String.format("User %s " +
                             "successfully created.",
