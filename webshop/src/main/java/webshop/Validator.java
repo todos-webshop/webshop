@@ -1,4 +1,4 @@
-package webshop.validator;
+package webshop;
 
 public interface Validator {
 
