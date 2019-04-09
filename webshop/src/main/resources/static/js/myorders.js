@@ -36,7 +36,8 @@ function showDivs(jsonData){
 
     var pFirst = document.createElement('p');
     pFirst.setAttribute('class', 'orders-list-order');
-    pFirst.innerText = 'Order ' + jsonData[i].id;
+    var number = i + 1;
+    pFirst.innerText = 'Order ' + number;
     tdMain.appendChild(pFirst);
 
     var span = document.createElement('span');
