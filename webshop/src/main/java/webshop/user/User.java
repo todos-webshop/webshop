@@ -23,36 +23,6 @@ public class User {
         this.enabled = enabled;
     }
 
-
-    public long getId() {
-        return id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public int getEnabled() {
-        return enabled;
-    }
-
-    public UserRole getUserRole() {
-        return userRole;
-    }
-
-
     private UserRole roleMaker(UserRole role) {
         if (role == null) {
             return UserRole.ROLE_USER;
@@ -91,4 +61,34 @@ public class User {
     public void setEnabled(int enabled) {
         this.enabled = enabled;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public int getEnabled() {
+        return enabled;
+    }
+
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+
 }
