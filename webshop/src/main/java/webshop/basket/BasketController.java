@@ -48,7 +48,6 @@ public class BasketController {
         }
     }
 
-
     @DeleteMapping("/basket")
     public CustomResponseStatus clearBasket(Authentication authentication) {
         if (authentication != null) {
@@ -64,26 +63,27 @@ public class BasketController {
             return new CustomResponseStatus(Response.FAILED, "Please sign in to manage your basket.");
         }
     }
-@DeleteMapping("/basketitem/{productId}")
-    public CustomResponseStatus deleteOneProductFromBasket(Authentication authentication,@PathVariable long productId
-                                                           ){
-    if (authentication != null) {
-        String loggedInUsername = authentication.getName();
-        int numberOfSqlAffectedRows =
-                basketService.deleteOneProductFromBusket(loggedInUsername,productId);
-        if (numberOfSqlAffectedRows != 1) {
-            return new CustomResponseStatus(Response.FAILED, "Error. Could not delete from basket.");
+
+    @DeleteMapping("/basketitem/{productId}")
+    public CustomResponseStatus deleteOneProductFromBasket(Authentication authentication, @PathVariable long productId
+    ) {
+        if (authentication != null) {
+            String loggedInUsername = authentication.getName();
+            int numberOfSqlAffectedRows =
+                    basketService.deleteOneProductFromBusket(loggedInUsername, productId);
+            if (numberOfSqlAffectedRows != 1) {
+                return new CustomResponseStatus(Response.FAILED, "Error. Could not delete from basket.");
+            } else {
+                return new CustomResponseStatus(Response.SUCCESS, "Succesfully deleted from basket.");
+            }
         } else {
-            return new CustomResponseStatus(Response.SUCCESS, "Succesfully deleted from basket.");
+            return new CustomResponseStatus(Response.FAILED, "Please sign in to start shopping.");
         }
-    } else {
-        return new CustomResponseStatus(Response.FAILED, "Please sign in to start shopping.");
     }
-}
 
     @PostMapping("/basket/update")
     public CustomResponseStatus updateProductQuantityInoLoggedInBasket(Authentication authentication,
-                                                           @RequestBody ProductData productData) {
+                                                                       @RequestBody ProductData productData) {
         if (authentication != null) {
             String loggedInUsername = authentication.getName();
             int numberOfSqlAffectedRows =
@@ -98,7 +98,6 @@ public class BasketController {
             return new CustomResponseStatus(Response.FAILED, "Please sign in to manage your basket.");
         }
     }
-
 
 
 }
