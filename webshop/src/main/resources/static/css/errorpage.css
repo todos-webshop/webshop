@@ -3,10 +3,10 @@
   src: url("/fonts/Roboto-Bold.ttf");
 }
 h1{
-  font-family: "Roboto-Bold";
+    font-family: 'Helvetica-Light';
 
 }
-h3{font-family: "Roboto-Bold";
+h2{  font-family: 'Helvetica-Light';
 }
 .error-background{
 background: url("/img/plant4.jpeg") center center scroll;
@@ -31,6 +31,7 @@ background-size: 280px 280px;
   z-index: -1;
   top: 0;
   bottom: 0;
+    font-family: 'Helvetica-Light';
 }
 main{
   position: relative;
@@ -62,11 +63,24 @@ margin:0 auto;
 width:440px;
 
 }
-button:hover {
+#main:hover {
           background-color: rgb(63, 87, 68);
           color: white;
           }
-          button{font-family: "Roboto-Light";
+#main{
+font-family: "Roboto-Light";
+          margin:10px;
+                                         text-align: center;
+                                         font-size: 23px;
+                                         background-color: transparent;
+                                         border: solid 1px grey;
+                                         color: grey;
+                                         text-transform: none;
+}
+#back:hover{background-color: rgb(63, 87, 68);
+                      color: white;}
+#back{
+font-family: "Roboto-Light";
           margin:10px;
                                          text-align: center;
                                          font-size: 23px;

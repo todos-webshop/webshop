@@ -29,15 +29,15 @@ public class WebshopApplication extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/**").permitAll()
-//                .antMatchers(  "/", "/register.html",
-//                        "product.html**", "/js/**", "/css/**", "/img/**", "/fonts/**", "/userdata", "/basket", "/users").permitAll()
-//                .antMatchers("/basket.html", "/orders", "/myorders").authenticated()
-//                .antMatchers("/myorders.html").hasRole("USER")
-//                .antMatchers("/orders.html", "/dashboard.html", "/users.html", "/adminproducts.html", "/dashboard", "/reports" +
-//                        "/**", "/api/users", "/api/users/**", "api/products", "api/product/**",
-//                        "/orders/**", "orders/**/**", "/orders/filtered/**", "/basket/**").hasRole(
-//                        "ADMIN")
+              //  .antMatchers("/**").permitAll()
+                .antMatchers(  "/", "/register.html",
+                        "product.html**", "/js/**", "/css/**", "/img/**", "/fonts/**", "/userdata", "/basket", "/users").permitAll()
+                .antMatchers("/basket.html", "/orders", "/myorders").authenticated()
+                .antMatchers("/myorders.html").hasRole("USER")
+                .antMatchers("/orders.html", "/dashboard.html", "/users.html", "/adminproducts.html", "/dashboard", "/reports" +
+                        "/**", "/api/users", "/api/users/**", "api/products", "api/product/**",
+                        "/orders/**", "orders/**/**", "/orders/filtered/**", "/basket/**").hasRole(
+                        "ADMIN")
                 .and()
                 .formLogin().loginPage("/login.html")
                 .loginProcessingUrl("/login")
