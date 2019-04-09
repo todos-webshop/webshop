@@ -53,21 +53,25 @@ public class User {
     }
 
 
-    private UserRole roleMaker(UserRole role){
-        if (role == null){
+    private UserRole roleMaker(UserRole role) {
+        if (role == null) {
             return UserRole.ROLE_USER;
         }
         return role;
     }
 
-    private String passwordMaker(String passwordString){
-        if (isEmpty(passwordString)){
+    private String passwordMaker(String passwordString) {
+        if (!isPasswordValid(passwordString)) {
             return null;
         }
         return new BCryptPasswordEncoder(4).encode(passwordString);
     }
 
-    private boolean isEmpty(String string){
+    private boolean isPasswordValid(String pass) {
+        return !isEmpty(pass) && pass.matches("^(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$");
+    }
+
+    private boolean isEmpty(String string) {
         return string == null || string.trim().isEmpty();
     }
 
