@@ -1,7 +1,7 @@
 package webshop.user;
 
 import org.springframework.stereotype.Component;
-import webshop.validator.Validator;
+import webshop.Validator;
 
 
 @Component

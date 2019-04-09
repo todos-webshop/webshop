@@ -1,14 +1,13 @@
-package webshop.validator;
+package webshop.product;
 
 import webshop.CustomResponseStatus;
 import webshop.Response;
-import webshop.product.Product;
-import webshop.product.ProductService;
+import webshop.Validator;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ProductValidator implements Validator{
+public class ProductValidator implements Validator {
 
     private ProductService productService;
 

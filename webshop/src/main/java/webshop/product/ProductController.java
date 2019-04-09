@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import webshop.CustomResponseStatus;
 import webshop.Response;
-import webshop.validator.ProductValidator;
 
 import java.util.Arrays;
 import java.util.List;
