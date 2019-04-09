@@ -30,6 +30,7 @@ function fetchRates() {
     .then(function (jsonData) {
       actRates = jsonData;
       showRates();
+      fetchAvg();
       showRatesForUserIfExists();
     });
   return false;
@@ -186,9 +187,6 @@ function sendRate() {
         document.getElementById('message-div').innerHTML = jsonData.message;
       })
     document.getElementById('message_text').value = "";
-    setTimeout(fetchRates, 100);
-    showRates();
-    fetchAvg();
   } else {
     document.getElementById('message-div').setAttribute('class', 'alert alert-danger');
     document.getElementById('message-div').innerHTML = "Please select from the stars before rate!";

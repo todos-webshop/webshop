@@ -7,7 +7,6 @@ import webshop.CustomResponseStatus;
 import webshop.Response;
 import webshop.product.Product;
 import webshop.product.ProductService;
-import webshop.product.ProductStatus;
 import webshop.user.User;
 import webshop.user.UserService;
 
@@ -44,7 +43,8 @@ public class RateController {
         if (authentication != null) {
             String loggedInUsername = authentication.getName();
             User loggedInUser = userService.getUserByUsername(loggedInUsername);
-            Rate rate = new Rate(0, "", 1, null, loggedInUser, product);
+            Rate rate = new Rate(loggedInUser,product);
+
 
             try {
                 rateFromDB = rateService.getRateForUserAndProduct(rate);
@@ -101,7 +101,7 @@ public class RateController {
         if (authentication != null) {
             String loggedInUsername = authentication.getName();
             User loggedInUser = userService.getUserByUsername(loggedInUsername);
-            Product product = new Product(productid, "MUZ", "muz", "muz", 0, ProductStatus.ACTIVE);
+            Product product = productService.getProductByProductId(productid);
 
             boolean controll= rateService.orderedProductByUser(product, loggedInUser);
             if (controll){
