@@ -40,12 +40,13 @@ public class CategoryService {
             category.setSequence(categoryDao.getNumberOfCategories() + 1);
         }
         if (categoryDao.doesSequenceAlreadyExist(category)){
-            for (int i = 0; i < categoryDao.listAllCategories().size(); i++){
-                int sequence = categoryDao.getSequenceById(categoryDao.listAllCategories().get(i).getId());
-                if (categoryDao.listAllCategories().get(i).getSequence() < category.getSequence()){
+            List<Category> categories = categoryDao.listAllCategories();
+            for (int i = 0; i < categories.size(); i++){
+                int sequence = categoryDao.getSequenceById(categories.get(i).getId());
+                if (categories.get(i).getSequence() < category.getSequence()){
                     continue;
                 }
-                categoryDao.updateSequence(sequence + 1, categoryDao.listAllCategories().get(i).getId());
+                categoryDao.updateSequence(sequence + 1, categories.get(i).getId());
             }
         }
         long id = categoryDao.addNewCategoryAndGetId(category);
@@ -82,11 +83,12 @@ public class CategoryService {
         }
         categoryDao.updateCategoryById(category);
         if (categoryDao.doesSequenceAlreadyExist(category)){
-            for (int i = 0; i < categoryDao.listAllCategories().size(); i++){
-                if (i + 1 == category.getSequence() && categoryDao.listAllCategories().get(i).getId() == category.getId()) {
+            List<Category> categories = categoryDao.listAllCategories();
+            for (int i = 0; i < categories.size(); i++){
+                if (i + 1 == category.getSequence() && categories.get(i).getId() == category.getId()) {
                     continue;
                 }
-                categoryDao.updateSequenceTwo(i + 1, categoryDao.listAllCategories().get(i));
+                categoryDao.updateSequenceTwo(i + 1, categories.get(i));
             }
         }
         return new CustomResponseStatus(Response.SUCCESS, String.format("Category updated successfully with ID %d", category.getId()));
