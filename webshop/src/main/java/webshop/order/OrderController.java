@@ -4,7 +4,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import webshop.CustomResponseStatus;
 import webshop.Response;
-import webshop.validator.OrderValidator;
 
 import java.util.ArrayList;
 import java.util.Collections;

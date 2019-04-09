@@ -1,6 +1,5 @@
 package webshop.basket;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import webshop.CustomResponseStatus;
@@ -12,7 +11,6 @@ import webshop.user.UserRole;
 @RestController
 public class BasketController {
 
-    //    @Autowired
     private BasketService basketService;
 
     public BasketController(BasketService basketService) {
@@ -25,7 +23,6 @@ public class BasketController {
 
         if (authentication != null) {
             String loggedInUsername = authentication.getName();
-
             return basketService.getBasketDataByUser(loggedInUsername);
         } else {
             return (new BasketData(0, 0, new Basket(0, new UserData("",
@@ -38,10 +35,10 @@ public class BasketController {
                                                            @RequestBody ProductData productData) {
         if (authentication != null) {
             String loggedInUsername = authentication.getName();
-            int sqlResponse =
+            int numberOfSqlAffectedRows =
                     basketService.addProductToLoggedInBasketByProductData(loggedInUsername,
                             productData);
-            if (sqlResponse != 1) {
+            if (numberOfSqlAffectedRows != 1) {
                 return new CustomResponseStatus(Response.FAILED, "Error. Could not add to basket.");
             } else {
                 return new CustomResponseStatus(Response.SUCCESS, "Succesfully added to basket.");
@@ -56,9 +53,9 @@ public class BasketController {
     public CustomResponseStatus clearBasket(Authentication authentication) {
         if (authentication != null) {
             String loggedInUsername = authentication.getName();
-            int sqlResponse =
+            int numberOfSqlAffectedRows =
                     basketService.clearBasketByUsername(loggedInUsername);
-            if (sqlResponse == 0) {
+            if (numberOfSqlAffectedRows == 0) {
                 return new CustomResponseStatus(Response.SUCCESS, "Your basket is already empty.");
             } else {
                 return new CustomResponseStatus(Response.SUCCESS, "Your basket has been cleared.");
@@ -72,9 +69,9 @@ public class BasketController {
                                                            ){
     if (authentication != null) {
         String loggedInUsername = authentication.getName();
-        int sqlResponse =
+        int numberOfSqlAffectedRows =
                 basketService.deleteOneProductFromBusket(loggedInUsername,productId);
-        if (sqlResponse != 1) {
+        if (numberOfSqlAffectedRows != 1) {
             return new CustomResponseStatus(Response.FAILED, "Error. Could not delete from basket.");
         } else {
             return new CustomResponseStatus(Response.SUCCESS, "Succesfully deleted from basket.");
@@ -89,10 +86,10 @@ public class BasketController {
                                                            @RequestBody ProductData productData) {
         if (authentication != null) {
             String loggedInUsername = authentication.getName();
-            int sqlResponse =
+            int numberOfSqlAffectedRows =
                     basketService.updateProductQuantityInoLoggedInBasket(loggedInUsername,
                             productData);
-            if (sqlResponse != 1) {
+            if (numberOfSqlAffectedRows != 1) {
                 return new CustomResponseStatus(Response.FAILED, "Error. Could not update basket.");
             } else {
                 return new CustomResponseStatus(Response.SUCCESS, "Basket successfully updated.");

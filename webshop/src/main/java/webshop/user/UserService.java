@@ -49,8 +49,6 @@ public class UserService {
 
 
 
-
-
     public void checkPasswordAndmodifyUser(long id, User user) {
         if (user.getPassword()==null||user.getPassword().trim().equals("")){
          userDao.modifyUserNoPassword(id,user);
@@ -58,12 +56,6 @@ public class UserService {
         user.setPassword(user.getPassword());
         userDao.modifyUser(id, user);
     }}
-
-
-
-
-
-
 
 
     public void modifyUserByUser(long id, User user){

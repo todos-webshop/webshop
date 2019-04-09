@@ -3,7 +3,6 @@ package webshop.category;
 import org.springframework.web.bind.annotation.*;
 import webshop.CustomResponseStatus;
 import webshop.Response;
-import webshop.validator.CategoryValidator;
 
 import java.util.List;
 
