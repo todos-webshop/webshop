@@ -227,7 +227,8 @@ footer img {
 }
 
 .products_img {
-  height: 400px;
+  height: 300px;
+  width: 300px;
 }
 
 .index-product-div:hover {
@@ -907,16 +908,16 @@ html {
 
 #recommends {
   position: absolute;
-  top: -1225px;
+  top: -1237px;
   width: 100%;
   margin: 0 auto;
 }
 
 .recommend-product-div {
   float: left;
-  width: 20%;
-  margin-left: 195px;
-  height: 410px;
+  width: 22%;
+  margin-left: 160px;
+  height: 440px;
   background-color: rgb(227, 227, 227);
 }
 
@@ -926,17 +927,17 @@ html {
 
 .name-div-reco {
   text-align: center;
-  font-size: 17px;
-  margin-top: 15px;
+  font-size: 18px;
+  margin-top: 11px;
   font-family: 'Montserrat-Regular';
 }
 
 .products_img_reco {
-  height: 354px;
-  width: 359px;
-  margin-left: 13px;
-  margin-top: 9px;
-  opacity: 0.5;
+  height: 381px;
+  width: 400px;
+  margin-left: 11px;
+  margin-top: 10px;
+  opacity: 0.7;
   z-index: 99;
 }
 

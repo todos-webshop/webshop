@@ -86,7 +86,7 @@ function showDivs(jsonData) {
         divCategory.appendChild(divRow);
 
         var imgDiv = document.createElement('img');
-        imgDiv.setAttribute('src', '/img/coming_soon.jpg');
+        imgDiv.setAttribute('src', '/img/products/' + jsonData[i].products[j].address + '.jpg');
         imgDiv.setAttribute('alt', '');
         imgDiv.setAttribute('class', 'products_img');
         imgDiv.setAttribute("onclick", `window.location.href="product.html?address=${jsonData[i].products[j].address}"`);
@@ -180,7 +180,7 @@ nameDiv.innerHTML = jsonData[i].name;
 divProd.appendChild(nameDiv);
 
 var imgDiv = document.createElement('img');
-imgDiv.setAttribute('src', '/img/coming_soon_reco.jpg');
+imgDiv.setAttribute('src', '/img/products/' + jsonData[i].address + '.jpg');
 imgDiv.setAttribute('alt', '');
 imgDiv.setAttribute('class', 'products_img_reco');
 

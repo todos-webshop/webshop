@@ -8,7 +8,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 import webshop.product.Product;
 import webshop.product.ProductStatus;
@@ -114,7 +113,7 @@ public class BasketDao {
     public int sumProductPriceInBasketByBasketId(long basketId) {
         Integer sumProductPrice =
                 new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).queryForObject(
-                        "SELECT SUM(products.price * basket_items.quantity) as sum_price FROM basket_items JOIN products ON basket_items.product_id = products.id where basket_id = (:basket_id)", Map.of("basket_id",
+                        "SELECT SUM(products.price * basket_items.quantity) as sum_price FROM basket_items JOIN products ON basket_items.product_id = products.id where basket_id = (:basket_id)", Map.of(BASKET_ID,
                                 basketId),
                         (rs, i) -> rs.getInt("sum_price"));
         if (sumProductPrice != null) {
@@ -130,7 +129,7 @@ public class BasketDao {
             productQuantityInBasketAlready = new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).queryForObject(
                     "SELECT quantity FROM basket_items where " +
                             "basket_id = (:basket_id) AND product_id = (:product_id)", Map.of(
-                            "basket_id", basketId, PRODUCT_ID, productId),
+                            BASKET_ID, basketId, PRODUCT_ID, productId),
                     (rs, i) -> rs.getInt(QUANTITY));
         } catch (EmptyResultDataAccessException erdae) {
             return new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource()).update(
