@@ -25,6 +25,11 @@ public class Rate {
         this.product = product;
     }
 
+    public Rate( User user, Product product) {
+        this.user = user;
+        this.product = product;
+    }
+
     private LocalDate changeNullDate(LocalDate date){
         if (date == null){
             return LocalDate.now();
